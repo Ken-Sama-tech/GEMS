@@ -1,9 +1,4 @@
 <nav class="navbar">
-    <div class="navbar__toggle" id="mobile-menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
 
     <div class="divider"></div>
 

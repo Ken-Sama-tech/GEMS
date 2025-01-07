@@ -1,0 +1,19 @@
+:root {
+  --background-color: #1b5e20;
+  --primary-color: #2e7d32;
+  --accent-color: #ffd54f;
+  --text-color: #f1f8e9;
+  --secondary-text-color: #c8e6c9;
+  --link-color: #81c784;
+  --white-background: #ffffff;
+}
+
+.container {
+  background-color: var(--white-background);
+  width: calc(100vw - 250px);
+  position: fixed;
+  margin-left: 250px;
+  height: 100vh;
+  z-index: 999;
+  display: flex;
+}
