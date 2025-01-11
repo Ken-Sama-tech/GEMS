@@ -7,13 +7,3 @@
   --link-color: #81c784;
   --white-background: #ffffff;
 }
-
-.container {
-  background-color: var(--white-background);
-  width: calc(100vw - 250px);
-  position: fixed;
-  margin-left: 250px;
-  height: 100vh;
-  z-index: 999;
-  display: flex;
-}
