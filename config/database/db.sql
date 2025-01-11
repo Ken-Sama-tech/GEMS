@@ -45,11 +45,8 @@ CREATE TABLE student_info(
 --
 CREATE TABLE articles(
     articleID INT AUTO_INCREMENT PRIMARY KEY,
-    studentID INT,
     article VARCHAR(255) NOT NULL,
-    articleDescription VARCHAR(255) NOT NULL,
-    INDEX idx_articles_student_id (studentID),
-    FOREIGN KEY (studentID) REFERENCES student_info(studentID)
+    articleDescription VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB;
 --
 -- VALUES FOR articles
@@ -163,7 +160,7 @@ VALUES (
         'section 8',
         'Vandalismo at iba’t ibang uri nito. Paglilinis o pagpipintura ng lugar na dinumihan o sinulatan at Komperesiya sa mga magulang. '
     ),
-    (18, 2, 'section 9', 'Pagdura sa kung saan saan'),
+    (2, 'section 9', 'Pagdura sa kung saan saan'),
     (
         2,
         'section 10',
@@ -194,7 +191,7 @@ VALUES (
         'section 16',
         'Pagpapakita ng mahalay na gawi sa loob ng paaralan.'
     ),
-    (26, 2, 'section 17', 'Pagsira sa ID'),
+    (2, 'section 17', 'Pagsira sa ID'),
     (
         2,
         'section 18',
@@ -355,9 +352,8 @@ VALUES ('Pagpapa-alaala'),
     (
         'Di-pagpasa sa mga asignatura dahil sa di pagpasok'
     ),
-    (6, 'Pagpapatawag at pagpapaliwanag ng magulang'),
+    ('Pagpapatawag at pagpapaliwanag ng magulang'),
     (
-        7,
         'Pagpapataw ng karampatang parusa na naaayon sa polisiya at batas'
     ),
     ('Suspensiyon na di lalampas ng limang araw'),
@@ -391,7 +387,7 @@ VALUES ('Pagpapa-alaala'),
     ('Pananagot sa Batas na naaayon sa DSWD');
 ;
 --
---CREATE TABLE gradeLevels
+-- CREATE TABLE gradeLevels
 --
 CREATE TABLE gradeLevels(
     gradeLevelID INT AUTO_INCREMENT PRIMARY KEY,
@@ -416,13 +412,13 @@ CREATE TABLE sections(
     gradeLevelID INT NOT NULL,
     section VARCHAR(255) NOT NUll,
     INDEX idx_sections_grade_level_ID (gradeLevelID),
-    FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID);
+    FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID)
 ) ENGINE = InnoDB;
 --
 -- sections VALUES
 --
 INSERT INTO sections(`gradeLevelID`, `section`)
-VALUES ();
+VALUES (1, '');
 --
 -- CREATE TABLE registration
 --
@@ -435,6 +431,12 @@ CREATE TABLE registration(
     --
     -- indexes 
     INDEX idx_reg_student_id (studentID),
-    INDEX idx_reg_grade_lvl (gradeLevel),
-    -------------- relation 
+    INDEX idx_reg_grade_lvl (gradeLevelID)
+) ENGINE = InnoDB;
+--
+-- CREATE TABLE student_img
+--
+CREATE TABLE student_img(
+    imgID INT AUTO_INCREMENT PRIMARY KEY,
+    img BLOB
 ) ENGINE = InnoDB;

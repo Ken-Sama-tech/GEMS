@@ -7,3 +7,37 @@
   --link-color: #81c784;
   --white-background: #ffffff;
 }
+
+.input-group > .input-group-text {
+  text-transform: capitalize;
+}
+
+.input-group .form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 0.15rem var(--primary-color);
+}
+
+.option,
+.form-select {
+  text-transform: capitalize;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#submit-new-std-info {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+#submit-new-std-info:hover {
+  background-color: var(--background-color);
+}
