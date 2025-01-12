@@ -14,7 +14,7 @@ CREATE TABLE student_info(
     middleName VARCHAR(50),
     extensionName VARCHAR(20),
     birthDate DATE NOT NULL,
-    gender ENUM('male', 'female'),
+    gender ENUM('non-binary','male', 'female'),
     phoneNumber VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
     civilStatus ENUM(
@@ -28,7 +28,7 @@ CREATE TABLE student_info(
     current_address VARCHAR(250) NOT NULL,
     permanent_address VARCHAR(250),
     nationality VARCHAR(50) NOT NULL,
-    disability VARCHAR(100) DEFAULT 'unknown',
+    disability VARCHAR(100) DEFAULT 'none',
     guardianLastName VARCHAR(50),
     guardianFirstName VARCHAR(50),
     guardianMiddleName VARCHAR(50),

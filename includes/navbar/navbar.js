@@ -1,5 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
 
+document.addEventListener('DOMContentLoaded', function () {
+    
     //add active class to current page link
     const currentPage = {
         addActiveClassToCurrentPage: function () {
