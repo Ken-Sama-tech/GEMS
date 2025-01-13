@@ -167,6 +167,7 @@
 <!-- script section here-->
 <script src="../../includes/navbar/navbar.js"></script>
 <script src="../script/script.js"></script>
+<script type="module" src="../../controller/AddNewStudentController.js"></script>
 <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
