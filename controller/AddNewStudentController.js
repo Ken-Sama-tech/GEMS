@@ -1,5 +1,5 @@
 //services
-import AsyncServerRequest from '../services/AsyncServerRequest';
+import SendDataToServer from '../services/js/SendServerRequest';
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!form.checkValidity()) {
             e.preventDefault();
             form.classList.add('was-validated');
-        } else {
-            const formData = new FormData(form);
-            const newStudentData = new AsyncServerRequest('../../controller/sendNewStdForm.php', formData);
-            newStudentData.sendData();
         }
+
+        const formData = new FormData(form);
+        const newStudentData = new SendDataToServer('../../services/php/sendNewStdForm.php', formData);
+        newStudentData.sendData();
+
     });
 });
