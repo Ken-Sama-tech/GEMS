@@ -1,4 +1,4 @@
-    // ------------------- server request handler -----------------
+    // ------------------- server async request handler -----------------
     export default class AsyncServerRequest {
         constructor(url, data = null) {
             this.url = url;
@@ -22,6 +22,7 @@
 
             } catch (error) {
                 console.log(error);
+                return null;
             }
         }
 
@@ -42,6 +43,7 @@
 
             } catch (error) {
                 console.error(error);
+                return null;
             }
         }
     }

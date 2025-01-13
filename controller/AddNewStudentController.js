@@ -1,5 +1,5 @@
 //services
-import AsyncServerRequest from '../services/js/AsyncServerRequest';
+import AsyncServerRequest from '../services/AsyncServerRequest';
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -18,5 +18,4 @@ document.addEventListener('DOMContentLoaded', function () {
             newStudentData.sendData();
         }
     });
-
 });
