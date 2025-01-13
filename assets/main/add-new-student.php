@@ -17,7 +17,7 @@
 
     <div class="container col-10 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light">
         <h1 class="h1 text-center">Add New Student</h1>
-        <form class="container h-100 overflow-y-auto py-2 px-2 d-flex align-items-center flex-column" id="add-std-form" method="post">
+        <form class="container h-100 overflow-y-auto py-2 px-2 d-flex align-items-center flex-column needs-validation" id="add-std-form" method="post" novalidate>
 
             <div class="input-group flex-nowrap my-2 w-100 ">
                 <span class="input-group-text" id="addon-wrapping">LRN</span>
@@ -56,7 +56,7 @@
 
             <div class="input-group mb-3 w-100">
                 <label class="input-group-text" for="gender">gender</label>
-                <select class="form-select"  name="gender" id="gender">
+                <select class="form-select" name="gender" id="gender">
                     <option selected>non-binary</option>
                     <option value="male" class="option">male</option>
                     <option value="female" class="option">female</option>
@@ -71,7 +71,7 @@
             <div class="input-group flex-nowrap my-2 w-100">
                 <span class="input-group-text" id="addon-wrapping">Email</span>
                 <input type="email" class="form-control" name="email" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping"
-                id="email" required>
+                    id="email" required>
             </div>
 
             <div class="input-group mb-3 w-100">
@@ -169,4 +169,5 @@
 <script src="../script/script.js"></script>
 <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
 <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>
