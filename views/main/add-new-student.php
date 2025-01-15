@@ -136,6 +136,31 @@
             </div>
 
             <div class="input-group flex-nowrap my-2 w-100">
+                <span class="input-group-text" id="addon-wrapping">Mother Last Name</span>
+                <input type="text" class="form-control" name="motherLastName" placeholder="Mother Last Name" aria-label="Mother Last Name" aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap my-2 w-100">
+                <span class="input-group-text" id="addon-wrapping">Mother First Name</span>
+                <input type="text" class="form-control" name="motherFirstName" placeholder="Mother First Name" aria-label="Mother First Name" aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap my-2 w-100">
+                <span class="input-group-text" id="addon-wrapping">Mother Middle Name</span>
+                <input type="text" class="form-control" name="motherMiddleName" placeholder="Mother Middle Name" aria-label="Mother Middle Name" aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap my-2 w-100">
+                <span class="input-group-text" id="addon-wrapping">Mother Maiden Name</span>
+                <input type="text" class="form-control" name="motherMaidenName" placeholder="Mother Maiden Name" aria-label="Mother Maiden Name" aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap my-2 w-100">
+                <span class="input-group-text" id="addon-wrapping">Mother Phone Number</span>
+                <input type="text" class="form-control" name="motherPhoneNumber" placeholder="Mother Phone Number" aria-label="Mother Phone Number" aria-describedby="addon-wrapping">
+            </div>
+
+            <div class="input-group flex-nowrap my-2 w-100">
                 <span class="input-group-text" id="addon-wrapping">Father Last Name</span>
                 <input type="text" class="form-control" name="fatherLastName" placeholder="Father Last Name" aria-label="Father Last Name" aria-describedby="addon-wrapping">
             </div>
