@@ -14,7 +14,7 @@ CREATE TABLE student_info(
     middleName VARCHAR(50),
     extensionName VARCHAR(20),
     birthDate DATE NOT NULL,
-    gender ENUM('non-binary','male', 'female'),
+    sex ENUM('non-binary','male', 'female'),
     phoneNumber VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
     civilStatus ENUM(
@@ -25,8 +25,8 @@ CREATE TABLE student_info(
         'widowed'
     ) DEFAULT 'single',
     religion VARCHAR(50),
-    current_address VARCHAR(250) NOT NULL,
-    permanent_address VARCHAR(250),
+    current_address VARCHAR(255) NOT NULL,
+    permanent_address VARCHAR(255),
     nationality VARCHAR(50) NOT NULL,
     disability VARCHAR(100) DEFAULT 'none',
     guardianLastName VARCHAR(50),
@@ -443,5 +443,5 @@ CREATE TABLE registration(
 --
 CREATE TABLE student_img(
     imgID INT AUTO_INCREMENT PRIMARY KEY,
-    img BLOB
+    img VARCHAR(255)
 ) ENGINE = InnoDB;

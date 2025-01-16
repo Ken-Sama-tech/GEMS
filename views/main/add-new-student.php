@@ -46,7 +46,7 @@
 
             <div class="input-group flex-nowrap my-2 w-100">
                 <span class="input-group-text" id="addon-wrapping">extension name</span>
-                <input type="text" class="form-control" name="extension_name" placeholder="Extension Name" aria-label="Extension name" aria-describedby="addon-wrapping">
+                <input type="text" class="form-control" name="extension_name" placeholder="Extension Name (e.g. Jr/Sr/III)" aria-label="Extension name" aria-describedby="addon-wrapping">
             </div>
 
             <div class="input-group flex-nowrap my-2 w-100">
@@ -55,9 +55,8 @@
             </div>
 
             <div class="input-group mb-3 w-100">
-                <label class="input-group-text" for="gender">gender</label>
-                <select class="form-select" name="gender" id="gender">
-                    <option selected>non-binary</option>
+                <label class="input-group-text" for="gender">sex</label>
+                <select class="form-select" name="sex" id="sex">
                     <option value="male" class="option">male</option>
                     <option value="female" class="option">female</option>
                 </select>
