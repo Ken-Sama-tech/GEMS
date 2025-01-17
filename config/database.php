@@ -7,6 +7,7 @@ class DataBaseHost
     private $password = '';
     private $database = 'student_record';
 
+
     protected function connect()
     {
         try {
@@ -15,7 +16,7 @@ class DataBaseHost
                 PDO::ATTR_ERRMODE,
                 PDO::ERRMODE_EXCEPTION
             );
-            return $conn;
+            return  $conn;
         } catch (PDOException $e) {
             echo 'connection failed' . $e->getMessage();
         }

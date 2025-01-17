@@ -1,14 +1,23 @@
+DROP DATABASE student_record;
 CREATE DATABASE student_record;
 --
 --
 --
 USE student_record;
 --
+-- CREATE TABLE student_img
+--
+CREATE TABLE student_img(
+    imgID INT AUTO_INCREMENT PRIMARY KEY,
+    img VARCHAR(255)
+) ENGINE = InnoDB;
+--
 -- ----------------- CREATE TABLE student_info
 --
 CREATE TABLE student_info(
     studentID INT AUTO_INCREMENT PRIMARY KEY,
     learnerReferenceNumber BIGINT UNIQUE NOT NULL,
+    imgID INT,
     lastName VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOt Null,
     middleName VARCHAR(50),
@@ -43,7 +52,10 @@ CREATE TABLE student_info(
     fatherFirstName VARCHAR(50),
     fatherMiddleName VARCHAR(50),
     fatherExtensionName VARCHAR(50),
-    fatherPhoneNumber VARCHAR(50)
+    fatherPhoneNumber VARCHAR(50),
+
+    INDEX idx_std_info_img_id (imgID),
+    FOREIGN KEY (imgID) REFERENCES student_img(imgID)
 ) ENGINE = InnoDB;
 --
 -- --------------- CREATE TABLE articles
@@ -437,11 +449,4 @@ CREATE TABLE registration(
     -- indexes 
     INDEX idx_reg_student_id (studentID),
     INDEX idx_reg_grade_lvl (gradeLevelID)
-) ENGINE = InnoDB;
---
--- CREATE TABLE student_img
---
-CREATE TABLE student_img(
-    imgID INT AUTO_INCREMENT PRIMARY KEY,
-    img VARCHAR(255)
 ) ENGINE = InnoDB;

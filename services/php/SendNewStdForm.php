@@ -1,6 +1,8 @@
 <?php
 
-class NewStudentFormData
+require_once "../../config/database.php";
+
+class NewStudentFormData extends DataBaseHost
 {
 
     private $std_lrn;
@@ -35,7 +37,7 @@ class NewStudentFormData
     private $father_extension_name;
     private $father_phone_number;
 
-    protected function __construct($std_data, $image)
+    private function __construct($std_data, $image)
     {
         require_once('../../includes/utils/sanitizer.inc.php');
 
@@ -49,7 +51,7 @@ class NewStudentFormData
         $this->std_extension_name = Sanitizers::sanitizeString($std_data['extension_name']);
         $this->std_bdate = Sanitizers::sanitizeDate($std_data['bdate']);
         $this->std_sex = Sanitizers::sanitizeString($std_data['sex']);
-        $this->std_phone_number = Sanitizers::sanitizeNumber(($std_data['phoneNumber']));
+        $this->std_phone_number = Sanitizers::sanitizeString(($std_data['phoneNumber']));
         $this->std_email = Sanitizers::sanitizeEmail($std_data['email']);
         $this->std_civil_status = Sanitizers::sanitizeString($std_data['civilStatus']);
         $this->std_religion = Sanitizers::sanitizeString($std_data['religion']);
@@ -73,10 +75,50 @@ class NewStudentFormData
         $this->father_extension_name = Sanitizers::sanitizeString($std_data['fatherExtensionName']);
         $this->father_phone_number = Sanitizers::sanitizeNumber($std_data['fatherPhoneNumber']);
     }
+
+    private function sendSaveStudentData (){
+       $sql = "INSERT INTO 
+       student_info
+       (
+       `learnerReferenceNumber`, `lastName`, `firstName`, `middleName`, `extensionName`, 
+       `birthDate`, `sex`, `phoneNumber`, `email`, `civilStatus`, 
+       `religion`, `current_address`, `permanent_address`, `nationality`, `disability`, 
+       `guardianLastName`, `guardianFirstName`, `guardianMiddleName`, `guardianExtensionName`, `guardianPhoneNumber`, 
+       `motherLastname`, `motherFirstName`, `motherMiddleName`, `motherMaidenName`, `motherPhoneNumber`, 
+       `fatherLastName`, `fatherFirstName`, `fatherMiddleName`, `fatherExtensionName`, `fatherPhoneNumber`
+       ) 
+       VALUES (
+       :lrn, :lastName, :firstName, :middleName, :extensionName, 
+       :birthdate, :sex, :phoneNumber, :email, :civilStatus, 
+       :religion, :current_address, :permanent_address, :nationality, :disability, 
+       :guardianLastName, :guardianFirstName, :guardianMiddlename, :guardianExtensionName, :guardianPhoneNumber, 
+       :motherLastname, :motherFirstName, :motherMiddleName, :motherMaidenName, :motherPhoneNumber, 
+       :fatherLastName, :fatherFirstName, :fatherMiddleName, fatherExtensionName, fatherPhoneNumber
+       );";
+
+       $conn = $this->connect();
+
+       $stmt = $conn->prepare($sql);
+
+       $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
+       $stmt->bindParam(':lastName', $this->std_last_name, PDO::PARAM_STR);
+       $stmt->bindParam(':firstName', $this->std_first_name, PDO::PARAM_STR);
+       $stmt->bindParam(':middleName', $this->std_middle_name, PDO::PARAM_STR);
+       $stmt->bindParam(':extensionName', $this->std_extension_name, PDO::PARAM_STR);
+       $stmt->bindParam(':birthDate', $this->std_bdate, PDO::PARAM_STR);
+       $stmt->bindParam(':sex', $this->std_sex, PDO::PARAM_STR);
+       $stmt->bindParam(':phoneNumber', $this->std_phone_number, PDO::PARAM_STR);
+       $stmt->bindParam(':email',  $this->std_email, PDO::PARAM_STR_CHAR);
+       $stmt->bindParam(':civilStatus', $this->std_civil_status, PDO::PARAM_STR);
+       $stmt->bindParam(':religion', $this->std_religion, PDO::PARAM_STR);
+       $stmt->bindParam(':current_address', $this->std_current_address, PDO::PARAM_STR);
+       $stmt->bindParam(':permanent_address', $this->std_permanent_address,PDO::PARAM_STR);
+       $stmt->bindParam(':nationality', $this->std_nationality, PDO::PARAM_STR);
+       $stmt->bindParam(':disability', $this->std_disability, PDO::PARAM_STR);
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $new = new NewStudentFormData($_POST, $_FILES);
-    echo json_encode('ss');
 }

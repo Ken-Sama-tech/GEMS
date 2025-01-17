@@ -14,8 +14,9 @@
 }
 
 .nav-link {
-  font-size: 1.3rem;
+  font-size: 1rem;
   text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .nav-item {

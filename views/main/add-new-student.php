@@ -19,13 +19,13 @@
         <h1 class="h1 text-center">Add New Student</h1>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active text-capitalized" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
-                <button class="nav-link text-capitalized" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">edit student </button>
-                <button class="nav-link text-capitalized" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
+                <button class="nav-link active text-capitalized" id="nav-home" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
+                <button class="nav-link text-capitalized" id="nav-profile" data-bs-toggle="tab" data-bs-target="#nav-edit-student" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">edit student </button>
+                <button class="nav-link text-capitalized" id="nav-contact" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
             </div>
         </nav>
         <div class="tab-content border-bottom" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="nav-add-student" role="tabpanel" aria-labelledby="nav-add-student" tabindex="0">
                 <form class="container h-100 overflow-y-auto py-2 px-2 d-flex align-items-center flex-column needs-validation" id="add-std-form" method="post" novalidate>
 
                     <div class="input-group flex-nowrap my-2 w-100 ">
@@ -73,7 +73,7 @@
 
                     <div class="input-group flex-nowrap my-2 w-100">
                         <span class="input-group-text" id="addon-wrapping">Phone Number</span>
-                        <input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number" aria-label="Phone Number" aria-describedby="addon-wrapping" id="phoneNumber" required>
+                        <input type="text" class="form-control" minlength="3" maxlength="15" name="phoneNumber" placeholder="Phone Number" aria-label="Phone Number" aria-describedby="addon-wrapping" id="phoneNumber" required>
                     </div>
 
                     <div class="input-group flex-nowrap my-2 w-100">
@@ -196,9 +196,8 @@
                     <input type="submit" id="submit-new-std-info" value="submit" class="btn col-12 my-2">
                 </form>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
-            <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
+            <div class="tab-pane fade" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">...</div>
+            <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">...</div>
         </div>
 
 
