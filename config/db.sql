@@ -5,19 +5,12 @@ CREATE DATABASE student_record;
 --
 USE student_record;
 --
--- CREATE TABLE student_img
---
-CREATE TABLE student_img(
-    imgID INT AUTO_INCREMENT PRIMARY KEY,
-    img VARCHAR(255)
-) ENGINE = InnoDB;
---
 -- ----------------- CREATE TABLE student_info
 --
 CREATE TABLE student_info(
     studentID INT AUTO_INCREMENT PRIMARY KEY,
     learnerReferenceNumber BIGINT UNIQUE NOT NULL,
-    imgID INT,
+    studentImg VARCHAR(255),
     lastName VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOt Null,
     middleName VARCHAR(50),
@@ -43,7 +36,7 @@ CREATE TABLE student_info(
     guardianMiddleName VARCHAR(50),
     guardianExtensionName VARCHAR(20),
     guardianPhoneNumber VARCHAR(20),
-    motherLastname VARCHAR(50),
+    motherLastName VARCHAR(50),
     motherFirstName VARCHAR(50),
     motherMiddleName VARCHAR(50),
     motherMaidenName VARCHAR(50),
@@ -52,10 +45,7 @@ CREATE TABLE student_info(
     fatherFirstName VARCHAR(50),
     fatherMiddleName VARCHAR(50),
     fatherExtensionName VARCHAR(50),
-    fatherPhoneNumber VARCHAR(50),
-
-    INDEX idx_std_info_img_id (imgID),
-    FOREIGN KEY (imgID) REFERENCES student_img(imgID)
+    fatherPhoneNumber VARCHAR(50)
 ) ENGINE = InnoDB;
 --
 -- --------------- CREATE TABLE articles

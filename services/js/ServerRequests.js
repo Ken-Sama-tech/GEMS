@@ -18,14 +18,14 @@ export default class MakeServerRequest {
             }
 
             const data = await response.json();
-            console.log(data);
+            this.data = data;
 
             if (callback) {
                 callback(this.data);
             }
 
         } catch (error) {
-            console.error('error' + error)
+            console.error('error' + error);
         }
     }
 }

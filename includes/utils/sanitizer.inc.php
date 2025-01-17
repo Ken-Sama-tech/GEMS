@@ -24,7 +24,7 @@ class Sanitizers
 
     public static function sanitizeImage($image)
     {
-        $std_img = $image['name'];
-        return filter_var(trim($std_img), FILTER_SANITIZE_SPECIAL_CHARS);
+        $img_name = $image['name'];
+        return filter_var(trim($img_name), FILTER_SANITIZE_SPECIAL_CHARS);
     }
 }
