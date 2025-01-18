@@ -12,11 +12,11 @@ CREATE TABLE student_info(
     learnerReferenceNumber BIGINT UNIQUE NOT NULL,
     studentImg VARCHAR(255),
     lastName VARCHAR(50) NOT NULL,
-    firstName VARCHAR(50) NOt Null,
+    firstName VARCHAR(50) NOT NUll,
     middleName VARCHAR(50),
     extensionName VARCHAR(20),
     birthDate DATE NOT NULL,
-    sex ENUM('non-binary','male', 'female'),
+    sex ENUM('non-binary', 'male', 'female'),
     phoneNumber VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
     civilStatus ENUM(

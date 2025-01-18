@@ -6,16 +6,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     submitBtnOfAddNewStudentForm.addEventListener('click', function (e) {
         const newStudentForm = document.getElementById('add-std-form');
-
+        e.preventDefault();
         if (!newStudentForm.checkValidity()) {
             newStudentForm.classList.add('was-validated');
-            e.preventDefault();
+
         } else {
             const formData = new FormData(newStudentForm);
 
             const serverReq = new MakeServerRequest('../../services/php/SendNewStdForm.php', formData);
 
-            serverReq.sendData();
+            serverReq.sendData(function () {
+                console.log(serverReq.data);
+            });
         }
     });
 });

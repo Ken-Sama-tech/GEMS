@@ -78,129 +78,83 @@ class NewStudentFormData extends DataBaseHost
     public function sendSaveStudentData()
     {
 
+        $conn = $this->connect();
+        $conn->beginTransaction();
 
         try {
-            $conn = $this->connect();
-            $conn->beginTransaction();
+            $sql = "SELECT learnerReferenceNumber FROM student_info WHERE learnerReferenceNumber = :lrn";
 
-            $sql = "INSERT INTO 
-            student_info
-            (
-            `learnerReferenceNumber`,`lastName`, `firstName`, `middleName`, `extensionName`, 
-            `birthDate`, `sex`, `phoneNumber`, `email`, `civilStatus`, 
-            `religion`, `current_address`, `permanent_address`, `nationality`, `disability`, 
-            `guardianLastName`, `guardianFirstName`, `guardianMiddleName`, `guardianExtensionName`, `guardianPhoneNumber`, 
-            `motherLastName`, `motherFirstName`, `motherMiddleName`, `motherMaidenName`, `motherPhoneNumber`, 
-            `fatherLastName`, `fatherFirstName`, `fatherMiddleName`, `fatherExtensionName`, `fatherPhoneNumber`
-            ) 
-            VALUES (
-            :lrn, :lastName, :firstName, :middleName, :extensionName, 
-            :birthDate, :sex, :phoneNumber, :email, :civilStatus, 
-            :religion, :current_address, :permanent_address, :nationality, :disability, 
-            :guardianLastName, :guardianFirstName, :guardianMiddleName, :guardianExtensionName, :guardianPhoneNumber, 
-            :motherLastName, :motherFirstName, :motherMiddleName, :motherMaidenName, :motherPhoneNumber, 
-            :fatherLastName, :fatherFirstName, :fatherMiddleName, :fatherExtensionName, :fatherPhoneNumber
-            );";
-
-            if (isset($this->std_img)) {
-                $img_name = $this->std_img['name'];
-                $img_tmpName = $this->std_img['tmp_name'];
-                $img_size = $this->std_img['size'];
-                $img_type = $this->std_img['type'];
-                $img_err = $this->std_img['error'];
-
-                $img_ext = strtolower(pathinfo($img_name, PATHINFO_EXTENSION));
-
-                $allowed_type = ['image/jpg', 'image/png', 'image/jpeg'];
-                if (in_array($img_type, $allowed_type)) {
-                    if ($img_err === 0) {
-                        if ($img_size <= 5 * 1024 * 1024) {
-                            $uploadDir = '../../imgs/studentProfile/';
-                            $newImg = uniqid('profile_', true) . '.' . $img_ext;
-                            $targetPath = $uploadDir . $newImg;
-
-                            if (move_uploaded_file($img_tmpName, $targetPath)) {
-                                $this->std_img =  $newImg;
-                            } else {
-                                throw new Exception('Failed to move uploaded image');
-                            }
-                        } else {
-                            throw new Exception('Image exceeded 5mb');
-                        }
-                    } else {
-                        switch ($img_err) {
-                            case 1:
-                                throw new Exception(' UPLOAD_ERR_INI_SIZE — The uploaded file exceeds the upload_max_filesize directive in the php.ini file.');
-                                break;
-                            case 2:
-                                throw new Exception('UPLOAD_ERR_FORM_SIZE — The uploaded file exceeds the MAX_FILE_SIZE directive specified in the HTML form.');
-                                break;
-                            case 3:
-                                throw new Exception(' UPLOAD_ERR_PARTIAL — The file was only partially uploaded.');
-                                break;
-                            case 4:
-                                throw new Exception(' UPLOAD_ERR_NO_FILE — No file was uploaded.');
-                                break;
-                            case 6:
-                                throw new Exception(' UPLOAD_ERR_NO_TMP_DIR — Missing a temporary folder (a required PHP configuration).');
-                                break;
-                            case 7:
-
-                                throw new Exception('UPLOAD_ERR_CANT_WRITE — Failed to write file to disk.');
-                                break;
-                            case 8:
-                                throw new Exception('UPLOAD_ERR_EXTENSION — A PHP extension stopped the file upload.');
-                                break;
-
-                            default:
-                                throw new Exception('Unknown Error');
-                        }
-                    }
-                } else {
-                    throw new Exception('Invalid image type. Only png/jpg is allowed');
-                }
-            }
 
             $stmt = $conn->prepare($sql);
-
-            $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
-            $stmt->bindParam(':studentImg', $this->std_img, PDO::PARAM_STR);
-            $stmt->bindParam(':lastName', $this->std_last_name, PDO::PARAM_STR);
-            $stmt->bindParam(':firstName', $this->std_first_name, PDO::PARAM_STR);
-            $stmt->bindParam(':middleName', $this->std_middle_name, PDO::PARAM_STR);
-            $stmt->bindParam(':extensionName', $this->std_extension_name, PDO::PARAM_STR);
-            $stmt->bindParam(':birthDate', $this->std_bdate, PDO::PARAM_STR);
-            $stmt->bindParam(':sex', $this->std_sex, PDO::PARAM_STR);
-            $stmt->bindParam(':phoneNumber', $this->std_phone_number, PDO::PARAM_STR);
-            $stmt->bindParam(':email',  $this->std_email, PDO::PARAM_STR);
-            $stmt->bindParam(':civilStatus', $this->std_civil_status, PDO::PARAM_STR);
-            $stmt->bindParam(':religion', $this->std_religion, PDO::PARAM_STR);
-            $stmt->bindParam(':current_address', $this->std_current_address, PDO::PARAM_STR);
-            $stmt->bindParam(':permanent_address', $this->std_permanent_address, PDO::PARAM_STR);
-            $stmt->bindParam(':nationality', $this->std_nationality, PDO::PARAM_STR);
-            $stmt->bindParam(':disability', $this->std_disability, PDO::PARAM_STR);
-            $stmt->bindParam(':guardianLastName', $this->gdn_last_name, PDO::PARAM_STR);
-            $stmt->bindParam(':guardianFirstName', $this->gdn_first_name, PDO::PARAM_STR);
-            $stmt->bindParam(':guardianMiddleName', $this->gdn_middle_name, PDO::PARAM_STR);
-            $stmt->bindParam(':guardianExtensionName', $this->gdn_extension_name, PDO::PARAM_STR);
-            $stmt->bindParam(':guardianPhoneNumber', $this->gdn_phone_number, PDO::PARAM_STR);
-            $stmt->bindParam(':motherLastName', $this->mother_last_name, PDO::PARAM_STR);
-            $stmt->bindParam(':motherFirstName', $this->mother_first_name, PDO::PARAM_STR);
-            $stmt->bindParam(':motherMiddleName', $this->mother_middle_name, PDO::PARAM_STR);
-            $stmt->bindParam(':motherMaidenName', $this->mother_maiden_name, PDO::PARAM_STR);
-            $stmt->bindParam(':motherPhoneNumber', $this->mother_phone_number, PDO::PARAM_STR);
-            $stmt->bindParam(':fatherLastName', $this->father_last_name, PDO::PARAM_STR);
-            $stmt->bindParam(':fatherFirstName', $this->father_first_name, PDO::PARAM_STR);
-            $stmt->bindParam(':fatherMiddleName', $this->father_middle_name, PDO::PARAM_STR);
-            $stmt->bindParam(':fatherExtensionName', $this->father_extension_name, PDO::PARAM_STR);
-            $stmt->bindParam(':fatherPhoneNumber', $this->father_phone_number, PDO::PARAM_STR);
-
+            $stmt->bindParam(':lrn', $this->std_lrn);
             $stmt->execute();
-            $conn->commit();
-        } catch (PDOException $e) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                throw new Exception('learner Reference Number already exist');
+            } else {
+
+                $sql = "INSERT INTO 
+                student_info
+                (
+                `learnerReferenceNumber`, `studentImg`,`lastName`, `firstName`, `middleName`, `extensionName`, 
+                `birthDate`, `sex`, `phoneNumber`, `email`, `civilStatus`, 
+                `religion`, `current_address`, `permanent_address`, `nationality`, `disability`, 
+                `guardianLastName`, `guardianFirstName`, `guardianMiddleName`, `guardianExtensionName`, `guardianPhoneNumber`, 
+                `motherLastName`, `motherFirstName`, `motherMiddleName`, `motherMaidenName`, `motherPhoneNumber`, 
+                `fatherLastName`, `fatherFirstName`, `fatherMiddleName`, `fatherExtensionName`, `fatherPhoneNumber`
+                ) 
+                VALUES (
+                :lrn, :studentImg,:lastName, :firstName, :middleName, :extensionName, 
+                :birthDate, :sex, :phoneNumber, :email, :civilStatus, 
+                :religion, :current_address, :permanent_address, :nationality, :disability, 
+                :guardianLastName, :guardianFirstName, :guardianMiddleName, :guardianExtensionName, :guardianPhoneNumber, 
+                :motherLastName, :motherFirstName, :motherMiddleName, :motherMaidenName, :motherPhoneNumber, 
+                :fatherLastName, :fatherFirstName, :fatherMiddleName, :fatherExtensionName, :fatherPhoneNumber
+                )";
+
+                $stmt = $conn->prepare($sql);
+
+                $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
+                $stmt->bindParam(':studentImg', $this->std_img, PDO::PARAM_STR);
+                $stmt->bindParam(':lastName', $this->std_last_name, PDO::PARAM_STR);
+                $stmt->bindParam(':firstName', $this->std_first_name, PDO::PARAM_STR);
+                $stmt->bindParam(':middleName', $this->std_middle_name, PDO::PARAM_STR);
+                $stmt->bindParam(':extensionName', $this->std_extension_name, PDO::PARAM_STR);
+                $stmt->bindParam(':birthDate', $this->std_bdate, PDO::PARAM_STR);
+                $stmt->bindParam(':sex', $this->std_sex, PDO::PARAM_STR);
+                $stmt->bindParam(':phoneNumber', $this->std_phone_number, PDO::PARAM_STR);
+                $stmt->bindParam(':email',  $this->std_email, PDO::PARAM_STR);
+                $stmt->bindParam(':civilStatus', $this->std_civil_status, PDO::PARAM_STR);
+                $stmt->bindParam(':religion', $this->std_religion, PDO::PARAM_STR);
+                $stmt->bindParam(':current_address', $this->std_current_address, PDO::PARAM_STR);
+                $stmt->bindParam(':permanent_address', $this->std_permanent_address, PDO::PARAM_STR);
+                $stmt->bindParam(':nationality', $this->std_nationality, PDO::PARAM_STR);
+                $stmt->bindParam(':disability', $this->std_disability, PDO::PARAM_STR);
+                $stmt->bindParam(':guardianLastName', $this->gdn_last_name, PDO::PARAM_STR);
+                $stmt->bindParam(':guardianFirstName', $this->gdn_first_name, PDO::PARAM_STR);
+                $stmt->bindParam(':guardianMiddleName', $this->gdn_middle_name, PDO::PARAM_STR);
+                $stmt->bindParam(':guardianExtensionName', $this->gdn_extension_name, PDO::PARAM_STR);
+                $stmt->bindParam(':guardianPhoneNumber', $this->gdn_phone_number, PDO::PARAM_STR);
+                $stmt->bindParam(':motherLastName', $this->mother_last_name, PDO::PARAM_STR);
+                $stmt->bindParam(':motherFirstName', $this->mother_first_name, PDO::PARAM_STR);
+                $stmt->bindParam(':motherMiddleName', $this->mother_middle_name, PDO::PARAM_STR);
+                $stmt->bindParam(':motherMaidenName', $this->mother_maiden_name, PDO::PARAM_STR);
+                $stmt->bindParam(':motherPhoneNumber', $this->mother_phone_number, PDO::PARAM_STR);
+                $stmt->bindParam(':fatherLastName', $this->father_last_name, PDO::PARAM_STR);
+                $stmt->bindParam(':fatherFirstName', $this->father_first_name, PDO::PARAM_STR);
+                $stmt->bindParam(':fatherMiddleName', $this->father_middle_name, PDO::PARAM_STR);
+                $stmt->bindParam(':fatherExtensionName', $this->father_extension_name, PDO::PARAM_STR);
+                $stmt->bindParam(':fatherPhoneNumber', $this->father_phone_number, PDO::PARAM_STR);
+
+
+                $stmt->execute();
+                $conn->commit();
+                echo json_encode('Successfully inserted data.');
+            }
+        } catch (Exception $e) {
             $conn->rollBack();
-            error_log('PDO exception' . $e->getMessage());
-            echo json_encode('Query failed to insert data');
+            echo json_encode('Query failed to insert data. ' . $e->getMessage());
         }
     }
 }

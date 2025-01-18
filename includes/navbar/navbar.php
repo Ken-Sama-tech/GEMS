@@ -38,5 +38,10 @@
                 settings
             </a>
         </li>
+        <li class="nav-item flex-grow-1">
+            <a href="logout.php" class="nav-link h-100 w-100 justify-content-start d-flex align-items-center text-light">
+                logout
+            </a>
+        </li>
     </ul>
 </nav>
