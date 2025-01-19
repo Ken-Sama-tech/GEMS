@@ -16,7 +16,6 @@
     ?>
 
     <div class="container col-10 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto">
-        <h1 class="h1 text-center">Add New Student</h1>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="nav-link active text-capitalized" id="nav-home" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
@@ -24,9 +23,11 @@
                 <button class="nav-link text-capitalized" id="nav-contact" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
             </div>
         </nav>
-        <div class="tab-content border-bottom" id="nav-tabContent">
+        <div class="tab-content border-bottom h-100 overflow-y-auto" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-add-student" role="tabpanel" aria-labelledby="nav-add-student" tabindex="0">
-                <form class="container h-100 overflow-y-auto py-2 px-2 d-flex align-items-center flex-column needs-validation" id="add-std-form" method="post" novalidate>
+                <form class="container h-100 py-2 px-2 d-flex align-items-center flex-column needs-validation" id="add-std-form" method="post" novalidate>
+
+                    <h2 class="h2 text-center">Add New Student</h2>
 
                     <div class="input-group flex-nowrap my-2 w-100 ">
                         <span class="input-group-text" id="addon-wrapping">LRN</span>
@@ -196,18 +197,53 @@
                     <input type="submit" id="submit-new-std-info" value="submit" class="btn col-12 my-2">
                 </form>
             </div>
-            <div class="tab-pane fade" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">...</div>
+            <div class="tab-pane fade position-relative" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">
+                <nav class="navbar bg-body-tertiary border position-sticky z-3 top-0">
+                    <div class="container-fluid">
+                        <div class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" id="search-std-to-edit" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </div>
+                    </div>
+                </nav>
+
+                <table class="table my-3 border-top">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" class="text-capitalize">lrn</th>
+                            <th scope="col" class="text-capitalize">name</th>
+                            <th scope="col" class="text-capitalize">sex</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <!-- td template -->
+                <template id="edit-student-td-template">
+                    <tr>
+                        <th scope="row">row number</th>
+                        <td class="td-lrd">lrn</td>
+                        <td class="td-name">name</td>
+                        <td class="td-sex">sex</td>
+                    </tr>
+                </template>
+            </div>
             <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">...</div>
         </div>
-
-
     </div>
+    <!-- modals here-->
+    <?php
+    require_once('../../includes/modals/save_or_close_modal.php');
+    require_once('../../includes/modals/promt_modal.php');
+    ?>
+    <!-- script section here-->
+    <script src="../../includes/navbar/navbar.js"></script>
+    <script src="../script/script.js"></script>
+    <script type="module" src="../../controller/AddNewStudentController.js"></script>
+    <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- script section here-->
-<script src="../../includes/navbar/navbar.js"></script>
-<script src="../script/script.js"></script>
-<script type="module" src="../../controller/AddNewStudentController.js"></script>
-<script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

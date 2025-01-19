@@ -28,4 +28,31 @@ export default class MakeServerRequest {
             console.error('error' + error);
         }
     }
+
+    //Async request data only accepts json
+    async requestData(callback) {
+        try {
+            const response = await fetch(this.url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: this.params,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Network status ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            this.data = data;
+
+            if (callback) {
+                callback(this.data);
+            }
+
+        } catch (error) {
+            console.error('error' + error);
+        }
+    }
 }

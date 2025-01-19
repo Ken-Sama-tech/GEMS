@@ -6,76 +6,81 @@ require_once "../../includes/utils/jsonEncoder.inc.php";
 class NewStudentFormData extends DataBaseHost
 {
 
-    private $std_lrn;
-    private $std_img;
-    private $std_last_name;
-    private $std_first_name;
-    private $std_middle_name;
-    private $std_extension_name;
-    private $std_bdate;
-    private $std_sex;
-    private $std_phone_number;
-    private $std_email;
-    private $std_civil_status;
-    private $std_religion;
-    private $std_current_address;
-    private $std_permanent_address;
-    private $std_nationality;
-    private $std_disability;
-    private $gdn_last_name;
-    private $gdn_first_name;
-    private $gdn_middle_name;
-    private $gdn_extension_name;
-    private $gdn_phone_number;
-    private $mother_last_name;
-    private $mother_first_name;
-    private $mother_middle_name;
-    private $mother_maiden_name;
-    private $mother_phone_number;
-    private $father_last_name;
-    private $father_first_name;
-    private $father_middle_name;
-    private $father_extension_name;
-    private $father_phone_number;
+    protected $std_lrn;
+    protected $std_img;
+    protected $std_last_name;
+    protected $std_first_name;
+    protected $std_middle_name;
+    protected $std_extension_name;
+    protected $std_bdate;
+    protected $std_sex;
+    protected $std_phone_number;
+    protected $std_email;
+    protected $std_civil_status;
+    protected $std_religion;
+    protected $std_current_address;
+    protected $std_permanent_address;
+    protected $std_nationality;
+    protected $std_disability;
+    protected $gdn_last_name;
+    protected $gdn_first_name;
+    protected $gdn_middle_name;
+    protected $gdn_extension_name;
+    protected $gdn_phone_number;
+    protected $mother_last_name;
+    protected $mother_first_name;
+    protected $mother_middle_name;
+    protected $mother_maiden_name;
+    protected $mother_phone_number;
+    protected $father_last_name;
+    protected $father_first_name;
+    protected $father_middle_name;
+    protected $father_extension_name;
+    protected $father_phone_number;
 
     public function __construct($std_data, $image)
     {
         require_once('../../includes/utils/sanitizer.inc.php');
 
-        $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);
-        $this->std_img = Sanitizers::sanitizeImage($image['std_img']);
-        $this->std_last_name = Sanitizers::sanitizeString($std_data['last_name']);
-        $this->std_first_name = Sanitizers::sanitizeString($std_data['first_name']);
-        $this->std_middle_name = Sanitizers::sanitizeString($std_data['middle_name']);
-        $this->std_extension_name = Sanitizers::sanitizeString($std_data['extension_name']);
-        $this->std_bdate = Sanitizers::sanitizeDate($std_data['bdate']);
-        $this->std_sex = Sanitizers::sanitizeString($std_data['sex']);
-        $this->std_phone_number = Sanitizers::sanitizeString($std_data['phoneNumber']);
-        $this->std_email = Sanitizers::sanitizeEmail($std_data['email']);
-        $this->std_civil_status = Sanitizers::sanitizeString($std_data['civilStatus']);
-        $this->std_religion = Sanitizers::sanitizeString($std_data['religion']);
-        $this->std_current_address = Sanitizers::sanitizeString($std_data['current_address']);
-        $this->std_permanent_address = Sanitizers::sanitizeString($std_data['permanent_address']);
-        $this->std_nationality = Sanitizers::sanitizeString($std_data['nationality']);
-        $this->std_disability = Sanitizers::sanitizeString($std_data['disability']);
-        $this->gdn_last_name = Sanitizers::sanitizeString($std_data['guardianLastName']);
-        $this->gdn_first_name = Sanitizers::sanitizeString($std_data['guardianFirstName']);
-        $this->gdn_middle_name = Sanitizers::sanitizeString($std_data['guardianMiddleName']);
-        $this->gdn_extension_name = Sanitizers::sanitizeString($std_data['guardianExtensionName']);
-        $this->gdn_phone_number = Sanitizers::sanitizeString($std_data['guardianPhoneNumber']);
-        $this->mother_last_name = Sanitizers::sanitizeString($std_data['motherLastName']);
-        $this->mother_first_name = Sanitizers::sanitizeString($std_data['motherFirstName']);
-        $this->mother_middle_name = Sanitizers::sanitizeString($std_data['motherMiddleName']);
-        $this->mother_maiden_name = Sanitizers::sanitizeString($std_data['motherMaidenName']);
-        $this->mother_phone_number = Sanitizers::sanitizeString($std_data['motherPhoneNumber']);
-        $this->father_last_name = Sanitizers::sanitizeString($std_data['fatherLastName']);
-        $this->father_first_name = Sanitizers::sanitizeString($std_data['fatherFirstName']);
-        $this->father_middle_name = Sanitizers::sanitizeString($std_data['fatherMiddleName']);
-        $this->father_extension_name = Sanitizers::sanitizeString($std_data['fatherExtensionName']);
-        $this->father_phone_number = Sanitizers::sanitizeString($std_data['fatherPhoneNumber']);
+        try {
+            $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);
+            $this->std_img = Sanitizers::sanitizeImage($image['std_img']);
+            $this->std_last_name = Sanitizers::sanitizeString($std_data['last_name']);
+            $this->std_first_name = Sanitizers::sanitizeString($std_data['first_name']);
+            $this->std_middle_name = Sanitizers::sanitizeString($std_data['middle_name']);
+            $this->std_extension_name = Sanitizers::sanitizeString($std_data['extension_name']);
+            $this->std_bdate = Sanitizers::sanitizeDate($std_data['bdate']);
+            $this->std_sex = Sanitizers::sanitizeString($std_data['sex']);
+            $this->std_phone_number = Sanitizers::sanitizeString($std_data['phoneNumber']);
+            $this->std_email = Sanitizers::sanitizeEmail($std_data['email']);
+            $this->std_civil_status = Sanitizers::sanitizeString($std_data['civilStatus']);
+            $this->std_religion = Sanitizers::sanitizeString($std_data['religion']);
+            $this->std_current_address = Sanitizers::sanitizeString($std_data['current_address']);
+            $this->std_permanent_address = Sanitizers::sanitizeString($std_data['permanent_address']);
+            $this->std_nationality = Sanitizers::sanitizeString($std_data['nationality']);
+            $this->std_disability = Sanitizers::sanitizeString($std_data['disability']);
+            $this->gdn_last_name = Sanitizers::sanitizeString($std_data['guardianLastName']);
+            $this->gdn_first_name = Sanitizers::sanitizeString($std_data['guardianFirstName']);
+            $this->gdn_middle_name = Sanitizers::sanitizeString($std_data['guardianMiddleName']);
+            $this->gdn_extension_name = Sanitizers::sanitizeString($std_data['guardianExtensionName']);
+            $this->gdn_phone_number = Sanitizers::sanitizeString($std_data['guardianPhoneNumber']);
+            $this->mother_last_name = Sanitizers::sanitizeString($std_data['motherLastName']);
+            $this->mother_first_name = Sanitizers::sanitizeString($std_data['motherFirstName']);
+            $this->mother_middle_name = Sanitizers::sanitizeString($std_data['motherMiddleName']);
+            $this->mother_maiden_name = Sanitizers::sanitizeString($std_data['motherMaidenName']);
+            $this->mother_phone_number = Sanitizers::sanitizeString($std_data['motherPhoneNumber']);
+            $this->father_last_name = Sanitizers::sanitizeString($std_data['fatherLastName']);
+            $this->father_first_name = Sanitizers::sanitizeString($std_data['fatherFirstName']);
+            $this->father_middle_name = Sanitizers::sanitizeString($std_data['fatherMiddleName']);
+            $this->father_extension_name = Sanitizers::sanitizeString($std_data['fatherExtensionName']);
+            $this->father_phone_number = Sanitizers::sanitizeString($std_data['fatherPhoneNumber']);
+        } catch (Exception $e) {
+            JsonEncoder::jsonEncode(['error' =>  $e->getMessage()]);
+            die();
+        }
     }
 
-    public function sendSaveStudentData()
+    public function SaveStudentData()
     {
 
         $conn = $this->connect();
@@ -91,7 +96,7 @@ class NewStudentFormData extends DataBaseHost
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($result) {
-                throw new Exception('learner Reference Number already exist');
+                throw new Exception('Learner reference number already exist');
             } else {
 
                 $sql = "INSERT INTO 
@@ -147,21 +152,19 @@ class NewStudentFormData extends DataBaseHost
                 $stmt->bindParam(':fatherExtensionName', $this->father_extension_name, PDO::PARAM_STR);
                 $stmt->bindParam(':fatherPhoneNumber', $this->father_phone_number, PDO::PARAM_STR);
 
-
                 $stmt->execute();
                 $conn->commit();
-                echo json_encode('Successfully inserted data.');
+
+                JsonEncoder::jsonEncode(['success' => 'Succesfully inserted the data']);
             }
         } catch (Exception $e) {
             $conn->rollBack();
-            echo json_encode('Query failed to insert data. ' . $e->getMessage());
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $new = new NewStudentFormData($_POST, $_FILES);
-
-    $new->sendSaveStudentData();
+    $newStudentForm = new NewStudentFormData($_POST, $_FILES);
+    $newStudentForm->SaveStudentData();
 }
