@@ -6,7 +6,7 @@ export default class MakeServerRequest {
     }
 
     //async send data also only works for forms and other stuff that doesn't require headers
-    async sendData(callback) {
+    async sendData(callback, headers = {}) {
         try {
             const response = await fetch(this.url, {
                 method: 'POST',
@@ -25,12 +25,12 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error);
+            console.error('error' + error.message);
         }
     }
 
     //Async request data only accepts json
-    async requestData(callback) {
+    async requestData(callback, ) {
         try {
             const response = await fetch(this.url, {
                 method: 'POST',
@@ -52,7 +52,7 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error);
+            console.error('error' + error.message);
         }
     }
 }

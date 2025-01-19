@@ -2,7 +2,7 @@
 
 require_once "../../config/database.php";
 require_once "../php/SendNewStdForm.php";
-require_once "../../includes/utils/jsonEncoder.inc.php";
+require_once "../../includes/utils/php/jsonEncoder.inc.php";
 
 class EditStudentData extends NewStudentFormData
 {

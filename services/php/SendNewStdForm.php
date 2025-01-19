@@ -1,7 +1,7 @@
 <?php
 
 require_once "../../config/database.php";
-require_once "../../includes/utils/jsonEncoder.inc.php";
+require_once "../../includes/utils/php/jsonEncoder.inc.php";
 
 class NewStudentFormData extends DataBaseHost
 {
@@ -40,7 +40,7 @@ class NewStudentFormData extends DataBaseHost
 
     public function __construct($std_data, $image)
     {
-        require_once('../../includes/utils/sanitizer.inc.php');
+        require_once('../../includes/utils/php/sanitizer.inc.php');
 
         try {
             $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);

@@ -1,61 +1,65 @@
 import MakeServerRequest from "../services/js/ServerRequests";
+import {
+    Selector,
+    EventListener,
+    ClassList,
+    SetAttribute
+} from "../includes/utils/js/domHelper";
 
-document.addEventListener('DOMContentLoaded', function () {
 
-    const submitBtnOfAddNewStudentForm = document.getElementById('submit-new-std-info');
+document.addEventListener('DOMContentLoaded', () => {
 
-    submitBtnOfAddNewStudentForm.addEventListener('click', function (e) {
-        const newStudentForm = document.getElementById('add-std-form');
+    const selector = new Selector();
+    const eventListener = new EventListener();
+    const useClassList = new ClassList();
+    const setAttr = new SetAttribute();
+
+
+    const submitBtn = selector.getElemById('submit-new-std-info');
+
+    eventListener.callEvent(submitBtn, 'click', (e) => {
+
         e.preventDefault();
 
-        if (!newStudentForm.checkValidity()) {
-            newStudentForm.classList.add('was-validated');
+        const form = selector.getElemById('add-std-form');
+        const formData = new FormData(form);
+        const serverReq = new MakeServerRequest('../../services/php/SendNewStdForm.php', formData);
+        const modal = new bootstrap.Modal(selector.getElemById('staticBackdrop'));
+        const modalText = selector.getElemById('staticModalBody');
+        const okayBtn = selector.getElemById('promtOkayButton');
+
+        if (!form.checkValidity()) {
+
+            useClassList.addClassList(form, 'was-validated');
+
         } else {
-            const formData = new FormData(newStudentForm);
 
-            const serverReq = new MakeServerRequest('../../services/php/SendNewStdForm.php', formData);
+            serverReq.sendData(() => {
 
-            serverReq.sendData(function () {
                 if (serverReq.data.success) {
 
-                    const promtModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-                    promtModal.show();
+                    modal.show();
+                    setAttr.setClass(modalText, 'text-success');
+                    modalText.textContent = serverReq.data.success;
 
-                    const modalBody = document.querySelector('#staticModalBody');
-                    modalBody.setAttribute('class', 'text-success');
-                    modalBody.textContent = serverReq.data.success;
+                    eventListener.callEvent(okayBtn, 'click', () => {
 
-                    document.getElementById('promtOkayButton').addEventListener('click', () => {
-                        promtModal.hide();
+                        modal.hide();
                         window.location.reload();
+
                     });
 
                 } else {
-                    const promtModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
-                    promtModal.show();
 
-                    const modalBody = document.querySelector('#staticModalBody');
-                    modalBody.setAttribute('class', 'text-danger');
-                    modalBody.textContent = serverReq.data.error;
+                    modal.show();
+                    setAttr.setClass(modalText, 'text-danger');
+                    modalText.textContent = serverReq.data.error;
 
-                    document.getElementById('promtOkayButton').addEventListener('click', () => {
-                        promtModal.hide();
+                    eventListener.callEvent(okayBtn, 'click', () => {
+                        modal.hide();
                     });
                 }
             });
         }
-    });
-
-    // ---------------- ----------------
-    const search = document.getElementById('search-std-to-edit');
-
-    search.addEventListener('input', function () {
-        const tpl = document.getElementById('edit-student-td-template');
-
-        const cloneTplChild = tpl.content.cloneNode(true);
-
-        cloneTplChild.querySelectorAll('td').forEach((td, i) => {
-
-        })
     });
 });
