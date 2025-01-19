@@ -31,6 +31,8 @@ class Sanitizers
             $img_type = $image['type'];
             $img_err = $image['error'];
 
+            $img_info = getimagesize($img_tmp_name);
+
             if ($img_err !== 0) {
                 throw new Exception('Error occured while processing image' . $img_err);
             }

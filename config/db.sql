@@ -10,7 +10,7 @@ USE student_record;
 CREATE TABLE student_info(
     studentID INT AUTO_INCREMENT PRIMARY KEY,
     learnerReferenceNumber BIGINT UNIQUE NOT NULL,
-    studentImg VARCHAR(255) DEFAULT ,
+    studentImg VARCHAR(255),
     lastName VARCHAR(50) NOT NULL,
     firstName VARCHAR(50) NOT NUll,
     middleName VARCHAR(50),
