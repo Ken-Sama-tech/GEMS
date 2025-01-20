@@ -24,8 +24,6 @@ export class EventListener {
             })
         } else if (element) {
             element.addEventListener(event, func);
-        } else {
-            throw new Error(`Element "${element}" not found, or invalid element(s)`);
         }
 
     }

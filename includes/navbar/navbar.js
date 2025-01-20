@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    class CurrentPage {
-        constructor(navLinkSelector) {
-            this.navLinkSelector = navLinkSelector;
+    class AddClassList {
+        constructor(element, className) {
+            this.element = element;
+            this.className = className;
         }
 
         addActiveClassToCurrentPage() {
-            const currentPageLinks = document.querySelectorAll(this.navLinkSelector);
+            const currentPageLinks = document.querySelectorAll(this.element);
 
             currentPageLinks.forEach(link => {
                 if (link.href === window.location.href) {
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    const currentPage = new CurrentPage('.nav-link');
+    const currentPage = new AddClassList('.nav-link', 'is-active');
 
     currentPage.addActiveClassToCurrentPage();
 });

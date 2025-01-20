@@ -14,10 +14,10 @@ export default class MakeServerRequest {
             });
 
             if (!response.ok) {
-                throw new Error(`Network status ${response.status} ${response.statusText}`);
+                throw new Error(`Network status: ${response.status} ${response.statusText}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
             this.data = data;
 
             if (callback) {
@@ -25,11 +25,11 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error.message);
+            console.error('error' + error);
         }
     }
 
-    //Async request data only accepts json
+    //Async request data only accepts data in json format
     async requestData(callback, ) {
         try {
             const response = await fetch(this.url, {
@@ -41,7 +41,7 @@ export default class MakeServerRequest {
             });
 
             if (!response.ok) {
-                throw new Error(`Network status ${response.status} ${response.statusText}`);
+                throw new Error(`Network status: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
@@ -52,7 +52,7 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error.message);
+            console.error('error' + error);
         }
     }
 }

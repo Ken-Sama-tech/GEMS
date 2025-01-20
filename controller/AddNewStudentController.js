@@ -14,52 +14,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const useClassList = new ClassList();
     const setAttr = new SetAttribute();
 
+    // ---------------- ----------------
 
-    const submitBtn = selector.getElemById('submit-new-std-info');
 
-    eventListener.callEvent(submitBtn, 'click', (e) => {
+    class AddEditDel {
 
-        e.preventDefault();
+        AddForm(url, form) {
+            const serverReq = new MakeServerRequest(url, form);
+            const modal = new bootstrap.Modal(selector.getElemById('staticBackdrop'));
+            const modalText = selector.getElemById('staticModalBody');
+            const okayBtn = selector.getElemById('promtOkayButton');
 
-        const form = selector.getElemById('add-std-form');
-        const formData = new FormData(form);
-        const serverReq = new MakeServerRequest('../../services/php/SendNewStdForm.php', formData);
-        const modal = new bootstrap.Modal(selector.getElemById('staticBackdrop'));
-        const modalText = selector.getElemById('staticModalBody');
-        const okayBtn = selector.getElemById('promtOkayButton');
+            if (!form.checkValidity()) {
+                useClassList.addClassList(form, 'was-validated');
 
-        if (!form.checkValidity()) {
+            } else {
 
-            useClassList.addClassList(form, 'was-validated');
+                serverReq.sendData(() => {
+                    if (serverReq.data.success) {
 
-        } else {
+                        modal.show();
+                        setAttr.setClass(modalText, 'text-success');
+                        modalText.textContent = serverReq.data.success;
 
-            serverReq.sendData(() => {
 
-                if (serverReq.data.success) {
+                        eventListener.callEvent(okayBtn, 'click', () => {
 
-                    modal.show();
-                    setAttr.setClass(modalText, 'text-success');
-                    modalText.textContent = serverReq.data.success;
+                            modal.hide();
+                            window.location.reload();
 
-                    eventListener.callEvent(okayBtn, 'click', () => {
+                        });
 
-                        modal.hide();
-                        window.location.reload();
+                    } else {
 
-                    });
+                        modal.show();
+                        setAttr.setClass(modalText, 'text-danger');
+                        modalText.textContent = serverReq.data.error;
 
-                } else {
-
-                    modal.show();
-                    setAttr.setClass(modalText, 'text-danger');
-                    modalText.textContent = serverReq.data.error;
-
-                    eventListener.callEvent(okayBtn, 'click', () => {
-                        modal.hide();
-                    });
-                }
-            });
+                        eventListener.callEvent(okayBtn, 'click', () => {
+                            modal.hide();
+                        });
+                    }
+                });
+            }
         }
-    });
+
+        editForm(url, form) {
+
+        }
+    }
+
+    class DisplayData {
+        displayData(url) {
+
+            reqData = new MakeServerRequest();
+        }
+    }
+
 });
