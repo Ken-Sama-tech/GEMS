@@ -210,13 +210,13 @@
                 <table class="table my-3 border-top">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col" class="text-capitalize">lrn</th>
-                            <th scope="col" class="text-capitalize">name</th>
-                            <th scope="col" class="text-capitalize">sex</th>
+                            <th scope="col" id="td-number">#</th>
+                            <th scope="col" class="text-capitalize" id="td-lrn">lrn</th>
+                            <th scope="col" class="text-capitalize" id="td-name">name</th>
+                            <th scope="col" class="text-capitalize" id="td-sex">sex</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="displayEditableStudentHere">
                     </tbody>
                 </table>
 

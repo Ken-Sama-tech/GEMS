@@ -12,10 +12,10 @@ class StudentData extends DataBaseHost
         $conn = $this->connect();
         $stmt = $conn->prepare($sql);
         $stmt->execute();
-        $result = array();
+        $result = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result = $row;
+            $result[] = $row;
         }
         echo json_encode($result);
     }

@@ -1,17 +1,19 @@
 // ---------------- selector ---------------
 export class Selector {
 
-    getElemById(id) {
-        return document.getElementById(id);
+    getElemById(parent, id) {
+        return parent.getElementById(id);
     }
 
-    querySelectAll(param) {
-        return document.querySelectorAll(param);
+    querySelectAll(parent, param) {
+        return parent.querySelectorAll(param);
     }
 
-    querySelect(param) {
-        return document.querySelector(param);
+    querySelect(parent, param) {
+        return parent.querySelector(param);
     }
+
+    getElemBy
 }
 //-------------- event listeners ---------------
 export class EventListener {
@@ -53,5 +55,18 @@ export class SetAttribute {
 
     setClass(element, attrName) {
         element.setAttribute('class', attrName);
+    }
+}
+
+export class CreateElement {
+    createElement(element){
+        document.createElement(element);
+    }
+}
+
+export class Append{
+
+    appChild(parent, child){
+        parent.appendChild(child);
     }
 }
