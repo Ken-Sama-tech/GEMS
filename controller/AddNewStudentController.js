@@ -58,17 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         }
-
-        editForm(url, form) {
-
-        }
     }
 
-    class DisplayData {
-        displayData(url) {
+    const addEdDel = new AddEditDel();
 
-            reqData = new MakeServerRequest();
-        }
-    }
+    const submitBtn = selector.getElemById('submit-new-std-info');
 
+    eventListener.callEvent(submitBtn, 'click', (e) => {
+        e.preventDefault();
+
+        const form = selector.getElemById('add-std-form');
+        const formData = new FormData(form);
+        addEdDel.AddForm('../../services/php/SendNewStdForm.php', formData);
+
+    });
 });
