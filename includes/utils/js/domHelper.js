@@ -20,13 +20,7 @@ export class EventListener {
 
     addEventListener(element, event, func) {
 
-        if (element instanceof NodeList) {
-            element.forEach((element) => {
-                element.addEventListener(event, func);
-            })
-        } else if (element) {
-            element.addEventListener(event, func);
-        }
+        return element.addEventListener(event, func);
 
     }
 
@@ -39,15 +33,15 @@ export class EventListener {
 export class ClassList {
 
     addClassList(element, className) {
-        element.classList.add(className);
+        return element.classList.add(className);
     }
 
     remClassList(element, className) {
-        element.classList.remove(className);
+        return element.classList.remove(className);
     }
 
     toggleClassList(element, className) {
-        element.classList.toggle(className);
+        return element.classList.toggle(className);
     }
 }
 
@@ -56,17 +50,25 @@ export class SetAttribute {
     setClass(element, attrName) {
         element.setAttribute('class', attrName);
     }
-}
 
-export class CreateElement {
-    createElement(element){
-        document.createElement(element);
+    setId(element, attrName) {
+        return element.setAttribute('id', attrName);
+    }
+
+    setCusAttr(element, attr, attrName) {
+        return element.setAttribute(attr, attrName);
     }
 }
 
-export class Append{
+export class CreateElement {
+    crteElem(element) {
+        return document.createElement(element);
+    }
+}
 
-    appChild(parent, child){
-        parent.appendChild(child);
+export class Append {
+
+    appChild(parent, child) {
+        return parent.appendChild(child);
     }
 }

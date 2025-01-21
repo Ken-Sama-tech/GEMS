@@ -69,8 +69,22 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const form = selector.getElemById(document, 'add-std-form');
-        const formData = new FormData(form);
         addEdDel.AddForm('../../services/php/SendNewStdForm.php', form);
 
     });
+
+
+    const proceedEditBtn = selector.getElemById(document, 'yes');
+
+    if (proceedEditBtn) {
+        setAttr.setCusAttr(proceedEditBtn, 'data-bs-toggle', 'modal');
+        setAttr.setCusAttr(proceedEditBtn, 'data-bs-target', '#edit-std-modal');
+    }
+
+    eventListener.callEvent(proceedEditBtn, 'click', () => {
+        const stdLrn = selector.getElemById(document, 'custom-modal-text').getAttribute('value');
+
+
+    });
+
 });
