@@ -6,37 +6,37 @@ require_once "../../includes/utils/php/jsonEncoder.inc.php";
 class NewStudentFormData extends DataBaseHost
 {
 
-    protected $std_lrn;
-    protected $std_img;
-    protected $std_last_name;
-    protected $std_first_name;
-    protected $std_middle_name;
-    protected $std_extension_name;
-    protected $std_bdate;
-    protected $std_sex;
-    protected $std_phone_number;
-    protected $std_email;
-    protected $std_civil_status;
-    protected $std_religion;
-    protected $std_current_address;
-    protected $std_permanent_address;
-    protected $std_nationality;
-    protected $std_disability;
-    protected $gdn_last_name;
-    protected $gdn_first_name;
-    protected $gdn_middle_name;
-    protected $gdn_extension_name;
-    protected $gdn_phone_number;
-    protected $mother_last_name;
-    protected $mother_first_name;
-    protected $mother_middle_name;
-    protected $mother_maiden_name;
-    protected $mother_phone_number;
-    protected $father_last_name;
-    protected $father_first_name;
-    protected $father_middle_name;
-    protected $father_extension_name;
-    protected $father_phone_number;
+    private $std_lrn;
+    private $std_img;
+    private $std_last_name;
+    private $std_first_name;
+    private $std_middle_name;
+    private $std_extension_name;
+    private $std_bdate;
+    private $std_sex;
+    private $std_phone_number;
+    private $std_email;
+    private $std_civil_status;
+    private $std_religion;
+    private $std_current_address;
+    private $std_permanent_address;
+    private $std_nationality;
+    private $std_disability;
+    private $gdn_last_name;
+    private $gdn_first_name;
+    private $gdn_middle_name;
+    private $gdn_extension_name;
+    private $gdn_phone_number;
+    private $mother_last_name;
+    private $mother_first_name;
+    private $mother_middle_name;
+    private $mother_maiden_name;
+    private $mother_phone_number;
+    private $father_last_name;
+    private $father_first_name;
+    private $father_middle_name;
+    private $father_extension_name;
+    private $father_phone_number;
 
     public function __construct($std_data, $image)
     {

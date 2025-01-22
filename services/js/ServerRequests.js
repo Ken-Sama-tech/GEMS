@@ -6,7 +6,7 @@ export default class MakeServerRequest {
     }
 
     //async send data also only works for forms and other stuff that doesn't require headers
-    async sendData(callback) {
+    async sendDataForm(callback) {
         try {
             const response = await fetch(this.url, {
                 method: 'POST',
@@ -17,7 +17,7 @@ export default class MakeServerRequest {
                 throw new Error(`Network status: ${response.status} ${response.statusText}`);
             }
 
-            const data = await response.json();
+            const data = await response.text();
             this.data = data;
 
             if (callback) {
@@ -25,12 +25,12 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error);
+            console.error('error' + error.message);
         }
     }
 
     //Async request data only accepts data in json format
-    async requestData(callback, ) {
+    async requestData(callback,) {
         try {
             const response = await fetch(this.url, {
                 method: 'POST',
@@ -52,7 +52,32 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error);
+            console.error('error' + error.message);
+        }
+    }
+
+    async sendData(callback) {
+        try {
+            const response = await fetch(this.url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: this.params,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Network status: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            this.data = data;
+
+            if (callback) {
+                callback(this.data);
+            }
+        } catch (error) {
+            console.error('error' + error.message);
         }
     }
 }

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const displayEditableStudentsData = () => {
 
-        const reqData = new MakeServerRequest('../../services/php/all-std-data.php');
+        const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
 
         const tBody = selector.getElemById(document, 'displayEditableStudentHere');
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const modalText = selector.getElemById(document, 'custom-modal-text');
                     setAttr.setCusAttr(modalText, 'value', btn.value);
-                    modalText.textContent = `Edit student with lrn ${btn.value}?`;
+                    modalText.textContent = `Edit student with LRN: ${btn.value}?`;
                 });
             });
 

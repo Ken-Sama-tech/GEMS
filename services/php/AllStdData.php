@@ -21,6 +21,6 @@ class StudentData extends DataBaseHost
     }
 }
 
-$idk = new StudentData();
+$studentData = new StudentData();
 
-$idk->studentData();
+$studentData->studentData();

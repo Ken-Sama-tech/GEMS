@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <form id="edit-student" method="post">
                     <div class="container my-4 p-4 border rounded bg-light">
-                        <h3 class="mb-4 text-center text-success">Edit Learner Details</h3>
+                        <h3 class="mb-4 text-center">Edit Learner Details</h3>
                         <form>
 
                             <div class="row mb-3">
@@ -81,6 +81,7 @@
                                     <label for="edit-current_address" class="form-label">Current Address</label>
                                     <input type="text" id="edit-current_address" name="current_address" class="form-control" placeholder="Current Address" required>
                                 </div>
+
                                 <div class="col-md-6">
                                     <label for="edit-permanent_address" class="form-label">Permanent Address</label>
                                     <input type="text" id="edit-permanent_address" name="permanent_address" class="form-control" placeholder="Permanent Address">
@@ -103,46 +104,46 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="edit-fatherLastName" class="form-label">Father's Last Name</label>
-                                    <input type="text" id="edit-fatherLastName" name="edit-fatherLastName" class="form-control" placeholder="Father's Last Name">
+                                    <input type="text" id="edit-fatherLastName" name="fatherLastName" class="form-control" placeholder="Father's Last Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-fatherFirstName" class="form-label">Father's First Name</label>
-                                    <input type="text" id="edit-fatherFirstName" name="edit-fatherFirstName" class="form-control" placeholder="Father's First Name">
+                                    <input type="text" id="edit-fatherFirstName" name="fatherFirstName" class="form-control" placeholder="Father's First Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-fatherMiddleName" class="form-label">Father's Middle Name</label>
-                                    <input type="text" id="edit-fatherMiddleName" name="edit-fatherMiddleName" class="form-control" placeholder="Father's Middle Name">
+                                    <input type="text" id="edit-fatherMiddleName" name="fatherMiddleName" class="form-control" placeholder="Father's Middle Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-fatherExtensionName" class="form-label">Father's Extension Name</label>
-                                    <input type="text" id="edit-fatherExtensionName" name="edit-fatherExtensionName" class="form-control" placeholder="e.g., Jr/Sr/III">
+                                    <input type="text" id="edit-fatherExtensionName" name="fatherExtensionName" class="form-control" placeholder="e.g., Jr/Sr/III">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-fatherPhoneNumber" class="form-label">Father's Phone Number</label>
-                                    <input type="text" id="edit-fatherPhoneNumber" name="edit-fatherPhoneNumber" minlength="3" maxlength="15" class="form-control" placeholder="Father Phone Number">
+                                    <input type="text" id="edit-fatherPhoneNumber" name="fatherPhoneNumber" minlength="3" maxlength="15" class="form-control" placeholder="Father Phone Number">
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="edit-motherLastName" class="form-label">Mother's Last Name</label>
-                                    <input type="text" id="edit-motherLastName" name="edit-motherLastName" class="form-control" placeholder="Mother's Last Name">
+                                    <input type="text" id="edit-motherLastName" name="motherLastName" class="form-control" placeholder="Mother's Last Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-motherFirstName" class="form-label">Mother's First Name</label>
-                                    <input type="text" id="edit-motherFirstName" name="edit-motherFirstName" class="form-control" placeholder="Mother's First Name">
+                                    <input type="text" id="edit-motherFirstName" name="motherFirstName" class="form-control" placeholder="Mother's First Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-motherMiddleName" class="form-label">Mother's Middle Name</label>
-                                    <input type="text" id="edit-motherMiddleName" name="edit-motherMiddleName" class="form-control" placeholder="Mother Middle Name">
+                                    <input type="text" id="edit-motherMiddleName" name="motherMiddleName" class="form-control" placeholder="Mother Middle Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-motherMaidenName" class="form-label">Mother's Maiden Name</label>
-                                    <input type="text" id="edit-motherMaidenName" name="edit-motherMaidenName" class="form-control" placeholder="Mother Maiden Name">
+                                    <input type="text" id="edit-motherMaidenName" name="motherMaidenName" class="form-control" placeholder="Mother Maiden Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-motherPhoneNumber" class="form-label">Mother's Phone Number</label>
-                                    <input type="text" id="edit-motherPhoneNumber" name="edit-motherPhoneNumber" minlength="3" maxlength="15" class="form-control" placeholder="mother Phone Number">
+                                    <input type="text" id="edit-motherPhoneNumber" name="motherPhoneNumber" minlength="3" maxlength="15" class="form-control" placeholder="mother Phone Number">
                                 </div>
                             </div>
 
@@ -157,15 +158,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guardianMiddleName" class="form-label">Guardian's Middle Name</label>
-                                    <input type="text" id="edit-guardianMiddleName" name="edit-guarianMiddleName" class="form-control" placeholder="Guardian's Middle Name">
+                                    <input type="text" id="edit-guardianMiddleName" name="guarianMiddleName" class="form-control" placeholder="Guardian's Middle Name">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guardianExtensionName" class="form-label">Guardian's Extension Name</label>
-                                    <input type="text" id="edit-guardianExtensionName" name="edit-guardianExtensionName" class="form-control" placeholder="e.g., Jr/Sr/III">
+                                    <input type="text" id="edit-guardianExtensionName" name="guardianExtensionName" class="form-control" placeholder="e.g., Jr/Sr/III">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guardianPhoneNumber" class="form-label">Guardian's Phone Number</label>
-                                    <input type="text" id="edit-guardianPhoneNumber" name="edit-guardianrPhoneNumber" minlength="3" maxlength="15" class="form-control" placeholder="Guardian Phone Number">
+                                    <input type="text" id="edit-guardianPhoneNumber" name="guardianrPhoneNumber" minlength="3" maxlength="15" class="form-control" placeholder="Guardian Phone Number">
                                 </div>
                             </div>
 
