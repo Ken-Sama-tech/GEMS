@@ -18,9 +18,9 @@
     <div class="container col-10 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active text-capitalized" id="nav-home" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
-                <button class="nav-link text-capitalized" id="nav-profile" data-bs-toggle="tab" data-bs-target="#nav-edit-student" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">edit student </button>
-                <button class="nav-link text-capitalized" id="nav-contact" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
+                <button class="nav-link active text-capitalized" id="nav-add" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
+                <button class="nav-link text-capitalized" id="nav-edit" data-bs-toggle="tab" data-bs-target="#nav-edit-student" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">edit student </button>
+                <button class="nav-link text-capitalized" id="nav-delete" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
             </div>
         </nav>
         <div class="tab-content border-bottom h-100 overflow-y-auto" id="nav-tabContent">
@@ -216,12 +216,25 @@
                             <th scope="col" class="text-capitalize" id="td-sex">sex</th>
                         </tr>
                     </thead>
-                    <tbody id="displayEditableStudentHere">
+                    <tbody id="displayEditableStudentHere" class="overflow-y-auto">
                     </tbody>
                 </table>
 
             </div>
-            <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">...</div>
+            <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">
+                <table class="table my-3 border-top">
+                    <thead>
+                        <tr>
+                            <th scope="col" id="tdd-number">#</th>
+                            <th scope="col" class="text-capitalize" id="td-lrn">lrn</th>
+                            <th scope="col" class="text-capitalize" id="td-name">name</th>
+                            <th scope="col" class="text-capitalize" id="td-sex">sex</th>
+                        </tr>
+                    </thead>
+                    <tbody id="displayDeletableStudentHere" class="overflow-y-auto">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <!-- modals here-->

@@ -58,6 +58,14 @@ export class SetAttribute {
     setCusAttr(element, attr, attrName) {
         return element.setAttribute(attr, attrName);
     }
+
+    getAttr(element, attrName) {
+        return element.getAttribute(attrName);
+    }
+
+    remAttr(element, attrName) {
+        return element.removeAttribute(attrName);
+    }
 }
 
 export class CreateElement {

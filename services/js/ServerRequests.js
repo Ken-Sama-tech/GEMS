@@ -17,7 +17,7 @@ export default class MakeServerRequest {
                 throw new Error(`Network status: ${response.status} ${response.statusText}`);
             }
 
-            const data = await response.text();
+            const data = await response.json();
             this.data = data;
 
             if (callback) {
@@ -25,12 +25,12 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error.message);
+            console.error('error' + error);
         }
     }
 
     //Async request data only accepts data in json format
-    async requestData(callback,) {
+    async requestData(callback, ) {
         try {
             const response = await fetch(this.url, {
                 method: 'POST',
@@ -52,7 +52,7 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error.message);
+            console.error('error' + error);
         }
     }
 
@@ -77,7 +77,7 @@ export default class MakeServerRequest {
                 callback(this.data);
             }
         } catch (error) {
-            console.error('error' + error.message);
+            console.error('error' + error);
         }
     }
 }
