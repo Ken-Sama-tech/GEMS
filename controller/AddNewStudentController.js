@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             modal.hide();
                         });
                     }
-
-                    console.log(serverReq.data);
                 });
             }
         }
@@ -90,6 +88,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             });
         }
+
+        deleteStudent(url, lrn) {
+            const modal = new bootstrap.Modal(sel.getElemById(document, 'staticBackdrop'));
+            const modalText = sel.getElemById(document, 'staticModalBody');
+            const serverReq = new MakeServerRequest(url, 'lrn=' + encodeURIComponent(lrn));
+            const okayBtn = sel.getElemById(document, 'promtOkayButton');
+
+            serverReq.sendData(() => {
+                if (serverReq.data.success) {
+                    modal.show();
+                    modalText.textContent = serverReq.data.success;
+                    attr.setClass(modalText, 'text-success');
+
+                    eventListener.callEvent(okayBtn, 'click', () => {
+                        modal.hide();
+                        window.location.reload();
+                    });
+                }
+            });
+        }
     }
 
     const addEdDel = new AddEditDel();
@@ -112,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     eventListener.callEvent(yesBtn, 'click', () => {
         const yesBtnAction = attr.getAttr(yesBtn, 'act');
-        console.log(yesBtnAction);
         if (yesBtnAction == 'edit-std') {
             let stdLrn = sel.getElemById(document, 'custom-modal-text');
             stdLrn = attr.getAttr(stdLrn, 'value');
@@ -186,7 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 guardianPhoneNumber.value = data.guardianPhoneNumber;
             });
         } else if (yesBtnAction == 'delete-std') {
-            console.log('delete student');
+            let stdLrn = sel.getElemById(document, 'custom-modal-text');
+            stdLrn = attr.getAttr(stdLrn, 'value');
+            addEdDel.deleteStudent('../../services/php/DeleteStudentData.php', stdLrn);
         }
     });
 

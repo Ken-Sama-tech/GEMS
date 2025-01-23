@@ -4,7 +4,7 @@ class Sanitizers
 {
     public static function sanitizeString($strings)
     {
-        return filter_var(trim($strings), FILTER_SANITIZE_SPECIAL_CHARS);
+        return filter_var(trim(strtolower($strings)), FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
     public static function sanitizeNumber($numbers)

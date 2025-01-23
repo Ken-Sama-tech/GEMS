@@ -2,7 +2,6 @@
 
     require_once "../../config/database.php";
     require_once "../../includes/utils/php/jsonEncoder.inc.php";
-    require_once "../../includes/utils/php/sanitizer.inc.php";
 
     class EditStudentData extends DataBaseHost
     {
@@ -40,37 +39,44 @@
 
         public function __construct($std_data, $image)
         {
-            $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);
-            $this->std_img = Sanitizers::sanitizeImage($image['std_img']);
-            $this->std_last_name = Sanitizers::sanitizeString($std_data['last_name']);
-            $this->std_first_name = Sanitizers::sanitizeString($std_data['first_name']);
-            $this->std_middle_name = Sanitizers::sanitizeString($std_data['middle_name']);
-            $this->std_extension_name = Sanitizers::sanitizeString($std_data['extension_name']);
-            $this->std_bdate = Sanitizers::sanitizeDate($std_data['bdate']);
-            $this->std_sex = Sanitizers::sanitizeString($std_data['sex']);
-            $this->std_phone_number = Sanitizers::sanitizeString($std_data['phoneNumber']);
-            $this->std_email = Sanitizers::sanitizeEmail($std_data['email']);
-            $this->std_civil_status = Sanitizers::sanitizeString($std_data['civilStatus']);
-            $this->std_religion = Sanitizers::sanitizeString($std_data['religion']);
-            $this->std_current_address = Sanitizers::sanitizeString($std_data['current_address']);
-            $this->std_permanent_address = Sanitizers::sanitizeString($std_data['permanent_address']);
-            $this->std_nationality = Sanitizers::sanitizeString($std_data['nationality']);
-            $this->std_disability = Sanitizers::sanitizeString($std_data['disability']);
-            $this->gdn_last_name = Sanitizers::sanitizeString($std_data['guardianLastName']);
-            $this->gdn_first_name = Sanitizers::sanitizeString($std_data['guardianFirstName']);
-            $this->gdn_middle_name = Sanitizers::sanitizeString($std_data['guardianMiddleName']);
-            $this->gdn_extension_name = Sanitizers::sanitizeString($std_data['guardianExtensionName']);
-            $this->gdn_phone_number = Sanitizers::sanitizeString($std_data['guardianPhoneNumber']);
-            $this->mother_last_name = Sanitizers::sanitizeString($std_data['motherLastName']);
-            $this->mother_first_name = Sanitizers::sanitizeString($std_data['motherFirstName']);
-            $this->mother_middle_name = Sanitizers::sanitizeString($std_data['motherMiddleName']);
-            $this->mother_maiden_name = Sanitizers::sanitizeString($std_data['motherMaidenName']);
-            $this->mother_phone_number = Sanitizers::sanitizeString($std_data['motherPhoneNumber']);
-            $this->father_last_name = Sanitizers::sanitizeString($std_data['fatherLastName']);
-            $this->father_first_name = Sanitizers::sanitizeString($std_data['fatherFirstName']);
-            $this->father_middle_name = Sanitizers::sanitizeString($std_data['fatherMiddleName']);
-            $this->father_extension_name = Sanitizers::sanitizeString($std_data['fatherExtensionName']);
-            $this->father_phone_number = Sanitizers::sanitizeString($std_data['fatherPhoneNumber']);
+            try {
+                require_once "../../includes/utils/php/sanitizer.inc.php";
+
+                $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);
+                $this->std_img = Sanitizers::sanitizeImage($image['std_img']);
+                $this->std_last_name = Sanitizers::sanitizeString($std_data['last_name']);
+                $this->std_first_name = Sanitizers::sanitizeString($std_data['first_name']);
+                $this->std_middle_name = Sanitizers::sanitizeString($std_data['middle_name']);
+                $this->std_extension_name = Sanitizers::sanitizeString($std_data['extension_name']);
+                $this->std_bdate = Sanitizers::sanitizeDate($std_data['bdate']);
+                $this->std_sex = Sanitizers::sanitizeString($std_data['sex']);
+                $this->std_phone_number = Sanitizers::sanitizeString($std_data['phoneNumber']);
+                $this->std_email = Sanitizers::sanitizeEmail($std_data['email']);
+                $this->std_civil_status = Sanitizers::sanitizeString($std_data['civilStatus']);
+                $this->std_religion = Sanitizers::sanitizeString($std_data['religion']);
+                $this->std_current_address = Sanitizers::sanitizeString($std_data['current_address']);
+                $this->std_permanent_address = Sanitizers::sanitizeString($std_data['permanent_address']);
+                $this->std_nationality = Sanitizers::sanitizeString($std_data['nationality']);
+                $this->std_disability = Sanitizers::sanitizeString($std_data['disability']);
+                $this->gdn_last_name = Sanitizers::sanitizeString($std_data['guardianLastName']);
+                $this->gdn_first_name = Sanitizers::sanitizeString($std_data['guardianFirstName']);
+                $this->gdn_middle_name = Sanitizers::sanitizeString($std_data['guardianMiddleName']);
+                $this->gdn_extension_name = Sanitizers::sanitizeString($std_data['guardianExtensionName']);
+                $this->gdn_phone_number = Sanitizers::sanitizeString($std_data['guardianPhoneNumber']);
+                $this->mother_last_name = Sanitizers::sanitizeString($std_data['motherLastName']);
+                $this->mother_first_name = Sanitizers::sanitizeString($std_data['motherFirstName']);
+                $this->mother_middle_name = Sanitizers::sanitizeString($std_data['motherMiddleName']);
+                $this->mother_maiden_name = Sanitizers::sanitizeString($std_data['motherMaidenName']);
+                $this->mother_phone_number = Sanitizers::sanitizeString($std_data['motherPhoneNumber']);
+                $this->father_last_name = Sanitizers::sanitizeString($std_data['fatherLastName']);
+                $this->father_first_name = Sanitizers::sanitizeString($std_data['fatherFirstName']);
+                $this->father_middle_name = Sanitizers::sanitizeString($std_data['fatherMiddleName']);
+                $this->father_extension_name = Sanitizers::sanitizeString($std_data['fatherExtensionName']);
+                $this->father_phone_number = Sanitizers::sanitizeString($std_data['fatherPhoneNumber']);
+            } catch (Exception $e) {
+                JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
+                die();
+            }
         }
 
         public function saveChanges()

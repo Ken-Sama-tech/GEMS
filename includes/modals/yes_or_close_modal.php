@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="yes">yes</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="yes">Yes</button>
             </div>
         </div>
     </div>

@@ -30,7 +30,7 @@ export default class MakeServerRequest {
     }
 
     //Async request data only accepts data in json format
-    async requestData(callback, ) {
+    async requestData(callback,) {
         try {
             const response = await fetch(this.url, {
                 method: 'POST',

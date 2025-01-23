@@ -222,6 +222,14 @@
 
             </div>
             <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">
+                <nav class="navbar bg-body-tertiary border position-sticky z-3 top-0">
+                    <div class="container-fluid">
+                        <div class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" id="search-std-to-delete" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </div>
+                    </div>
+                </nav>
                 <table class="table my-3 border-top">
                     <thead>
                         <tr>
