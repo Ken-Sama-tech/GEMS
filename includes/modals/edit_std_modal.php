@@ -49,8 +49,8 @@
                             <div class="col-md-4">
                                 <label for="edit-sex" class="form-label">Sex</label>
                                 <select id="edit-sex" name="sex" class="form-select">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -67,11 +67,11 @@
                             <div class="col-md-6">
                                 <label for="edit-civilStatus" class="form-label">Civil Status</label>
                                 <select id="edit-civilStatus" name="civilStatus" class="form-select">
-                                    <option value="single">Single</option>
-                                    <option value="taken">Taken</option>
-                                    <option value="married">Married</option>
-                                    <option value="divorced">Divorced</option>
-                                    <option value="widowed">Widowed</option>
+                                    <option value="SINGLE">Single</option>
+                                    <option value="TAKEN">Taken</option>
+                                    <option value="MARRIED">Married</option>
+                                    <option value="DIVORCED">Divorced</option>
+                                    <option value="WIDOWED">Widowed</option>
                                 </select>
                             </div>
                         </div>

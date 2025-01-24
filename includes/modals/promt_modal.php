@@ -9,7 +9,7 @@
                 <h5 id="staticModalBody"></h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="promtCloseBtn">Close</button>
                 <button type="button" class="btn btn-primary" id="promtOkayButton">Okay</button>
             </div>
         </div>

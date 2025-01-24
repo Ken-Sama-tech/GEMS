@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const modalText = sel.getElemById(document, 'staticModalBody');
             const serverReq = new MakeServerRequest(url, 'lrn=' + encodeURIComponent(lrn));
             const okayBtn = sel.getElemById(document, 'promtOkayButton');
+            const closeBtn = sel.getElemById(document, 'promtCloseBtn');
 
             serverReq.sendData(() => {
                 if (serverReq.data.success) {
@@ -105,6 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         modal.hide();
                         window.location.reload();
                     });
+
+                    eventListener.callEvent(closeBtn, 'click', () => {
+                        modal.hide();
+                        window.location.reload();
+                    });
+                } else {
+                    alert('basta may error');
                 }
             });
         }
@@ -130,6 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     eventListener.callEvent(yesBtn, 'click', () => {
         const yesBtnAction = attr.getAttr(yesBtn, 'act');
+
+        //this calls the function that would show a modal where you can edit the student details, and inputs the data of that students 
         if (yesBtnAction == 'edit-std') {
             let stdLrn = sel.getElemById(document, 'custom-modal-text');
             stdLrn = attr.getAttr(stdLrn, 'value');
@@ -203,13 +213,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 guardianPhoneNumber.value = data.guardianPhoneNumber;
             });
         } else if (yesBtnAction == 'delete-std') {
+            //this one just calls the function that deletes the student data to the database
             let stdLrn = sel.getElemById(document, 'custom-modal-text');
             stdLrn = attr.getAttr(stdLrn, 'value');
             addEdDel.deleteStudent('../../services/php/DeleteStudentData.php', stdLrn);
         }
     });
 
-
+    //this code right here save the changes you made when you edit a student data
     const saveBtn = sel.getElemById(document, 'save-btn');
 
     eventListener.addEventListener(saveBtn, 'click', (e) => {
@@ -218,6 +229,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addEdDel.editForm('../../services/php/EditStudentData.php', form);
     });
-
-    //delete student data
 });
