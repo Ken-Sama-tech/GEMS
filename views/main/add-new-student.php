@@ -214,6 +214,7 @@
                             <th scope="col" class="text-capitalize" id="td-lrn">lrn</th>
                             <th scope="col" class="text-capitalize" id="td-name">name</th>
                             <th scope="col" class="text-capitalize" id="td-sex">sex</th>
+                            <th scope="col" class="text-capitalize" id="td-sex"></th>
                         </tr>
                     </thead>
                     <tbody id="displayEditableStudentHere" class="overflow-y-auto">
