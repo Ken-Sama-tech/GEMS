@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <form id="edit-student" method="post">
                     <div class="container my-4 p-4 border rounded bg-light">
-                        <h3 class="mb-4 text-center">Edit Learner Details</h3>
+                        <h3 class="mb-4 text-center">Edit Student Details</h3>
 
                         <div class="row mb-3">
                             <div class="col-md-6">

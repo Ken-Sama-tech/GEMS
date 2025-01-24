@@ -13,6 +13,17 @@
   background-color: var(--primary-color);
 }
 
+#navbar-galvan-logo {
+  height: 45px;
+  width: 45px;
+}
+
+#navbar-logo-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .nav-link {
   font-size: 1rem;
   text-transform: capitalize;

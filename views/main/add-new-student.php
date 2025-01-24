@@ -25,176 +25,184 @@
         </nav>
         <div class="tab-content border-bottom h-100 overflow-y-auto" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-add-student" role="tabpanel" aria-labelledby="nav-add-student" tabindex="0">
-                <form class="container h-100 py-2 px-2 d-flex align-items-center flex-column needs-validation" id="add-std-form" method="post" novalidate>
+                <form class="container h-100 py-4 px-3 d-flex flex-column needs-validation" id="add-std-form" method="post" novalidate>
+                    <h2 class="text-center mb-4">Add New Student</h2>
 
-                    <h2 class="h2 text-center">Add New Student</h2>
-
-                    <div class=" input-group my-2 w-100">
-                        <span class=" input-group-text" id="addon-wrapping">LRN</span>
-                        <input type="number" class="form-control" name="lrn" placeholder="Learner Reference Number" aria-label="Learner Reference Number" aria-describedby="addon-wrapping" id="lrn" required>
+                    <!-- Student Information -->
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="lrn" class="form-label">Learner Reference Number (LRN)</label>
+                            <input type="number" class="form-control" name="lrn" id="lrn" placeholder="Learner Reference Number" required>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="upload-std-img" class="form-label">Upload Student Image</label>
+                            <input type="file" class="form-control" name="std_img" id="upload-std-img">
+                        </div>
                     </div>
 
-                    <div class="input-group mb-2 my-2 w-100">
-                        <label class="input-group-text" for="upload-std-img">Upload</label>
-                        <input type="file" name="std_img" class="form-control" id="upload-std-img">
-                    </div>
+                    <!-- Personal Details -->
+                    <fieldset>
+                        <legend class="fs-5">Personal Details</legend>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="last_name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="first_name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="middle_name" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Middle Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="extension_name" class="form-label">Extension Name</label>
+                                <input type="text" class="form-control" name="extension_name" id="extension_name" placeholder="e.g., Jr, Sr">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="bdate" class="form-label">Birth Date</label>
+                                <input type="date" class="form-control" name="bdate" id="bdate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="sex" class="form-label">Sex</label>
+                                <select class="form-select" name="sex" id="sex" required>
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
 
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">last name</span>
-                        <input type="text" class="form-control" name="last_name" placeholder="Last Name" aria-label="Lastname" aria-describedby="addon-wrapping" id="last_name" required>
-                    </div>
+                    <!-- Contact Information -->
+                    <fieldset class="mt-4">
+                        <legend class="fs-5">Contact Information</legend>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="phoneNumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" minlength="3" maxlength="15" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="civilStatus" class="form-label">Civil Status</label>
+                                <select class="form-select" id="civilStatus" name="civilStatus">
+                                    <option value="SINGLE">Single</option>
+                                    <option value="TAKEN">Taken</option>
+                                    <option value="MARRIED">Married</option>
+                                    <option value="DIVORCED">Divorced</option>
+                                    <option value="WIDOWED">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
 
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">first name</span>
-                        <input type="text" class="form-control" name="first_name" placeholder="First Name" aria-label="Firstname" aria-describedby="addon-wrapping" id="first_name" required>
-                    </div>
+                    <!-- Address Details -->
+                    <fieldset class="mt-4">
+                        <legend class="fs-5">Address Details</legend>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="current_address" class="form-label">Current Address</label>
+                                <input type="text" class="form-control" name="current_address" id="current_address" placeholder="Current Address" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="permanent_address" class="form-label">Permanent Address</label>
+                                <input type="text" class="form-control" name="permanent_address" id="permanent_address" placeholder="Permanent Address">
+                            </div>
+                        </div>
+                    </fieldset>
 
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">middle name</span>
-                        <input type="text" class="form-control" name="middle_name" placeholder="Middle Name" aria-label="Middlename" aria-describedby="addon-wrapping">
-                    </div>
+                    <!-- Additional Details -->
+                    <fieldset class="mt-4">
+                        <legend class="fs-5">Additional Details</legend>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="religion" class="form-label">Religion</label>
+                                <input type="text" class="form-control" name="religion" id="religion" placeholder="Religion">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nationality" class="form-label">Nationality</label>
+                                <input type="text" class="form-control" name="nationality" id="nationality" placeholder="Nationality">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="disability" class="form-label">Disability</label>
+                                <input type="text" class="form-control" name="disability" id="disability" placeholder="Disability">
+                            </div>
+                        </div>
+                    </fieldset>
 
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">extension name</span>
-                        <input type="text" class="form-control" name="extension_name" placeholder="Extension Name (e.g., Jr/Sr/III)" aria-label="Extension name" aria-describedby="addon-wrapping">
-                    </div>
+                    <!-- Family Information -->
+                    <fieldset class="mt-4">
+                        <legend class="fs-5">Family Information</legend>
+                        <!-- Guardian -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="guardianLastName" class="form-label">Guardian Last Name</label>
+                                <input type="text" class="form-control" name="guardianLastName" id="guardianLastName" placeholder="Guardian Last Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="guardianFirstName" class="form-label">Guardian First Name</label>
+                                <input type="text" class="form-control" name="guardianFirstName" id="guardianFirstName" placeholder="Guardian First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="guardianMiddleName" class="form-label">Guardian Middle Name</label>
+                                <input type="text" class="form-control" name="guardianMiddleName" id="guardianMiddleName" placeholder="Guardian Middle Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="guardianExtensionName" class="form-label">Guardian Extension Name</label>
+                                <input type="text" class="form-control" name="guardianExtensionName" id="guardianExtensionName" placeholder="Guardian Extension Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="guardianPhoneNumber" class="form-label">Guardian Phone Number</label>
+                                <input type="text" class="form-control" name="guardianPhoneNumber" minlength="3" maxlength="15" id="guardianPhoneNumber" placeholder="Guardian Phone Number">
+                            </div>
+                        </div>
 
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">birth date</span>
-                        <input type="date" class="form-control" name="bdate" placeholder="birth date" aria-label="Birth Date" aria-describedby="addon-wrapping" id="bdate" required>
-                    </div>
+                        <!-- Parents -->
+                        <legend class="fs-6 mt-3">Mother's Details</legend>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="motherLastName" placeholder="Last Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="motherFirstName" placeholder="First Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="motherMiddleName" placeholder="Middle Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="motherMaidenName" placeholder="Maiden Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="motherPhoneNumber" minlength="3" maxlength="15" placeholder="Phone Number">
+                            </div>
+                        </div>
+                        <legend class="fs-6 mt-3">Father's Details</legend>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="fatherLastName" placeholder="Last Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="fatherFirstName" placeholder="First Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="fatherMiddleName" placeholder="Middle Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="fatherExtensionName" placeholder="Extension Name">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" name="fatherPhoneNumber" minlength="3" maxlength="15" placeholder="Phone Number">
+                            </div>
+                        </div>
+                    </fieldset>
 
-                    <div class="input-group mb-3 w-100">
-                        <label class="input-group-text" for="sex">sex</label>
-                        <select class="form-select" name="sex" id="sex">
-                            <option value="MALE" class="option">male</option>
-                            <option value="FEMALE" class="option">female</option>
-                        </select>
+                    <!-- Submit Button -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" id="submit-new-std-info" class="btn btn-primary">Submit</button>
                     </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Phone Number</span>
-                        <input type="text" class="form-control" minlength="3" maxlength="15" name="phoneNumber" placeholder="Phone Number" aria-label="Phone Number" aria-describedby="addon-wrapping" id="phoneNumber" required>
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Email</span>
-                        <input type="email" class="form-control" name="email" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping"
-                            id="email" required>
-                    </div>
-
-                    <div class="input-group mb-3 w-100">
-                        <label class="input-group-text" for="civilStatus">Civil Status</label>
-                        <select class="form-select" id="civilStatus" name="civilStatus">
-                            <option value="SINGLE" class="option">Single</option>
-                            <option value="TAKEN" class="option">Taken</option>
-                            <option value="MARRIED" class="option">Married</option>
-                            <option value="DIVORCED" class="option">Divorced</option>
-                            <option value="WIDOWED" class="option">Widowed</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Religion</span>
-                        <input type="text" class="form-control" name="religion" placeholder="Religion" aria-label="Religion" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Current Address</span>
-                        <input type="text" class="form-control" name="current_address" placeholder="Current Address" aria-label="Current Address" aria-describedby="addon-wrapping" id="current_address" required>
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Permanent Address</span>
-                        <input type="text" class="form-control" name="permanent_address" placeholder="Permanent Address" aria-label="Permanent Address" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Nationality</span>
-                        <input type="text" class="form-control" name="nationality" placeholder="Nationality" aria-label="Nationality" aria-describedby="addon-wrapping" id="nationality">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Disability</span>
-                        <input type="text" class="form-control" name="disability" placeholder="Disability" aria-label="Disability" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Guardian Last Name</span>
-                        <input type="text" class="form-control" name="guardianLastName" placeholder="Guardian Last Name" aria-label="Guardian Last Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Guardian First Name</span>
-                        <input type="text" class="form-control" name="guardianFirstName" placeholder="Guardian First Name" aria-label="Guardian First Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Guardian Middle Name</span>
-                        <input type="text" class="form-control" name="guardianMiddleName" placeholder="Guardian Middle Name" aria-label="Guardian Middle Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Guardian Extension Name</span>
-                        <input type="text" class="form-control" name="guardianExtensionName" placeholder="Guardian Extension Name" aria-label="Guardian Extension Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Guardian Phone Number</span>
-                        <input type="text" class="form-control" name="guardianPhoneNumber" placeholder="Guardian Phone Number" aria-label="Guardian Phone Number" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Mother Last Name</span>
-                        <input type="text" class="form-control" name="motherLastName" placeholder="Mother Last Name" aria-label="Mother Last Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Mother First Name</span>
-                        <input type="text" class="form-control" name="motherFirstName" placeholder="Mother First Name" aria-label="Mother First Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Mother Middle Name</span>
-                        <input type="text" class="form-control" name="motherMiddleName" placeholder="Mother Middle Name" aria-label="Mother Middle Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Mother Maiden Name</span>
-                        <input type="text" class="form-control" name="motherMaidenName" placeholder="Mother Maiden Name" aria-label="Mother Maiden Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Mother Phone Number</span>
-                        <input type="text" class="form-control" name="motherPhoneNumber" placeholder="Mother Phone Number" aria-label="Mother Phone Number" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Father Last Name</span>
-                        <input type="text" class="form-control" name="fatherLastName" placeholder="Father Last Name" aria-label="Father Last Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Father First Name</span>
-                        <input type="text" class="form-control" name="fatherFirstName" placeholder="Father First Name" aria-label="Father First Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Father Middle Name</span>
-                        <input type="text" class="form-control" name="fatherMiddleName" placeholder="Father Middle Name" aria-label="Father Middle Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Father Extension Name</span>
-                        <input type="text" class="form-control" name="fatherExtensionName" placeholder="Father Extension Name" aria-label="Father Extension Name" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <div class="input-group  my-2 w-100">
-                        <span class="input-group-text" id="addon-wrapping">Father Phone Number</span>
-                        <input type="text" class="form-control" name="fatherPhoneNumber" placeholder="Father Phone Number" aria-label="Father Phone Number" aria-describedby="addon-wrapping">
-                    </div>
-
-                    <input type="submit" id="submit-new-std-info" value="submit" class="btn col-12 my-2">
                 </form>
             </div>
             <div class="tab-pane fade position-relative" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">

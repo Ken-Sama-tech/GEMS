@@ -3,7 +3,8 @@ import {
     Selector,
     EventListener,
     ClassList,
-    SetAttribute
+    SetAttribute,
+    GlobalEventListeners
 } from "../includes/utils/js/domHelper";
 
 
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eventListener = new EventListener();
     const useClassList = new ClassList();
     const attr = new SetAttribute();
+    const event = new GlobalEventListeners();
 
     // ---------------- ---------------- ---------------- ---------------- --------------- --------------- 
 
@@ -132,92 +134,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    //edit student data
+    //edit btn
+    event.globalEvent('click', '#edtBtn', (e) => {
+        const reqData = new MakeServerRequest('../../services/php/CheckStdDataBfrEdit.php', 'lrn=' + encodeURIComponent(e.target.value));
 
-    const yesBtn = sel.getElemById(document, 'yes');
+        reqData.sendData(() => {
 
-    eventListener.callEvent(yesBtn, 'click', () => {
-        const yesBtnAction = attr.getAttr(yesBtn, 'act');
+            //student data
+            const lrn = sel.getElemById(document, 'edit-lrn');
+            const lastName = sel.getElemById(document, 'edit-last_name');
+            const firstName = sel.getElemById(document, 'edit-first_name');
+            const middleName = sel.getElemById(document, 'edit-middle_name');
+            const extensionName = sel.getElemById(document, 'edit-extension_name');
+            const bDate = sel.getElemById(document, 'edit-bdate');
+            const sex = sel.getElemById(document, 'edit-sex');
+            const phoneNumber = sel.getElemById(document, 'edit-phoneNumber');
+            const email = sel.getElemById(document, 'edit-email');
+            const status = sel.getElemById(document, 'edit-civilStatus');
+            const current_address = sel.getElemById(document, 'edit-current_address');
+            const permanent_address = sel.getElemById(document, 'edit-permanent_address');
+            const religion = sel.getElemById(document, 'edit-religion');
+            const nationality = sel.getElemById(document, 'edit-nationality');
+            const fatherLastName = sel.getElemById(document, 'edit-fatherLastName');
+            const fatherFirstName = sel.getElemById(document, 'edit-fatherFirstName');
+            const fatherMiddleName = sel.getElemById(document, 'edit-fatherMiddleName');
+            const fatherExtensionName = sel.getElemById(document, 'edit-fatherExtensionName');
+            const fatherPhoneNumber = sel.getElemById(document, 'edit-fatherPhoneNumber');
+            const motherLastName = sel.getElemById(document, 'edit-motherLastName');
+            const motherFirstName = sel.getElemById(document, 'edit-motherFirstName');
+            const motherMiddleName = sel.getElemById(document, 'edit-motherMiddleName');
+            const motherMaidenName = sel.getElemById(document, 'edit-motherMaidenName');
+            const motherPhoneNumber = sel.getElemById(document, 'edit-motherPhoneNumber');
+            const guardianLastName = sel.getElemById(document, 'edit-guardianLastName');
+            const guardianFirstName = sel.getElemById(document, 'edit-guardianFirstName');
+            const guardianMiddleName = sel.getElemById(document, 'edit-guardianMiddleName');
+            const guardianExtensionName = sel.getElemById(document, 'edit-guardianExtensionName');
+            const guardianPhoneNumber = sel.getElemById(document, 'edit-guardianPhoneNumber');
 
-        //this calls the function that would show a modal where you can edit the student details, and inputs the data of that students 
-        if (yesBtnAction == 'edit-std') {
-            let stdLrn = sel.getElemById(document, 'custom-modal-text');
-            stdLrn = attr.getAttr(stdLrn, 'value');
-            const reqData = new MakeServerRequest('../../services/php/CheckStdDataBfrEdit.php', 'lrn=' + encodeURIComponent(stdLrn));
+            //set value 
 
-            reqData.sendData(() => {
+            const data = reqData.data;
 
-                //student data
-                const lrn = sel.getElemById(document, 'edit-lrn');
-                const lastName = sel.getElemById(document, 'edit-last_name');
-                const firstName = sel.getElemById(document, 'edit-first_name');
-                const middleName = sel.getElemById(document, 'edit-middle_name');
-                const extensionName = sel.getElemById(document, 'edit-extension_name');
-                const bDate = sel.getElemById(document, 'edit-bdate');
-                const sex = sel.getElemById(document, 'edit-sex');
-                const phoneNumber = sel.getElemById(document, 'edit-phoneNumber');
-                const email = sel.getElemById(document, 'edit-email');
-                const status = sel.getElemById(document, 'edit-civilStatus');
-                const current_address = sel.getElemById(document, 'edit-current_address');
-                const permanent_address = sel.getElemById(document, 'edit-permanent_address');
-                const religion = sel.getElemById(document, 'edit-religion');
-                const nationality = sel.getElemById(document, 'edit-nationality');
-                const fatherLastName = sel.getElemById(document, 'edit-fatherLastName');
-                const fatherFirstName = sel.getElemById(document, 'edit-fatherFirstName');
-                const fatherMiddleName = sel.getElemById(document, 'edit-fatherMiddleName');
-                const fatherExtensionName = sel.getElemById(document, 'edit-fatherExtensionName');
-                const fatherPhoneNumber = sel.getElemById(document, 'edit-fatherPhoneNumber');
-                const motherLastName = sel.getElemById(document, 'edit-motherLastName');
-                const motherFirstName = sel.getElemById(document, 'edit-motherFirstName');
-                const motherMiddleName = sel.getElemById(document, 'edit-motherMiddleName');
-                const motherMaidenName = sel.getElemById(document, 'edit-motherMaidenName');
-                const motherPhoneNumber = sel.getElemById(document, 'edit-motherPhoneNumber');
-                const guardianLastName = sel.getElemById(document, 'edit-guardianLastName');
-                const guardianFirstName = sel.getElemById(document, 'edit-guardianFirstName');
-                const guardianMiddleName = sel.getElemById(document, 'edit-guardianMiddleName');
-                const guardianExtensionName = sel.getElemById(document, 'edit-guardianExtensionName');
-                const guardianPhoneNumber = sel.getElemById(document, 'edit-guardianPhoneNumber');
+            lrn.value = data.learnerReferenceNumber;
+            lastName.value = data.lastName;
+            firstName.value = data.firstName;
+            middleName.value = data.middleName;
+            extensionName.value = data.extensionName;
+            bDate.value = data.birthDate;
+            sex.value = data.sex; //Yes!! 3x a day hahhahaha. Can do more that that though
+            phoneNumber.value = data.phoneNumber;
+            email.value = data.email;
+            status.value = data.civilStatus;
+            current_address.value = data.current_address;
+            permanent_address.value = data.permanent_address;
+            religion.value = data.religion;
+            nationality.value = data.nationality;
+            fatherLastName.value = data.fatherLastName;
+            fatherFirstName.value = data.fatherFirstName;
+            fatherMiddleName.value = data.fatherMiddleName;
+            fatherExtensionName.value = data.fatherExtensionName;
+            fatherPhoneNumber.value = data.fatherPhoneNumber;
+            motherLastName.value = data.motherLastName;
+            motherFirstName.value = data.motherFirstName;
+            motherMiddleName.value = data.motherMiddleName;
+            motherMaidenName.value = data.motherMaidenName;
+            motherPhoneNumber.value = data.motherPhoneNumber;
+            guardianLastName.value = data.guardianLastName;
+            guardianFirstName.value = data.guardianFirstName;
+            guardianMiddleName.value = data.guardianMiddleName;
+            guardianExtensionName.value = data.guardianExtensionName;
+            guardianPhoneNumber.value = data.guardianPhoneNumber;
+        });
 
-                //set value 
-
-                const data = reqData.data;
-
-                lrn.value = data.learnerReferenceNumber;
-                lastName.value = data.lastName;
-                firstName.value = data.firstName;
-                middleName.value = data.middleName;
-                extensionName.value = data.extensionName;
-                bDate.value = data.birthDate;
-                sex.value = data.sex; //Yes!! 3x a day hahhahaha. Can do more that that though
-                phoneNumber.value = data.phoneNumber;
-                email.value = data.email;
-                status.value = data.civilStatus;
-                current_address.value = data.current_address;
-                permanent_address.value = data.permanent_address;
-                religion.value = data.religion;
-                nationality.value = data.nationality;
-                fatherLastName.value = data.fatherLastName;
-                fatherFirstName.value = data.fatherFirstName;
-                fatherMiddleName.value = data.fatherMiddleName;
-                fatherExtensionName.value = data.fatherExtensionName;
-                fatherPhoneNumber.value = data.fatherPhoneNumber;
-                motherLastName.value = data.motherLastName;
-                motherFirstName.value = data.motherFirstName;
-                motherMiddleName.value = data.motherMiddleName;
-                motherMaidenName.value = data.motherMaidenName;
-                motherPhoneNumber.value = data.motherPhoneNumber;
-                guardianLastName.value = data.guardianLastName;
-                guardianFirstName.value = data.guardianFirstName;
-                guardianMiddleName.value = data.guardianMiddleName;
-                guardianExtensionName.value = data.guardianExtensionName;
-                guardianPhoneNumber.value = data.guardianPhoneNumber;
-            });
-        } else if (yesBtnAction == 'delete-std') {
-            //this one just calls the function that deletes the student data to the database
-            let stdLrn = sel.getElemById(document, 'custom-modal-text');
-            stdLrn = attr.getAttr(stdLrn, 'value');
-            addEdDel.deleteStudent('../../services/php/DeleteStudentData.php', stdLrn);
-        }
     });
 
     //this code right here save the changes you made when you edit a student data
@@ -228,5 +216,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const form = sel.getElemById(document, 'edit-student');
 
         addEdDel.editForm('../../services/php/EditStudentData.php', form);
+    });
+
+    //delete btn
+    event.globalEvent('click', '#dltBtn', e => {
+
+        const yesBtn = sel.getElemById(document, 'yes');
+        useClassList.addClassList(yesBtn, 'btn-danger');
+
+        attr.setCusAttr(yesBtn, 'act', 'del-std');
+
+        const modalText = sel.getElemById(document, 'custom-modal-text');
+        modalText.textContent = `Delete student with LRN: ${e.target.value}?`;
+
+        const yesBtnAction = attr.getAttr(yesBtn, 'act');
+
+        if (yesBtnAction == 'del-std') {
+            eventListener.callEvent(yesBtn, 'click', () => {
+                useClassList.remClassList(yesBtn, 'btn-danger');
+                addEdDel.deleteStudent('../../services/php/DeleteStudentData.php', e.target.value);
+            });
+        }
     });
 });

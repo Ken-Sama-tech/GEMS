@@ -29,6 +29,17 @@ export class EventListener {
     }
 }
 
+export class GlobalEventListeners {
+
+    globalEvent(type, selector, func) {
+        document.addEventListener(type, e => {
+            if (e.target.matches(selector)) {
+                func(e);
+            }
+        });
+    }
+}
+
 // ------------------ class list ---------------
 export class ClassList {
 
@@ -78,5 +89,22 @@ export class Append {
 
     appChild(parent, child) {
         return parent.appendChild(child);
+    }
+}
+
+// debounce
+
+export class Debounce {
+
+    debounce(func, wait = 1000) {
+        let timeout;
+
+        return (...args) => {
+            clearTimeout(timeout);
+
+            timeout = setTimeout(() => {
+                func(...args);
+            }, wait);
+        }
     }
 }
