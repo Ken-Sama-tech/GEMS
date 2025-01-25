@@ -12,8 +12,6 @@ export class Selector {
     querySelect(parent, param) {
         return parent.querySelector(param);
     }
-
-    getElemBy
 }
 //-------------- event listeners ---------------
 export class EventListener {

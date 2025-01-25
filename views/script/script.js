@@ -10,8 +10,8 @@ import {
 } from "../../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
-    //utility instance -------------------------
 
+    //utility instances ------------------------------
     const sel = new Selector();
     const attr = new SetAttribute();
     const appEl = new Append();
@@ -20,156 +20,176 @@ document.addEventListener('DOMContentLoaded', () => {
     const useClassList = new ClassList();
     const debounce = new Debounce();
 
-    //global variables -------------------------------------------------
+    // end -------------------------------------------
 
+    //internal classes ---------------------------------
+    class AddNewStudent {
+        displayEditableStudentsData = () => {
+
+            const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
+
+            const showStudent = () => {
+
+                const tBody = sel.getElemById(document, 'displayEditableStudentHere');
+
+                reqData.requestData(() => {
+
+                    let data = reqData.data;
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        const tr = crte.crteElem('tr');
+                        attr.setId(tr, 'editable-std');
+                        appEl.appChild(tBody, tr);
+
+                        const lrn = data[i].learnerReferenceNumber;
+                        const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
+                        const sex = data[i].sex;
+
+                        const displayedArr = [lrn, name, sex];
+
+                        //convert edit search value to uppercase and name it person
+                        const person = editSearch.value.toUpperCase();
+
+                        if (name.includes(person) || lrn.toString().includes(person)) {
+
+                            const th = crte.crteElem('th');
+                            attr.setCusAttr(th, 'scope', 'row');
+                            th.textContent = i + 1;
+
+                            appEl.appChild(tr, th);
+                            displayedArr.forEach(data => {
+                                const td = crte.crteElem('td');
+                                td.textContent = data;
+
+                                appEl.appChild(tr, td);
+                            });
+
+                            const btn = crte.crteElem('button');
+                            btn.textContent = 'Edit';
+                            attr.setId(btn, 'edtBtn');
+                            btn.className = 'btn btn-success col-8';
+                            btn.value = data[i].learnerReferenceNumber;
+                            attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
+                            attr.setCusAttr(btn, 'data-bs-target', '#edit-std-modal');
+
+                            appEl.appChild(tr, btn);
+                        }
+                    }
+                });
+            }
+
+            return showStudent();
+        }
+
+        displayDeletableStudentsData = () => {
+
+            const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
+
+            const showData = () => {
+                const tBody = sel.getElemById(document, 'displayDeletableStudentHere');
+
+                reqData.requestData(() => {
+
+                    let data = reqData.data;
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        const tr = crte.crteElem('tr');
+                        attr.setId(tr, 'deletable-std');
+
+                        appEl.appChild(tBody, tr);
+
+                        const lrn = data[i].learnerReferenceNumber;
+                        const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
+                        const sex = data[i].sex;
+
+                        const displayedArr = [lrn, name, sex];
+
+                        // convert search value to uppercase then again call it person
+
+                        const person = delSearch.value.toUpperCase();
+
+                        if (name.includes(person) || lrn.toString().includes(person)) {
+
+                            const th = crte.crteElem('th');
+                            attr.setCusAttr(th, 'scope', 'row');
+                            th.textContent = i + 1;
+
+                            appEl.appChild(tr, th);
+
+                            displayedArr.forEach(data => {
+                                const td = crte.crteElem('td');
+                                td.textContent = data;
+
+                                appEl.appChild(tr, td);
+                            });
+
+                            const btn = crte.crteElem('button');
+                            btn.textContent = 'Delete';
+                            attr.setId(btn, 'dltBtn');
+                            btn.className = 'btn btn-danger col-8';
+                            btn.value = data[i].learnerReferenceNumber;
+                            attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
+                            attr.setCusAttr(btn, 'data-bs-target', '#yes-no-modal');
+
+                            appEl.appChild(tr, btn);
+                        }
+                    }
+                });
+            }
+
+            return showData();
+        }
+
+    }
+
+    class StudentDirectory {
+
+    }
+    // end ---------------------------------------------
+
+    //global variables && local intances -------------------------------------------------
+    const SD = new StudentDirectory();
+    const ANS = new AddNewStudent();
     const editSearch = sel.getElemById(document, 'search-std-to-edit');
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
-    //-------------------------------------------------------------------
+    // end ------------------------------------------------------------------------------
 
-    //search events ---------------- 
+    // ANS ------------------------------------------------------------------------------------------
+    //search events ----------------------------------------------
     //debounce search event. (DESD) display editable student data
-
     const updateDESD = debounce.debounce(() => {
-        displayEditableStudentsData();
+        ANS.displayEditableStudentsData();
     }, 500);
 
     //debounce search event. (DDSD) display deletable student data
     const updateDDSD = debounce.debounce(() => {
-        displayDeletableStudentsData();
+        ANS.displayDeletableStudentsData();
     }, 500);
 
-    eventListener.callEvent(editSearch, 'input', () => {
-        const tBody = sel.getElemById(document, 'displayEditableStudentHere');
-        tBody.innerHTML = '';
-        updateDESD();
-    });
+    if (delSearch || editSearch) {
+        //put this inside a if statement, so there'd be no error when other page use this js file
+        ANS.displayEditableStudentsData();
+        ANS.displayDeletableStudentsData();
 
-    eventListener.callEvent(delSearch, 'input', () => {
-        const tBody = sel.getElemById(document, 'displayDeletableStudentHere');
-        tBody.innerHTML = '';
-        updateDDSD();
-    });
-
-    //--------------------------------------------------------------------------
-
-    const displayEditableStudentsData = () => {
-
-        const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
-
-        const showStudent = () => {
-
+        eventListener.callEvent(editSearch, 'input', () => {
             const tBody = sel.getElemById(document, 'displayEditableStudentHere');
+            tBody.innerHTML = '';
+            updateDESD();
+        });
 
-            reqData.requestData(() => {
-
-                let data = reqData.data;
-
-                for (let i = 0; i < data.length; i++) {
-
-                    const tr = crte.crteElem('tr');
-                    attr.setId(tr, 'editable-std');
-                    appEl.appChild(tBody, tr);
-
-                    const lrn = data[i].learnerReferenceNumber;
-                    const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
-                    const sex = data[i].sex;
-
-                    const displayedArr = [lrn, name, sex];
-
-                    //convert edit search value to uppercase and name it person
-                    const person = editSearch.value.toUpperCase();
-
-                    if (name.includes(person) || lrn.toString().includes(person)) {
-
-                        const th = crte.crteElem('th');
-                        attr.setCusAttr(th, 'scope', 'row');
-                        th.textContent = i + 1;
-
-                        appEl.appChild(tr, th);
-                        displayedArr.forEach(data => {
-                            const td = crte.crteElem('td');
-                            td.textContent = data;
-
-                            appEl.appChild(tr, td);
-                        });
-
-                        const btn = crte.crteElem('button');
-                        btn.textContent = 'Edit';
-                        attr.setId(btn, 'edtBtn');
-                        btn.className = 'btn btn-success col-8';
-                        btn.value = data[i].learnerReferenceNumber;
-                        attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
-                        attr.setCusAttr(btn, 'data-bs-target', '#edit-std-modal');
-
-                        appEl.appChild(tr, btn);
-                    }
-                }
-            });
-        }
-
-        return showStudent();
-    }
-
-    displayEditableStudentsData();
-
-    const displayDeletableStudentsData = () => {
-
-        const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
-
-        const showData = () => {
+        eventListener.callEvent(delSearch, 'input', () => {
             const tBody = sel.getElemById(document, 'displayDeletableStudentHere');
-
-            reqData.requestData(() => {
-
-                let data = reqData.data;
-
-                for (let i = 0; i < data.length; i++) {
-
-                    const tr = crte.crteElem('tr');
-                    attr.setId(tr, 'deletable-std');
-
-                    appEl.appChild(tBody, tr);
-
-                    const lrn = data[i].learnerReferenceNumber;
-                    const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
-                    const sex = data[i].sex;
-
-                    const displayedArr = [lrn, name, sex];
-
-                    // convert search value to uppercase then again call it person
-
-                    const person = delSearch.value.toUpperCase();
-
-                    if (name.includes(person) || lrn.toString().includes(person)) {
-
-                        const th = crte.crteElem('th');
-                        attr.setCusAttr(th, 'scope', 'row');
-                        th.textContent = i + 1;
-
-                        appEl.appChild(tr, th);
-
-                        displayedArr.forEach(data => {
-                            const td = crte.crteElem('td');
-                            td.textContent = data;
-
-                            appEl.appChild(tr, td);
-                        });
-
-                        const btn = crte.crteElem('button');
-                        btn.textContent = 'Delete';
-                        attr.setId(btn, 'dltBtn');
-                        btn.className = 'btn btn-danger col-8';
-                        btn.value = data[i].learnerReferenceNumber;
-                        attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
-                        attr.setCusAttr(btn, 'data-bs-target', '#yes-no-modal');
-
-                        appEl.appChild(tr, btn);
-                    }
-                }
-            });
-        }
-
-        return showData();
+            tBody.innerHTML = '';
+            updateDDSD();
+        });
     }
-    displayDeletableStudentsData();
+
+    //end --------------------------------------------------------
+    // end of ANS -----------------------------------------------------------------------------------
+
+    // SD -------------------------------------------------------------------------------------------
+
+    // end of SD ------------------------------------------------------------------------------------
 });

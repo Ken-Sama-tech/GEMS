@@ -8,6 +8,8 @@
   --white-background: #ffffff;
 }
 
+/*add new student page styles*/
+
 .form-control:focus,
 .form-select:focus {
   box-shadow: 0 0 0 0.15rem var(--primary-color);
@@ -36,4 +38,17 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #submit-new-std-info:hover {
   background-color: var(--background-color);
+}
+
+/* student directory page styles*/
+#std-profile-link{
+  overflow: hidden;
+  display: block;
+  height: 100px;
+}
+
+#std-profile-img{
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
 }
