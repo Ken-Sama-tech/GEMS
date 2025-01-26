@@ -6,7 +6,6 @@
     class EditStudentData extends DataBaseHost
     {
         private $std_lrn;
-        private $std_img;
         private $std_last_name;
         private $std_first_name;
         private $std_middle_name;
@@ -43,7 +42,6 @@
                 require_once "../../includes/utils/php/sanitizer.inc.php";
 
                 $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);
-                $this->std_img = Sanitizers::sanitizeImage($image['std_img']);
                 $this->std_last_name = Sanitizers::sanitizeString($std_data['last_name']);
                 $this->std_first_name = Sanitizers::sanitizeString($std_data['first_name']);
                 $this->std_middle_name = Sanitizers::sanitizeString($std_data['middle_name']);
@@ -89,7 +87,6 @@
                     "UPDATE 
                 `student_info`
                 SET 
-                `studentImg` = :studentImg,
                 `lastName` = :lastName, 
                 `firstName` = :firstName, 
                 `middleName` = :middleName, 
@@ -124,8 +121,6 @@
 
                 $stmt = $conn->prepare($sql);
                 $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
-
-                $stmt->bindParam(':studentImg', $this->std_img, PDO::PARAM_STR);
                 $stmt->bindParam(':lastName', $this->std_last_name, PDO::PARAM_STR);
                 $stmt->bindParam(':firstName', $this->std_first_name, PDO::PARAM_STR);
                 $stmt->bindParam(':middleName', $this->std_middle_name, PDO::PARAM_STR);

@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //internal classes ---------------------------------
     class AddNewStudent {
+
         displayEditableStudentsData = () => {
 
             const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
@@ -145,6 +146,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     class StudentDirectory {
+        displayStudentData() {
+
+            const serverReq = new MakeServerRequest('../../services/php/AllStdData.php');
+
+            const showStudentData = () => {
+                const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
+                serverReq.requestData(() => {
+
+                    let data = serverReq.data;
+
+                    const template = sel.getElemById(document, 'profile-box-temp');
+
+                    for (let i = 0; i < data.length; i++) {
+
+                        const name = `${data[i].firstName} ${data[i].middleName} ${data[i].lastName} ${data[i].extensionName}`;
+                        const lrn = data[i].learnerReferenceNumber;
+                        const status = data[i].civilStatus;
+                        const bDate = data[i].birthDate;
+                        const sex = data[i].sex;
+                        const nationality = data[i].nationality;
+                        const religion = data[i].religion;
+                        const email = data[i].email;
+                        const pN = data[i].phoneNumber;
+                        const cR = data[i].current_address;
+                        const pR = data[i].permanent_address;
+
+                        const clone = template.content.cloneNode(true);
+
+                        const profileBox = sel.getElemById(clone, 'profile-box');
+                        attr.setCusAttr(profileBox, 'lrn', lrn);
+
+                        const img = sel.getElemById(clone, 'std-profile-img');
+                        const p = sel.querySelectAll(clone, 'p');
+
+                        img.src = data[i].studentImg;
+                        attr.setCusAttr(img, 'lrn', lrn);
+                        p[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
+                        p[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
+                        p[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${status}`;
+                        p[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${bDate}`;
+                        p[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${sex}`;
+                        p[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${nationality}`;
+                        p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${religion}`;
+                        p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${email}`;
+                        p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${pN}`;
+                        p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${cR}`;
+                        p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${pR}`;
+                        appEl.appChild(profileBoxContainer, clone);
+                    }
+                });
+            }
+
+            return showStudentData();
+        }
 
     }
     // end ---------------------------------------------
@@ -169,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 500);
 
     if (delSearch || editSearch) {
-        //put this inside a if statement, so there'd be no error when other page use this js file
+        //put this inside a if statement, so there'd be no error when other page use this js file || 177013 if you know, you know
         ANS.displayEditableStudentsData();
         ANS.displayDeletableStudentsData();
 
@@ -190,6 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // end of ANS -----------------------------------------------------------------------------------
 
     // SD -------------------------------------------------------------------------------------------
-
+    SD.displayStudentData();
     // end of SD ------------------------------------------------------------------------------------
 });

@@ -11,14 +11,9 @@
                         <h3 class="mb-4 text-center">Edit Student Details</h3>
 
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="edit-lrn" class="form-label">Learner Reference Number (LRN)</label>
                                 <input type="number" id="edit-lrn" name="lrn" class="form-control" placeholder="Enter LRN" readonly>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="edit-upload-std-img" class="form-label">Upload Student Image</label>
-                                <input type="file" id="edit-upload-std-img" name="std_img" class="form-control">
                             </div>
                         </div>
 

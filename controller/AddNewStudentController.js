@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const guardianPhoneNumber = sel.getElemById(document, 'edit-guardianPhoneNumber');
 
             //set value 
-
             const data = reqData.data;
 
             lrn.value = data.learnerReferenceNumber;
@@ -234,7 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (yesBtnAction == 'del-std') {
             eventListener.callEvent(yesBtn, 'click', () => {
                 useClassList.remClassList(yesBtn, 'btn-danger');
-                addEdDel.deleteStudent('../../services/php/DeleteStudentData.php', e.target.value);
+
+                const lrn = e.target.value;
+                addEdDel.deleteStudent('../../services/php/DeleteStudentData.php', lrn);
             });
         }
     });

@@ -62,7 +62,7 @@ class Sanitizers
                 throw new Exception('Image immigration fail');
             }
         } else {
-            return filter_var(trim('../../studentProfile/profile.png'), FILTER_SANITIZE_SPECIAL_CHARS);
+            return filter_var(trim('../../imgs/studentProfile/profile.png'), FILTER_SANITIZE_SPECIAL_CHARS);
         }
     }
 }

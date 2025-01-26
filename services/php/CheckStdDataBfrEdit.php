@@ -17,21 +17,18 @@ class CheckStudentDataBeforeEdit extends DataBaseHost
         $conn = $this->connect();
         $conn->beginTransaction();
 
-        try {
-            $sql = "SELECT * FROM `student_info` WHERE learnerReferenceNumber = :lrn";
+        $sql = "SELECT * FROM `student_info` WHERE learnerReferenceNumber = :lrn";
 
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = [];
-            while ($rows = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $result = $rows;
-            }
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = [];
 
-            JsonEncoder::jsonEncode($result);
-        } catch (Exception $e) {
-            JsonEncoder::jsonEncode('error ' . $e->getMessage());
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $result = $row;
         }
+
+        JsonEncoder::jsonEncode($result);
     }
 }
 
