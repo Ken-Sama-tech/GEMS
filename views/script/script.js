@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const useClassList = new ClassList();
     const debounce = new Debounce();
 
+
     // end -------------------------------------------
 
     //internal classes ---------------------------------
@@ -39,10 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     for (let i = 0; i < data.length; i++) {
 
-                        const tr = crte.crteElem('tr');
-                        attr.setId(tr, 'editable-std');
-                        appEl.appChild(tBody, tr);
-
                         const lrn = data[i].learnerReferenceNumber;
                         const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
                         const sex = data[i].sex;
@@ -53,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         const person = editSearch.value.toUpperCase();
 
                         if (name.includes(person) || lrn.toString().includes(person)) {
+
+                            const tr = crte.crteElem('tr');
+                            attr.setId(tr, 'editable-std');
+                            appEl.appChild(tBody, tr);
 
                             const th = crte.crteElem('th');
                             attr.setCusAttr(th, 'scope', 'row');
@@ -76,6 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             appEl.appChild(tr, btn);
                         }
+
+                    }
+                    const result = sel.querySelectAll(document, '#editable-std');
+
+                    if (result.length <= 0) {
+                        tBody.innerHTML = '<h1> No result found <h1>';
                     }
                 });
             }
@@ -96,11 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     for (let i = 0; i < data.length; i++) {
 
-                        const tr = crte.crteElem('tr');
-                        attr.setId(tr, 'deletable-std');
-
-                        appEl.appChild(tBody, tr);
-
                         const lrn = data[i].learnerReferenceNumber;
                         const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
                         const sex = data[i].sex;
@@ -112,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         const person = delSearch.value.toUpperCase();
 
                         if (name.includes(person) || lrn.toString().includes(person)) {
+
+                            const tr = crte.crteElem('tr');
+                            attr.setId(tr, 'deletable-std');
+
+                            appEl.appChild(tBody, tr);
 
                             const th = crte.crteElem('th');
                             attr.setCusAttr(th, 'scope', 'row');
@@ -136,6 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             appEl.appChild(tr, btn);
                         }
+
+                        const result = sel.querySelectAll(document, '#deletable-std');
+
+                        if (result.length <= 0) {
+                            tBody.innerHTML = '<h1> No result found <h1>';
+                        }
                     }
                 });
             }
@@ -152,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const showStudentData = () => {
                 const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
+                profileBoxContainer.innerHTML = '';
                 serverReq.requestData(() => {
 
                     let data = serverReq.data;
@@ -177,23 +191,36 @@ document.addEventListener('DOMContentLoaded', () => {
                         const profileBox = sel.getElemById(clone, 'profile-box');
                         attr.setCusAttr(profileBox, 'lrn', lrn);
 
-                        const img = sel.getElemById(clone, 'std-profile-img');
-                        const p = sel.querySelectAll(clone, 'p');
+                        const person = stdDirSearch.value.toUpperCase();
 
-                        img.src = data[i].studentImg;
-                        attr.setCusAttr(img, 'lrn', lrn);
-                        p[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
-                        p[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
-                        p[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${status}`;
-                        p[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${bDate}`;
-                        p[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${sex}`;
-                        p[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${nationality}`;
-                        p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${religion}`;
-                        p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${email}`;
-                        p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${pN}`;
-                        p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${cR}`;
-                        p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${pR}`;
-                        appEl.appChild(profileBoxContainer, clone);
+                        if (lrn.toString().includes(person) || name.includes(person)) {
+
+                            const img = sel.getElemById(clone, 'std-profile-img');
+                            const p = sel.querySelectAll(clone, 'p');
+
+                            img.src = data[i].studentImg;
+                            attr.setCusAttr(img, 'lrn', lrn);
+                            p[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
+                            p[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
+                            p[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${status}`;
+                            p[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${bDate}`;
+                            p[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${sex}`;
+                            p[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${nationality}`;
+                            p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${religion}`;
+                            p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${email}`;
+                            p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${pN}`;
+                            p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${cR}`;
+                            p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${pR}`;
+
+                            appEl.appChild(profileBoxContainer, clone);
+                        }
+
+                    }
+
+                    const result = sel.querySelectAll(document, '#profile-box');
+
+                    if (result.length <= 0) {
+                        profileBoxContainer.innerHTML = '<h1> No result found <h1>';
                     }
                 });
             }
@@ -209,6 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ANS = new AddNewStudent();
     const editSearch = sel.getElemById(document, 'search-std-to-edit');
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
+    const stdDirSearch = sel.getElemById(document, 'std-directory-search');
     // end ------------------------------------------------------------------------------
 
     // ANS ------------------------------------------------------------------------------------------
@@ -245,6 +273,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // end of ANS -----------------------------------------------------------------------------------
 
     // SD -------------------------------------------------------------------------------------------
-    SD.displayStudentData();
+
+    // search event ----------------------------------------------
+    // search w/ debounce
+    const updateDSD = debounce.debounce(() => {
+        SD.displayStudentData();
+    });
+
+    if (stdDirSearch) {
+        SD.displayStudentData();
+
+        eventListener.callEvent(stdDirSearch, 'input', () => {
+            updateDSD();
+        });
+    }
+    // end -------------------------------------------------------
     // end of SD ------------------------------------------------------------------------------------
 });

@@ -33,7 +33,7 @@
                             <form>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="sort-asc">
+                                        <input class="form-check-input" name="as" type="radio" value="" id="sort-asc">
                                         <label class="form-check-label" for="sort-asc">
                                             Ascending
                                         </label>
@@ -41,7 +41,7 @@
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="sort-dsc">
+                                        <input class="form-check-input" name="as" type="radio" value="" id="sort-dsc">
                                         <label class="form-check-label" for="sort-dsc">
                                             Descending
                                         </label>
@@ -64,14 +64,6 @@
                                         </label>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="sort-via-grd-lvl">
-                                        <label class="form-check-label" for="sort-via-grd-lvl">
-                                            Grade Level
-                                        </label>
-                                    </div>
-                                </li>
                             </form>
                         </ul>
                     </li>
@@ -88,55 +80,7 @@
                             <form>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-grd-7">
-                                        <label class="form-check-label" for="filter-grd-7">
-                                            Grade 7
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-grd-8">
-                                        <label class="form-check-label" for="filter-grd-8">
-                                            Grade 8
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-grd-9">
-                                        <label class="form-check-label" for="filter-grd-9">
-                                            Grade 9
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-grd-10">
-                                        <label class="form-check-label" for="filter-grd-10">
-                                            Grade 10
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-grd-11">
-                                        <label class="form-check-label" for="filter-grd-11">
-                                            Grade 11
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-grd-12">
-                                        <label class="form-check-label" for="filter-grd-12">
-                                            Grade 12
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-male">
+                                        <input class="form-check-input" type="checkbox" value="MALE" id="filter-male">
                                         <label class="form-check-label" for="filter-male">
                                             Male
                                         </label>
@@ -144,10 +88,18 @@
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="filter-female">
+                                        <input class="form-check-input" type="checkbox" value="FEMALE" id="filter-female">
                                         <label class="form-check-label" for="filter-female">
                                             Female
                                         </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="filter-male">
+                                            Address
+                                        </label>
+                                        <input class="mx-2" type="text" value="" id="filter-male">
                                     </div>
                                 </li>
                             </form>
@@ -164,7 +116,7 @@
         <!--student directory body-->
         <template id="profile-box-temp">
             <!-- student profile boxes or whatever this is  -->
-            <div class="container-fluid border  p-2 border col-12 rounded-3 border-dark" id="profile-box">
+            <div class="container-fluid border d-flex  p-2 border col-12 rounded-3 border-dark" id="profile-box">
                 <div class="row m-auto d-flex">
                     <div class="col-12 col-md-4 col-lg-2 d-flex justify-content-center align-items-center">
                         <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100   ">

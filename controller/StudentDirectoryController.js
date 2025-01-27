@@ -1,11 +1,12 @@
 import MakeServerRequest from "../services/js/ServerRequests";
-import { Selector, EventListener, GlobalEventListeners, SetAttribute } from "../includes/utils/js/domHelper";
+import { Selector, EventListener, GlobalEventListeners, SetAttribute, Debounce } from "../includes/utils/js/domHelper";
 
 // utility intances ------------------------------
 const sel = new Selector();
 const eventListener = new EventListener();
 const event = new GlobalEventListeners();
 const attr = new SetAttribute();
+const dbnc = new Debounce();
 // end -------------------------------------------
 
 eventListener.addEventListener(document, 'DOMContentLoaded', () => {
@@ -22,9 +23,9 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
     const modalText = sel.getElemById(document, 'staticModalBody');
     const okayBtn = sel.getElemById(document, 'promtOkayButton');
     const uploadModal = new bootstrap.Modal('#changeImageModal');
-
     // end ---------------------------------------
 
+    //click images 
     event.globalEvent('click', '#std-profile-img', e => {
         e.preventDefault();
 
@@ -34,7 +35,7 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
         uploadModal.show();
     });
 
-
+    //upload/change image
     eventListener.callEvent(uploadBtn, 'click', () => {
 
         const uploadForm = sel.getElemById(document, 'upload-form');
@@ -62,5 +63,7 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
             }
         });
     });
+
+    //
 
 });
