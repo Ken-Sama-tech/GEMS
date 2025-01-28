@@ -174,6 +174,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     for (let i = 0; i < data.length; i++) {
 
+                        if (sortViaLrn.checked) {
+                            if (dataOrderDsc.checked) {
+                                data.sort((a, b) => b.learnerReferenceNumber - a.learnerReferenceNumber);
+                            } else {
+                                data.sort((a, b) => a.learnerReferenceNumber - b.learnerReferenceNumber);
+                            }
+                        }
+
+                        if (sortViaName.checked) {
+                            if (dataOrderDsc.checked) {
+                                data.sort((a, b) => b.lastName.localeCompare(a.lastName));
+                            } else {
+                                data.sort((a, b) => a.lastName.localeCompare(b.lastName));
+                            }
+                        }
+
                         const name = `${data[i].firstName} ${data[i].middleName} ${data[i].lastName} ${data[i].extensionName}`;
                         const lrn = data[i].learnerReferenceNumber;
                         const status = data[i].civilStatus;
@@ -212,7 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${cR}`;
                             p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${pR}`;
 
-                            appEl.appChild(profileBoxContainer, clone);
+                            if (p[4].textContent.includes('FE')) {
+                                appEl.appChild(profileBoxContainer, clone);
+                            }
                         }
 
                     }
@@ -237,6 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const editSearch = sel.getElemById(document, 'search-std-to-edit');
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
     const stdDirSearch = sel.getElemById(document, 'std-directory-search');
+    const dataOrderDsc = sel.getElemById(document, 'sort-dsc');
+    const sortViaLrn = sel.getElemById(document, 'sort-via-lrn');
+    const sortViaName = sel.getElemById(document, 'sort-via-name');
+    // const filter = 
     // end ------------------------------------------------------------------------------
 
     // ANS ------------------------------------------------------------------------------------------
@@ -278,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // search w/ debounce
     const updateDSD = debounce.debounce(() => {
         SD.displayStudentData();
-    });
+    }, 300);
 
     if (stdDirSearch) {
         SD.displayStudentData();
@@ -287,6 +309,18 @@ document.addEventListener('DOMContentLoaded', () => {
             updateDSD();
         });
     }
+
+    const sortSDDisplayedData = () => {
+        const dataOrders = sel.querySelectAll(document, '[name = order]')
+
+        dataOrders.forEach(dataOrder => {
+            eventListener.callEvent(dataOrder, 'change', () => {
+                updateDSD();
+            })
+        });
+    };
+
+    sortSDDisplayedData();
     // end -------------------------------------------------------
     // end of SD ------------------------------------------------------------------------------------
 });

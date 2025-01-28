@@ -33,7 +33,7 @@
                             <form>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="as" type="radio" value="" id="sort-asc">
+                                        <input class="form-check-input" checked name="order" type="radio" value="" id="sort-asc">
                                         <label class="form-check-label" for="sort-asc">
                                             Ascending
                                         </label>
@@ -41,7 +41,7 @@
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" name="as" type="radio" value="" id="sort-dsc">
+                                        <input class="form-check-input" name="order" type="radio" value="" id="sort-dsc">
                                         <label class="form-check-label" for="sort-dsc">
                                             Descending
                                         </label>
@@ -50,7 +50,7 @@
                                 <div class="dropdown-divider"></div>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="sort-via-lrn">
+                                        <input class="form-check-input" type="checkbox" name="order" id="sort-via-lrn">
                                         <label class="form-check-label" for="sort-via-lrn">
                                             LRN
                                         </label>
@@ -58,7 +58,7 @@
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="sort-via-name">
+                                        <input class="form-check-input" checked type="checkbox" name="order" id="sort-via-name">
                                         <label class="form-check-label" for="sort-via-name">
                                             Name
                                         </label>
@@ -96,10 +96,10 @@
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <label class="form-check-label" for="filter-male">
+                                        <label class="form-check-label" for="filter-address">
                                             Address
                                         </label>
-                                        <input class="mx-2" type="text" value="" id="filter-male">
+                                        <input class="mx-2" type="text" value="" id="filter-address">
                                     </div>
                                 </li>
                             </form>

@@ -218,7 +218,7 @@
                     <thead>
                         <tr>
                             <th scope="col" id="td-number">#</th>
-                            <th scope="col" class="text-capitalize" id="td-lrn">lrn</th>
+                            <th scope="col" class="text-uppercase" id="td-lrn">lrn</th>
                             <th scope="col" class="text-capitalize" id="td-name">name</th>
                             <th scope="col" class="text-capitalize" id="td-sex">sex</th>
                             <th scope="col"></th>
@@ -241,7 +241,7 @@
                     <thead>
                         <tr>
                             <th scope="col" id="td-number">#</th>
-                            <th scope="col" class="text-capitalize" id="td-lrn">lrn</th>
+                            <th scope="col" class="text-uppercase" id="td-lrn">lrn</th>
                             <th scope="col" class="text-capitalize" id="td-name">name</th>
                             <th scope="col" class="text-capitalize" id="td-sex">sex</th>
                             <th scope="col"></th>
