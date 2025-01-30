@@ -80,7 +80,7 @@
                             <form>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="MALE" id="filter-male">
+                                        <input class="form-check-input" type="checkbox" name="filter" value="MALE" id="filter-male">
                                         <label class="form-check-label" for="filter-male">
                                             Male
                                         </label>
@@ -88,7 +88,7 @@
                                 </li>
                                 <li>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="FEMALE" id="filter-female">
+                                        <input class="form-check-input" type="checkbox" name="filter" value="FEMALE" id="filter-female">
                                         <label class="form-check-label" for="filter-female">
                                             Female
                                         </label>
@@ -116,26 +116,26 @@
         <!--student directory body-->
         <template id="profile-box-temp">
             <!-- student profile boxes or whatever this is  -->
-            <div class="container-fluid border d-flex  p-2 border col-12 rounded-3 border-dark" id="profile-box">
+            <div class="container-fluid border d-flex z-3 p-2 border col-12 rounded-3 bg-light border-dark" id="profile-box" show-detail>
                 <div class="row m-auto d-flex">
                     <div class="col-12 col-md-4 col-lg-2 d-flex justify-content-center align-items-center">
-                        <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100   ">
+                        <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100">
                             <img src="" alt="Student Profile" id="std-profile-img">
                         </a>
                     </div>
 
-                    <div class="col-12 col-md-7 col-lg-10 flex-wrap h-100 d-flex justify-content-center align-items-center ">
-                        <p class=" h-100 col-12 col-md-12 col-lg-6 text-break border ps-1">Name:</p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1">LRN: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1">Civil Status: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1">Birthdate: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1">Sex: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1">Nationality: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1">Religion: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-5 text-break border ps-1">Email: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-4 text-break border ps-1">Phone Number: </p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1">Current Address:</p>
-                        <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1">Permanent Address:</p>
+                    <div class="col-12 col-md-7 col-lg-10 flex-wrap h-100 d-flex justify-content-center align-items-center z-0" id="p-container" show-detail>
+                        <p class=" h-100 col-12 col-md-12 col-lg-6 text-break border ps-1" show-detail>Name:</p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1" show-detail>LRN: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1" show-detail>Civil Status: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1" show-detail>Birthdate: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1" show-detail>Sex: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1" show-detail>Nationality: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-3 text-break border ps-1" show-detail>Religion: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-5 text-break border ps-1" show-detail>Email: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-4 text-break border ps-1" show-detail>Phone Number: </p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1" show-detail>Current Address:</p>
+                        <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1" show-detail>Permanent Address:</p>
                     </div>
                 </div>
             </div>
@@ -146,6 +146,7 @@
     <?php
     require_once('../../includes/modals/change_profile_modal.php');
     require_once('../../includes/modals/promt_modal.php');
+    require_once('../../includes/modals/std_full_info_modal.php')
     ?>
     <!-- script section here-->
     <script type="module" src="../script/script.js"></script>

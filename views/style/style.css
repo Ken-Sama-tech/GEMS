@@ -48,7 +48,7 @@ input[type="number"]::-webkit-outer-spin-button {
   max-height: 150px;
 }
 
-#std-profile-img{
+#std-profile-img, #modal-std-profile-img{
   width: 100%;
   height: 100%; 
   object-fit: cover;

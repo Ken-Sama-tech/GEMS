@@ -64,8 +64,8 @@ export class SetAttribute {
         return element.setAttribute('id', attrName);
     }
 
-    setCusAttr(element, attr, attrName) {
-        return element.setAttribute(attr, attrName);
+    setCusAttr(element, attrName, attr) {
+        return element.setAttribute(attrName, attr);
     }
 
     getAttr(element, attrName) {

@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //edit btn
     event.globalEvent('click', '#edtBtn', (e) => {
-        const reqData = new MakeServerRequest('../../services/php/CheckStdDataBfrEdit.php', 'lrn=' + encodeURIComponent(e.target.value));
+        const reqData = new MakeServerRequest('../../services/php/FetchAllDataOfStdUsingLrn.php', 'lrn=' + encodeURIComponent(e.target.value));
 
         reqData.sendData(() => {
 

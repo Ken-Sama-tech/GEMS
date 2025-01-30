@@ -159,92 +159,137 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     class StudentDirectory {
-        displayStudentData() {
+
+        constructor() {
+            this.data = [];
+        }
+
+        displayStudentData(callback) {
 
             const serverReq = new MakeServerRequest('../../services/php/AllStdData.php');
+            profileBoxContainer.innerHTML = '';
 
             const showStudentData = () => {
-                const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
-                profileBoxContainer.innerHTML = '';
                 serverReq.requestData(() => {
 
-                    let data = serverReq.data;
+                    let datas = serverReq.data;
 
                     const template = sel.getElemById(document, 'profile-box-temp');
 
-                    for (let i = 0; i < data.length; i++) {
-
-                        if (sortViaLrn.checked) {
-                            if (dataOrderDsc.checked) {
-                                data.sort((a, b) => b.learnerReferenceNumber - a.learnerReferenceNumber);
-                            } else {
-                                data.sort((a, b) => a.learnerReferenceNumber - b.learnerReferenceNumber);
-                            }
+                    if (sortViaLrn.checked) {
+                        if (dataOrderDsc.checked) {
+                            datas.sort((a, b) => b.learnerReferenceNumber - a.learnerReferenceNumber);
+                        } else {
+                            datas.sort((a, b) => a.learnerReferenceNumber - b.learnerReferenceNumber);
                         }
-
-                        if (sortViaName.checked) {
-                            if (dataOrderDsc.checked) {
-                                data.sort((a, b) => b.lastName.localeCompare(a.lastName));
-                            } else {
-                                data.sort((a, b) => a.lastName.localeCompare(b.lastName));
-                            }
-                        }
-
-                        const name = `${data[i].firstName} ${data[i].middleName} ${data[i].lastName} ${data[i].extensionName}`;
-                        const lrn = data[i].learnerReferenceNumber;
-                        const status = data[i].civilStatus;
-                        const bDate = data[i].birthDate;
-                        const sex = data[i].sex;
-                        const nationality = data[i].nationality;
-                        const religion = data[i].religion;
-                        const email = data[i].email;
-                        const pN = data[i].phoneNumber;
-                        const cR = data[i].current_address;
-                        const pR = data[i].permanent_address;
-
-                        const clone = template.content.cloneNode(true);
-
-                        const profileBox = sel.getElemById(clone, 'profile-box');
-                        attr.setCusAttr(profileBox, 'lrn', lrn);
-
-                        const person = stdDirSearch.value.toUpperCase();
-
-                        if (lrn.toString().includes(person) || name.includes(person)) {
-
-                            const img = sel.getElemById(clone, 'std-profile-img');
-                            const p = sel.querySelectAll(clone, 'p');
-
-                            img.src = data[i].studentImg;
-                            attr.setCusAttr(img, 'lrn', lrn);
-                            p[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
-                            p[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
-                            p[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${status}`;
-                            p[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${bDate}`;
-                            p[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${sex}`;
-                            p[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${nationality}`;
-                            p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${religion}`;
-                            p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${email}`;
-                            p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${pN}`;
-                            p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${cR}`;
-                            p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${pR}`;
-
-                            if (p[4].textContent.includes('FE')) {
-                                appEl.appChild(profileBoxContainer, clone);
-                            }
-                        }
-
                     }
 
-                    const result = sel.querySelectAll(document, '#profile-box');
+                    if (sortViaName.checked) {
+                        if (dataOrderDsc.checked) {
+                            datas.sort((a, b) => b.lastName.localeCompare(a.lastName));
+                        } else {
+                            datas.sort((a, b) => a.lastName.localeCompare(b.lastName));
+                        }
+                    }
 
-                    if (result.length <= 0) {
-                        profileBoxContainer.innerHTML = '<h1> No result found <h1>';
+                    this.data = datas.map(data => {
+                        const clone = template.content.cloneNode(true);
+
+                        const p = sel.querySelectAll(clone, 'p')
+                        const img = sel.getElemById(clone, 'std-profile-img');
+
+                        const name = `${data.lastName}, ${data.firstName} ${data.middleName} ${data.extensionName}`;
+                        const lrn = data.learnerReferenceNumber;
+
+                        const profileBox = sel.getElemById(clone, 'profile-box');
+                        const pContainer = sel.getElemById(clone, 'p-container');
+
+                        attr.setCusAttr(profileBox, 'data', 'visible');
+                        attr.setCusAttr(profileBox, 'lrn', lrn);
+                        attr.setCusAttr(pContainer, 'lrn', lrn);
+
+                        p.forEach(ps => {
+                            attr.setCusAttr(ps, 'lrn', lrn);
+                        });
+
+                        img.src = data.studentImg;
+                        attr.setCusAttr(img, 'lrn', lrn);
+                        p[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
+                        p[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
+                        p[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${data.civilStatus}`;
+                        p[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${data.birthDate}`;
+                        p[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${data.sex}`;
+                        p[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${data.nationality}`;
+                        p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${data.religion}`;
+                        p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${data.email}`;
+                        p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${data.phoneNumber}`;
+                        p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${data.current_address}`;
+                        p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${data.permanent_address}`;
+
+                        appEl.appChild(profileBoxContainer, clone);
+
+                        return {
+                            name: name, lrn: lrn, elem: profileBox, sex: data.sex
+                        };
+                    });
+
+                    if (callback) {
+                        callback(this.data);
                     }
                 });
             }
 
             return showStudentData();
         }
+
+        search(sex) {
+
+            const person = stdDirSearch.value.toUpperCase();
+            this.displayStudentData(() => {
+                this.data.forEach(data => {
+                    const lrn = data.lrn.toString();
+
+                    if (!data.name.includes(person)) {
+                        useClassList.addClassList(data.elem, 'd-none');
+                        attr.setCusAttr(data.elem, 'data', 'hidden');
+                    }
+
+                    if (lrn.includes(person)) {
+                        attr.setCusAttr(data.elem, 'data', 'visible');
+                        useClassList.remClassList(data.elem, 'd-none');
+                    }
+
+                    const female = sel.getElemById(document, 'filter-female');
+                    const male = sel.getElemById(document, 'filter-male');
+
+                    if (female.checked || male.checked) {
+                        if (data.sex !== sex) {
+                            useClassList.addClassList(data.elem, 'd-none');
+                            attr.setCusAttr(data.elem, 'data', 'hidden');
+                        }
+                    }
+
+                    const result = sel.querySelectAll(document, '[data = visible]');
+
+                    if (result.length <= 0) {
+                        profileBoxContainer.innerHTML = '<h1> No result found <h1>';
+                    }
+
+                });
+            });
+        }
+
+        // filter(sex) {
+        //     this.displayStudentData(() => {
+        //         this.data.forEach(data => {
+
+        //             if (sex !== data.sex) {
+        //                 useClassList.addClassList(data.elem, 'd-none');
+        //                 attr.setCusAttr(data.elem, 'data', 'hidden');
+        //             }
+        //         });
+        //     });
+        // }
 
     }
     // end ---------------------------------------------
@@ -254,10 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const ANS = new AddNewStudent();
     const editSearch = sel.getElemById(document, 'search-std-to-edit');
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
+    const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
     const stdDirSearch = sel.getElemById(document, 'std-directory-search');
     const dataOrderDsc = sel.getElemById(document, 'sort-dsc');
     const sortViaLrn = sel.getElemById(document, 'sort-via-lrn');
     const sortViaName = sel.getElemById(document, 'sort-via-name');
+    const stdDirFilter = sel.querySelectAll(document, '[name = filter]');
+    let sex = '';
     // const filter = 
     // end ------------------------------------------------------------------------------
 
@@ -298,18 +346,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // search event ----------------------------------------------
     // search w/ debounce
+
     const updateDSD = debounce.debounce(() => {
-        SD.displayStudentData();
+        SD.search();
     }, 300);
 
-    if (stdDirSearch) {
-        SD.displayStudentData();
-
-        eventListener.callEvent(stdDirSearch, 'input', () => {
-            updateDSD();
-        });
-    }
-
+    //sort 
     const sortSDDisplayedData = () => {
         const dataOrders = sel.querySelectAll(document, '[name = order]')
 
@@ -320,7 +362,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    sortSDDisplayedData();
+    //filter 
+
+    stdDirFilter.forEach(box => {
+
+        eventListener.callEvent(box, 'change', () => {
+            const female = sel.getElemById(document, 'filter-female');
+            const male = sel.getElemById(document, 'filter-male');
+
+            if (female.checked && male.checked) {
+                box.checked = false;
+            }
+
+            if (female.checked) {
+                sex = 'FEMALE';
+            }
+
+            if (male.checked) {
+                sex = 'MALE';
+            }
+
+            if (sex !== '') {
+                SD.search(sex)
+            }
+
+        });
+    })
+
+
+    if (stdDirSearch) {
+        SD.displayStudentData();
+
+        eventListener.callEvent(stdDirSearch, 'input', () => {
+
+            updateDSD();
+
+        });
+
+        sortSDDisplayedData();
+    }
+
+
+
     // end -------------------------------------------------------
     // end of SD ------------------------------------------------------------------------------------
 });
