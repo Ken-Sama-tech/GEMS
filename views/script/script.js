@@ -301,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
     const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
     const stdDirSearch = sel.getElemById(document, 'std-directory-search');
+    const dataOrders = sel.querySelectAll(document, '[name = order]')
     const dataOrderDsc = sel.getElemById(document, 'sort-dsc');
     const sortViaLrn = sel.getElemById(document, 'sort-via-lrn');
     const sortViaName = sel.getElemById(document, 'sort-via-name');
@@ -353,7 +354,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //sort 
     const sortSDDisplayedData = () => {
-        const dataOrders = sel.querySelectAll(document, '[name = order]')
 
         dataOrders.forEach(dataOrder => {
             eventListener.callEvent(dataOrder, 'change', () => {
@@ -365,7 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //filter 
 
     stdDirFilter.forEach(box => {
-
+        //filter is inside search function of std directory class
+        //why? figure it out yourself 
         eventListener.callEvent(box, 'change', () => {
             const female = sel.getElemById(document, 'filter-female');
             const male = sel.getElemById(document, 'filter-male');
