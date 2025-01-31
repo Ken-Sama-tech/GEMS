@@ -200,6 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const name = `${data.lastName}, ${data.firstName} ${data.middleName} ${data.extensionName}`;
                         const lrn = data.learnerReferenceNumber;
+                        const currAdd = data.current_address;
+                        const permAdd = data.permanent_address;
 
                         const profileBox = sel.getElemById(clone, 'profile-box');
                         const pContainer = sel.getElemById(clone, 'p-container');
@@ -223,13 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${data.religion}`;
                         p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${data.email}`;
                         p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${data.phoneNumber}`;
-                        p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${data.current_address}`;
-                        p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${data.permanent_address}`;
+                        p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${currAdd}`;
+                        p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${permAdd}`;
 
                         appEl.appChild(profileBoxContainer, clone);
 
                         return {
-                            name: name, lrn: lrn, elem: profileBox, sex: data.sex
+                            name: name, lrn: lrn, elem: profileBox, sex: data.sex, currAdd: currAdd, permAdd: permAdd
                         };
                     });
 
@@ -242,16 +244,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return showStudentData();
         }
 
-        search(sex) {
+        search() {
 
             const person = stdDirSearch.value.toUpperCase();
             this.displayStudentData(() => {
                 this.data.forEach(data => {
+
+                    useClassList.addClassList(data.elem, 'd-none');
+                    attr.setCusAttr(data.elem, 'data', 'hidden');
+
                     const lrn = data.lrn.toString();
 
-                    if (!data.name.includes(person)) {
-                        useClassList.addClassList(data.elem, 'd-none');
-                        attr.setCusAttr(data.elem, 'data', 'hidden');
+                    if (data.name.includes(person)) {
+                        attr.setCusAttr(data.elem, 'data', 'visible');
+                        useClassList.remClassList(data.elem, 'd-none');
                     }
 
                     if (lrn.includes(person)) {
@@ -263,10 +269,27 @@ document.addEventListener('DOMContentLoaded', () => {
                     const male = sel.getElemById(document, 'filter-male');
 
                     if (female.checked || male.checked) {
-                        if (data.sex !== sex) {
+                        if (male.checked && data.sex !== "MALE") {
                             useClassList.addClassList(data.elem, 'd-none');
                             attr.setCusAttr(data.elem, 'data', 'hidden');
                         }
+
+                        if (female.checked && data.sex !== "FEMALE") {
+                            useClassList.addClassList(data.elem, 'd-none');
+                            attr.setCusAttr(data.elem, 'data', 'hidden');
+                        }
+
+                        if (female.checked && male.checked && data.name.includes(person)) {
+                            attr.setCusAttr(data.elem, 'data', 'visible');
+                            useClassList.remClassList(data.elem, 'd-none');
+                        }
+                    }
+
+                    const personAdd = filterViaAddress.value.toUpperCase();
+
+                    if (!data.currAdd.includes(personAdd) && !data.permAdd.includes(personAdd)) {
+                        useClassList.addClassList(data.elem, 'd-none');
+                        attr.setCusAttr(data.elem, 'data', 'hidden');
                     }
 
                     const result = sel.querySelectAll(document, '[data = visible]');
@@ -292,13 +315,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // }
 
     }
+
+    class AddNewViolator {
+
+    }
     // end ---------------------------------------------
 
     //global variables && local intances -------------------------------------------------
-    const SD = new StudentDirectory();
     const ANS = new AddNewStudent();
+    const SD = new StudentDirectory();
+    const ANV = new AddNewViolator();
+    //ans
     const editSearch = sel.getElemById(document, 'search-std-to-edit');
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
+
+    //end of ans variables
+    //sd
     const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
     const stdDirSearch = sel.getElemById(document, 'std-directory-search');
     const dataOrders = sel.querySelectAll(document, '[name = order]')
@@ -306,8 +338,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortViaLrn = sel.getElemById(document, 'sort-via-lrn');
     const sortViaName = sel.getElemById(document, 'sort-via-name');
     const stdDirFilter = sel.querySelectAll(document, '[name = filter]');
-    let sex = '';
-    // const filter = 
+    const filterViaAddress = sel.getElemById(document, 'filter-address');
+    //end of sd variables
     // end ------------------------------------------------------------------------------
 
     // ANS ------------------------------------------------------------------------------------------
@@ -362,33 +394,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    //filter 
-
+    //filters
     stdDirFilter.forEach(box => {
         //filter is inside search function of std directory class
         //why? figure it out yourself 
         eventListener.callEvent(box, 'change', () => {
-            const female = sel.getElemById(document, 'filter-female');
-            const male = sel.getElemById(document, 'filter-male');
-
-            if (female.checked && male.checked) {
-                box.checked = false;
-            }
-
-            if (female.checked) {
-                sex = 'FEMALE';
-            }
-
-            if (male.checked) {
-                sex = 'MALE';
-            }
-
-            if (sex !== '') {
-                SD.search(sex)
-            }
-
+            updateDSD();
         });
-    })
+    });
+
+    eventListener.callEvent(filterViaAddress, 'input', () => {
+        updateDSD();
+    });
 
 
     if (stdDirSearch) {
@@ -402,9 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sortSDDisplayedData();
     }
-
-
-
     // end -------------------------------------------------------
     // end of SD ------------------------------------------------------------------------------------
+
+    //ANV -------------------------------------------------------------------------------------------
+
+    //end of ANV ------------------------------------------------------------------------------------
 });
