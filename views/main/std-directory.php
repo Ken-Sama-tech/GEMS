@@ -14,7 +14,7 @@
     <?php
     require_once '../../includes/navbar/navbar.php';
     ?>
-    <div class="col-10 position-fixed end-0 h-100 d-flex flex-column p-4 align-items-center justify-content-center">
+    <div class="col-lg-10 col-md-9 col-12 position-fixed end-0 h-100 d-flex flex-column p-4 align-items-center justify-content-center">
 
         <nav class="navbar bg-body-tertiary border container-fluid rounded-4 m-2">
             <div class="container-fluid d-flex justify-content-start position-relative g-2">
@@ -120,7 +120,7 @@
                 <div class="row m-auto d-flex">
                     <div class="col-12 col-md-4 col-lg-2 d-flex justify-content-center align-items-center">
                         <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100">
-                            <img src="" alt="Student Profile" id="std-profile-img">
+                            <img src="" class="img-fluid" alt="Student Profile" id="std-profile-img">
                         </a>
                     </div>
 

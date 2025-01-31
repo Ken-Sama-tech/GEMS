@@ -1,16 +1,22 @@
-<nav class="container position-fixed z-2 h-100 d-flex flex-wrap align-items-center justify-content-start col-2 " id="navbar">
-    <div class="container d-flex align-items-center justify-content-start">
+<div class="d-block d-md-none d-lg-none p-1" id="hamb-bar-container">
+    <span id="hamb-bar"></span>
+    <span id="hamb-bar"></span>
+    <span id="hamb-bar"></span>
+</div>
+
+<nav class="d-none container position-fixed z-3 h-100 d-md-flex d-lg-flex flex-wrap align-items-center justify-content-start col-lg-2 col-md-3" id="navbar">
+    <div class="container d-flex align-items-center justify-content-start p-1">
         <a href="#" id="navbar-galvan-logo" class="rounded-circle overflow-hidden me-3 d-flex align-items-center justify-content-center">
             <img src="../../imgs/defaultImgs/galvanlogo.svg" alt="Galvan Logo" id="navbar-logo-img" class="img-fluid rounded-circle h-100 w-100">
         </a>
 
         <h4 class="h5 text-light fw-normal mb-0">Galvan HS</h4>
     </div>
-    <div class="container border m-0"></div>
+    <div class="container border m-1"></div>
 
-    <h5 class="h5 text-light m-auto fw-normal">Admin</h5>
+    <h5 class="h5 text-light m-auto fw-normal text-center">Admin</h5>
 
-    <div class="container border m-0"></div>
+    <div class="container border m-1"></div>
 
     <ul class="nav d-flex flex-column w-100 h-75 my-1 justify-content-center">
         <li class="nav-item flex-grow-1">

@@ -3,7 +3,7 @@
         <div class=" modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 "></h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close position-absolute left-0" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="edit-student" method="post">

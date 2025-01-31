@@ -14,10 +14,9 @@
     <?php
     require_once '../../includes/navbar/navbar.php';
     ?>
-
-    <div class="container col-10 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto">
+    <div class="container col-lg-10 col-md-9 col-12 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto">
         <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <div class="nav nav-tabs flex-nowrap" id="nav-tab" role="tablist">
                 <button class="nav-link active text-capitalized" id="nav-add" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
                 <button class="nav-link text-capitalized" id="nav-edit" data-bs-toggle="tab" data-bs-target="#nav-edit-student" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">edit student </button>
                 <button class="nav-link text-capitalized" id="nav-delete" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
@@ -201,7 +200,7 @@
 
                     <!-- Submit Button -->
                     <div class="d-grid mt-4">
-                        <button type="submit" id="submit-new-std-info" class="btn btn-primary">Submit</button>
+                        <button type="submit" id="submit-new-std-info" class="btn">Submit</button>
                     </div>
                 </form>
             </div>

@@ -41,3 +41,17 @@
 .is-active {
   border-bottom: 2px solid var(--accent-color);
 }
+
+#hamb-bar-container{
+  position:fixed;
+  z-index: 9999;
+  right:5px;
+}
+
+#hamb-bar-container > #hamb-bar{
+  display: block;
+  margin:5px ;
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+}

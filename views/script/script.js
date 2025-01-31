@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const btn = crte.crteElem('button');
                             btn.textContent = 'Edit';
                             attr.setId(btn, 'edtBtn');
-                            btn.className = 'btn btn-success col-8';
+                            btn.className = 'btn btn-success';
                             btn.value = data[i].learnerReferenceNumber;
                             attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
                             attr.setCusAttr(btn, 'data-bs-target', '#edit-std-modal');
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const btn = crte.crteElem('button');
                             btn.textContent = 'Delete';
                             attr.setId(btn, 'dltBtn');
-                            btn.className = 'btn btn-danger col-8';
+                            btn.className = 'btn btn-danger';
                             btn.value = data[i].learnerReferenceNumber;
                             attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
                             attr.setCusAttr(btn, 'data-bs-target', '#yes-no-modal');
@@ -325,12 +325,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const ANS = new AddNewStudent();
     const SD = new StudentDirectory();
     const ANV = new AddNewViolator();
-    //ans
+    //ANS
     const editSearch = sel.getElemById(document, 'search-std-to-edit');
     const delSearch = sel.getElemById(document, 'search-std-to-delete');
 
-    //end of ans variables
-    //sd
+    //end of ANS variables
+    //SD
     const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
     const stdDirSearch = sel.getElemById(document, 'std-directory-search');
     const dataOrders = sel.querySelectAll(document, '[name = order]')
@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortViaName = sel.getElemById(document, 'sort-via-name');
     const stdDirFilter = sel.querySelectAll(document, '[name = filter]');
     const filterViaAddress = sel.getElemById(document, 'filter-address');
-    //end of sd variables
+    //end of SDvariables
     // end ------------------------------------------------------------------------------
 
     // ANS ------------------------------------------------------------------------------------------
@@ -394,20 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    //filters
-    stdDirFilter.forEach(box => {
-        //filter is inside search function of std directory class
-        //why? figure it out yourself 
-        eventListener.callEvent(box, 'change', () => {
-            updateDSD();
-        });
-    });
-
-    eventListener.callEvent(filterViaAddress, 'input', () => {
-        updateDSD();
-    });
-
-
     if (stdDirSearch) {
         SD.displayStudentData();
 
@@ -415,6 +401,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             updateDSD();
 
+        });
+
+        //filters
+        stdDirFilter.forEach(box => {
+            //filter is inside search function of std directory class
+            //why? figure it out yourself 
+            eventListener.callEvent(box, 'change', () => {
+                updateDSD();
+            });
+        });
+
+        eventListener.callEvent(filterViaAddress, 'input', () => {
+            updateDSD();
         });
 
         sortSDDisplayedData();
