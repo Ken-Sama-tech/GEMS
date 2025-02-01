@@ -20,7 +20,7 @@
             <div class="container-fluid d-flex justify-content-start position-relative g-2">
                 <div class="d-flex mx-2 " role="search">
                     <!-- search -->
-                    <input class="form-control" type="search" placeholder="Search" id="std-directory-search" aria-label="Search">
+                    <input class="form-control rounded-3" type="search" placeholder="Search" id="std-directory-search" aria-label="Search">
                     <!-- end of search -->
                 </div>
                 <!-- Sort -->

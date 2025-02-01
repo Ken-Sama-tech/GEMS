@@ -7,13 +7,8 @@ const eventListener = new EventListener();
 const event = new GlobalEventListeners();
 const attr = new SetAttribute();
 const dbnc = new Debounce();
-// end -------------------------------------------
 
 eventListener.addEventListener(document, 'DOMContentLoaded', () => {
-
-    //local classes ------------------------------
-
-    // end ---------------------------------------
 
     //global variables ---------------------------
 
@@ -23,7 +18,6 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
     const modalText = sel.getElemById(document, 'staticModalBody');
     const okayBtn = sel.getElemById(document, 'promtOkayButton');
     const uploadModal = new bootstrap.Modal('#changeImageModal');
-    // end ---------------------------------------
 
     //click images 
     event.globalEvent('click', '#std-profile-img', e => {

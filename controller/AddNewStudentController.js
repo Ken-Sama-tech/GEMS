@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     //edit btn
-    event.globalEvent('click', '#edtBtn', (e) => {
+    event.globalEvent('click', '#edt-btn', (e) => {
+        console.log(e.target.value);
         const reqData = new MakeServerRequest('../../services/php/FetchAllDataOfStdUsingLrn.php', 'lrn=' + encodeURIComponent(e.target.value));
 
         reqData.sendData(() => {
@@ -204,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
             guardianExtensionName.value = data.guardianExtensionName;
             guardianPhoneNumber.value = data.guardianPhoneNumber;
         });
-
     });
 
     //this code right here save the changes you made when you edit a student data
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     //delete btn
-    event.globalEvent('click', '#dltBtn', e => {
+    event.globalEvent('click', '#dlt-btn', e => {
 
         const yesBtn = sel.getElemById(document, 'yes');
         useClassList.addClassList(yesBtn, 'btn-danger');

@@ -9,7 +9,6 @@
 }
 
 /*add new student page styles*/
-
 .form-control:focus,
 .form-select:focus {
   box-shadow: 0 0 0 0.15rem var(--primary-color);
@@ -41,19 +40,30 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* student directory page styles*/
-#std-profile-link{
+#std-profile-link {
   overflow: hidden;
   display: block;
   max-width: 150px;
   max-height: 150px;
 }
 
-#std-profile-img, #modal-std-profile-img{
+#std-profile-img,
+#modal-std-profile-img {
   width: 150px;
-  height: 150px; 
+  height: 150px;
   object-fit: cover;
 }
 
-#edtBtn, #dltBtn{
+#edt-btn,
+#dlt-btn {
   width: 80px;
-  }
+}
+
+/*ANV*/
+#ANV-table {
+  margin-top: 10px;
+  height: 40vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

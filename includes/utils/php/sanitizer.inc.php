@@ -39,6 +39,7 @@ class Sanitizers
 
             $allowedImgTypes = ['image/png', 'image/jpg', 'image/jpeg'];
             $allowedImgExt = ['jpeg', 'jpg', 'png'];
+
             if (!in_array($img_type, $allowedImgTypes) || !in_array($img_ext, $allowedImgExt)) {
                 throw new Exception('Invalid image type, or not a jpg or png');
             }

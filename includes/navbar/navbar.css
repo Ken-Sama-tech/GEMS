@@ -45,7 +45,8 @@
 #hamb-bar-container{
   position:fixed;
   z-index: 9999;
-  right:5px;
+  top: 10px;
+  right:20px;
 }
 
 #hamb-bar-container > #hamb-bar{

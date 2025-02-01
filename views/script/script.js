@@ -20,144 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const useClassList = new ClassList();
     const debounce = new Debounce();
 
-
-    // end -------------------------------------------
-
     //internal classes ---------------------------------
-    class AddNewStudent {
-
-        displayEditableStudentsData = () => {
-
-            const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
-
-            const showStudent = () => {
-
-                const tBody = sel.getElemById(document, 'displayEditableStudentHere');
-
-                reqData.requestData(() => {
-
-                    let data = reqData.data;
-
-                    for (let i = 0; i < data.length; i++) {
-
-                        const lrn = data[i].learnerReferenceNumber;
-                        const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
-                        const sex = data[i].sex;
-
-                        const displayedArr = [lrn, name, sex];
-
-                        //convert edit search value to uppercase and name it person
-                        const person = editSearch.value.toUpperCase();
-
-                        if (name.includes(person) || lrn.toString().includes(person)) {
-
-                            const tr = crte.crteElem('tr');
-                            attr.setId(tr, 'editable-std');
-                            appEl.appChild(tBody, tr);
-
-                            const th = crte.crteElem('th');
-                            attr.setCusAttr(th, 'scope', 'row');
-                            th.textContent = i + 1;
-
-                            appEl.appChild(tr, th);
-                            displayedArr.forEach(data => {
-                                const td = crte.crteElem('td');
-                                td.textContent = data;
-
-                                appEl.appChild(tr, td);
-                            });
-
-                            const btn = crte.crteElem('button');
-                            btn.textContent = 'Edit';
-                            attr.setId(btn, 'edtBtn');
-                            btn.className = 'btn btn-success';
-                            btn.value = data[i].learnerReferenceNumber;
-                            attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
-                            attr.setCusAttr(btn, 'data-bs-target', '#edit-std-modal');
-
-                            appEl.appChild(tr, btn);
-                        }
-
-                    }
-                    const result = sel.querySelectAll(document, '#editable-std');
-
-                    if (result.length <= 0) {
-                        tBody.innerHTML = '<h1> No result found <h1>';
-                    }
-                });
-            }
-
-            return showStudent();
-        }
-
-        displayDeletableStudentsData = () => {
-
-            const reqData = new MakeServerRequest('../../services/php/AllStdData.php');
-
-            const showData = () => {
-                const tBody = sel.getElemById(document, 'displayDeletableStudentHere');
-
-                reqData.requestData(() => {
-
-                    let data = reqData.data;
-
-                    for (let i = 0; i < data.length; i++) {
-
-                        const lrn = data[i].learnerReferenceNumber;
-                        const name = `${data[i].firstName} ${data[i].lastName} ${data[i].extensionName}`;
-                        const sex = data[i].sex;
-
-                        const displayedArr = [lrn, name, sex];
-
-                        // convert search value to uppercase then again call it person
-
-                        const person = delSearch.value.toUpperCase();
-
-                        if (name.includes(person) || lrn.toString().includes(person)) {
-
-                            const tr = crte.crteElem('tr');
-                            attr.setId(tr, 'deletable-std');
-
-                            appEl.appChild(tBody, tr);
-
-                            const th = crte.crteElem('th');
-                            attr.setCusAttr(th, 'scope', 'row');
-                            th.textContent = i + 1;
-
-                            appEl.appChild(tr, th);
-
-                            displayedArr.forEach(data => {
-                                const td = crte.crteElem('td');
-                                td.textContent = data;
-
-                                appEl.appChild(tr, td);
-                            });
-
-                            const btn = crte.crteElem('button');
-                            btn.textContent = 'Delete';
-                            attr.setId(btn, 'dltBtn');
-                            btn.className = 'btn btn-danger';
-                            btn.value = data[i].learnerReferenceNumber;
-                            attr.setCusAttr(btn, 'data-bs-toggle', 'modal');
-                            attr.setCusAttr(btn, 'data-bs-target', '#yes-no-modal');
-
-                            appEl.appChild(tr, btn);
-                        }
-
-                        const result = sel.querySelectAll(document, '#deletable-std');
-
-                        if (result.length <= 0) {
-                            tBody.innerHTML = '<h1> No result found <h1>';
-                        }
-                    }
-                });
-            }
-
-            return showData();
-        }
-
-    }
-
     class StudentDirectory {
 
         constructor() {
@@ -316,21 +179,143 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    class AddNewViolator {
+    class AddNewStudent {
+
+        constructor() {
+            this.data = [];
+        }
+
+        displayStudentData(templateId, whereToAppend, callback) {
+            const serverReq = new MakeServerRequest('../../services/php/AllStdData.php');
+            const showData = () => {
+
+                serverReq.requestData(() => {
+
+                    const template = sel.querySelect(document, templateId);
+                    const parent = sel.querySelect(document, whereToAppend);
+                    parent.innerHTML = '';
+                    let rowNum = 0;
+
+                    const data = serverReq.data;
+                    this.data = data.map(dta => {
+                        const clone = template.content.cloneNode(true);
+
+                        const clonedRowNum = sel.getElemById(clone, 'row-num');
+                        const clonedLrn = sel.getElemById(clone, 'td-lrn');
+                        const clonedName = sel.getElemById(clone, 'td-name');
+                        const clonedSex = sel.getElemById(clone, 'td-sex');
+                        const clonedBtn = sel.querySelect(clone, 'button');
+                        const clonedTr = sel.querySelect(clone, 'tr');
+
+                        const dataLrn = `${dta.learnerReferenceNumber}`;
+                        const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
+                        const dataSex = `${dta.sex}`;
+
+                        rowNum = rowNum + 1
+
+                        clonedRowNum.textContent = rowNum;
+                        clonedLrn.textContent = dataLrn;
+                        clonedName.textContent = dataName;
+                        clonedSex.textContent = dataSex;
+                        clonedBtn.value = dataLrn;
+
+                        attr.setCusAttr(clonedTr, 'state', 'is-visible');
+
+                        appEl.appChild(parent, clone);
+
+                        return { lrn: dataLrn, name: dataName, tr: clonedTr };
+                    });
+
+                    if (callback) {
+                        callback(this.data);
+                    }
+
+                    const result = sel.querySelectAll(parent, '[state = is-visible]');
+
+                    if (result.length <= 0) {
+                        parent.innerHTML = '<h2>No Result Found<h2>';
+                    }
+                });
+            }
+
+            return showData();
+        }
+
+        search(templateId, whereToAppend, element) {
+            this.displayStudentData(templateId, whereToAppend, () => {
+
+                const data = this.data;
+                const search = element.value.toUpperCase();
+
+                data.forEach(dta => {
+                    useClassList.addClassList(dta.tr, 'd-none');
+                    attr.setCusAttr(dta.tr, 'state', 'is-hidden');
+
+                    if (dta.name.includes(search)) {
+                        useClassList.remClassList(dta.tr, 'd-none');
+                        attr.setCusAttr(dta.tr, 'state', 'is-visible');
+                    }
+
+                    if (dta.lrn.toString().includes(search)) {
+                        useClassList.remClassList(dta.tr, 'd-none');
+                        attr.setCusAttr(dta.tr, 'state', 'is-visible');
+                    }
+                });
+
+
+            });
+        }
 
     }
-    // end ---------------------------------------------
+
+    class AddNewViolator {
+        displayStudentOnTable() {
+            const serverReq = new MakeServerRequest('../../services/php/AllStdData.php');
+
+            const fetchStudentsData = () => {
+                serverReq.requestData(() => {
+                    const data = serverReq.data;
+                    let num = 0;
+                    const tBody = sel.getElemById(document, 'ANV-tbody');
+                    const template = sel.getElemById(document, 'ANV-table-template');
+
+                    data.forEach(dta => {
+
+                        const clone = template.content.cloneNode(true);
+                        const rowNum = sel.getElemById(clone, 'row-num');
+                        const lrn = sel.getElemById(clone, 'td-lrn');
+                        const name = sel.getElemById(clone, 'td-name');
+                        const sex = sel.getElemById(clone, 'td-sex');
+                        const selectedElement = sel.querySelectAll(clone, '[selected]');
+
+                        const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
+                        const dataLrn = dta.learnerReferenceNumber;
+                        const dataSex = dta.sex;
+                        num = num + 1;
+
+                        rowNum.textContent = num;
+                        lrn.textContent = dataLrn;
+                        name.textContent = dataName;
+                        sex.textContent = dataSex;
+
+                        selectedElement.forEach(selected => {
+                            selected.value = dataLrn;
+                        })
+
+                        tBody.appendChild(clone);
+                    });
+                });
+            }
+
+            return fetchStudentsData();
+        }
+    }
 
     //global variables && local intances -------------------------------------------------
-    const ANS = new AddNewStudent();
     const SD = new StudentDirectory();
+    const ANS = new AddNewStudent();
     const ANV = new AddNewViolator();
-    //ANS
-    const editSearch = sel.getElemById(document, 'search-std-to-edit');
-    const delSearch = sel.getElemById(document, 'search-std-to-delete');
-
-    //end of ANS variables
-    //SD
+    //SD vars
     const profileBoxContainer = sel.getElemById(document, 'std-profile-box-container');
     const stdDirSearch = sel.getElemById(document, 'std-directory-search');
     const dataOrders = sel.querySelectAll(document, '[name = order]')
@@ -339,47 +324,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortViaName = sel.getElemById(document, 'sort-via-name');
     const stdDirFilter = sel.querySelectAll(document, '[name = filter]');
     const filterViaAddress = sel.getElemById(document, 'filter-address');
-    //end of SDvariables
-    // end ------------------------------------------------------------------------------
 
-    // ANS ------------------------------------------------------------------------------------------
-    //search events ----------------------------------------------
-    //debounce search event. (DESD) display editable student data
-    const updateDESD = debounce.debounce(() => {
-        ANS.displayEditableStudentsData();
-    }, 500);
-
-    //debounce search event. (DDSD) display deletable student data
-    const updateDDSD = debounce.debounce(() => {
-        ANS.displayDeletableStudentsData();
-    }, 500);
-
-    if (delSearch || editSearch) {
-        //put this inside a if statement, so there'd be no error when other page use this js file || 177013 if you know, you know
-        ANS.displayEditableStudentsData();
-        ANS.displayDeletableStudentsData();
-
-        eventListener.callEvent(editSearch, 'input', () => {
-            const tBody = sel.getElemById(document, 'displayEditableStudentHere');
-            tBody.innerHTML = '';
-            updateDESD();
-        });
-
-        eventListener.callEvent(delSearch, 'input', () => {
-            const tBody = sel.getElemById(document, 'displayDeletableStudentHere');
-            tBody.innerHTML = '';
-            updateDDSD();
-        });
-    }
-
-    //end --------------------------------------------------------
-    // end of ANS -----------------------------------------------------------------------------------
+    //ANS vars
+    const editSearch = sel.getElemById(document, 'search-std-to-edit');
+    const delSearch = sel.getElemById(document, 'search-std-to-delete');
+    //ANV vars
 
     // SD -------------------------------------------------------------------------------------------
-
     // search event ----------------------------------------------
     // search w/ debounce
-
     const updateDSD = debounce.debounce(() => {
         SD.search();
     }, 300);
@@ -418,10 +371,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sortSDDisplayedData();
     }
-    // end -------------------------------------------------------
-    // end of SD ------------------------------------------------------------------------------------
+
+    // ANS ------------------------------------------------------------------------------------------
+    //search events ----------------------------------------------
+    //debounce search event.
+    const updateEditableDisplay = debounce.debounce(() => {
+        showEditableData();
+    }, 300);
+
+    const updateDeletableDisplay = debounce.debounce(() => {
+        showDeletableData();
+    }, 300)
+
+    if (delSearch || editSearch) {
+
+        const showEditableData = () => {
+            ANS.search('#ANS-edt-table-template', '#displayEditableStudentHere', editSearch);
+        }
+        showEditableData();
+
+        const showDeletableData = () => {
+            ANS.search('#ANS-dlt-table-template', '#displayDeletableStudentHere', delSearch);
+        }
+
+        showDeletableData();
+
+        eventListener.callEvent(editSearch, 'input', () => {
+            updateEditableDisplay();
+        });
+
+        eventListener.callEvent(delSearch, 'input', () => {
+            updateDeletableDisplay();
+        });
+    }
 
     //ANV -------------------------------------------------------------------------------------------
+    ANV.displayStudentOnTable();
 
-    //end of ANV ------------------------------------------------------------------------------------
 });

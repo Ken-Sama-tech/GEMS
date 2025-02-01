@@ -205,10 +205,10 @@
                 </form>
             </div>
             <div class="tab-pane fade position-relative" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">
-                <nav class="navbar bg-body-tertiary border position-sticky z-3 top-0">
+                <nav class="navbar bg-body-tertiary border z-3 rounded-2 mt-2">
                     <div class="container-fluid">
                         <div class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" id="search-std-to-edit" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2 rounded-1" type="search" id="search-std-to-edit" placeholder="Search" aria-label="Search">
                         </div>
                     </div>
                 </nav>
@@ -224,15 +224,26 @@
                         </tr>
                     </thead>
                     <tbody id="displayEditableStudentHere" class="overflow-y-auto">
+
                     </tbody>
+                    <!--template-->
+                    <template id="ANS-edt-table-template">
+                        <tr>
+                            <th scope="col" class="" id="row-num"></th>
+                            <td id="td-lrn"></td>
+                            <td id="td-name"></td>
+                            <td id="td-sex"></td>
+                            <td><button class="btn btn-outline-success" id="edt-btn" data-bs-toggle="modal" data-bs-target="#edit-std-modal">Edit</button></td>
+                        </tr>
+                    </template>
                 </table>
 
             </div>
             <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">
-                <nav class="navbar bg-body-tertiary border position-sticky z-3 top-0">
+                <nav class="navbar bg-body-tertiary border z-3 rounded-2 mt-2">
                     <div class="container-fluid">
                         <div class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" id="search-std-to-delete" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2 rounded-1" type="search" id="search-std-to-delete" placeholder="Search" aria-label="Search">
                         </div>
                     </div>
                 </nav>
@@ -247,7 +258,18 @@
                         </tr>
                     </thead>
                     <tbody id="displayDeletableStudentHere" class="overflow-y-auto">
+                        <!--template-->
+
                     </tbody>
+                    <template id="ANS-dlt-table-template">
+                        <tr>
+                            <th scope="col" class="" id="row-num"></th>
+                            <td id="td-lrn"></td>
+                            <td id="td-name"></td>
+                            <td id="td-sex"></td>
+                            <td> <button class="btn btn-outline-danger" id="dlt-btn" data-bs-toggle="modal" data-bs-target="#yes-no-modal">DELETE</button> </td>
+                        </tr>
+                    </template>
                 </table>
             </div>
         </div>
