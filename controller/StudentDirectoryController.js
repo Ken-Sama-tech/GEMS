@@ -1,29 +1,26 @@
 import MakeServerRequest from "../services/js/ServerRequests";
-import { Selector, EventListener, GlobalEventListeners, SetAttribute, Debounce } from "../includes/utils/js/domHelper";
+import { EventListener, GlobalEventListeners, SetAttribute, Debounce } from "../includes/utils/js/domHelper";
 
 // utility intances ------------------------------
-const sel = new Selector();
 const eventListener = new EventListener();
 const event = new GlobalEventListeners();
-const attr = new SetAttribute();
-const dbnc = new Debounce();
 
-eventListener.addEventListener(document, 'DOMContentLoaded', () => {
+eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
     //global variables ---------------------------
 
-    const uploadBtn = sel.getElemById(document, 'upload-btn');
-    const uploadFormLrn = sel.getElemById(document, 'upload-form-lrn');
+    const uploadBtn = document.getElementById('upload-btn');
+    const uploadFormLrn = document.getElementById('upload-form-lrn');
     const modal = new bootstrap.Modal('#staticBackdrop');
-    const modalText = sel.getElemById(document, 'staticModalBody');
-    const okayBtn = sel.getElemById(document, 'promtOkayButton');
+    const modalText = document.getElementById('staticModalBody');
+    const okayBtn = document.getElementById('promtOkayButton');
     const uploadModal = new bootstrap.Modal('#changeImageModal');
 
     //click images 
     event.globalEvent('click', '#std-profile-img', e => {
         e.preventDefault();
 
-        const lrn = attr.getAttr(e.target, 'lrn');
+        const lrn = e.target.getAttribute('lrn');
 
         uploadFormLrn.value = lrn;
         uploadModal.show();
@@ -32,7 +29,7 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
     //upload/change image
     eventListener.callEvent(uploadBtn, 'click', () => {
 
-        const uploadForm = sel.getElemById(document, 'upload-form');
+        const uploadForm = document.getElementById('upload-form');
 
         const formData = new FormData(uploadForm);
 
@@ -44,13 +41,13 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
             if (data.success) {
                 uploadModal.hide();
                 modalText.textContent = data.success;
-                attr.setClass(modalText, 'text-success');
+                modalText.setAttribute('class', 'text-success');
                 eventListener.callEvent(okayBtn, 'click', () => {
                     window.location.reload();
                 });
             } else {
                 modalText.textContent = data.error;
-                attr.setClass(modalText, 'text-danger');
+                modalText.setAttribute('class', 'text-danger');
                 eventListener.callEvent(okayBtn, 'click', () => {
                     modal.hide();
                 })
@@ -64,30 +61,30 @@ eventListener.addEventListener(document, 'DOMContentLoaded', () => {
 
         showDetailsModal.show();
 
-        const stdImg = sel.getElemById(document, 'modal-std-profile-img');
-        const name = sel.getElemById(document, 'std-name');
-        const lrn = sel.getElemById(document, 'std-lrn');
-        const status = sel.getElemById(document, 'std-status');
-        const bDate = sel.getElemById(document, 'std-bdate');
-        const age = sel.getElemById(document, 'std-age');
-        const sex = sel.getElemById(document, 'std-sex');
-        const nationality = sel.getElemById(document, 'std-nationality');
-        const email = sel.getElemById(document, 'std-email');
-        const religion = sel.getElemById(document, 'std-religion')
-        const pN = sel.getElemById(document, 'std-pn');
-        const cA = sel.getElemById(document, 'std-ca');
-        const pA = sel.getElemById(document, 'std-pa');
-        const gdnName = sel.getElemById(document, 'gdn-name');
-        const gdnPn = sel.getElemById(document, 'gdn-pn');
-        const mthrName = sel.getElemById(document, 'mthr-name');
-        const mthrMdnName = sel.getElemById(document, 'mthr-mdn-name');
-        const mthrPn = sel.getElemById(document, 'mthr-pn');
-        const fthrName = sel.getElemById(document, 'fthr-name');
-        const fthrPn = sel.getElemById(document, 'fthr-pn');
+        const stdImg = document.getElementById('modal-std-profile-img');
+        const name = document.getElementById('std-name');
+        const lrn = document.getElementById('std-lrn');
+        const status = document.getElementById('std-status');
+        const bDate = document.getElementById('std-bdate');
+        const age = document.getElementById('std-age');
+        const sex = document.getElementById('std-sex');
+        const nationality = document.getElementById('std-nationality');
+        const email = document.getElementById('std-email');
+        const religion = document.getElementById('std-religion')
+        const pN = document.getElementById('std-pn');
+        const cA = document.getElementById('std-ca');
+        const pA = document.getElementById('std-pa');
+        const gdnName = document.getElementById('gdn-name');
+        const gdnPn = document.getElementById('gdn-pn');
+        const mthrName = document.getElementById('mthr-name');
+        const mthrMdnName = document.getElementById('mthr-mdn-name');
+        const mthrPn = document.getElementById('mthr-pn');
+        const fthrName = document.getElementById('fthr-name');
+        const fthrPn = document.getElementById('fthr-pn');
 
 
         // lrn of the student you were going to fetch the data, its different from the lrn abovve this. I have bad naming sense
-        const alsoLrn = attr.getAttr(e.target, 'lrn');
+        const alsoLrn = e.target.getAttribute('lrn');
 
         const serverReq = new MakeServerRequest('../../services/php/FetchAllDataOfStdUsingLrn.php', 'lrn=' + encodeURIComponent(alsoLrn));
 

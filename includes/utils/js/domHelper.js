@@ -1,18 +1,3 @@
-// ---------------- selector ---------------
-export class Selector {
-
-    getElemById(parent, id) {
-        return parent.getElementById(id);
-    }
-
-    querySelectAll(parent, param) {
-        return parent.querySelectorAll(param);
-    }
-
-    querySelect(parent, param) {
-        return parent.querySelector(param);
-    }
-}
 //-------------- event listeners ---------------
 export class EventListener {
 
@@ -35,58 +20,6 @@ export class GlobalEventListeners {
                 func(e);
             }
         });
-    }
-}
-
-// ------------------ class list ---------------
-export class ClassList {
-
-    addClassList(element, className) {
-        return element.classList.add(className);
-    }
-
-    remClassList(element, className) {
-        return element.classList.remove(className);
-    }
-
-    toggleClassList(element, className) {
-        return element.classList.toggle(className);
-    }
-}
-
-export class SetAttribute {
-
-    setClass(element, attrName) {
-        element.setAttribute('class', attrName);
-    }
-
-    setId(element, attrName) {
-        return element.setAttribute('id', attrName);
-    }
-
-    setCusAttr(element, attrName, attr) {
-        return element.setAttribute(attrName, attr);
-    }
-
-    getAttr(element, attrName) {
-        return element.getAttribute(attrName);
-    }
-
-    remAttr(element, attrName) {
-        return element.removeAttribute(attrName);
-    }
-}
-
-export class CreateElement {
-    crteElem(element) {
-        return document.createElement(element);
-    }
-}
-
-export class Append {
-
-    appChild(parent, child) {
-        return parent.appendChild(child);
     }
 }
 
