@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const result = document.querySelectorAll('[data = visible]');
 
                     if (result.length <= 0) {
-                        profileBoxContainer.innerHTML = '<h1> No result found <h1>';
+                        profileBoxContainer.innerHTML = '<h2> No students found matching your criteria <h2>';
                     }
 
                 });
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const result = parent.querySelectorAll('[state = is-visible]');
 
                     if (result.length <= 0) {
-                        parent.innerHTML = '<h2>No Result Found<h2>';
+                        parent.innerHTML = '<h2 class="position-absolute">No students found matching your criteria<h2>';
                     }
                 });
             }
@@ -233,8 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     tr.setAttribute('state', 'is-hidden');
 
                     if (dta.name.includes(search)) {
-                        tr.classList.remove('d-none')
-                        tr.setAttribute('state', 'is-visble');
+                        tr.classList.remove('d-none');
+                        tr.setAttribute('state', 'is-visible');
                     }
 
                     if (dta.lrn.toString().includes(search)) {
@@ -280,7 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         sex.textContent = dataSex;
 
                         selectedElement.forEach(selected => {
-                            selected.value = dataLrn;
+                            selected.lrn = dataLrn;
+                            selected.name = dataName;
+                            selected.sex = dataSex;
                         })
 
                         tBody.appendChild(clone);
@@ -305,7 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortViaName = document.getElementById('sort-via-name');
     const stdDirFilter = document.querySelectorAll('[name = filter]');
     const filterViaAddress = document.getElementById('filter-address');
-
     //ANS vars
     const editSearch = document.getElementById('search-std-to-edit');
     const delSearch = document.getElementById('search-std-to-delete');
@@ -356,15 +357,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ANS ------------------------------------------------------------------------------------------
     //search events ----------------------------------------------
     //debounce search event.
-    const updateEditableDisplay = debounce.debounce(() => {
-        showEditableData();
-    }, 300);
-
-    const updateDeletableDisplay = debounce.debounce(() => {
-        showDeletableData();
-    }, 300)
-
     if (delSearch || editSearch) {
+
+        const updateEditableDisplay = debounce.debounce(() => {
+            showEditableData();
+        }, 300);
+
+        const updateDeletableDisplay = debounce.debounce(() => {
+            showDeletableData();
+        }, 300);
 
         const showEditableData = () => {
             ANS.search('#ANS-edt-table-template', '#displayEditableStudentHere', editSearch);

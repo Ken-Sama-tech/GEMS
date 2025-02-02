@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const serverReq = new MakeServerRequest(url, formData);
 
             if (!form.checkValidity()) {
+
                 form.classList.add('was-validated');
 
             } else {
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (serverReq.data.success) {
                     modal.show();
                     modalText.textContent = serverReq.data.success;
-                    modalText.setAttribute('class', 'text=success')
+                    modalText.setAttribute('class', 'text-success')
 
                     eventListener.callEvent(okayBtn, 'click', () => {
                         modal.hide();
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (serverReq.data.success) {
                     modal.show();
                     modalText.textContent = serverReq.data.success;
-                    modalText.setAttribute('class', 'text-attribute');
+                    modalText.setAttribute('class', 'text-success');
 
                     eventListener.callEvent(okayBtn, 'click', () => {
                         modal.hide();
@@ -107,8 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         modal.hide();
                         window.location.reload();
                     });
-                } else {
-                    alert('basta may error');
                 }
             });
         }

@@ -14,7 +14,7 @@
     <?php
     require_once '../../includes/navbar/navbar.php';
     ?>
-    <div class="container col-lg-10 col-md-9 col-12 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto">
+    <div class="container-fluid col-lg-10 col-md-9 col-12 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto" id="container">
         <nav>
             <div class="nav nav-tabs flex-nowrap" id="nav-tab" role="tablist">
                 <button class="nav-link active text-capitalized" id="nav-add" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>
@@ -24,7 +24,7 @@
         </nav>
         <div class="tab-content border-bottom h-100 overflow-y-auto" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-add-student" role="tabpanel" aria-labelledby="nav-add-student" tabindex="0">
-                <form class="container h-100 py-4 px-3 d-flex flex-column needs-validation" id="add-std-form" method="post" novalidate>
+                <form class="container-fluid h-100 py-4 px-3 d-flex flex-column needs-validation" id="add-std-form" method="post" novalidate>
                     <h2 class="text-center mb-4">Add New Student</h2>
 
                     <!-- Student Information -->

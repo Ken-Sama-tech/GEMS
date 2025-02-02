@@ -42,16 +42,17 @@
   border-bottom: 2px solid var(--accent-color);
 }
 
-#hamb-bar-container{
-  position:fixed;
+#hamb-bar-container {
+  position: fixed;
   z-index: 9999;
-  top: 10px;
-  right:20px;
+  height: 40px;
+  top: 0;
+  right: 0;
 }
 
-#hamb-bar-container > #hamb-bar{
+#hamb-bar-container > #hamb-bar {
   display: block;
-  margin:5px ;
+  margin: 5px;
   width: 25px;
   height: 3px;
   background-color: #333;

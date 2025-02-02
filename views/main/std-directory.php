@@ -14,9 +14,9 @@
     <?php
     require_once '../../includes/navbar/navbar.php';
     ?>
-    <div class="col-lg-10 col-md-9 col-12 position-fixed end-0 h-100 d-flex flex-column p-4 align-items-center justify-content-center">
+    <div class="container-fluid col-lg-10 col-md-9 col-12 position-fixed end-0 h-100 d-flex flex-column p-1 align-items-center justify-content-center" id="container">
 
-        <nav class="navbar bg-body-tertiary border container-fluid rounded-4 m-2">
+        <nav class="navbar container-fluid bg-body-tertiary border rounded-4 m-2">
             <div class="container-fluid d-flex justify-content-start position-relative g-2">
                 <div class="d-flex mx-2 " role="search">
                     <!-- search -->
@@ -110,7 +110,7 @@
             </div>
         </nav>
 
-        <div class="container rounded-4 overflow-y-auto border h-100 p-3 d-flex flex-column gap-2" id="std-profile-box-container">
+        <div class="container-fluid rounded-4 overflow-y-auto border h-100 p-3 d-flex flex-column gap-2" id="std-profile-box-container">
         </div>
 
         <!--student directory body-->

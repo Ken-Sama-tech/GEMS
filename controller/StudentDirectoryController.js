@@ -1,5 +1,5 @@
 import MakeServerRequest from "../services/js/ServerRequests";
-import { EventListener, GlobalEventListeners, SetAttribute, Debounce } from "../includes/utils/js/domHelper";
+import { EventListener, GlobalEventListeners, Debounce } from "../includes/utils/js/domHelper";
 
 // utility intances ------------------------------
 const eventListener = new EventListener();

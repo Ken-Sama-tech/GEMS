@@ -15,7 +15,7 @@
     require_once '../../includes/navbar/navbar.php';
     ?>
 
-    <div class="container-fluid col-lg-10 col-md-9 col-12 bg-light d-flex flex-column position-fixed end-0 h-100">
+    <div class="container-fluid col-lg-10 col-md-9 col-12 bg-light d-flex flex-column position-fixed end-0 h-100" id="container">
 
         <nav class="navbar bg-body-tertiary position-relative mt-2 border w-100 z-3 rounded-2">
             <div class="container-fluid">
@@ -49,8 +49,37 @@
                     </tr>
                 </template>
             </table>
-        </div>
 
+            <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center " id="name-holder"></div>
+
+            <div class="container-fluid rounded-1 border border-primary my-2 p-2" id="some-container">
+                <form method="post" id="add-violator-form" class="container overflow-y-auto">
+                    <input type="hidden" name="violator-lrn">
+
+                    <div class="row col-12 p-2 gy-1">
+
+                        <div class="col-6 col-lg-4">
+                            <select name="article" id="article" class="form-select">
+                                <option value="0" id="articles">Select The Corresponding Article</option>
+                            </select>
+                        </div>
+
+                        <div class="col-6 col-lg-4">
+                            <select name="article" id="article" class="form-select">
+                                <option value="0" id="articles">Select The Corresponding Section</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-6 col-lg-4">
+                            <button class="btn btn-success col-12">Show Details</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 <!-- script section here-->
