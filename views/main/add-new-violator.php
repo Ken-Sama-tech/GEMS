@@ -15,9 +15,9 @@
     require_once '../../includes/navbar/navbar.php';
     ?>
 
-    <div class="container-fluid col-lg-10 col-md-9 col-12 bg-light d-flex flex-column position-fixed end-0 h-100" id="container">
+    <div class="container-fluid col-lg-10 col-md-9 border col-12 bg-light d-flex flex-column position-absolute end-0 overflow-hidden" id="container">
 
-        <nav class="navbar bg-body-tertiary position-relative mt-2 border w-100 z-3 rounded-2">
+        <nav class="navbar bg-body-tertiary position-relative mt-2 border border-2 w-100 z-2 rounded-2">
             <div class="container-fluid">
                 <div class="d-flex" role="search">
                     <input class="form-control rounded-1" type="search" id="add-violator-search" placeholder="Search" aria-label="Search">
@@ -25,8 +25,8 @@
             </div>
         </nav>
 
-        <div class="container-fluid border h-100 my-2 rounded-2" id="add-violators-main-container">
-            <table class="rounded-1 border border-dark overflow-hidden" id="ANV-table">
+        <div class="container-fluid border my-2 rounded-2 d-flex flex-column p-3 border border-2" id="add-violator-main-container">
+            <table class="rounded-1 border border-dark overflow-hidden flex-grow" id="ANV-table">
                 <thead id="ANV-thead">
                     <tr class="row border-bottom p-1">
                         <th class="col-1 text-center">#</th>
@@ -50,31 +50,44 @@
                 </template>
             </table>
 
-            <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center " id="name-holder"></div>
+            <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center text-nowrap overflow-auto" id="name-holder"></div>
 
-            <div class="container-fluid rounded-1 border border-primary my-2 p-2" id="some-container">
-                <form method="post" id="add-violator-form" class="container overflow-y-auto">
+            <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
+                <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
                     <input type="hidden" name="violator-lrn">
 
-                    <div class="row col-12 p-2 gy-1">
+                    <div class="row col-12 p-2">
 
-                        <div class="col-6 col-lg-4">
+                        <div class="col-6 col-lg-3">
+                            <label for="article" class="form-label">Article </label>
                             <select name="article" id="article" class="form-select">
                                 <option value="0" id="articles">Select The Corresponding Article</option>
                             </select>
                         </div>
 
-                        <div class="col-6 col-lg-4">
-                            <select name="article" id="article" class="form-select">
-                                <option value="0" id="articles">Select The Corresponding Section</option>
+                        <div class="col-6 col-lg-3">
+                            <label for="article-section" class="form-label text-nowrap">Article Section</label>
+                            <select name="article-section" id="article-section" class="form-select">
+                                <option value="0" id="article-sections">Select The Corresponding Article Section</option>
                             </select>
                         </div>
 
-
-                        <div class="col-6 col-lg-4">
-                            <button class="btn btn-success col-12">Show Details</button>
+                        <div class="col-12 col-lg-6">
+                            <label for="sanction" class="form-label">Sanction</label>
+                            <select name="sanction" id="sanction" class="form-select">
+                                <option value="0" id="sanction">Select The Sanction</option>
+                            </select>
                         </div>
 
+                    </div>
+
+                    <div class="row col-12 p-2 d-flex flex-wrap">
+                        <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap">Show Details</button>
+                        <button class="btn btn-secondary col-5 col-md-4">Reset</button>
+                    </div>
+
+                    <div class="row col-12 p-2">
+                        <input type="submit" value="Submit" class="btn btn-success" id="submit-violation-form">
                     </div>
 
                 </form>

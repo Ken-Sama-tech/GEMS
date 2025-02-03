@@ -14,7 +14,7 @@
     <?php
     require_once '../../includes/navbar/navbar.php';
     ?>
-    <div class="container-fluid col-lg-10 col-md-9 col-12 position-fixed end-0 h-100 d-flex flex-column p-1 align-items-center justify-content-center" id="container">
+    <div class="container-fluid col-lg-10 col-md-9 col-12 position-absolute end-0 h-100 d-flex flex-column p-1 align-items-center justify-content-center" id="container">
 
         <nav class="navbar container-fluid bg-body-tertiary border rounded-4 m-2">
             <div class="container-fluid d-flex justify-content-start position-relative g-2">
@@ -116,7 +116,7 @@
         <!--student directory body-->
         <template id="profile-box-temp">
             <!-- student profile boxes or whatever this is  -->
-            <div class="container-fluid border d-flex z-3 p-2 border col-12 rounded-3 bg-light border-dark" id="profile-box" show-detail>
+            <div class="container-fluid border d-flex z-2 p-2 border col-12 rounded-3 bg-light border-dark" id="profile-box" show-detail>
                 <div class="row m-auto d-flex">
                     <div class="col-12 col-md-4 col-lg-2 d-flex justify-content-center align-items-center">
                         <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100">

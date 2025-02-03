@@ -8,6 +8,11 @@
   --white-background: #ffffff;
 }
 
+/* apply to all */
+#container {
+  height: fit-content;
+}
+
 /*add new student page styles*/
 .form-control:focus,
 .form-select:focus {
@@ -60,6 +65,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /*ANV*/
+#add-violator-main-container {
+  height: fit-content;
+}
 #ANV-table {
   margin-top: 10px;
   height: 40vh;
@@ -76,8 +84,8 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: clamp(1rem, 5vw, 1rem);
 }
 
-#some-container {
-  height: 35vh;
+#violator-form-container {
+  height: 35%;
 }
 
 /* --------------------------------------------- */

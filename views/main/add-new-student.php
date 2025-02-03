@@ -14,7 +14,7 @@
     <?php
     require_once '../../includes/navbar/navbar.php';
     ?>
-    <div class="container-fluid col-lg-10 col-md-9 col-12 h-100 z-2 position-fixed end-0 d-flex flex-column py-3 bg-light overflow-y-auto" id="container">
+    <div class="container-fluid col-lg-10 col-md-9 col-12 h-100 z-2 position-absolute end-0 d-flex flex-column py-3 bg-light overflow-y-auto" id="container">
         <nav>
             <div class="nav nav-tabs flex-nowrap" id="nav-tab" role="tablist">
                 <button class="nav-link active text-capitalized" id="nav-add" data-bs-toggle="tab" data-bs-target="#nav-add-student" type="button" role="tab" aria-controls="nav-home" aria-selected="true">add student</button>

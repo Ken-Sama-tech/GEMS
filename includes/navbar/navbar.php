@@ -18,7 +18,7 @@
 
     <div class="container border m-1"></div>
 
-    <ul class="nav d-flex flex-column w-100 h-75 my-1 justify-content-center">
+    <ul class="nav d-flex flex-column w-100 my-1 justify-content-center" id="navbar-menu">
         <li class="nav-item flex-grow-1">
             <a href="dashboard.php" class="nav-link h-100 w-100 justify-content-start d-flex align-items-center text-light">
                 dashboard
