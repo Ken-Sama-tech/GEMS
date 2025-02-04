@@ -11,13 +11,20 @@ const event = new GlobalEventListeners();
 eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
     //global vars ------------------------------------------------
+    const violatorLrn = document.querySelector('#violator-lrn');
 
     event.globalEvent('dblclick', '[selected]', e => {
 
         const nameHolder = document.getElementById('name-holder');
         const trsWithSelectedAttribute = document.querySelectorAll('[selected]');
 
-        nameHolder.textContent = `${e.target.lrn} — ${e.target.name} — ${e.target.sex}`;
+        const name = e.target.name;
+        const lrn = e.target.lrn;
+        const sex = e.target.sex;
+
+        nameHolder.textContent = `${name} — ${lrn} — ${sex}`;
+
+        violatorLrn.value = lrn;
 
         trsWithSelectedAttribute.forEach(tr => {
 
@@ -30,12 +37,18 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         });
 
         eventListener.callEvent(nameHolder, 'click', () => {
+
             nameHolder.textContent = '';
 
             trsWithSelectedAttribute.forEach(tr => {
                 tr.classList.remove('bg-warning');
             });
+
+            violatorLrn.value = '';
+
         });
     });
+
+
 });
 

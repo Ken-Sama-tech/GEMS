@@ -54,7 +54,7 @@
 
             <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
                 <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
-                    <input type="hidden" name="violator-lrn">
+                    <input type="hidden" name="violator-lrn" id="violator-lrn">
 
                     <div class="row col-12 p-2">
 
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="col-6 col-lg-3">
-                            <label for="article-section" class="form-label text-nowrap">Article Section</label>
+                            <label for="article-section" class="form-label text-nowrap text-truncate">Article Section</label>
                             <select name="article-section" id="article-section" class="form-select">
                                 <option value="0" id="article-sections">Select The Corresponding Article Section</option>
                             </select>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="row col-12 p-2 d-flex flex-wrap">
-                        <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap">Show Details</button>
+                        <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap text-truncate">Show Details</button>
                         <button class="btn btn-secondary col-5 col-md-4">Reset</button>
                     </div>
 

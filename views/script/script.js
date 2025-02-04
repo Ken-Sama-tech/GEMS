@@ -292,6 +292,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return fetchStudentsData();
         }
+
+        //set options on selects
+        setSelectOptions(url) {
+            const serverReq = new MakeServerRequest(url);
+
+            const setOptions = () => {
+                serverReq.requestData(() => {
+                    const data = serverReq.data;
+
+                    const articles = data.articles;
+                    const sections = data.articleSections;
+                    const sanctions = data.sanctions;
+
+                    let num = 0;
+
+                    articles.forEach(article => {
+                        num++
+                        selectArticle.innerHTML += `<option id="articles" value="${article.articleID}">${num}. ${article.article}</option>`;
+                    });
+
+                    eventListener.callEvent(selectArticle, 'change', () => {
+                        selectArticleSection.innerHTML = '';
+                        sections.forEach(section => {
+
+                            if (section.articleID == selectArticle.value) {
+                                selectArticleSection.innerHTML += `<option id="article-sections" value="${section.article_sectionID}">
+                                 ${section.article_section}</option>`;
+
+                            }
+                        });
+                    });
+
+                    num = 0;
+
+                    sanctions.forEach(sanction => {
+                        num++
+                        selectSanction.innerHTML += `<option id="sanctions" value="${sanction.sanctionID}">${num}. ${sanction.sanction}</option>`;
+                    });
+
+                });
+            }
+
+            return setOptions();
+        }
     }
 
     //global variables && local intances -------------------------------------------------
@@ -310,6 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
     //ANS vars
     const editSearch = document.getElementById('search-std-to-edit');
     const delSearch = document.getElementById('search-std-to-delete');
+    const selectArticle = document.getElementById('article');
+    const selectArticleSection = document.getElementById('article-section');
+    const selectSanction = document.getElementById('sanction');
     //ANV vars
 
     // SD -------------------------------------------------------------------------------------------
@@ -390,5 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //ANV -------------------------------------------------------------------------------------------
     ANV.displayStudentOnTable();
+    ANV.setSelectOptions('../../services/php/Violations.php');
 
 });
