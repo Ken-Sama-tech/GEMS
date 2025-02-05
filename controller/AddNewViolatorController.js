@@ -12,6 +12,11 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
     //global vars ------------------------------------------------
     const violatorLrn = document.querySelector('#violator-lrn');
+    const showViolationDetailsBtn = document.getElementById('show-details');
+    const submitViolationFormBtn = document.getElementById('submit-violation-form');
+    const selectArticle = document.getElementById('article');
+    const selectSection = document.getElementById('article-section');
+    const selectSanction = document.getElementById('sanction');
 
     event.globalEvent('dblclick', '[selected]', e => {
 
@@ -49,6 +54,33 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         });
     });
 
+    //show details
+    eventListener.callEvent(showViolationDetailsBtn, 'click', (e) => {
+        e.preventDefault();
+
+        const serverReq = new MakeServerRequest('../../services/php/Violations.php');
+
+        serverReq.requestData(() => {
+
+            let data = serverReq.data;
+
+            const articles = data.articles;
+            const sections = data.articleSections;
+            const sanctions = data.sanctions;
+
+        });
+    });
+
+    //submit btn
+    eventListener.callEvent(submitViolationFormBtn, 'click', (e) => {
+        e.preventDefault();
+
+        try {
+
+        } catch (error) {
+
+        }
+    });
 
 });
 

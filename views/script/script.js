@@ -319,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (section.articleID == selectArticle.value) {
                                 selectArticleSection.innerHTML += `<option id="article-sections" value="${section.article_sectionID}">
                                  ${section.article_section}</option>`;
-
                             }
                         });
                     });

@@ -25,7 +25,7 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error);
+            console.error(`Error: ${error.message}`);
         }
     }
 
@@ -52,7 +52,7 @@ export default class MakeServerRequest {
             }
 
         } catch (error) {
-            console.error('error' + error);
+            console.error(`Error: ${error.message}`);
         }
     }
 
@@ -77,7 +77,7 @@ export default class MakeServerRequest {
                 callback(this.data);
             }
         } catch (error) {
-            console.error('error' + error);
+            console.error(`Error: ${error.message}`);
         }
     }
 }

@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="col-6 col-lg-3">
-                            <label for="article-section" class="form-label text-nowrap text-truncate">Article Section</label>
+                            <label for="article-section" class="form-label text-nowrap">Article Section</label>
                             <select name="article-section" id="article-section" class="form-select">
                                 <option value="0" id="article-sections">Select The Corresponding Article Section</option>
                             </select>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="row col-12 p-2 d-flex flex-wrap">
-                        <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap text-truncate">Show Details</button>
+                        <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap text-truncate" id="show-details">Show Details</button>
                         <button class="btn btn-secondary col-5 col-md-4">Reset</button>
                     </div>
 
