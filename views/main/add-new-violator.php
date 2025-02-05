@@ -94,10 +94,16 @@
             </div>
         </div>
     </div>
+    <!-- modals -->
+    <?php
+    require_once('../../includes/modals/violation_description_modal.php');
+    ?>
+    <!-- script section here-->
+    <script src="../../includes/navbar/navbar.js"></script>
+    <script type="module" src="../script/script.js"></script>
+    <script type="module" src="../../controller/AddNewViolatorController.js"></script>
+    <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- script section here-->
-<script src="../../includes/navbar/navbar.js"></script>
-<script type="module" src="../script/script.js"></script>
-<script type="module" src="../../controller/AddNewViolatorController.js"></script>
 
 </html>

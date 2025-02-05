@@ -68,6 +68,42 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
             const sections = data.articleSections;
             const sanctions = data.sanctions;
 
+            const descModal = new bootstrap.Modal('#violation-description-modal');
+
+            descModal.show();
+
+            try {
+                function getDescription(object, property, selectValue, descProp, sectionID) {
+                    let isValid = false;
+
+                    const idk = Object.values(object).find(value => {
+
+                        if (value[property] == selectValue) {
+                            isValid = true;
+                            return value;
+                        }
+
+                    });
+
+                    if (isValid) {
+                        console.log(idk)
+                        const sectionToAppend = document.querySelector(sectionID)
+                        sectionToAppend.textContent = idk[descProp];
+                    }
+
+                    if (!isValid) {
+                        throw new Error(`No matching found for ${property} = ${selectValue}`);
+                    }
+                }
+
+                getDescription(articles, 'articleID', selectArticle.value, 'articleDescription', '#article-container');
+                getDescription(sections, 'article_sectionID', selectSection.value, 'article_section_description');
+                getDescription(sanctions, 'sanctionID', selectSanction.value, 'sanction');
+
+            } catch (error) {
+                console.error(`Error: ${error.message}`);
+            }
+
         });
     });
 
