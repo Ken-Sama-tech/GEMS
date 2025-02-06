@@ -7,7 +7,7 @@ class StudentData extends DataBaseHost
 
     public function studentData()
     {
-        $sql = "SELECT * FROM `student_info` WHERE 1";
+        $sql = "SELECT * FROM `studentInfo` WHERE 1";
         $conn = $this->connect();
         $stmt = $conn->prepare($sql);
         $stmt->execute();

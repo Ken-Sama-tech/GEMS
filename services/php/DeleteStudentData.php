@@ -21,7 +21,7 @@ class DeleteStudent extends DataBaseHost
         $conn->beginTransaction();
         try {
 
-            $sql = "DELETE FROM `student_info` WHERE learnerReferenceNumber = :lrn";
+            $sql = "DELETE FROM `studentInfo` WHERE learnerReferenceNumber = :lrn";
 
             $stmt = $conn->prepare($sql);
 

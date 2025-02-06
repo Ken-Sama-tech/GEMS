@@ -110,8 +110,8 @@
             </div>
         </nav>
 
-        <div class="container-fluid rounded-4 overflow-y-auto border h-100 p-3 d-flex flex-column gap-2" id="std-profile-box-container">
-        </div>
+        <section class="container-fluid rounded-4 overflow-y-auto border h-100 p-3 d-flex flex-column gap-2" id="std-profile-box-container">
+        </section>
 
         <!--student directory body-->
         <template id="profile-box-temp">

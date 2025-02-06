@@ -58,7 +58,7 @@ CREATE TABLE articles(
     article VARCHAR(255),
     articleDescription VARCHAR(255),
 
-    INDEX idx_of_student_id (studentID);
+    INDEX idx_of_student_id (studentID),
     FOREIGN KEY (studentID) REFERENCES studentInfo(studentID)
 )   ENGINE = InnoDB;
 
@@ -80,11 +80,11 @@ CREATE TABLE articleSections(
     articleSection VARCHAR(255),
     articleSectionDescription VARCHAR(255),
 
-    INDEX idx_of_article_id (articleID)
-    FOREIGN KEY (articleID) REFERENCES articles(articleID);
+    INDEX idx_of_article_id (articleID),
+    FOREIGN KEY (articleID) REFERENCES articles(articleID)
 ) ENGINE = InnoDB;
 
-INSERT INTO articleSections INSERT INTO article_sections(
+INSERT INTO articleSections(
         `articleID`,
         `articleSection`,
         `articleSectionDescription`
@@ -349,7 +349,7 @@ VALUES (
 
 CREATE TABLE sanctions(
     sanctionID INT AUTO_INCREMENT PRIMARY KEY,
-    sanction VARCHAR(255),
+    sanction VARCHAR(255)
 ) ENGINE = InnoDB;
 
 INSERT INTO sanctions(`sanction`)
@@ -397,7 +397,7 @@ VALUES ('Pagpapa-alaala'),
     ('Pananagot sa Batas na naaayon sa DSWD');
 ;
 
-CREATE violationLogs(
+CREATE TABLE violationLogs(
     violationLog INT AUTO_INCREMENT PRIMARY KEY,
     articleID INT,
     articleSectionID INT, 
@@ -407,11 +407,9 @@ CREATE violationLogs(
 
     INDEX idx_of_article_id (articleID),
     INDEX idx_of_article_section_id (articleSectionID),
-    INDEX inx_of_sanction_Id (sanctionID),
+    INDEX idx_of_sanction_Id (sanctionID),
 
     FOREIGN KEY (articleID) REFERENCES articles(articleID),
     FOREIGN KEY (articleSectionID) REFERENCES articleSections(articleSectionID),
     FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID)
 ) ENGINE = InnoDB;
-
-SELECT violationLogs.violationLogID, violationLogs.violationDate, 

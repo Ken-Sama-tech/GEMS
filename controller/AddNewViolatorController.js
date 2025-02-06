@@ -14,10 +14,12 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
     const violatorLrn = document.querySelector('#violator-lrn');
     const showViolationDetailsBtn = document.getElementById('show-details');
     const submitViolationFormBtn = document.getElementById('submit-violation-form');
+    const resetViolationBtn = document.getElementById('reset-violations');
     const selectArticle = document.getElementById('article');
     const selectSection = document.getElementById('article-section');
     const selectSanction = document.getElementById('sanction');
 
+    //table tr's double click event
     event.globalEvent('dblclick', '[selected]', e => {
 
         const nameHolder = document.getElementById('name-holder');
@@ -72,11 +74,14 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
             descModal.show();
 
-            try {
-                function getDescription(object, property, selectValue, descProp, sectionID) {
-                    let isValid = false;
+            function getDescription(object, property, selectValue, descProp, sectionTextID) {
 
-                    const idk = Object.values(object).find(value => {
+                let isValid = false;
+
+                const sectionToAppend = document.querySelector(sectionTextID);
+
+                try {
+                    const targetObject = Object.values(object).find(value => {
 
                         if (value[property] == selectValue) {
                             isValid = true;
@@ -86,25 +91,33 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                     });
 
                     if (isValid) {
-                        console.log(idk)
-                        const sectionToAppend = document.querySelector(sectionID)
-                        sectionToAppend.textContent = idk[descProp];
+                        sectionToAppend.textContent = targetObject[descProp];
+                        sectionToAppend.className = 'ps-4';
                     }
 
                     if (!isValid) {
-                        throw new Error(`No matching found for ${property} = ${selectValue}`);
+                        throw new Error(`No description found for ${property} = ${selectValue}`);
                     }
+                } catch (error) {
+                    sectionToAppend.textContent = error.message;
+                    sectionToAppend.className = 'ps-4 text-danger w-100';
                 }
-
-                getDescription(articles, 'articleID', selectArticle.value, 'articleDescription', '#article-container');
-                getDescription(sections, 'article_sectionID', selectSection.value, 'article_section_description');
-                getDescription(sanctions, 'sanctionID', selectSanction.value, 'sanction');
-
-            } catch (error) {
-                console.error(`Error: ${error.message}`);
             }
 
+            getDescription(articles, 'articleID', selectArticle.value, 'articleDescription', '#article-text');
+            getDescription(sections, 'articleSectionID', selectSection.value, 'articleSectionDescription', '#section-text');
+            getDescription(sanctions, 'sanctionID', selectSanction.value, 'sanction', '#sanction-text');
+
         });
+    });
+
+    //reset
+    eventListener.callEvent(resetViolationBtn, 'click', (e) => {
+        e.preventDefault();
+
+        selectArticle.value = 0;
+        selectSection.value = 0;
+        selectSanction.value = 0;
     });
 
     //submit btn

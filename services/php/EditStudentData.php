@@ -85,7 +85,7 @@
             try {
                 $sql =
                     "UPDATE 
-                `student_info`
+                `studentInfo`
                 SET 
                 `lastName` = :lastName, 
                 `firstName` = :firstName, 

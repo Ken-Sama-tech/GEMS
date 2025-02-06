@@ -17,7 +17,7 @@ class CheckStudentDataBeforeEdit extends DataBaseHost
         $conn = $this->connect();
         $conn->beginTransaction();
 
-        $sql = "SELECT * FROM `student_info` WHERE learnerReferenceNumber = :lrn";
+        $sql = "SELECT * FROM `studentInfo` WHERE learnerReferenceNumber = :lrn";
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);

@@ -28,7 +28,7 @@ class UploadStudentProfile extends DataBaseHost
         $conn->beginTransaction();
 
         try {
-            $sql = 'UPDATE `student_info` SET `studentImg` = :img WHERE learnerReferenceNumber = :lrn';
+            $sql = 'UPDATE `studentInfo` SET `studentImg` = :img WHERE learnerReferenceNumber = :lrn';
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':img', $this->img);
             $stmt->bindParam(':lrn', $this->lrn);

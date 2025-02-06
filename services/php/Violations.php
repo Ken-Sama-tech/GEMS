@@ -43,7 +43,7 @@ class Violation extends DataBaseHost
             $conn = $this->connect();
             $conn->beginTransaction();
 
-            $sql = 'SELECT * FROM article_sections';
+            $sql = 'SELECT * FROM articleSections';
 
             $stmt = $conn->prepare($sql);
 

@@ -313,12 +313,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     eventListener.callEvent(selectArticle, 'change', () => {
-                        selectArticleSection.innerHTML = '';
+                        selectArticleSection.innerHTML = '' + `<option value="0" id="article-sections">Select The Corresponding Article Section</option>`;
                         sections.forEach(section => {
 
                             if (section.articleID == selectArticle.value) {
-                                selectArticleSection.innerHTML += `<option id="article-sections" value="${section.article_sectionID}">
-                                 ${section.article_section}</option>`;
+                                selectArticleSection.innerHTML += `<option id="article-sections" value="${section.articleSectionID}">
+                                 ${section.articleSection}</option>`;
                             }
                         });
                     });

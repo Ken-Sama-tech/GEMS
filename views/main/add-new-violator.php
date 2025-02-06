@@ -52,7 +52,7 @@
 
             <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center text-nowrap overflow-auto" id="name-holder"></div>
 
-            <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
+            <section class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
                 <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
                     <input type="hidden" name="violator-lrn" id="violator-lrn">
 
@@ -75,7 +75,7 @@
                         <div class="col-12 col-lg-6">
                             <label for="sanction" class="form-label">Sanction</label>
                             <select name="sanction" id="sanction" class="form-select">
-                                <option value="0" id="sanction">Select The Sanction</option>
+                                <option value="0" id="sanction">Select Sanction</option>
                             </select>
                         </div>
 
@@ -83,7 +83,7 @@
 
                     <div class="row col-12 p-2 d-flex flex-wrap">
                         <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap text-truncate" id="show-details">Show Details</button>
-                        <button class="btn btn-secondary col-5 col-md-4">Reset</button>
+                        <button class="btn btn-secondary col-5 col-md-4" id="reset-violations">Reset</button>
                     </div>
 
                     <div class="row col-12 p-2">
@@ -91,7 +91,7 @@
                     </div>
 
                 </form>
-            </div>
+            </section>
         </div>
     </div>
     <!-- modals -->

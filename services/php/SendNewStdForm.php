@@ -100,7 +100,7 @@ class NewStudentFormData extends DataBaseHost
             }
 
             $sql = "INSERT INTO 
-                student_info
+                studentInfo
                 (
                 `learnerReferenceNumber`, `studentImg`,`lastName`, `firstName`, `middleName`, `extensionName`, 
                 `birthDate`, `sex`, `phoneNumber`, `email`, `civilStatus`, 

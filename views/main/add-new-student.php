@@ -239,7 +239,7 @@
                 </table>
 
             </div>
-            <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">
+            <section class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">
                 <nav class="navbar bg-body-tertiary border z-3 rounded-2 mt-2">
                     <div class="container-fluid">
                         <div class="d-flex" role="search">
@@ -271,7 +271,7 @@
                         </tr>
                     </template>
                 </table>
-            </div>
+            </section>
         </div>
     </div>
     <!-- modals here-->
