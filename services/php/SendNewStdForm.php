@@ -87,7 +87,7 @@ class NewStudentFormData extends DataBaseHost
         $conn->beginTransaction();
 
         try {
-            $sql = "SELECT learnerReferenceNumber FROM student_info WHERE learnerReferenceNumber = :lrn";
+            $sql = "SELECT learnerReferenceNumber FROM studentInfo WHERE learnerReferenceNumber = :lrn";
 
 
             $stmt = $conn->prepare($sql);
