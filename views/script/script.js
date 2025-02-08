@@ -190,6 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
                         const dataSex = `${dta.sex}`;
 
+                        const covertDataNameToArray = dataName.split(' ');
+
+                        const filterEmptyString = covertDataNameToArray.filter(item => item !== '');
+
+                        const convertDataNameBackToString = filterEmptyString.join(' ');
+
                         rowNum = rowNum + 1
 
                         clonedRowNum.textContent = rowNum;
@@ -202,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         parent.appendChild(clone);
 
-                        return { lrn: dataLrn, name: dataName, tr: clonedTr };
+                        return { lrn: dataLrn, name: convertDataNameBackToString, tr: clonedTr };
                     });
 
                     if (callback) {
@@ -227,15 +233,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 const search = element.value.toUpperCase();
 
                 data.forEach(dta => {
+
                     const tr = dta.tr;
 
                     tr.classList.add('d-none');
                     tr.setAttribute('state', 'is-hidden');
 
+
                     if (dta.name.includes(search)) {
                         tr.classList.remove('d-none');
                         tr.setAttribute('state', 'is-visible');
                     }
+
+
 
                     if (dta.lrn.toString().includes(search)) {
                         tr.classList.remove('d-none');
@@ -313,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     eventListener.callEvent(selectArticle, 'change', () => {
-                        selectArticleSection.innerHTML = '' + `<option value="0" id="article-sections">Select The Corresponding Article Section</option>`;
+                        selectArticleSection.innerHTML = '' + `<option value="0" id="article-sections">Select Section</option>`;
                         sections.forEach(section => {
 
                             if (section.articleID == selectArticle.value) {
@@ -435,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //ANV -------------------------------------------------------------------------------------------
-    ANV.displayStudentOnTable();
-    ANV.setSelectOptions('../../services/php/Violations.php');
+    // ANV.displayStudentOnTable();
+    // ANV.setSelectOptions('../../services/php/Violations.php');
 
 });

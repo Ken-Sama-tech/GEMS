@@ -12,6 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---------------- ---------------- ---------------- ---------------- --------------- --------------- 
 
+    const lrn = document.getElementById('lrn');
+    const maxLrn = 12;
+
+    eventListener.callEvent(lrn, 'input', () => {
+        const checkLrnIfLongEnough = (() => {
+
+            if (lrn.value.length == maxLrn) {
+                lrn.classList.add('is-valid');
+                lrn.classList.remove('is-invalid')
+            }
+
+            if (lrn.value.length < maxLrn) {
+                lrn.classList.add('is-invalid');
+            }
+
+            if (lrn.value.length > maxLrn) {
+                lrn.value = lrn.value.slice(0, maxLrn);
+            }
+
+        })();
+    });
+
     class AddEditDel {
 
         AddForm(url, form) {
@@ -63,27 +85,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const serverReq = new MakeServerRequest(url, formData);
 
-            serverReq.sendDataForm(() => {
-                if (serverReq.data.success) {
-                    modal.show();
-                    modalText.textContent = serverReq.data.success;
-                    modalText.setAttribute('class', 'text-success')
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+            } else {
 
-                    eventListener.callEvent(okayBtn, 'click', () => {
-                        modal.hide();
-                        window.location.reload();
-                    });
-                } else {
-                    modal.show();
-                    modalText.textContent = serverReq.data.error;
-                    modalText.setAttribute('class', 'text-danger')
+                serverReq.sendDataForm(() => {
+                    if (serverReq.data.success) {
+                        modal.show();
+                        modalText.textContent = serverReq.data.success;
+                        modalText.setAttribute('class', 'text-success')
 
-                    eventListener.callEvent(okayBtn, 'click', () => {
-                        modal.hide();
-                    });
-                }
+                        eventListener.callEvent(okayBtn, 'click', () => {
+                            modal.hide();
+                            window.location.reload();
+                        });
+                    } else {
+                        modal.show();
+                        modalText.textContent = serverReq.data.error;
+                        modalText.setAttribute('class', 'text-danger')
 
-            });
+                        eventListener.callEvent(okayBtn, 'click', () => {
+                            modal.hide();
+                        });
+                    }
+
+                });
+
+            }
         }
 
         deleteStudent(url, lrn) {
@@ -119,11 +147,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const submitBtn = document.getElementById('submit-new-std-info');
 
+    //submit
     eventListener.callEvent(submitBtn, 'click', (e) => {
         e.preventDefault();
 
-        const form = document.getElementById('add-std-form');
-        addEdDel.AddForm('../../services/php/SendNewStdForm.php', form);
+        try {
+            if (lrn.value.length !== maxLrn) {
+                throw new Error('LRN length should be twelve');
+            }
+
+            const form = document.getElementById('add-std-form');
+            addEdDel.AddForm('../../services/php/SendNewStdForm.php', form);
+        } catch (error) {
+            console.error('Error: ' + error.message);
+        }
+
+
 
     });
 

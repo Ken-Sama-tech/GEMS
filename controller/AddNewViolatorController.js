@@ -43,7 +43,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
         });
 
-        eventListener.callEvent(nameHolder, 'click', () => {
+        eventListener.callEvent(nameHolder, 'dblclick', () => {
 
             nameHolder.textContent = '';
 

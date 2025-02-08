@@ -13,6 +13,10 @@
   height: fit-content;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /*add new student page styles*/
 .form-control:focus,
 .form-select:focus {

@@ -61,14 +61,14 @@
                         <div class="col-6 col-lg-3">
                             <label for="article" class="form-label">Article </label>
                             <select name="article" id="article" class="form-select">
-                                <option value="0" id="articles">Select The Corresponding Article</option>
+                                <option value="0" id="articles">Select Article</option>
                             </select>
                         </div>
 
                         <div class="col-6 col-lg-3">
                             <label for="article-section" class="form-label text-nowrap">Article Section</label>
                             <select name="article-section" id="article-section" class="form-select">
-                                <option value="0" id="article-sections">Select The Corresponding Article Section</option>
+                                <option value="0" id="article-sections">Select Artcle First</option>
                             </select>
                         </div>
 
