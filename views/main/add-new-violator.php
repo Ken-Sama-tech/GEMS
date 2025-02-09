@@ -54,29 +54,36 @@
 
             <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
                 <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
-                    <input type="number" name="violator-lrn" id="violator-lrn">
+                    <input type="number" name="std-id" id="std-id">
 
                     <div class="row col-12 p-2">
 
-                        <div class="col-6 col-lg-3">
+                        <div class="col-6">
                             <label for="article" class="form-label">Article </label>
                             <select name="article" id="article" class="form-select">
                                 <option value="0" id="articles">Select Article</option>
                             </select>
                         </div>
 
-                        <div class="col-6 col-lg-3">
+                        <div class="col-6">
                             <label for="article-section" class="form-label text-nowrap">Article Section</label>
                             <select name="article-section" id="article-section" class="form-select">
                                 <option value="0" id="article-sections">Select Artcle First</option>
                             </select>
                         </div>
+                    </div>
 
+                    <div class="row col-12 p-2">
                         <div class="col-12 col-lg-6">
                             <label for="sanction" class="form-label">Sanction</label>
                             <select name="sanction" id="sanction" class="form-select">
                                 <option value="0" id="sanction">Select Sanction</option>
                             </select>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="sanction" class="form-label">Violation Date</label>
+                            <input type="date" name="violation-date" id="violation-date" class="form-control">
                         </div>
 
                     </div>
@@ -97,6 +104,7 @@
     <!-- modals -->
     <?php
     require_once('../../includes/modals/violation_description_modal.php');
+    require_once('../../includes/modals/promt_modal.php');
     ?>
     <!-- script section here-->
     <script src="../../includes/navbar/navbar.js"></script>

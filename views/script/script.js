@@ -282,6 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
                         const dataLrn = dta.learnerReferenceNumber;
                         const dataSex = dta.sex;
+                        const studentID = dta.studentID;
                         num = num + 1;
 
                         rowNum.textContent = num;
@@ -293,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             selected.lrn = dataLrn;
                             selected.name = dataName;
                             selected.sex = dataSex;
+                            selected.stdId = studentID;
                         })
 
                         tBody.appendChild(clone);

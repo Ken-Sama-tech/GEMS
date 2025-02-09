@@ -53,13 +53,14 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
 
     //global vars ------------------------------------------------
-    const violatorLrn = document.querySelector('#violator-lrn');
+    const violatorStdID = document.querySelector('#std-id');
     const showViolationDetailsBtn = document.getElementById('show-details');
     const submitViolationFormBtn = document.getElementById('submit-violation-form');
     const resetViolationBtn = document.getElementById('reset-violations');
     const selectArticle = document.getElementById('article');
     const selectSection = document.getElementById('article-section');
     const selectSanction = document.getElementById('sanction');
+    const violationDate = document.getElementById('violation-date');
 
     //table tr's double click event
     event.globalEvent('dblclick', '[selected]', e => {
@@ -70,10 +71,11 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         const name = e.target.name;
         const lrn = e.target.lrn;
         const sex = e.target.sex;
+        const stdId = e.target.stdId;
 
         nameHolder.textContent = `${name} — ${lrn} — ${sex}`;
 
-        violatorLrn.value = lrn;
+        violatorStdID.value = stdId;
 
         trsWithSelectedAttribute.forEach(tr => {
 
@@ -93,7 +95,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                 tr.classList.remove('bg-warning');
             });
 
-            violatorLrn.value = '';
+            violatorStdID.value = '';
 
         });
     });
@@ -160,6 +162,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         selectArticle.value = 0;
         selectSection.value = 0;
         selectSanction.value = 0;
+        violationDate.value = 0;
     });
 
     //submit btn
@@ -182,7 +185,20 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                     }
 
                     if (data.success) {
-                        console.log(data.success);
+                        const modal = new bootstrap.Modal('#staticBackdrop');
+                        modal.show();
+
+                        const modalText = document.getElementById('staticModalBody');
+
+                        modalText.textContent = data.success;
+                        modalText.className = 'text-success ';
+
+                        const okayBtn = document.getElementById('promtOkayButton');
+
+                        eventListener.callEvent(okayBtn, 'click', () => {
+                            window.location.reload();
+                        })
+
                     }
                 });
             }

@@ -5,7 +5,7 @@ CREATE DATABASE student_record;
 --
 USE student_record;
 --
--- ----------------- CREATE TABLE student_info
+-- ----------------- CREATE TABLE studentInfo
 --
 CREATE TABLE studentInfo(
     studentID INT AUTO_INCREMENT PRIMARY KEY,
@@ -399,7 +399,7 @@ VALUES ('Pagpapa-alaala'),
 
 CREATE TABLE violationLogs(
     violationLogID INT AUTO_INCREMENT PRIMARY KEY,
-    article
+    studentID INT,
     articleID INT,
     articleSectionID INT, 
     sanctionID INT,
@@ -409,8 +409,10 @@ CREATE TABLE violationLogs(
     INDEX idx_of_article_id (articleID),
     INDEX idx_of_article_section_id (articleSectionID),
     INDEX idx_of_sanction_Id (sanctionID),
+    INDEX idx_of_student_id (studentID),
 
     FOREIGN KEY (articleID) REFERENCES articles(articleID),
     FOREIGN KEY (articleSectionID) REFERENCES articleSections(articleSectionID),
-    FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID)
+    FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID),
+    FOREIGN KEY (studentID) REFERENCES studentInfo(studentID)
 ) ENGINE = InnoDB;
