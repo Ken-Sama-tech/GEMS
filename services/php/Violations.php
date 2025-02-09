@@ -6,7 +6,7 @@ require_once('../../includes/utils/php/jsonEncoder.inc.php');
 class Violation extends DataBaseHost
 {
 
-    public $violations = [];
+    private $violations = [];
 
     private function fetchArticles()
     {

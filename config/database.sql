@@ -398,7 +398,8 @@ VALUES ('Pagpapa-alaala'),
 ;
 
 CREATE TABLE violationLogs(
-    violationLog INT AUTO_INCREMENT PRIMARY KEY,
+    violationLogID INT AUTO_INCREMENT PRIMARY KEY,
+    article
     articleID INT,
     articleSectionID INT, 
     sanctionID INT,

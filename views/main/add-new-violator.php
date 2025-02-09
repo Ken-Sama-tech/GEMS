@@ -52,9 +52,9 @@
 
             <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center text-nowrap overflow-auto" id="name-holder"></div>
 
-            <section class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
+            <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
                 <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
-                    <input type="hidden" name="violator-lrn" id="violator-lrn">
+                    <input type="number" name="violator-lrn" id="violator-lrn">
 
                     <div class="row col-12 p-2">
 
@@ -91,7 +91,7 @@
                     </div>
 
                 </form>
-            </section>
+            </div>
         </div>
     </div>
     <!-- modals -->

@@ -10,6 +10,48 @@ const event = new GlobalEventListeners();
 
 eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
+    class ValidateSelectedViolation {
+
+        constructor() {
+            this.ok;
+        }
+
+        validate(callback) {
+
+            const article = selectArticle.value;
+            const section = selectSection.value;
+            const sanction = selectSanction.value;
+
+            const serverReq = new MakeServerRequest('../../services/php/ValidateViolations', `article= ${encodeURIComponent(article)} & section= ${encodeURIComponent(section)} & sanction= ${encodeURIComponent(sanction)}`);
+
+            serverReq.sendData(() => {
+                let data = serverReq.data;
+
+                if (data.article != 'ok') {
+                    throw new Error(data.article);
+                }
+
+                if (data.section != 'ok') {
+                    throw new Error(data.section);
+                }
+
+                if (data.sanction != 'ok') {
+                    throw new Error(data.sanction);
+                }
+
+                this.ok = true;
+
+                if (callback) {
+                    callback(this.ok);
+                }
+            });
+        }
+    }
+
+    //local instances -------------------------------------------
+    const VSV = new ValidateSelectedViolation();
+
+
     //global vars ------------------------------------------------
     const violatorLrn = document.querySelector('#violator-lrn');
     const showViolationDetailsBtn = document.getElementById('show-details');
@@ -99,8 +141,8 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                         throw new Error(`No description found for ${property} = ${selectValue}`);
                     }
                 } catch (error) {
-                    sectionToAppend.textContent = error.message;
-                    sectionToAppend.className = 'ps-4 text-danger w-100';
+                    console.error('Error: ' + error.message);
+
                 }
             }
 
@@ -126,9 +168,35 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
         try {
 
-        } catch (error) {
+            function addViolator(url, formID) {
 
+                const form = document.querySelector(formID);
+                const formData = new FormData(form);
+                const serverReq = new MakeServerRequest(url, formData);
+
+                serverReq.sendDataForm(() => {
+                    let data = serverReq.data;
+
+                    if (data.error) {
+                        console.error('Error: ' + data.error);
+                    }
+
+                    if (data.success) {
+                        console.log(data.success);
+                    }
+                });
+            }
+
+            VSV.validate(() => {
+                if (VSV.ok) {
+                    addViolator('../../services/php/AddViolator.php', '#add-violator-form');
+                }
+            });
+
+        } catch (error) {
+            console.error('Error: ' + error.message);
         }
+
     });
 
 });

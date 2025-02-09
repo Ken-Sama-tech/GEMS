@@ -152,12 +152,14 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         try {
+
             if (lrn.value.length !== maxLrn) {
                 throw new Error('LRN length should be twelve');
             }
 
             const form = document.getElementById('add-std-form');
             addEdDel.AddForm('../../services/php/SendNewStdForm.php', form);
+
         } catch (error) {
             console.error('Error: ' + error.message);
         }

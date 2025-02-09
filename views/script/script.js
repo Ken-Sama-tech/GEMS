@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //ANV -------------------------------------------------------------------------------------------
-    // ANV.displayStudentOnTable();
-    // ANV.setSelectOptions('../../services/php/Violations.php');
+    ANV.displayStudentOnTable();
+    ANV.setSelectOptions('../../services/php/Violations.php');
 
 });
