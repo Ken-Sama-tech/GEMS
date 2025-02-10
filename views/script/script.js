@@ -260,23 +260,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     class AddNewViolator {
-        displayStudentOnTable() {
+
+        constructor() {
+            this.data = [];
+            this.tBody = document.getElementById('ANV-tbody');
+        }
+
+        displayStudentOnTable(callback) {
+
             const serverReq = new MakeServerRequest('../../services/php/AllStdData.php');
 
             const fetchStudentsData = () => {
                 serverReq.requestData(() => {
+                    this.tBody.innerHTML = '';
+
                     const data = serverReq.data;
                     let num = 0;
-                    const tBody = document.getElementById('ANV-tbody');
                     const template = document.getElementById('ANV-table-template');
 
-                    data.forEach(dta => {
+                    this.data = data.map(dta => {
 
                         const clone = template.content.cloneNode(true);
                         const rowNum = clone.getElementById('row-num');
                         const lrn = clone.getElementById('td-lrn');
                         const name = clone.getElementById('td-name');
                         const sex = clone.getElementById('td-sex');
+
+                        const tableRow = clone.getElementById('ANV-table-row');
                         const selectedElement = clone.querySelectorAll('[selected]');
 
                         const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
@@ -295,10 +305,29 @@ document.addEventListener('DOMContentLoaded', () => {
                             selected.name = dataName;
                             selected.sex = dataSex;
                             selected.stdId = studentID;
-                        })
+                        });
 
-                        tBody.appendChild(clone);
+                        this.tBody.appendChild(clone);
+
+                        const convertedDataNameToArray = dataName.split(' ');
+
+                        const removeEmptyString = convertedDataNameToArray.filter(name => {
+                            if (name !== '') {
+                                return name;
+                            }
+                        });
+
+                        const convertedTheArrayBackToString = removeEmptyString.join(' ');
+
+                        const filteredName = convertedTheArrayBackToString;
+
+                        return { name: dataName, lrn: filteredName, row: tableRow }
+
                     });
+
+                    if (callback) {
+                        callback(this.data);
+                    }
                 });
             }
 
@@ -365,10 +394,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //ANS vars
     const editSearch = document.getElementById('search-std-to-edit');
     const delSearch = document.getElementById('search-std-to-delete');
+    //ANV vars
     const selectArticle = document.getElementById('article');
     const selectArticleSection = document.getElementById('article-section');
     const selectSanction = document.getElementById('sanction');
-    //ANV vars
+    const addViolatorSearch = document.getElementById('add-violator-search');
 
     // SD -------------------------------------------------------------------------------------------
     // search event ----------------------------------------------
@@ -415,25 +445,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // ANS ------------------------------------------------------------------------------------------
     //search events ----------------------------------------------
     //debounce search event.
+    const updateEditableDisplay = debounce.debounce(() => {
+        showEditableData();
+    }, 300);
+
+    const updateDeletableDisplay = debounce.debounce(() => {
+        showDeletableData();
+    }, 300);
+
+    const showEditableData = () => {
+        ANS.search('#ANS-edt-table-template', '#displayEditableStudentHere', editSearch);
+    }
+
+    const showDeletableData = () => {
+        ANS.search('#ANS-dlt-table-template', '#displayDeletableStudentHere', delSearch);
+    }
+
     if (delSearch || editSearch) {
 
-        const updateEditableDisplay = debounce.debounce(() => {
-            showEditableData();
-        }, 300);
-
-        const updateDeletableDisplay = debounce.debounce(() => {
-            showDeletableData();
-        }, 300);
-
-        const showEditableData = () => {
-            ANS.search('#ANS-edt-table-template', '#displayEditableStudentHere', editSearch);
-        }
-
         showEditableData();
-
-        const showDeletableData = () => {
-            ANS.search('#ANS-dlt-table-template', '#displayDeletableStudentHere', delSearch);
-        }
 
         showDeletableData();
 
@@ -447,7 +477,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //ANV -------------------------------------------------------------------------------------------
-    ANV.displayStudentOnTable();
-    ANV.setSelectOptions('../../services/php/Violations.php');
+    //search events ----------------------------------------------
+    //debounce search event.
+    class AVSSearch extends AddNewViolator {
 
+        search() {
+
+            this.displayStudentOnTable(() => {
+
+                let infos = this.data;
+
+                const search = addViolatorSearch.value.toUpperCase();
+
+                infos.forEach(info => {
+
+                    const tr = info.row;
+
+                    tr.setAttribute('state', 'is-visible');
+
+                    if (!info.name.includes(search) && !info.lrn.toString().includes(search)) {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'is-hidden');
+                    }
+
+                });
+
+                const visibleTR = document.querySelectorAll('[state = is-visible]');
+
+                if (visibleTR.length <= 0) {
+                    this.tBody.innerHTML = '<h2> No students found matching your criteria <h2>';
+                }
+            });
+        }
+    }
+
+    const AVSS = new AVSSearch();
+
+    const updateAVSS = debounce.debounce(() => {
+        AVSS.search();
+    }, 300);
+
+    if (addViolatorSearch) {
+
+        eventListener.callEvent(addViolatorSearch, 'input', () => {
+            updateAVSS();
+        });
+
+        ANV.displayStudentOnTable();
+        ANV.setSelectOptions('../../services/php/Violations.php');
+    }
 });

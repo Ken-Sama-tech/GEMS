@@ -54,7 +54,7 @@
 
             <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
                 <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
-                    <input type="number" name="std-id" id="std-id">
+                    <input type="hidden" name="std-id" id="std-id">
 
                     <div class="row col-12 p-2">
 

@@ -51,7 +51,6 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
     //local instances -------------------------------------------
     const VSV = new ValidateSelectedViolation();
 
-
     //global vars ------------------------------------------------
     const violatorStdID = document.querySelector('#std-id');
     const showViolationDetailsBtn = document.getElementById('show-details');
@@ -181,7 +180,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                     let data = serverReq.data;
 
                     if (data.error) {
-                        console.error('Error: ' + data.error);
+                        throw new Error(data.error);
                     }
 
                     if (data.success) {

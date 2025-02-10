@@ -30,7 +30,7 @@ class DeleteStudent extends DataBaseHost
             $conn->commit();
             JsonEncoder::jsonEncode(['success' => 'Student successfully deleted']);
         } catch (Exception $e) {
-            JsonEncoder::jsonEncode(['error' => 'failed to delete ' . $e->getMessage()]);
+            JsonEncoder::jsonEncode(['error' => 'Failed to delete: ' . $e->getMessage()]);
         }
     }
 }

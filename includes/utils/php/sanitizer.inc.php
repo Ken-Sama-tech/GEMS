@@ -18,7 +18,12 @@ class Sanitizers
 
     public static function sanitizeDate($date)
     {
-        return date('Y-m-d', strtotime($date));
+
+        if ($date == '')
+            return null;
+
+        if ($date != '')
+            return date('Y-m-d', strtotime($date));
     }
 
     public static function sanitizeImage($image)

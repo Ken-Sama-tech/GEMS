@@ -47,14 +47,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 form.classList.add('was-validated');
 
-            } else {
+            }
+
+            if (form.checkValidity()) {
 
                 serverReq.sendDataForm(() => {
-                    if (serverReq.data.success) {
+
+                    let data = serverReq.data;
+
+                    if (data.success) {
 
                         modal.show();
                         modalText.setAttribute('class', 'text-success');
-                        modalText.textContent = serverReq.data.success;
+                        modalText.textContent = data.success;
 
                         eventListener.callEvent(okayBtn, 'click', () => {
 
@@ -63,8 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         });
 
-                    } else {
+                    }
 
+                    if (data.error) {
                         modal.show();
                         modalText.setAttribute('class', 'text-danger');
                         modalText.textContent = serverReq.data.error;
@@ -86,22 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const serverReq = new MakeServerRequest(url, formData);
 
             if (!form.checkValidity()) {
+
                 form.classList.add('was-validated');
-            } else {
+            }
+
+            if (form.checkValidity()) {
 
                 serverReq.sendDataForm(() => {
-                    if (serverReq.data.success) {
+                    let data = serverReq.data;
+
+                    if (data.success) {
                         modal.show();
-                        modalText.textContent = serverReq.data.success;
+                        modalText.textContent = data.success;
                         modalText.setAttribute('class', 'text-success')
 
                         eventListener.callEvent(okayBtn, 'click', () => {
                             modal.hide();
                             window.location.reload();
                         });
-                    } else {
+                    }
+
+                    if (data.error) {
                         modal.show();
-                        modalText.textContent = serverReq.data.error;
+                        modalText.textContent = data.error;
                         modalText.setAttribute('class', 'text-danger')
 
                         eventListener.callEvent(okayBtn, 'click', () => {
@@ -112,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
             }
+
         }
 
         deleteStudent(url, lrn) {
@@ -122,9 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const closeBtn = document.getElementById('promtCloseBtn');
 
             serverReq.sendData(() => {
-                if (serverReq.data.success) {
+
+                let data = serverReq.data;
+
+                if (data.success) {
                     modal.show();
-                    modalText.textContent = serverReq.data.success;
+                    modalText.textContent = data.success;
                     modalText.setAttribute('class', 'text-success');
 
                     eventListener.callEvent(okayBtn, 'click', () => {
@@ -137,6 +154,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         window.location.reload();
                     });
                 }
+
+                if (data.error) {
+                    modal.show();
+                    modalText.textContent = 'This student cannot be deleted because some records are associated with them';
+                    console.error(data.error);
+                    modalText.setAttribute('class', 'text-danger');
+
+                    eventListener.callEvent(okayBtn, 'click', () => {
+                        modal.hide();
+                    });
+
+                    eventListener.callEvent(closeBtn, 'click', () => {
+                        modal.hide();
+                    });
+                }
             });
         }
     }
@@ -144,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const addEdDel = new AddEditDel();
 
     //add new student data
-
     const submitBtn = document.getElementById('submit-new-std-info');
 
     //submit
@@ -240,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    //this code right here save the changes you made when you edit a student data
+    //this code right here save the changes you made when you edit a student data. its obvious really
     const saveBtn = document.getElementById('save-btn');
 
     eventListener.addEventListener(saveBtn, 'click', (e) => {

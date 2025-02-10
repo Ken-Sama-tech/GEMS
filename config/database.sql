@@ -403,7 +403,7 @@ CREATE TABLE violationLogs(
     articleID INT,
     articleSectionID INT, 
     sanctionID INT,
-    violationDate DATE,
+    violationDate DATE DEFAULT NULL,
     lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     INDEX idx_of_article_id (articleID),
