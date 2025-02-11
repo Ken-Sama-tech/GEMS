@@ -161,7 +161,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         selectArticle.value = 0;
         selectSection.value = 0;
         selectSanction.value = 0;
-        violationDate.value = 0;
+        violationDate.value = '';
     });
 
     //submit btn

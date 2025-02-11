@@ -1,14 +1,10 @@
 //-------------- event listeners ---------------
 export class EventListener {
 
-    addEventListener(element, event, func) {
+    callEvent(element, event, func) {
 
         return element.addEventListener(event, func);
 
-    }
-
-    callEvent(element, event, func) {
-        this.addEventListener(element, event, func);
     }
 }
 

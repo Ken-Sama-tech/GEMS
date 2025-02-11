@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    class NavbarEffects {
+    class Navbar {
         constructor(element, className) {
             this.element = element;
             this.className = className;
@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const currentPageLinks = document.querySelectorAll(this.element);
 
             currentPageLinks.forEach(link => {
-                if (link.href === window.location.href) {
-                    link.classList.add('is-active');
+                if (link.href.includes(window.location.href)) {
+                    link.classList.add(this.className);
                     document.title = link.textContent.toUpperCase();
                 }
             });
@@ -28,11 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    const currentPage = new NavbarEffects('.nav-link', 'is-active');
-
+    const currentPage = new Navbar('.nav-link', 'is-active');
     currentPage.addActiveClassToCurrentPage();
 
-    const showBurger = new NavbarEffects('#hamb-bar-container');
-
+    const showBurger = new Navbar('#hamb-bar-container');
     showBurger.showHamburgerBar();
 });

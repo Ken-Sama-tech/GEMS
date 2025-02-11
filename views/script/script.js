@@ -378,10 +378,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    class ViolationLog {
+
+        displayViolators(callback) {
+
+            const serverReq = new MakeServerRequest('../../services/php/FetchViolators.php')
+
+            const violators = () => {
+
+                serverReq.requestData(() => {
+
+                    let data = serverReq.data;
+
+                    console.log(data);
+                });
+            };
+
+            return violators();
+
+        }
+    }
+
     //global variables && local intances -------------------------------------------------
     const SD = new StudentDirectory();
     const ANS = new AddNewStudent();
     const ANV = new AddNewViolator();
+    const VL = new ViolationLog();
     //SD vars
     const profileBoxContainer = document.getElementById('std-profile-box-container');
     const stdDirSearch = document.getElementById('std-directory-search');
@@ -526,4 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ANV.displayStudentOnTable();
         ANV.setSelectOptions('../../services/php/Violations.php');
     }
+
+    //VIOLATION LOG ---------------------------------------------------------------------------------
+    VL.displayViolators();
 });
