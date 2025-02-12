@@ -17,6 +17,18 @@
 
     <div class="container-fluid overflow-hidden border border-2 border-primary col-lg-10 col-md-9 position-absolute end-0 d-flex align-items-start  pt-4 h-100" id="container">
 
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">LRN</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Violation</th>
+                </tr>
+            </thead>
+        </table>
+
     </div>
 
 </body>

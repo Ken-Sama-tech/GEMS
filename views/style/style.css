@@ -63,6 +63,12 @@ input[type="number"]::-webkit-outer-spin-button {
   object-fit: cover;
 }
 
+#edit-table,
+#delete-table {
+  height: 100%;
+  width: 100%;
+}
+
 #edt-btn,
 #dlt-btn {
   width: 80px;
@@ -91,6 +97,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #violator-form-container {
   height: 35%;
+}
+
+#ANV-table-row:hover {
+  background-color: rgba(193, 193, 193, 0.2);
 }
 
 /* violation log */

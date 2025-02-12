@@ -22,7 +22,7 @@
                 <button class="nav-link text-capitalized" id="nav-delete" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
             </div>
         </nav>
-        <div class="tab-content border-bottom h-100 overflow-y-auto" id="nav-tabContent">
+        <div class="tab-content border-bottom overflow-y-auto h-100" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-add-student" role="tabpanel" aria-labelledby="nav-add-student" tabindex="0">
                 <form class="container-fluid h-100 py-4 px-3 d-flex flex-column needs-validation" id="add-std-form" method="post" novalidate>
                     <h2 class="text-center mb-4">Add New Student</h2>
@@ -204,8 +204,8 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-pane fade position-relative" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">
-                <nav class="navbar bg-body-tertiary border z-3 rounded-2 mt-2">
+            <div class="tab-pane fade" id="nav-edit-student" role="tabpanel" aria-labelledby="nav-edit-student" tabindex="0">
+                <nav class="navbar bg-body-tertiary border z-3 rounded-0 mt-3 position-sticky top-0">
                     <div class="container-fluid">
                         <div class="d-flex" role="search">
                             <input class="form-control me-2 rounded-1" type="search" id="search-std-to-edit" placeholder="Search" aria-label="Search">
@@ -213,7 +213,7 @@
                     </div>
                 </nav>
 
-                <table class="table my-3 border-top">
+                <table class="table my-3 border-bottom" id="edit-table">
                     <thead>
                         <tr>
                             <th scope="col" id="td-number">#</th>
@@ -223,31 +223,30 @@
                             <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody id="displayEditableStudentHere" class="overflow-y-auto">
-
+                    <tbody id="displayEditableStudentHere">
                     </tbody>
                     <!--template-->
                     <template id="ANS-edt-table-template">
                         <tr>
-                            <th scope="col" class="" id="row-num"></th>
-                            <td id="td-lrn"></td>
-                            <td id="td-name"></td>
-                            <td id="td-sex"></td>
-                            <td><button class="btn btn-outline-success" id="edt-btn" data-bs-toggle="modal" data-bs-target="#edit-std-modal">Edit</button></td>
+                            <th scope="row" id="row-num"></th>
+                            <td class="text-break" id="td-lrn"></td>
+                            <td class="text-break" id="td-name"></td>
+                            <td class="" id="td-sex"></td>
+                            <td><button class=" btn btn-outline-success" id="edt-btn" data-bs-toggle="modal" data-bs-target="#edit-std-modal">Edit</button></td>
                         </tr>
                     </template>
                 </table>
 
             </div>
             <div class="tab-pane fade" id="nav-delete-student" role="tabpanel" aria-labelledby="nav-delete-student" tabindex="0">
-                <nav class="navbar bg-body-tertiary border z-3 rounded-2 mt-2">
+                <nav class="navbar bg-body-tertiary border z-3 rounded-0 position-sticky top-0 mt-2">
                     <div class="container-fluid">
                         <div class="d-flex" role="search">
                             <input class="form-control me-2 rounded-1" type="search" id="search-std-to-delete" placeholder="Search" aria-label="Search">
                         </div>
                     </div>
                 </nav>
-                <table class="table my-3 border-top">
+                <table class="table my-3" id="delete-table">
                     <thead>
                         <tr>
                             <th scope="col" id="td-number">#</th>
@@ -258,13 +257,12 @@
                         </tr>
                     </thead>
                     <tbody id="displayDeletableStudentHere" class="overflow-y-auto">
-                        <!--template-->
-
                     </tbody>
+                    <!--template-->
                     <template id="ANS-dlt-table-template">
                         <tr>
                             <th scope="col" class="" id="row-num"></th>
-                            <td id="td-lrn"></td>
+                            <td id="td-lrn" class="text-break"></td>
                             <td id="td-name"></td>
                             <td id="td-sex"></td>
                             <td> <button class="btn btn-outline-danger" id="dlt-btn" data-bs-toggle="modal" data-bs-target="#yes-no-modal">DELETE</button> </td>
