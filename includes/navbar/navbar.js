@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         addActiveClassToCurrentPage() {
-            const currentPageLinks = document.querySelectorAll(this.element);
+            const currentPageLinks = document.querySelectorAll('.nav-link');
 
             currentPageLinks.forEach(link => {
-                if (link.href.includes(window.location.href)) {
+                if (link.href === window.location.href) {
                     link.classList.add(this.className);
                     document.title = link.textContent.toUpperCase();
                 }
@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             bar.addEventListener('click', () => {
                 navbar.classList.toggle('d-none');
-
             });
         }
     }
@@ -32,5 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
     currentPage.addActiveClassToCurrentPage();
 
     const showBurger = new Navbar('#hamb-bar-container');
-    showBurger.showHamburgerBar();
+    showBurger.showHamburgerBar(() => {
+        console.log(this.className)
+
+    });
 });

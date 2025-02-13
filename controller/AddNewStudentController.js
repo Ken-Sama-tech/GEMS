@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //this code right here save the changes you made when you edit a student data. its obvious really
     const saveBtn = document.getElementById('save-btn');
 
-    eventListener.addEventListener(saveBtn, 'click', (e) => {
+    eventListener.callEvent(saveBtn, 'click', (e) => {
         e.preventDefault();
         const form = document.getElementById('edit-student');
 

@@ -81,10 +81,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${currAdd}`;
                         p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${permAdd}`;
 
-                        profileBoxContainer.appendChild(clone)
+                        profileBoxContainer.appendChild(clone);
+
+                        console.log(name);
+
+                        const removeExtraWhiteSpaces = (param) => {
+
+                            const arry = param.split(' ');
+
+                            const filter = arry.filter(s => {
+                                if (s !== '') {
+                                    return s;
+                                }
+                            });
+
+                            const str = filter.join(' ');
+
+                            return str;
+                        }
 
                         return {
-                            name: name, lrn: lrn, elem: profileBox, sex: data.sex, currAdd: currAdd, permAdd: permAdd
+                            name: removeExtraWhiteSpaces(name), lrn: lrn, elem: profileBox, sex: data.sex, currAdd: currAdd, permAdd: permAdd
                         };
                     });
 
@@ -380,17 +397,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     class ViolationLog {
 
+        constructor() {
+            this.data = [];
+        }
+
         displayViolators(callback) {
 
-            const serverReq = new MakeServerRequest('../../services/php/FetchViolators.php')
+            const serverReq = new MakeServerRequest('../../services/php/FetchViolators.php');
 
             const violators = () => {
+
+                const tBody = document.getElementById('violation-log-tBody');
 
                 serverReq.requestData(() => {
 
                     let data = serverReq.data;
 
-                    console.log(data);
+                    console.log(data)
+
+                    let rowNum = 0;
+                    const template = document.getElementById('violation-log-template');
+
+                    this.data = data.map(d => {
+
+                        const clone = template.content.cloneNode(true);
+                        const row = clone.getElementById('row-num');
+                        const lrn = clone.getElementById('lrn');
+                        const name = clone.getElementById('name');
+                        const sex = clone.getElementById('sex');
+                        const violation = clone.getElementById('violation');
+                        const date = clone.getElementById('date');
+
+                        const removeExtraWhiteSpaces = (param) => {
+                            const arry = param.split(' ');
+
+                            const filter = arry.filter(item => {
+                                if (item !== '')
+                                    return item
+                            });
+
+                            return filter.join(' ');
+
+                        };
+
+                        const showViolation = () => {
+
+                            return `Article ${d.article}, ${d.articleSection}, Sanction: ${d.sanction}`;
+
+                        }
+
+                        const dLrn = d.lrn;
+                        const dName = removeExtraWhiteSpaces(d.name);
+                        const dSex = d.sex;
+                        const dViolation = `${showViolation()}`;
+
+                        console.log(dViolation);
+                    });
+
                 });
             };
 
@@ -421,6 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectArticleSection = document.getElementById('article-section');
     const selectSanction = document.getElementById('sanction');
     const addViolatorSearch = document.getElementById('add-violator-search');
+    //Vl vars
 
     // SD -------------------------------------------------------------------------------------------
     // search event ----------------------------------------------

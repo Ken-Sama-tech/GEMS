@@ -1,3 +1,8 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 :root {
   --background-color: #1b5e20;
   --primary-color: #2e7d32;
@@ -104,6 +109,46 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* violation log */
+#hdm-container {
+  cursor: pointer;
+}
+
+/*hdm short for the.... one below this. I'm too lazy too type*/
+.horizontal-dots-menu {
+  display: block;
+  background-color: #333;
+  height: 5px;
+  margin: 4px;
+  width: 5px;
+  border-radius: 50%;
+}
+
+.hdm-menu {
+  background-color: var(--white-background);
+  border: 1px solid red;
+  position: absolute;
+  top: 100%;
+  width: 10rem;
+  height: fit-content;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 5px;
+  opacity: 0;
+  z-index: -1;
+  visibility: hidden;
+}
+
+.is-shown {
+  transition: all 0.2s ease;
+  z-index: 999;
+  opacity: 1;
+  visibility: visible;
+}
+
+.hdm-item {
+  /* border: 1px solid blue; */
+}
 
 /* --------------------------------------------- */
 
@@ -113,5 +158,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   #std-profile-link {
     margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 372px) {
+  #hdm-menu {
+    right: 0;
   }
 }
