@@ -15,47 +15,51 @@
     require_once '../../includes/navbar/navbar.php';
     ?>
 
-    <div class="container-fluid overflow-hidden border border-2 col-lg-10 col-md-9 position-absolute end-0 d-flex align-items-start  pt-4 h-100" id="container">
+    <div class="container-fluid col-lg-10 col-md-9 position-absolute end-0 d-flex flex-wrap align-items-start pt-4" id="container">
 
-        <div class="container-fluid d-flex flex-column border  w-100 h-100 border-danger position-relative overflow-y-auto">
-            <!-- nav -->
-            <nav class="navbar border rounded-3 position-sticky top-0 bg-light w-100">
-                <div class="container-fluid">
-                    <div class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <div class="d-flex justify-content-center align-items-center position-relative" id="hdm-container">
-                            <span class="horizontal-dots-menu"></span>
-                            <span class="horizontal-dots-menu"></span>
-                            <span class="horizontal-dots-menu"></span>
+        <!-- nav -->
+        <nav class="navbar border rounded-3 position-sticky top-0 bg-light w-100 z-2 ">
+            <div class="container-fluid">
+                <div class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 
-                            <!-- drop-down-list -->
-                            <ul class="hdm-menu">
-                                <h6>Filter</h6>
-                                <li class="hdm-item">
-                                    <input type="checkbox" name="VL-filter" id="VL-filter-male">
-                                    <label for="VL-filter-male"> Male </label>
-                                </li>
-                                <li class="hdm-item">
-                                    <input type="checkbox" name="VL-filter" id="VL-filter-female">
-                                    <label for="VL-filter-female"> Female </label>
-                                </li>
-                                <li class="hdm-item">
-                                    <label for="VL-filter-violation"> Violation </label>
-                                    <input type="text" name="VL-filter" class="w-100" id="VL-filter-violation">
-                                </li>
-                                <h6>Table</h6>
-                                <li class="hdm-item">
-                                    <input type="checkbox" name="" id="show-description">
-                                    <label for="show-description">Show Description</label>
-                                </li>
-                            </ul>
+                    <div class="container position-relative w-25">
+
+                        <div class="d-flex justify-content-center align-items-center h-100" id="hdm-container">
+                            <span class="horizontal-dots-menu"></span>
+                            <span class="horizontal-dots-menu"></span>
+                            <span class="horizontal-dots-menu"></span>
                         </div>
+
+                        <!-- drop-down-list -->
+                        <ul class="hdm-menu">
+                            <h6>Filter</h6>
+                            <li class="hdm-item">
+                                <input type="checkbox" name="VL-setting" id="VL-filter-male">
+                                <label for="VL-filter-male"> Male </label>
+                            </li>
+                            <li class="hdm-item">
+                                <input type="checkbox" name="VL-setting" id="VL-filter-female">
+                                <label for="VL-filter-female"> Female </label>
+                            </li>
+                            <li class="hdm-item">
+                                <label for="VL-filter-violation"> Violation </label>
+                                <input type="text" class="ms-4 w-75" id="VL-filter-violation">
+                            </li>
+                            <h6>Additional Setting</h6>
+                            <li class="hdm-item">
+                                <input type="checkbox" name="VL-setting" id="VL-show-description">
+                                <label for="VL-show-description">Show Description</label>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
+        <div class="container-fluid d-flex flex-column w-100 overflow-y-auto z-1 h-100 ">
             <!-- table -->
-            <table class="table bg-light rounded-3 mt-3 border-top w-100">
+            <table class="table bg-light rounded-3 mt-3 w-100 text-center">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

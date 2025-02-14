@@ -408,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const violators = () => {
 
                 const tBody = document.getElementById('violation-log-tBody');
+                tBody.innerHTML = '';
 
                 serverReq.requestData(() => {
 
@@ -440,18 +441,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         };
 
-                        const showViolation = () => {
+                        const isShowDescriptionChecked = () => {
 
-                            return `Article ${d.article}, ${d.articleSection}, Sanction: ${d.sanction}`;
-
+                            if (showViolationDescription.checked)
+                                return `<mark class="VL-marks" id="VL-article">${d.articleDesc}</mark>, <mark class="VL-marks" id="VL-section">${d.articleSectionDesc}</mark>, <mark class="VL-marks" id="VL-sanction">${d.sanction}</mark>`;
+                            else
+                                return `<mark class="VL-marks" id="VL-article"> ARTICLE ${d.article} </mark>, <mark class="VL-marks" id="VL-section">${d.articleSection}</mark>, <mark class="VL-marks" id="VL-sanction"> SANCTION: ${d.sanction}</mark`;
                         }
 
                         const dLrn = d.lrn;
                         const dName = removeExtraWhiteSpaces(d.name);
                         const dSex = d.sex;
-                        const dViolation = `${showViolation()}`;
+                        const dViolation = `${isShowDescriptionChecked()}`;
+                        const dDate = d.violationDate;
 
-                        console.log(dViolation);
+                        row.textContent = rowNum++;
+                        lrn.textContent = dLrn;
+                        name.textContent = dName;
+                        sex.textContent = dSex;
+                        violation.innerHTML = dViolation;
+                        date.textContent = dDate;
+
+                        tBody.appendChild(clone);
                     });
 
                 });
@@ -467,6 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ANS = new AddNewStudent();
     const ANV = new AddNewViolator();
     const VL = new ViolationLog();
+
     //SD vars
     const profileBoxContainer = document.getElementById('std-profile-box-container');
     const stdDirSearch = document.getElementById('std-directory-search');
@@ -476,15 +488,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortViaName = document.getElementById('sort-via-name');
     const stdDirFilter = document.querySelectorAll('[name = filter]');
     const filterViaAddress = document.getElementById('filter-address');
+
     //ANS vars
     const editSearch = document.getElementById('search-std-to-edit');
     const delSearch = document.getElementById('search-std-to-delete');
+
     //ANV vars
     const selectArticle = document.getElementById('article');
     const selectArticleSection = document.getElementById('article-section');
     const selectSanction = document.getElementById('sanction');
     const addViolatorSearch = document.getElementById('add-violator-search');
+
     //Vl vars
+    const VLSetting = document.querySelectorAll('[name = VL-setting]');
+    const showViolationDescription = document.getElementById('VL-show-description');
+
+    console.log(VLSetting.length);
 
     // SD -------------------------------------------------------------------------------------------
     // search event ----------------------------------------------
@@ -615,4 +634,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //VIOLATION LOG ---------------------------------------------------------------------------------
     VL.displayViolators();
+
+    VLSetting.forEach(cb => {
+        eventListener.callEvent(cb, 'change', () => {
+
+            VL.displayViolators();
+
+        });
+    });
+
 });

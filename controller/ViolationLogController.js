@@ -12,7 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     evntLi.callEvent(hdm, 'click', () => {
 
-        menu.classList.add('is-shown');
+        menu.classList.toggle('is-shown');
+    });
+
+    evntLi.callEvent(document, 'click', e => {
+        if (!hdm.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove('is-shown');
+        }
     });
 
 });
