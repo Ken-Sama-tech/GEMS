@@ -1,0 +1,14 @@
+{
+  "name": "jsminifier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "minify:js": "uglifyjs .././views/script/script.js/ -c -m -o .././views/script/script.min.js"
+  },
+  "author": "wsp",
+  "license": "ISC",
+  "devDependencies": {
+    "uglify-js": "^3.19.3"
+  }
+}

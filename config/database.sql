@@ -92,259 +92,259 @@ INSERT INTO articleSections(
 VALUES (
         1,
         'SECTION 1',
-        'Paggamit ng Cellular Phone habang nagkaklase.'
+        'PAGGAMIT NG CELLULAR PHONE HABANG NAGKAKKLASE.'
     ),
     (
         1,
         'SECTION 2',
-        'Hindi maituturing na paglabag kung ang paggamit ay emergency at kinakailangan talaga subalit dapat magpaalam sa guro na lalabas ng silid aralan ang bata upang hindi makistorbo.'
+        'HINDI MAITUTURING NA PAGLABAG KUNG ANG PAGGAMIT AY EMERGENCY AT KINAKAILANGAN TALAGA SUBALIT DAPAT MAGPAALAM SA GURO NA LALABAS NG SILID ARALAN ANG BATA UPANG HINDI MAKISTORBO.'
     ),
     (
         1,
         'SECTION 3',
-        'Paggamit ng gadget na nakakalikha ng ingay habang mayroong klase liban na lamang kung ito ay pinapayagang gamitin ng guro at makakatulong sa gawaing pang-akademiko'
+        'PAGGAMIT NG GADGET NA NAKAKALIKHA NG INGYAY HABANG MAYROONG KLASSE LIBAN NA LAMANG KUNG ITO AY PINAPAYAGANG GAMITIN NG GURO AT MAKATULONG SA GAWAING PANG-AKADEMIKO'
     ),
     (
         1,
         'SECTION 4',
-        'Palagiang pagliban sa klase ng higit isang linggo kada buwan at hindi pagpapasa ng Liham Pagpapaliwanag'
+        'PALAGIANG PAGLIBAN SA KLASSE NG HIGIT ISANG LINGGO KADA BUWAN AT HINDI PAGPAPASA NG LIHAM PAGPAPALIWANAG'
     ),
     (
         1,
         'SECTION 5',
-        'Palagiang pagpasok ng huli sa mga klase na umaabot na ng isang linggo'
+        'PALAGIANG PAGPASOK NG HULI SA MGA KLASSE NA UMAABOT NA NG ISANG LINGGO'
     ),
     (
         1,
         'SECTION 6',
-        'Malimit na pagkacutting classes'
+        'MALIMIT NA PAGKACUTTING CLASSES'
     ),
     (
         1,
         'SECTION 7',
-        'Paglabas ng silid aralan ng walang paalam sa mga guro at pagpapakita ng kawalang galang'
+        'PAGLABAS NG SILID ARALAN NG WALANG PAALAM SA MGA GURO AT PAGPAPAKITA NG KAWALANG GALANG'
     ),
     (
         1,
         'SECTION 8',
-        'Pagtakas sa gate ng paaralan ng walang kaukulang paalam na itinatala sa gwardya na pinapayagan na umuwi ang bata ng guro'
+        'PAGTAKAS SA GATE NG PAARALAN NG WALANG KAUKULANG PAALAM NA ITINATALA SA GWARYA NA PINAPAYAGAN NA UMUWI ANG BATA NG GURO'
     ),
     (
         1,
         'SECTION 9',
-        'Maari lamang na lumabas ang mga estudyante kung sila ay may LBM o sakit na di kayang lunasan ng paaralan at nangangailangan ng medikal na atensyon na alam ng magulang. Nararapat na may Pass Slip na naitala sa Gwardya at sinamahan ng sinumang kawani o ipin'
+        'MAARI LAMANG NA LUMABAS ANG MGA ESTUDYANTE KUNG SILA AY MAY LBM O SAKIT NA DI KAYANG LUNASAN NG PAARALAN AT NANGANGAILANGAN NG MEDIKAL NA ATENSYON NA ALAM NG MAGULANG. NARARAPAT NA MAY PASS SLIP NA NAITALA SA GWARYA AT SINAMAHAN NG SINUMANG KAWANI O IPIN'
     ),
     (
         2,
         'SECTION 1',
-        'Hindi pagsusuot ng tamang uniporme'
+        'HINDI PAGSUUSOT NG TAMANG UNIPORME'
     ),
     (
         2,
         'SECTION 2',
-        'Hindi pag-susuot ng Pagkakakilanlan o ID'
+        'HINDI PAG-SUSUOT NG PAGKAKAKILANLAN O ID'
     ),
     (
         2,
         'SECTION 3',
-        'Pagsusuot ng hikaw at pagkakaroon ng body piercing ng mga kalalakihan o piercing sa kababaihan na nagbibigay ng hindi magandang impresyon sa pagiging estudyante'
+        'PAGSUSUOT NG HIKAW AT PAGKAKAROON NG BODY PIERCING NG MGA KALALAKIHAN O PIERCING SA KABABAIHAN NA NAGBIBIGAY NG HINDI MAGANDANG IMPRESYON SA PAGIGING ESTUDYANTE'
     ),
     (
         2,
         'SECTION 4',
-        'Pagsusuot ng singsing na may spike at malalaking'
+        'PAGSUSUOT NG SINGSING NA MAY SPIKE AT MALALAKING'
     ),
     (
         2,
         'SECTION 5',
-        'metal na buckles ng sinturon na maaring gamitin upang makapanakit ng mga kamag-aral'
+        'METAL NA BUCKLES NG SINTURON NA MAARING GAMITIN UPANG MAKAPANAKIT NG MGA KAMAG-ARAL'
     ),
     (
         2,
         'SECTION 6',
-        'Pagdadala ng baril, patalim o mga nakakasakit at nakakamatay na mga bagay.'
+        'PAGDADALA NG BARIL, PATALIM O MGA NAKAKASAKIT AT NAKAKAMATAY NA MGA BAGAY.'
     ),
     (
         2,
         'SECTION 7',
-        'Pagdadala ng pampasabog o mga bagay na may kinalaman sa terorismo'
+        'PAGDADALA NG PAMPASABOG O MGA BAGAY NA MAY KINALAMAN SA TERORISMO'
     ),
     (
         2,
         'SECTION 8',
-        'Vandalismo at iba’t ibang uri nito. Paglilinis o pagpipintura ng lugar na dinumihan o sinulatan at Komperesiya sa mga magulang. '
+        'VANDALISMO AT IBA’T IBANG URI NITO. PAGLILINIS O PAGPIPINTURA NG LUGAR NA DINUMIHAN O SINULATAN AT KOMPEREHENSIYA SA MGA MAGULANG.'
     ),
-    (2, 'SECTION 9', 'Pagdura sa kung saan saan'),
+    (2, 'SECTION 9', 'PAGDURA SA KUNG SAAN SAAN'),
     (
         2,
         'SECTION 10',
-        'Pag-iwan sa CR ng madumi matapos itong gamitin'
+        'PAG-IWAN SA CR NG MADUMI MATAPOS ITO GAMITIN'
     ),
     (
         2,
         'SECTION 11',
-        'Paninigarilyo sa loob ng kampus'
+        'PANINIGARILYO SA LOOB NG KAMPUS'
     ),
     (
         2,
         'SECTION 12',
-        'Intensyonal na pagsira ng mga silya, pintuan, pagbasag ng bintana o mga ilaw o anumang nasa sa loob ng silid aralan at paaralan'
+        'INTENSYONAL NA PAGSIRA NG MGA SILYA, PINTO, PAGBASAG NG BINTANA O MGA ILAW O ANUMANG NASA SA LOOB NG SILID ARALAN AT PAARALAN'
     ),
     (
         2,
         'SECTION 13',
-        'Pagdadala, pag-iinom ng nakalalasing na inumin o pagpasok ng lasing'
+        'PAGDADALA, PAG-IINOM NG NAKALALASING NA INUMIN O PAGPASOK NG LASING'
     ),
     (
         2,
         'SECTION 14',
-        'Pagpapasok o paggamit ng droga o kahalintulad nito gaya ng marijuana, shabu, atbp.'
+        'PAGPAPASOK O PAGGAMIT NG DROGA O KAHALINTULAD NITO GAYA NG MARIJUANA, SHABU, ATBP.'
     ),
     (
         2,
         'SECTION 16',
-        'Pagpapakita ng mahalay na gawi sa loob ng paaralan.'
+        'PAGPAPAKITA NG MAHALAY NA GAWI SA LOOB NG PAARALAN.'
     ),
-    (2, 'SECTION 17', 'Pagsira sa ID'),
+    (2, 'SECTION 17', 'PAGSIRA SA ID'),
     (
         2,
         'SECTION 18',
-        'Paggamit ng ibang ID upang makapasok sa paaralan'
+        'PAGGAMIT NG IBA PANG ID UPANG MAKAPASOK SA PAARALAN'
     ),
     (
         2,
         'SECTION 19',
-        'Pagpapahiram ng sariling ID sa ibang estudyante liban na lamang kung manghihiram ng gamit sa silid aklatan o sa laboratoryo o katulad na Gawain'
+        'PAGPAPAHIRAM NG SARILING ID SA IBA PANG ESTUDYANTE LIBAN NA LAMANG KUNG MANGHIHIRAM NG GAMIT SA SILID AKLATAN O SA LABORATORYO O KATULAD NA GAWAIN'
     ),
     (
         2,
         'SECTION 20',
-        'Hindi pagsasauli ng mga gamit na ipinahiram ng paaralang gaya ng Learner’s Material, mga kagamitan sa Silid Aklatan, at mga Laboratoryo'
+        'HINDI PAGSA-SAULI NG MGA GAMIT NA IPINAHIRAM NG PAARALANG GAYA NG LEARNER’S MATERIAL, MGA KAGAMITAN SA SILID AKLATAN, AT MGA LABORATORYO'
     ),
     (
         2,
         'SECTION 21',
-        'Pagnanakaw ng gamit ng paaralan o ng kagamitan ng mga guro o kawani nito.'
+        'PAGNANAKAW NG GAMIT NG PAARALAN O NG KAGAMITAN NG MGA GURO O KAWANI NITO.'
     ),
     (
         2,
         'SECTION 22',
-        'Pandaraya o palsipikasyon ng mga tala ng paaralan'
+        'PANDARAYA O PALSIPIKASYON NG MGA TALA NG PAARALAN'
     ),
     (
         2,
         'SECTION 23',
-        'Pamemeke ng lagda ng magulang o tagapag-alaga, guro o kawani ng paaralan.'
+        'PAMEMEKE NG LAGDA NG MAGULANG O TAGAPAG-ALAGA, GURO O KAWANI NG PAARALAN.'
     ),
     (
         2,
         'SECTION 24',
-        'Pandaraya sa mga pagsusulit, eksaminasyon o mga gawaing pang-akademiko'
+        'PANDARAYA SA MGA PAGSUSULIT, EKSAMINASYON O MGA GAWAING PANG-AKADEMIKO'
     ),
     (
         2,
         'SECTION 25',
-        'Pagdadala ng mahahalay na magasin o babasahin o pelikulang ipinapapanood sa iba'
+        'PAGDADALA NG MAHAHALE NA MAGAZIN O BABASAHIN O PELIKULANG IPINAPANUOOD SA IBA'
     ),
     (
         2,
         'SECTION 26',
-        'Paglikha ng ingay na nakakaabala sa mga klase'
+        'PAGLIKHA NG INGYAY NA NAKAKAABALA SA MGA KLASSE'
     ),
     (
         2,
         'SECTION 27',
-        'Pagtambay sa pasilyo na lumilikha ng ingay o kaguluhan na nakaka-abala sa mga klase'
+        'PAGTAMBA SA PASILYO NA LUMILIKHA NG INGYAY O KAGULUHAN NA NAKAKA-ABALA SA MGA KLASSE'
     ),
     (
         2,
         'SECTION 28',
-        'Pagtatapon ng BASURA sa kung saan saan.'
+        'PAGTATAPON NG BASURA SA KUNG SAAN SAAN.'
     ),
     (
         2,
         'SECTION 29',
-        'Kawalang galang sa mga guro at kawani ng paaralan.'
+        'KAWALANG GALANG SA MGA GURO AT KAWANI NG PAARALAN.'
     ),
     (
         3,
         'SECTION 1',
-        'Paghahamon ng away o pag-aamok na nagdulot ng kaguluhan sa loob o labas ng paaralan'
+        'PAGHAHA-MON NG AWAY O PAG-AAMOK NA NAGDULOT NG KAGULUHAN SA LOOB O LABAS NG PAARALAN'
     ),
     (
         3,
         'SECTION 2',
-        'Pambubully sa kahit sino sa paaralan:     - Maaring pasalitang pagbabanta, pananakot o malabis na panghihiya    - Sikolohikal o emosyonal    - Panunukso ng labis    - Pango-ngotong ng salapi o bagay    - Pagpigil sa kahit sino na makapasok sa pa'
+        'PAMBUBULLY SA KAHIT SINO SA PAARALAN: - MAARING PASALITANG PAGBABANTA, PANANAKOT O MALABIS NA PANGHIHIYA - SIKOLOHIKAL O EMOSYONAL - PANUNUKSO NG LABIS - PANGO-NGOTONG NG SALAPI O BAGAY - PAGPIGIL SA KAHIT SINO NA MAKAPASOK SA PA'
     ),
     (
         3,
         'SECTION 3',
-        'Pagmumura ng labis at pagsasalita ng may kabastusan na nakakasakit ng damdamin ng iba'
+        'PAGMUMURA NG LABIS AT PAGSASALITA NG MAY KABASTUSAN NA NAKAKASAKIT NG DAMDAMIN NG IBA'
     ),
     (
         3,
         'SECTION 4',
-        'Sekswal na pang-aabuso:    - Maaring pasalita    - Panghihipo sa maseselang bahagi    - Pagpapakita ng ari    - Panggagahasa o anupamang nasa sa probisyon ng CPP'
+        'SEKSUAL NA PANG-AABUSO: - MAARING PASALITA - PANGHIHIPO SA MASESELANG BAHAGI - PAGPAPAKITA NG ARI - PANGGAGAHASA O ANUPAMANG NASA SA PROBISYON NG CPP'
     ),
     (
         3,
         'SECTION 5',
-        'Pananakit ng kapwa estudyante o guro.'
+        'PANANAKIT NG KAPWA ESTUDYANTE O GURO.'
     ),
     (
         3,
         'SECTION 6',
-        'Pagpatay sa kapuwa estudyante o sinuman sa paaralan'
+        'PAGPATAY SA KAPWA ESTUDYANTE O SINUMAN SA PAARALAN'
     ),
     (
         3,
         'SECTION 7',
-        'Kawalang galang sa mga guro at kawani ng paaralan at pananakit sa sinuman dito'
+        'KAWALANG GALANG SA MGA GURO AT KAWANI NG PAARALAN AT PANANAKIT SA SINUMAN DITO'
     ),
     (
         3,
         'SECTION 8',
-        'Pagsali sa fraternity o sorority na nagdudulot ng pahamak o kaguluhan sa kapuwa estudyante'
+        'PAGSALI SA FRATERNITY O SORORITY NA NAGDUDULOT NG PAHA-MAK O KAGULUHAN SA KAPWA ESTUDYANTE'
     ),
     (
         3,
         'SECTION 9',
-        'Pagsisimula ng rambol o riot sa loob at labas ng paaralan na ikinapahamak ng sinuman dito. '
+        'PAGSISIMULA NG RAMBOL O RIOT SA LOOB AT LABAS NG PAARALAN NA IKINAPAHAMAK NG SINUMAN DITO.'
     ),
     (
         3,
         'SECTION 10',
-        'Pagkakasangkot sa inisyasyon o hazing na maaring ikamatay ng kapwa estudyante at depende sa naging epekto nito sa biktima'
+        'PAKAKASANGKOT SA INISYASYON O HAZING NA MAARING IKAMATAY NG KAPWA ESTUDYANTE AT DEPENDE SA NAGING EPEKTO NITO SA BIKTIMA'
     ),
     (
         3,
         'SECTION 11',
-        'Pagpapalaganap ng mga mahahalay na materyal'
+        'PAGPAPALAGANAP NG MGA MAHAHALE NA MATERYAL'
     ),
     (
         4,
         'SECTION 1',
-        'Pagsosolicit sa labas ng paaralan ng hindi legal at pinapayagan nito.'
+        'PAGSOSOLICIT SA LABAS NG PAARALAN NG HINDI LEGAL AT PINAPAYAGAN NITO.'
     ),
     (
         4,
         'SECTION 2',
-        'Panloloko o panlilinlang sa magulang o tagapamatnubay sa mga inaprubahang gawain at koleksyon sa paaralan kung mayroon man'
+        'PANLOLOKO O PANLILINLANG SA MAGULANG O TAGAPAMATNUBAY SA MGA INAPRUBAHANG GAWAIN AT KOLEKSIYON SA PAARALAN KUNG MAYROON MAN'
     ),
     (
         4,
         'SECTION 3',
-        'Pagbebenta ng tiket na hindi pinayagan ng pamunuan ng paaralan'
+        'PAGBEBENTA NG TIKET NA HINDI PINAYAGAN NG PAMUNUAN NG PAARALAN'
     ),
     (
         4,
         'SECTION 4',
-        'Pamemeke ng lagda ng kahit sino sa paaralan at paggamit nito sa kalokohan '
+        'PAMEMEKE NG LAGDA NG KAHIT SINO SA PAARALAN AT PAGGAMIT NITO SA KALOKOHAN '
     ),
     (
         4,
         'SECTION 5',
-        'Paggamit ng pangalan ng paaralan sa kalokohan o sa mga bagay na ikasisira ng maganda nitong imahe'
+        'PAGGAMIT NG PANGALAN NG PAARALAN SA KALOKOHAN O SA MGA BAGAY NA IKASISIRA NG MAGANDA NITONG IMAHE'
     );
 
 CREATE TABLE sanctions(
@@ -353,49 +353,48 @@ CREATE TABLE sanctions(
 ) ENGINE = InnoDB;
 
 INSERT INTO sanctions(`sanction`)
-VALUES ('Pagpapa-alaala'),
-    ('Pagkumpiska at pagpapatawag sa magulang'),
-    ('Pagdaan sa Programang Paggabay (Counseling)'),
+VALUES ('PAGPAPA-ALALA'),
+    ('PAGKUMPIKSA AT PAGPAPATAWAG SA MAGULANG'),
+    ('PAGDAAN SA PROGRAMANG PAGGABAY (COUNSELING)'),
     (
-        'Pagpasok sa Interbensyon at Programang Paggabay'
+        'PAGPASOK SA INTERBENSYON AT PROGRAMANG PAGGABAY'
     ),
     (
-        'Di-pagpasa sa mga asignatura dahil sa di pagpasok'
+        'DI-PAGPASA SA MGA ASIGNATURA DAHIL SA DI PAGPASOK'
     ),
-    ('Pagpapatawag at pagpapaliwanag ng magulang'),
+    ('PAGPAPATAWAG AT PAGPAPALIWANAG NG MAGULANG'),
     (
-        'Pagpapataw ng karampatang parusa na naaayon sa polisiya at batas'
+        'PAGPAPATAW NG KARAMPATANG PARUSA NA NAAAYON SA POLISIYA AT BATAS'
     ),
-    ('Suspensiyon na di lalampas ng limang araw'),
+    ('SUSPENSIYON NA DI LALAMPAS NG LIMANG ARAW'),
     (
-        'Suspensiyon na di lalampas ng limang araw at pagpasok sa Interbensyon at Programang Paggabay kasama ang magulang'
-    ),
-    (
-        'Ekspulsyon at di iisyuhan ng Certificate of Good Moral Character'
+        'SUSPENSIYON NA DI LALAMPAS NG LIMANG ARAW AT PAGPASOK SA INTERBENSYON AT PROGRAMANG PAGGABAY KASAMA ANG MAGULANG'
     ),
     (
-        'Pananagot sa Juvenile Delinquency Act of 2006 o RA 9344'
+        'EKSPULSYON AT DI IISYUHAN NG CERTIFICATE OF GOOD MORAL CHARACTER'
     ),
     (
-        'Paglilinis o pagpipintura ng lugar na dinumihan o sinulatan'
-    ),
-    ('Paglilinis ng palikuran'),
-    (
-        'Pagpapalit o pagbabayad ng halaga ng nasirang kagamitan'
-    ),
-    ('Pagpapasauli ng mga gamit na hiniram'),
-    (
-        'Pagpapalit o pagbabayad ng halaga ng di-naisauling LM o kagamitan'
+        'PANANAGOT SA JUVENILE DELINQUENCY ACT OF 2006 O RA 9344'
     ),
     (
-        'Pagpapatawag at pagpapaliwanag ng magulang, suspensiyon na di lalampas ng limang araw, at pagbabayad ng danyos'
+        'PAGLILINIS O PAGPIPINTURA NG LUGAR NA DINUMIHAN O SINULATAN'
+    ),
+    ('PAGLILINIS NG PALIKURAN'),
+    (
+        'PAGPAPALIT O PAGBABAYAD NG HALAGA NG NASIRANG KAGAMITAN'
+    ),
+    ('PAGPAPASAULI NG MGA Gamit NA HINIRAM'),
+    (
+        'PAGPAPALIT O PAGBABAYAD NG HALAGA NG DI-NAISAULING LM O KAGAMITAN'
     ),
     (
-        'Ekspulsyon at di iisyuhan ng Certificate of Good Moral Character at pananagot sa Batas ng Cyber Bullying kung kinakailangan'
+        'PAGPAPATAWAG AT PAGPAPALIWANAG NG MAGULANG, SUSPENSIYON NA DI LALAMPAS NG LIMANG ARAW, AT PAGBABAYAD NG DANYOS'
     ),
-    ('Pananagot sa R.A. 9344'),
-    ('Pananagot sa Batas na naaayon sa DSWD');
-;
+    (
+        'EKSPULSYON AT DI IISYUHAN NG CERTIFICATE OF GOOD MORAL CHARACTER AT PANANAGOT SA BATAS NG CYBER BULLYING KUNG KINAKAILANGAN'
+    ),
+    ('PANANAGOT SA R.A. 9344'),
+    ('PANANAGOT SA BATAS NA NAAAYON SA DSWD');
 
 CREATE TABLE violationLogs(
     violationLogID INT AUTO_INCREMENT PRIMARY KEY,

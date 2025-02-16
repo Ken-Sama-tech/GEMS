@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //utility instances ------------------------------
     const eventListener = new EventListener();
-    const debounce = new Debounce();
+    const util = new Debounce();
 
     //internal classes ---------------------------------
     class StudentDirectory {
@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (sortViaName.checked) {
                         if (dataOrderDsc.checked) {
-                            datas.sort((a, b) => b.lastName.localeCompare(a.lastName));
+                            datas.sort((a, b) => (b.lastName + ' ' + b.firstName + ' ' + b.middleName + ' ' + b.extensionName).localeCompare(a.lastName + ' ' + a.firstName + ' ' + a.middleName + ' ' + b.extensionName));
                         } else {
-                            datas.sort((a, b) => a.lastName.localeCompare(b.lastName));
+                            datas.sort((a, b) => (a.lastName + ' ' + a.firstName + ' ' + a.middleName + ' ' + a.extensionName).localeCompare(b.lastName + ' ' + b.firstName + ' ' + b.middleName + ' ' + b.extensionName));
                         }
                     }
 
@@ -140,21 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     const female = document.getElementById('filter-female');
                     const male = document.getElementById('filter-male');
 
-                    if (female.checked || male.checked) {
-                        if (male.checked && data.sex !== "MALE") {
-                            box.classList.add('d-none');
-                            box.setAttribute('data', 'hidden');
-                        }
+                    if (male.checked && data.sex == "FEMALE") {
+                        box.classList.add('d-none');
+                        box.setAttribute('data', 'hidden');
+                    }
 
-                        if (female.checked && data.sex !== "FEMALE") {
-                            box.classList.add('d-none');
-                            box.setAttribute('data', 'hidden');
-                        }
-
-                        if (female.checked && male.checked && data.name.includes(person)) {
-                            box.classList.remove('d-none');
-                            box.setAttribute('data', 'visible');
-                        }
+                    if (female.checked && data.sex == "MALE") {
+                        box.classList.add('d-none');
+                        box.setAttribute('data', 'hidden');
                     }
 
                     const personAdd = filterViaAddress.value.toUpperCase();
@@ -338,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const filteredName = convertedTheArrayBackToString;
 
-                        return { name: dataName, lrn: filteredName, row: tableRow }
+                        return { name: filteredName, lrn: dataLrn, row: tableRow }
 
                     });
 
@@ -399,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         constructor() {
             this.data = [];
+            this.tBody = document.getElementById('violation-log-tBody');
         }
 
         displayViolators(callback) {
@@ -407,21 +401,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const violators = () => {
 
-                const tBody = document.getElementById('violation-log-tBody');
-                tBody.innerHTML = '';
+                this.tBody.innerHTML = '';
 
                 serverReq.requestData(() => {
 
                     let data = serverReq.data;
 
-                    console.log(data)
-
-                    let rowNum = 0;
+                    let rowNum = 1;
                     const template = document.getElementById('violation-log-template');
 
                     this.data = data.map(d => {
 
                         const clone = template.content.cloneNode(true);
+
+                        const tr = clone.getElementById('VL-tr');
                         const row = clone.getElementById('row-num');
                         const lrn = clone.getElementById('lrn');
                         const name = clone.getElementById('name');
@@ -455,6 +448,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dViolation = `${isShowDescriptionChecked()}`;
                         const dDate = d.violationDate;
 
+                        const setClonedObjectAttribute = (() => {
+                            const arr = [tr, row, lrn, name, sex, violation, date];
+
+                            arr.forEach(item => { item.vID = d.vID; item.lrn = dLrn; item.name = dName });
+                        })();
+
                         row.textContent = rowNum++;
                         lrn.textContent = dLrn;
                         name.textContent = dName;
@@ -462,8 +461,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         violation.innerHTML = dViolation;
                         date.textContent = dDate;
 
-                        tBody.appendChild(clone);
+                        this.tBody.appendChild(clone);
+
+                        return { lrn: dLrn, name: dName, sex: dSex, violation: `ARTICLE ${d.article}, ${d.articleSection}, SANCTION: ${d.sanction}`, trow: tr }
                     });
+
+                    if (callback) {
+                        callback(this.data);
+                    }
 
                 });
             };
@@ -482,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //SD vars
     const profileBoxContainer = document.getElementById('std-profile-box-container');
     const stdDirSearch = document.getElementById('std-directory-search');
-    const dataOrders = document.querySelectorAll('[name = order]')
+    const dataOrders = document.querySelectorAll('[name = order]');
     const dataOrderDsc = document.getElementById('sort-dsc');
     const sortViaLrn = document.getElementById('sort-via-lrn');
     const sortViaName = document.getElementById('sort-via-name');
@@ -502,13 +507,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //Vl vars
     const VLSetting = document.querySelectorAll('[name = VL-setting]');
     const showViolationDescription = document.getElementById('VL-show-description');
-
-    console.log(VLSetting.length);
+    const VLInputs = document.querySelectorAll('[name = VL-input]');
+    const violationLogSearch = document.getElementById('VL-search');
+    const filterViaViolation = document.getElementById('VL-filter-violation');
+    const filterMale = document.getElementById('VL-filter-male');
+    const filterFemale = document.getElementById('VL-filter-female');
 
     // SD -------------------------------------------------------------------------------------------
     // search event ----------------------------------------------
     // search w/ debounce
-    const updateDSD = debounce.debounce(() => {
+    const updateDSD = util.debounce(() => {
         SD.search();
     }, 300);
 
@@ -550,11 +558,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ANS ------------------------------------------------------------------------------------------
     //search events ----------------------------------------------
     //debounce search event.
-    const updateEditableDisplay = debounce.debounce(() => {
+    const updateEditableDisplay = util.debounce(() => {
         showEditableData();
     }, 300);
 
-    const updateDeletableDisplay = debounce.debounce(() => {
+    const updateDeletableDisplay = util.debounce(() => {
         showDeletableData();
     }, 300);
 
@@ -584,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //ANV -------------------------------------------------------------------------------------------
     //search events ----------------------------------------------
     //debounce search event.
-    class AVSSearch extends AddNewViolator {
+    class ANVSSearch extends AddNewViolator {
 
         search() {
 
@@ -616,31 +624,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const AVSS = new AVSSearch();
+    const ANVSS = new ANVSSearch();
 
-    const updateAVSS = debounce.debounce(() => {
-        AVSS.search();
+    const updateANVSS = util.debounce(() => {
+        ANVSS.search();
     }, 300);
 
     if (addViolatorSearch) {
 
         eventListener.callEvent(addViolatorSearch, 'input', () => {
-            updateAVSS();
+            updateANVSS();
         });
 
         ANV.displayStudentOnTable();
         ANV.setSelectOptions('../../services/php/Violations.php');
     }
 
-    //VIOLATION LOG ---------------------------------------------------------------------------------
-    VL.displayViolators();
+    // VIOLATION LOG---------------------------------------------------------------------------------
+    class VLSearch extends ViolationLog {
 
-    VLSetting.forEach(cb => {
-        eventListener.callEvent(cb, 'change', () => {
+        search() {
+            this.displayViolators(() => {
+                const data = this.data;
 
-            VL.displayViolators();
+                const search = violationLogSearch.value.toUpperCase();
+                const filterViolation = filterViaViolation.value.toUpperCase();
 
+                data.forEach(d => {
+                    const tr = d.trow;
+
+                    tr.setAttribute('state', 'visible');
+
+                    if (!d.name.includes(search) && !d.lrn.toString().includes(search)) {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'hidden');
+                    }
+
+                    if (!d.violation.includes(filterViolation)) {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'hidden');
+                    }
+
+                    if (filterMale.checked && d.sex == 'FEMALE') {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'hidden');
+                    }
+
+                    if (filterFemale.checked && d.sex == 'MALE') {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'hidden');
+                    }
+                });
+
+                const result = document.querySelectorAll('[state = visible]');
+
+                if (result.length <= 0)
+                    this.tBody.innerHTML = '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+
+            });
+        }
+    }
+
+    const VLS = new VLSearch();
+
+    const updateVLS = util.debounce(() => {
+        VLS.search();
+    }, 300);
+
+    if (violationLogSearch) {
+
+        VL.displayViolators();
+
+        VLSetting.forEach(cb => {
+            eventListener.callEvent(cb, 'change', () => {
+
+                updateVLS();
+            });
         });
-    });
+
+        eventListener.callEvent(violationLogSearch, 'input', () => {
+            updateVLS();
+        });
+
+        VLInputs.forEach(inpt => {
+
+            eventListener.callEvent(inpt, 'input', () => {
+                updateVLS();
+            });
+        });
+    }
 
 });

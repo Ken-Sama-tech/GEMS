@@ -21,7 +21,7 @@
         <nav class="navbar border rounded-3 position-sticky top-0 bg-light w-100 z-2 ">
             <div class="container-fluid">
                 <div class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" name="VL-input" type="search" placeholder="Search" aria-label="Search" id="VL-search">
 
                     <div class="container position-relative w-25">
 
@@ -44,7 +44,7 @@
                             </li>
                             <li class="hdm-item">
                                 <label for="VL-filter-violation"> Violation </label>
-                                <input type="text" class="ms-4 w-75" id="VL-filter-violation">
+                                <input type="text" name="VL-input" class="ms-4 w-75" id="VL-filter-violation">
                             </li>
                             <h6>Additional Setting</h6>
                             <li class="hdm-item">
@@ -71,30 +71,32 @@
                     </tr>
                 </thead>
                 <tbody id="violation-log-tBody">
-
                 </tbody>
             </table>
             <!-- template -->
             <template id="violation-log-template">
-                <tr>
-                    <th scope="col" id="row-num">x</th>
-                    <td id="lrn">xxxxxxxxxxxxxx</td>
-                    <td id="name">xxxxxxxx xxxxxxxx xxxxxxxxxxxx</td>
-                    <td id="sex">xxxxxx</td>
-                    <td id="violation">Article x, Section x, xxxxxxxxxxxxx</td>
-                    <td id="date">yyyy-MM-dd</td>
+                <tr id="VL-tr" selected>
+                    <th selected scope="col" id="row-num">x</th>
+                    <td selected id="lrn"></td>
+                    <td selected id="name"></td>
+                    <td selected id="sex"></td>
+                    <td selected id="violation"></td>
+                    <td selected id="date"></td>
                 </tr>
             </template>
         </div>
 
     </div>
-
+    <!-- modals -->
+    <?php
+    require_once('../../includes/modals/modify_violation_modal.php');
+    ?>
+    <!-- script section here-->
+    <script src="../../includes/navbar/navbar.js"></script>
+    <script type="module" src="../script/script.js"></script>
+    <script type="module" src="../../controller/ViolationLogController.js"></script>
+    <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<!-- script section here-->
-<script src="../../includes/navbar/navbar.js"></script>
-<script type="module" src="../script/script.js"></script>
-<script type="module" src="../../controller/ViolationLogController.js"></script>
-<script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

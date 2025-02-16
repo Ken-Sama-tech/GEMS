@@ -74,6 +74,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         const pN = document.getElementById('std-pn');
         const cA = document.getElementById('std-ca');
         const pA = document.getElementById('std-pa');
+        const disability = document.getElementById('std-disability');
         const gdnName = document.getElementById('gdn-name');
         const gdnPn = document.getElementById('gdn-pn');
         const mthrName = document.getElementById('mthr-name');
@@ -83,7 +84,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         const fthrPn = document.getElementById('fthr-pn');
 
 
-        // lrn of the student you were going to fetch the data, its different from the lrn abovve this. I have bad naming sense
+        // lrn of the student you were going to fetch the data, its different from the lrn above this. I have a really bad naming sense
         const alsoLrn = e.target.getAttribute('lrn');
 
         const serverReq = new MakeServerRequest('../../services/php/FetchAllDataOfStdUsingLrn.php', 'lrn=' + encodeURIComponent(alsoLrn));
@@ -127,6 +128,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
             pN.innerHTML = `<span class="fw-bolder">Phone Number: </span> ${data.phoneNumber}`;
             cA.innerHTML = `<span class="fw-bolder">Current Address: </span> ${data.current_address}`;
             pA.innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${data.permanent_address}`;
+            disability.innerHTML = `<span class="fw-bolder">Disability: </span> ${data.disability}`;
 
             //family details
 

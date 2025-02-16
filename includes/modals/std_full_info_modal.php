@@ -28,6 +28,7 @@
                             <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1" id="std-pn">Phone Number: </p>
                             <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1" id="std-ca">Current Address:</p>
                             <p class=" h-100 col-12 col-md-6 col-lg-6 text-break border ps-1" id="std-pa">Permanent Address:</p>
+                            <p class=" h-100 col-12 text-break border ps-1" id="std-disability">Disability: </p>
 
                             <h3 class="h3 col-12 text-center">Family Information</h3>
 
