@@ -29,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const template = document.getElementById('profile-box-temp');
 
-                    if (sortViaLrn.checked) {
-                        if (dataOrderDsc.checked) {
-                            datas.sort((a, b) => b.learnerReferenceNumber - a.learnerReferenceNumber);
-                        } else {
-                            datas.sort((a, b) => a.learnerReferenceNumber - b.learnerReferenceNumber);
-                        }
-                    }
+                    // if (sortViaLrn.checked) {
+                    //     if (dataOrderDsc.checked) {
+                    //         datas.sort((a, b) => b.learnerReferenceNumber - a.learnerReferenceNumber);
+                    //     } else {
+                    //         datas.sort((a, b) => a.learnerReferenceNumber - b.learnerReferenceNumber);
+                    //     }
+                    // }
 
                     if (sortViaName.checked) {
                         if (dataOrderDsc.checked) {

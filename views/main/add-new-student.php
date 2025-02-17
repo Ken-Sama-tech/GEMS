@@ -265,7 +265,7 @@
                             <td id="td-lrn" class="text-break"></td>
                             <td id="td-name"></td>
                             <td id="td-sex"></td>
-                            <td> <button class="btn btn-outline-danger" id="dlt-btn" data-bs-toggle="modal" data-bs-target="#yes-no-modal">DELETE</button> </td>
+                            <td> <button class="btn btn-outline-danger" id="dlt-btn">DELETE</button> </td>
                         </tr>
                     </template>
                 </table>
@@ -281,7 +281,7 @@
     <!-- script section here-->
     <script type="module" src="../script/script.js"></script>
     <script src="../../includes/navbar/navbar.js"></script>
-    <script type="module" src="../../controller/AddNewStudentController.js"></script>
+    <script type="module" src="../../controllers/AddNewStudentController.js"></script>
     <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -48,14 +48,14 @@
                                     </div>
                                 </li>
                                 <div class="dropdown-divider"></div>
-                                <li>
+                                <!-- <li>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="order" id="sort-via-lrn">
                                         <label class="form-check-label" for="sort-via-lrn">
                                             LRN
                                         </label>
                                     </div>
-                                </li>
+                                </li> -->
                                 <li>
                                     <div class="form-check">
                                         <input class="form-check-input" checked type="checkbox" name="order" id="sort-via-name">
@@ -150,7 +150,7 @@
     <!-- script section here-->
     <script type="module" src="../script/script.js"></script>
     <script src="../../includes/navbar/navbar.js"></script>
-    <script type="module" src="../../controller/StudentDirectoryController.js"></script>
+    <script type="module" src="../../controllers/StudentDirectoryController.js"></script>
     <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

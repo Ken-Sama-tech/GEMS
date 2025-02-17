@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.globalEvent('dblclick', '[selected]', e => {
 
         const modalText = document.getElementById('modify-violation-warning');
-        modalText.innerHTML = `Modify this record associated with <b>${e.target.name}</b> (${e.target.lrn})`;
+        modalText.innerHTML = `Modify this record associated with <b>${e.target.name}</b> (${e.target.lrn})?`;
 
         violationModifierModal.show();
     });

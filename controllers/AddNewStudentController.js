@@ -161,6 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error(data.error);
                     modalText.setAttribute('class', 'text-danger');
 
+                    event.globalEvent('click', '#closeServerPromt', () => {
+                        modal.hide();
+                    });
+
                     eventListener.callEvent(okayBtn, 'click', () => {
                         modal.hide();
                     });
@@ -281,8 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
         addEdDel.editForm('../../services/php/EditStudentData.php', form);
     });
 
+    const yesNoModal = new bootstrap.Modal('#yes-no-modal');
+
     //delete btn
     event.globalEvent('click', '#dlt-btn', e => {
+        yesNoModal.show();
 
         const yesBtn = document.getElementById('yes');
         yesBtn.classList.add('btn-danger');
@@ -295,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const yesBtnAction = yesBtn.getAttribute('act');
 
         if (yesBtnAction == 'del-std') {
+
             eventListener.callEvent(yesBtn, 'click', () => {
                 yesBtn.classList.remove('btn-danger');
 

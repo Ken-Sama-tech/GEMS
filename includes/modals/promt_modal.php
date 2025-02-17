@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5 " id="staticBackdropLabel">Server Response</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeServerPromt"></button>
             </div>
             <div class="modal-body">
                 <h5 id="staticModalBody"></h5>

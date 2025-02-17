@@ -46,7 +46,7 @@ class Sanitizers
             $allowedImgExt = ['jpeg', 'jpg', 'png'];
 
             if (!in_array($img_type, $allowedImgTypes) || !in_array($img_ext, $allowedImgExt)) {
-                throw new Exception('Invalid image type, or not a jpg or png');
+                throw new Exception('Invalid image type. Only a jpg or png is accepted');
             }
 
             if ($img_size > 5 * 1024 * 1024) {
