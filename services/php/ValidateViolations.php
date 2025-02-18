@@ -63,7 +63,6 @@ class Validate extends DataBaseHost
 
             $conn->commit();
 
-
             $result = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -111,7 +110,7 @@ class Validate extends DataBaseHost
         }
     }
 
-    public function idk()
+    public function validateAll()
     {
         $this->validateArticle();
         $this->validateSection();
@@ -123,5 +122,5 @@ class Validate extends DataBaseHost
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validate = new Validate($_POST['article'], $_POST['section'], $_POST['sanction']);
-    $validate->idk();
+    $validate->validateAll();
 }

@@ -90,6 +90,7 @@
     <!-- modals -->
     <?php
     require_once('../../includes/modals/modify_violation_modal.php');
+    require_once('../../includes/modals/edit_violation_record_modal.php');
     ?>
     <!-- script section here-->
     <script src="../../includes/navbar/navbar.js"></script>
