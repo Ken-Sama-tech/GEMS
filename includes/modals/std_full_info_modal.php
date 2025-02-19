@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
 
-                <div class="container d-flex justify-content-center align-items-center z-3  rounded-3 bg-light b" id="modal-profile-box">
+                <div class="container d-flex justify-content-center align-items-center z-3  rounded-3 bg-light" id="modal-profile-box">
                     <div class="row m-auto d-flex">
                         <div class="col-12 d-flex justify-content-center align-items-center">
                             <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100">

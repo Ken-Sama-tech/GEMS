@@ -163,6 +163,25 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #fffacd;
 }
 
+#VL-tr:hover {
+  cursor: pointer;
+}
+
+/* dashboard */
+#cards-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
+  gap: 0 20px;
+}
+
+#card {
+  width: 150px;
+  border: 1px solid red;
+}
+
 /* --------------------------------------------- */
 
 @media screen and (max-width: 767px) {

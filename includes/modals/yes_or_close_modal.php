@@ -7,6 +7,7 @@
             </div>
             <div class="modal-body">
                 <h6 id="custom-modal-text"></h6>
+                <p id="custom-modal-paragraph"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -12,7 +12,7 @@
                         <section id="section-description"> </section>
                         <section id="sanction-description"> </section>
                     </div>
-                    <input type="hidden" name="vID" class="col-12">
+                    <input type="hidden" name="vID" id="vID" class="col-12">
 
                     <div class="container d-flex justify-content-around gap-2">
                         <div class="col-6">
@@ -31,8 +31,10 @@
                     </div>
 
                     <div class="col-12 m-2">
+                        <label for="vDate" class="form-label">Violation Date</label>
+                        <input type="date" name="vDate" id="vDate" class="form-control">
                         <label for="sanction" class="form-label">Sanction:</label>
-                        <select name="sanction" id="sanction" class="form-select">
+                        <select name="sanction" id="sanction" class="form-select col-12">
                             <option value="0" id="option">Select Sanction</option>
                         </select>
                     </div>
@@ -41,7 +43,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-primary" id="save-vChanges">Save Changes</button>
             </div>
         </div>
     </div>

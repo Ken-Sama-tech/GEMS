@@ -83,8 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         profileBoxContainer.appendChild(clone);
 
-                        console.log(name);
-
                         const removeExtraWhiteSpaces = (param) => {
 
                             const arry = param.split(' ');
@@ -713,5 +711,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // DASHBOARD ------------------------------------------------------------------------------------
+
+
 
 });
