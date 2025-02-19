@@ -22,9 +22,9 @@
                 <button class="nav-link text-capitalized" id="nav-delete" data-bs-toggle="tab" data-bs-target="#nav-delete-student" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">delete student </button>
             </div>
         </nav>
-        <div class="tab-content border-bottom overflow-y-auto h-100" id="nav-tabContent">
+        <div class="tab-content border-bottom overflow-y-auto h-100 remove-scroll-bar" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-add-student" role="tabpanel" aria-labelledby="nav-add-student" tabindex="0">
-                <form class="container-fluid h-100 py-4 px-3 d-flex flex-column needs-validation" id="add-std-form" method="post" novalidate>
+                <form class="container-fluid h-100 py-4 px-3 d-flex flex-column needs-validation remove-scroll-bar" id="add-std-form" method="post" novalidate>
                     <h2 class="text-center mb-4">Add New Student</h2>
 
                     <!-- Student Information -->

@@ -111,7 +111,7 @@
         </nav>
 
         <!--student directory body-->
-        <div class="container-fluid rounded-4 overflow-y-auto border h-100 p-3 d-flex flex-column gap-2" id="std-profile-box-container">
+        <div class="container-fluid rounded-4 overflow-y-auto border h-100 p-3 d-flex flex-column gap-2 remove-scroll-bar" id="std-profile-box-container">
         </div>
         <template id="profile-box-temp">
             <!-- student profile boxes or whatever this is  -->

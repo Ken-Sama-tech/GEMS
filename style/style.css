@@ -14,8 +14,16 @@
 }
 
 /* apply to all */
+.remove-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
 #container {
   height: fit-content;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 html {
@@ -37,10 +45,6 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 #submit-new-std-info {
@@ -169,18 +173,18 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* dashboard */
-#cards-container {
-  width: 100%;
-  height: fit-content;
+
+#cards-section {
+  height: 180px;
+  overflow-x: auto;
   display: flex;
-  flex-wrap: nowrap;
-  overflow: auto;
-  gap: 0 20px;
+  align-items: center;
+  gap: 0 1rem;
 }
 
-#card {
-  width: 150px;
-  border: 1px solid red;
+#cards {
+  height: 150px;
+  flex: 0 0 300px;
 }
 
 /* --------------------------------------------- */

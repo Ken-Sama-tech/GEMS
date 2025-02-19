@@ -35,7 +35,7 @@
                         <th class="col-1 text-center">Sex</th>
                     </tr>
                 </thead>
-                <tbody id="ANV-tbody" class="overflow-auto">
+                <tbody id="ANV-tbody" class="overflow-auto remove-scroll-bar">
 
                 </tbody>
 
@@ -50,7 +50,7 @@
                 </template>
             </table>
 
-            <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center text-nowrap overflow-auto" id="name-holder"></div>
+            <div class="container col-12 col-md-8 col-lg-7 border-bottom border-success justify-self-center text-nowrap overflow-auto remove-scroll-bar" id="name-holder"></div>
 
             <div class="container-fluid rounded-1 my-2 p-1 overflow-y-auto flex-grow border border-1" id="violator-form-container">
                 <form method="post" id="add-violator-form" class="container-fluid p-2  h-100">
