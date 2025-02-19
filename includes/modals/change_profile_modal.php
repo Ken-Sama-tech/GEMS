@@ -8,6 +8,7 @@
             <div class="modal-body">
                 <form method="post" id="upload-form">
                     <input type="hidden" name="lrn" id="upload-form-lrn">
+                    <p>It would be better if the image is 1:1 aspect ratio.</p>
                     <div>
                         <label for="upload-std-img" class="form-label">Upload Image</label>
                         <input class="form-control form-control-lg" id="upload-std-img" name="img" type="file">

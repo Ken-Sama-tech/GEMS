@@ -36,7 +36,7 @@
         private $father_extension_name;
         private $father_phone_number;
 
-        public function __construct($std_data, $image)
+        public function __construct($std_data)
         {
             try {
                 require_once "../../includes/utils/php/sanitizer.inc.php";

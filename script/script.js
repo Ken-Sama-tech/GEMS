@@ -1,8 +1,8 @@
-import MakeServerRequest from "../../services/js/ServerRequests";
+import MakeServerRequest from "../services/js/ServerRequests";
 import {
     EventListener,
     Debounce
-} from "../../includes/utils/js/domHelper";
+} from "../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
 

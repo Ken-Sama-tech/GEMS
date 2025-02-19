@@ -94,7 +94,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="edit-disability" class="form-label">Disability</label>
-                                <input type="text" id="edit-disability" name="disability" class="form-control" placeholder="Nationality">
+                                <input type="text" id="edit-disability" name="disability" class="form-control" placeholder="Disability">
                             </div>
                         </div>
 

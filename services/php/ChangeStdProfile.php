@@ -8,6 +8,7 @@ class UploadStudentProfile extends DataBaseHost
 
     private $img;
     private $lrn;
+
     public function __construct($lrn, $img)
     {
         try {

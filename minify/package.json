@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "minify:js": "uglifyjs .././views/script/script.js/ -c -m -o .././views/script/script.min.js"
+    "minify:js": "uglifyjs .././script/script.js/ -c -m -o .././script/script.min.js"
   },
   "author": "wsp",
   "license": "ISC",
