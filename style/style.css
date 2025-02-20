@@ -19,7 +19,7 @@
 }
 
 #container {
-  height: fit-content;
+  height: auto;
 }
 
 html::-webkit-scrollbar {
@@ -185,6 +185,28 @@ input[type="number"]::-webkit-outer-spin-button {
 #cards {
   height: 150px;
   flex: 0 0 300px;
+}
+
+/* registration */
+#reg-main-container {
+  height: 90%;
+}
+
+#reg-upper-section,
+#reg-lower-section {
+  height: calc(50% - 10px);
+}
+
+#drop-container {
+  height: 100%;
+  flex: 1 1 150px;
+  border: 1px solid black;
+}
+
+#select-grade-section,
+#select-grade-level {
+  all: unset;
+  border-bottom: 1px solid black;
 }
 
 /* --------------------------------------------- */
