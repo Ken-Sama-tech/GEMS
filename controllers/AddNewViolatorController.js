@@ -60,12 +60,10 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
     const selectSection = document.getElementById('article-section');
     const selectSanction = document.getElementById('sanction');
     const violationDate = document.getElementById('violation-date');
+    const nameHolder = document.getElementById('name-holder');
 
     //table tr's double click event
     event.globalEvent('dblclick', '[selected]', e => {
-
-        const nameHolder = document.getElementById('name-holder');
-        const trsWithSelectedAttribute = document.querySelectorAll('[selected]');
 
         const name = e.target.name;
         const lrn = e.target.lrn;
@@ -76,6 +74,8 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
         violatorStdID.value = stdId;
 
+        const trsWithSelectedAttribute = document.querySelectorAll('[selected]');
+
         trsWithSelectedAttribute.forEach(tr => {
 
             if (tr.lrn === e.target.lrn) {
@@ -83,18 +83,6 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
             } else {
                 tr.classList.remove('bg-warning');
             }
-
-        });
-
-        eventListener.callEvent(nameHolder, 'dblclick', () => {
-
-            nameHolder.textContent = '';
-
-            trsWithSelectedAttribute.forEach(tr => {
-                tr.classList.remove('bg-warning');
-            });
-
-            violatorStdID.value = '';
 
         });
     });
@@ -162,6 +150,16 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         selectSection.value = 0;
         selectSanction.value = 0;
         violationDate.value = '';
+
+        nameHolder.textContent = '';
+
+        const trsWithSelectedAttribute = document.querySelectorAll('[selected]');
+
+        trsWithSelectedAttribute.forEach(tr => {
+            tr.classList.remove('bg-warning');
+        });
+
+        violatorStdID.value = '';
     });
 
     //submit btn

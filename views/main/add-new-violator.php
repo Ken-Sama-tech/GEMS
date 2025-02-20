@@ -90,7 +90,7 @@
 
                     <div class="row col-12 p-2 d-flex flex-wrap">
                         <button class="btn btn-primary col-5 col-md-4 me-2 overflow-hidden text-nowrap text-truncate" id="show-details">Show Details</button>
-                        <button class="btn btn-secondary col-5 col-md-4" id="reset-violations">Reset</button>
+                        <button class="btn btn-secondary col-5 col-md-4" id="reset-violations">Cancel</button>
                     </div>
 
                     <div class="row col-12 p-2">

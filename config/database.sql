@@ -415,3 +415,58 @@ CREATE TABLE violationLogs(
     FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID),
     FOREIGN KEY (studentID) REFERENCES studentInfo(studentID)
 ) ENGINE = InnoDB;
+--
+--
+--
+CREATE TABLE gradeLevels(
+    gradeLevelID INT AUTO_INCREMENT PRIMARY KEY,
+    educationLevel ENUM('JR HIGH', 'SR HIGH'),
+    gradeLevel VARCHAR(255) NOT NULL
+) ENGINE = InnoDB;
+
+INSERT INTO gradeLevels(`educationLevel`, `gradelevel`)
+VALUES ('JR HIGH', 'GRADE 7'),
+    ('JR HIGH', 'GRADE 8'),
+    ('JR HIGH', 'GRADE 9'),
+    ('JR HIGH', 'GRADE 10'),
+    ('SR HIGH', 'GRADE 11'),
+    ('SR HIGH', 'GRADE 12');
+
+--
+--
+--
+
+CREATE TABLE IF NOT EXISTS `gradesections` (
+  `sectionID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `gradeLevelID` int DEFAULT NULL,
+  `section` varchar(255) DEFAULT NULL,
+
+  INDEX idx_of_grade_level_id(gradeLevelID),
+  FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID)
+) ENGINE=InnoDB;
+
+
+INSERT INTO `gradesections` ( `gradeLevelID`, `section`) VALUES
+(6, 'CASTILLO'),
+(6, 'LAZATIN'),
+(6, 'MACARAEG'),
+(6, 'GALUPE'),
+(6, 'SALVIEJO'),
+(5, 'ERMITANIO'),
+(5, 'VALEROSO'),
+(5, 'HILARION'),
+(5, 'MAGBALOT');
+--
+--
+--
+CREATE TABLE registration(
+    registrationID INT AUTO_INCREMENT PRIMARY KEY,
+    registrationDate DATE,
+    studentID INT,
+    gradeSectionID INT,
+    schoolYear VARCHAR(10),
+
+    INDEX idx_of_student_id(studentID),
+    INDEX idx_of_grade_section_id(gradeSectionID),
+    FOREIGN KEY(studentID)
+)ENGINE = InnoDB;
