@@ -54,21 +54,18 @@
                     </template>
                 </table>
             </section>
-            <section id="reg-lower-section" class=" d-flex gap-1 border border-primary flex-wrap">
-                <div id="drop-box" class="col-md-6 col-12">
+
+            <section id="reg-lower-section" class=" d-flex gap-1 flex-wrap">
+                <div id="drop-box" class="col-md-6 col-12 border">
 
                     <form method="post" class="h-100 d-flex flex-column" id="registration-first-form">
 
-                        <select name="" id="select-grade-level" class="w-100">
-                            <option value="">example</option>
-                            <option value="">example</option>
-                            <option value="">example</option>
+                        <select name="" id="select-grade-level" class="w-100 border-bottom ps-2">
+                            <option value="0">Select Grade Level</option>
                         </select>
 
-                        <select name="" id="select-grade-section" class="w-100">
-                            <option value="">example</option>
-                            <option value="">example</option>
-                            <option value="">example</option>
+                        <select name="" id="select-grade-section" class="w-100 border-bottom ps-2">
+                            <option value="0">Select Section</option>
                         </select>
 
                         <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
@@ -78,14 +75,29 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-12 col-md-6" id="drop-box"></div>
-                <div class="col-12 col-md-6" id="drop-box"></div>
-                <div class="col-12 col-md-6" id="drop-box"></div>
-                <div class="col-12 col-md-6" id="drop-box"></div>
 
                 <template id="drop-box-template">
-                    <div id="drop-box">
+                    <div id="drop-box" class="col-md-6 col-12 border">
+                        <form method="post" class="h-100 d-flex flex-column" id="registration-first-form">
 
+                            <select name="" id="select-grade-level" class="w-100">
+                                <option value="">example</option>
+                                <option value="">example</option>
+                                <option value="">example</option>
+                            </select>
+
+                            <select name="" id="select-grade-section" class="w-100">
+                                <option value="">example</option>
+                                <option value="">example</option>
+                                <option value="">example</option>
+                            </select>
+
+                            <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                                <table class="table h-100 w-100" id="first-form-table">
+
+                                </table>
+                            </div>
+                        </form>
                     </div>
                 </template>
             </section>

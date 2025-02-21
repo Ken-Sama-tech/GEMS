@@ -15,24 +15,28 @@ class ViolationLogs extends DataBaseHost
     public function fetchRecord()
     {
 
-        $conn = $this->connect();
-        $conn->beginTransaction();
+        try {
+            $conn = $this->connect();
+            $conn->beginTransaction();
 
-        $sql = "SELECT * FROM violationLogs WHERE violationLogID = :vID";
+            $sql = "SELECT * FROM violationLogs WHERE violationLogID = :vID";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':vID', $this->vID);
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':vID', $this->vID);
 
-        $stmt->execute();
-        $conn->commit();
+            $stmt->execute();
+            $conn->commit();
 
-        $result = [];
+            $result = [];
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result = $row;
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $result = $row;
+            }
+
+            JsonEncoder::jsonEncode($result);
+        } catch (Exception $e) {
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }
-
-        JsonEncoder::jsonEncode($result);
     }
 }
 

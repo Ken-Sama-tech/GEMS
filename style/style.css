@@ -191,19 +191,19 @@ input[type="number"]::-webkit-outer-spin-button {
 #reg-main-container {
   height: 100%;
   overflow-y: auto;
-  border: 1px solid red;
 }
 
 #reg-upper-section,
 #reg-lower-section {
   height: calc(50% - 10px);
+  display: flex;
+  justify-content: center;
 }
 
 #drop-box {
   height: 100%;
   flex: 1 1 200px;
-  border: 1px solid black;
-  max-width: auto;
+  max-width: 400px;
   overflow-x: auto;
 }
 
@@ -232,10 +232,11 @@ input[type="number"]::-webkit-outer-spin-button {
   overflow-x: hidden;
   text-wrap: nowrap;
 }
-/* 
-#first-form-table > tr > td {
 
-} */
+#first-form-table > tr > td {
+  font-size: 1rem;
+  font-weight: 600;
+}
 
 /* --------------------------------------------- */
 

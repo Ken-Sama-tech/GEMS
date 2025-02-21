@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     event.globalEvent('dragstart', '[selected]', e => {
 
         let selected = e.target.closest('tr');
-
         selected.classList.add('bg-warning');
 
         evntLi.callEvent(dropFirstForm, 'dragover', e => {

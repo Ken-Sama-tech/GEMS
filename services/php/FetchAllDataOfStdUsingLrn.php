@@ -14,21 +14,26 @@ class CheckStudentDataBeforeEdit extends DataBaseHost
 
     public function checkStdLrn()
     {
-        $conn = $this->connect();
-        $conn->beginTransaction();
+        try {
 
-        $sql = "SELECT * FROM `studentInfo` WHERE learnerReferenceNumber = :lrn";
+            $conn = $this->connect();
+            $conn->beginTransaction();
 
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = [];
+            $sql = "SELECT * FROM `studentInfo` WHERE learnerReferenceNumber = :lrn";
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result = $row;
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':lrn', $this->std_lrn, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = [];
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $result = $row;
+            }
+
+            JsonEncoder::jsonEncode($result);
+        } catch (Exception $e) {
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }
-
-        JsonEncoder::jsonEncode($result);
     }
 }
 

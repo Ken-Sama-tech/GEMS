@@ -779,11 +779,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
+        setRegistrationSelectOption() {
+
+            const serverReq = new MakeServerRequest('../../services/php/GradeLevels.php');
+            const selectGradeLevel = document.getElementById('select-grade-level');
+
+            serverReq.requestData(() => {
+
+                let data = serverReq.data;
+
+                console.log(data);
+                data.forEach(d => {
+
+                    selectGradeLevel.innerHTML += `<option id="option" value="${d.gradeLevelID}"> ${d.educationLevel} ${d.gradeLevel}`;
+                });
+            })
+        }
     }
 
     //instances 
     const reg = new Registration();
 
     reg.displayStudent();
+    reg.setRegistrationSelectOption();
 
 });
