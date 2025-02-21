@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const stdDirSearch = document.getElementById('std-directory-search');
     const dataOrders = document.querySelectorAll('[name = order]');
     const dataOrderDsc = document.getElementById('sort-dsc');
-    const sortViaLrn = document.getElementById('sort-via-lrn');
+    // const sortViaLrn = document.getElementById('sort-via-lrn');
     const sortViaName = document.getElementById('sort-via-name');
     const stdDirFilter = document.querySelectorAll('[name = filter]');
     const filterViaAddress = document.getElementById('filter-address');
@@ -712,6 +712,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // DASHBOARD ------------------------------------------------------------------------------------
+    // Registration ------------------------------------------------------------------------------------
+
+    //classes -----------------------------------------------------------
+    class Registration {
+
+        constructor() {
+            this.data = [];
+            this.tBody = document.getElementById('reg-tBody');
+        }
+
+        displayStudent(callback) {
+
+            const serverReq = new MakeServerRequest('../../services/php/AllStdData.php');
+            const template = document.getElementById('reg-table-template');
+
+
+            const removeWhiteExtraWhiteSpace = (param) => {
+
+                const arr = param.split(' ');
+
+                const filter = arr.filter(str => {
+                    if (str !== '')
+                        return str;
+                });
+
+                const string = filter.join(' ');
+
+                return string;
+            };
+
+            serverReq.requestData(() => {
+
+                let data = serverReq.data;
+
+                let num = 1;
+
+                this.data = data.map(d => {
+
+                    const clone = template.content.cloneNode(true);
+
+                    const tr = clone.querySelector('.reg-tr');
+                    const rowNum = clone.getElementById('row-num');
+                    const lrn = clone.getElementById('reg-td-lrn');
+                    const name = clone.getElementById('reg-td-name');
+                    const sex = clone.getElementById('reg-td-sex');
+
+                    const dLrn = d.learnerReferenceNumber;
+                    const dName = removeWhiteExtraWhiteSpace(`${d.firstName} ${d.middleName} ${d.lastName} ${d.extensionName}`);
+                    const dSex = d.sex;
+
+                    rowNum.textContent = num++;
+                    lrn.textContent = dLrn;
+                    name.textContent = dName;
+                    sex.textContent = dSex;
+
+                    tr.sID = d.studentID;
+                    tr.name = dName;
+                    tr.lrn = dLrn;
+
+                    this.tBody.appendChild(clone);
+                });
+
+                if (callback) {
+                    callback(this.data);
+                }
+            });
+        }
+    }
+
+    //instances 
+    const reg = new Registration();
+
+    reg.displayStudent();
 
 });

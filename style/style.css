@@ -189,7 +189,9 @@ input[type="number"]::-webkit-outer-spin-button {
 
 /* registration */
 #reg-main-container {
-  height: 90%;
+  height: 100%;
+  overflow-y: auto;
+  border: 1px solid red;
 }
 
 #reg-upper-section,
@@ -197,10 +199,12 @@ input[type="number"]::-webkit-outer-spin-button {
   height: calc(50% - 10px);
 }
 
-#drop-container {
+#drop-box {
   height: 100%;
-  flex: 1 1 150px;
+  flex: 1 1 200px;
   border: 1px solid black;
+  max-width: auto;
+  overflow-x: auto;
 }
 
 #select-grade-section,
@@ -209,14 +213,43 @@ input[type="number"]::-webkit-outer-spin-button {
   border-bottom: 1px solid black;
 }
 
+#unreg-stds-table {
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+#first-form-table > tr > th,
+#first-form-table > tr > #reg-td-sex {
+  display: none;
+}
+
+#first-form-table > tr {
+  border-bottom: 1px solid black;
+  display: flex;
+  gap: 0 5px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  text-wrap: nowrap;
+}
+/* 
+#first-form-table > tr > td {
+
+} */
+
 /* --------------------------------------------- */
 
 @media screen and (max-width: 767px) {
   #container {
     margin-top: 40px;
   }
+
   #std-profile-link {
     margin: 10px 0;
+  }
+
+  #reg-lower-section {
+    overflow-y: auto;
   }
 }
 

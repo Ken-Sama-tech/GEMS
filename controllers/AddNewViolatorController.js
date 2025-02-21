@@ -74,17 +74,17 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
 
         violatorStdID.value = stdId;
 
-        const trsWithSelectedAttribute = document.querySelectorAll('[selected]');
+        const trs = document.querySelectorAll('#ANV-table-row');
 
-        trsWithSelectedAttribute.forEach(tr => {
-
-            if (tr.lrn === e.target.lrn) {
-                tr.classList.add('bg-warning');
-            } else {
-                tr.classList.remove('bg-warning');
-            }
-
+        trs.forEach(tr => {
+            tr.classList.remove('bg-warning');
         });
+
+        let selected = e.target.closest('tr');
+
+        if (selected.lrn == lrn) {
+            selected.classList.add('bg-warning');
+        }
     });
 
     //show details

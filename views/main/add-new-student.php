@@ -278,12 +278,12 @@
     require_once('../../includes/modals/edit_std_modal.php');
     require_once('../../includes/modals/promt_modal.php');
     ?>
-    <!-- script section here-->
-    <script type="module" src="../../script/script.js"></script>
-    <script src="../../includes/navbar/navbar.js"></script>
-    <script type="module" src="../../controllers/AddNewStudentController.js"></script>
-    <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- script section here-->
+<script type="module" src="../../script/script.js"></script>
+<script src="../../includes/navbar/navbar.js"></script>
+<script type="module" src="../../controllers/AddNewStudentController.js"></script>
+<script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

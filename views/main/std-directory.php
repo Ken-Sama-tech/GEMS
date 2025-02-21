@@ -148,11 +148,11 @@
     require_once('../../includes/modals/std_full_info_modal.php')
     ?>
     <!-- script section here-->
-    <script type="module" src="../../script/script.js"></script>
-    <script src="../../includes/navbar/navbar.js"></script>
-    <script type="module" src="../../controllers/StudentDirectoryController.js"></script>
-    <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<script type="module" src="../../script/script.js"></script>
+<script src="../../includes/navbar/navbar.js"></script>
+<script type="module" src="../../controllers/StudentDirectoryController.js"></script>
+<script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
