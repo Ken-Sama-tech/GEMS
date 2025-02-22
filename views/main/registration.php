@@ -20,7 +20,7 @@
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input id="reg-search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
             </div>
         </nav>
@@ -55,51 +55,107 @@
                 </table>
             </section>
 
-            <section id="reg-lower-section" class=" d-flex gap-1 flex-wrap">
+            <section id="reg-lower-section" class="d-flex gap-1 flex-wrap">
+
+                <!-- first form -->
                 <div id="drop-box" class="col-md-6 col-12 border">
+                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
-                    <form method="post" class="h-100 d-flex flex-column" id="registration-first-form">
-
-                        <select name="" id="select-grade-level" class="w-100 border-bottom ps-2">
+                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
                             <option value="0">Select Grade Level</option>
                         </select>
 
-                        <select name="" id="select-grade-section" class="w-100 border-bottom ps-2">
+                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
                             <option value="0">Select Section</option>
                         </select>
 
                         <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                            <table class="table h-100 w-100" id="first-form-table">
+                            <table class="table h-100 w-100" id="form-table">
 
                             </table>
                         </div>
                     </form>
                 </div>
 
-                <template id="drop-box-template">
-                    <div id="drop-box" class="col-md-6 col-12 border">
-                        <form method="post" class="h-100 d-flex flex-column" id="registration-first-form">
+                <!-- second form -->
+                <div id="drop-box" class="col-md-6 col-12 border">
+                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
-                            <select name="" id="select-grade-level" class="w-100">
-                                <option value="">example</option>
-                                <option value="">example</option>
-                                <option value="">example</option>
-                            </select>
+                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
+                            <option value="0">Select Grade Level</option>
+                        </select>
 
-                            <select name="" id="select-grade-section" class="w-100">
-                                <option value="">example</option>
-                                <option value="">example</option>
-                                <option value="">example</option>
-                            </select>
+                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
+                            <option value="0">Select Section</option>
+                        </select>
 
-                            <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                                <table class="table h-100 w-100" id="first-form-table">
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table h-100 w-100" id="form-table">
 
-                                </table>
-                            </div>
-                        </form>
-                    </div>
-                </template>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- third form  -->
+                <div id="drop-box" class="col-md-6 col-12 border">
+                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
+
+                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
+                            <option value="0">Select Grade Level</option>
+                        </select>
+
+                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
+                            <option value="0">Select Section</option>
+                        </select>
+
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table h-100 w-100" id="form-table">
+
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- fourth form  -->
+                <div id="drop-box" class="col-md-6 col-12 border">
+                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
+
+                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
+                            <option value="0">Select Grade Level</option>
+                        </select>
+
+                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
+                            <option value="0">Select Section</option>
+                        </select>
+
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table h-100 w-100" id="form-table">
+
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- fifth form  -->
+                <div id="drop-box" class="col-md-6 col-12 border">
+                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
+
+                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
+                            <option value="0">Select Grade Level</option>
+                        </select>
+
+                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
+                            <option value="0">Select Section</option>
+                        </select>
+
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table h-100 w-100" id="form-table">
+
+                            </table>
+                        </div>
+                    </form>
+                </div>
             </section>
         </div>
     </div>

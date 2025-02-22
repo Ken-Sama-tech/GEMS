@@ -7,23 +7,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const evntLi = new EventListener();
     const event = new GlobalEventListeners();
 
-    const dropFirstForm = document.getElementById('first-form-table');
+    const dropArea = document.querySelectorAll('#form-table');
 
-    event.globalEvent('dragstart', '[selected]', e => {
+    const allowDropping = () => {
 
-        let selected = e.target.closest('tr');
-        selected.classList.add('bg-warning');
+        const selected = document.querySelectorAll('[selected]');
+    }
 
-        evntLi.callEvent(dropFirstForm, 'dragover', e => {
+    const checkIfFormAllowedDroping = () => {
 
-            e.preventDefault();
+        const forms = document.querySelectorAll('#registration-form');
+
+        forms.forEach(form => {
+
+            const gradeLev = form.querySelector('#select-grade-level');
+            const gardeSec = form.querySelector('#select-grade-section');
+
+            const dropBox = form.closest('#drop-box');
+
+            if (gradeLev.value != 0 && gardeSec.value != 0) {
+
+                dropBox.classList.add('border-dark')
+                form.dropping = "allowed";
+            } else {
+                dropBox.classList.remove('border-dark');
+                form.dropping = "not-allowed";
+            }
         });
+    };
 
-        evntLi.callEvent(dropFirstForm, 'drop', e => {
+    const selects = document.querySelectorAll('[reg-form-select]');
 
-            selected.classList.remove('bg-warning');
-            dropFirstForm.appendChild(selected);
+    selects.forEach(select => {
 
+        evntLi.callEvent(select, 'change', () => {
+
+            checkIfFormAllowedDroping();
         });
-    });
+    })
+
 });

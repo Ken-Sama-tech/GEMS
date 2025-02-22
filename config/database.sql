@@ -454,7 +454,7 @@ INSERT INTO `gradesections` ( `gradeLevelID`, `section`) VALUES
 (6, 'SALVIEJO'),
 (5, 'ERMITANIO'),
 (5, 'VALEROSO'),
-(5, 'HILARION'),
+(5, 'HILARIO'),
 (5, 'MAGBALOT');
 --
 --

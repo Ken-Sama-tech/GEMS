@@ -767,9 +767,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     name.textContent = dName;
                     sex.textContent = dSex;
 
-                    tr.sID = d.studentID;
-                    tr.name = dName;
-                    tr.lrn = dLrn;
+                    const idk = [tr, rowNum, lrn, name, sex];
+                    idk.forEach(i => {
+                        i.lrn = dLrn;
+                        i.name = dName;
+                        i.sex = dSex;
+                        i.sID = d.studentID;
+                    })
 
                     this.tBody.appendChild(clone);
                 });
@@ -780,10 +784,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        setRegistrationSelectOption() {
+        setRegistrationGradeLevelOption() {
 
             const serverReq = new MakeServerRequest('../../services/php/GradeLevels.php');
-            const selectGradeLevel = document.getElementById('select-grade-level');
+            const selectGradeLevel = document.querySelectorAll('#select-grade-level');
 
             serverReq.requestData(() => {
 
@@ -792,9 +796,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(data);
                 data.forEach(d => {
 
-                    selectGradeLevel.innerHTML += `<option id="option" value="${d.gradeLevelID}"> ${d.educationLevel} ${d.gradeLevel}`;
+                    selectGradeLevel.forEach(select => {
+                        select.innerHTML += `<option id="option" value="${d.gradeLevelID}"> ${d.educationLevel} ${d.gradeLevel}`;
+                    });
                 });
             })
+        }
+
+        setSectionsForEachGrade() {
+
+            const serverReq = new MakeServerRequest('../../services/php/Sections.php');
+
+            serverReq.requestData(() => {
+
+                let data = serverReq.data;
+
+                const selectSection = document.querySelectorAll('#select-grade-section');
+
+                data.forEach(d => {
+                    selectSection.forEach(select => {
+                        select.innerHTML += `<option id="option" value="${d.sectionID}"> ${d.section}</option> `;
+                    });
+                });
+            });
         }
     }
 
@@ -802,6 +826,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const reg = new Registration();
 
     reg.displayStudent();
-    reg.setRegistrationSelectOption();
+    reg.setRegistrationGradeLevelOption();
+    reg.setSectionsForEachGrade();
 
+    //vars
+    const regSearch = document.getElementById('reg-search');
+
+    eventListener.callEvent(regSearch, 'input', (e) => {
+
+        reg.displayStudent();
+        console.log(e.target.value)
+    });
 });

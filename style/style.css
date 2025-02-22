@@ -203,7 +203,6 @@ input[type="number"]::-webkit-outer-spin-button {
 #drop-box {
   height: 100%;
   flex: 1 1 200px;
-  max-width: 400px;
   overflow-x: auto;
 }
 
@@ -219,13 +218,12 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100%;
 }
 
-#first-form-table > tr > th,
-#first-form-table > tr > #reg-td-sex {
+#form-table > tr > th,
+#form-table > tr > #reg-td-sex {
   display: none;
 }
 
-#first-form-table > tr {
-  border-bottom: 1px solid black;
+#form-table > tr {
   display: flex;
   gap: 0 5px;
   text-overflow: ellipsis;
@@ -233,7 +231,7 @@ input[type="number"]::-webkit-outer-spin-button {
   text-wrap: nowrap;
 }
 
-#first-form-table > tr > td {
+#form-table > tr > td {
   font-size: 1rem;
   font-weight: 600;
 }
