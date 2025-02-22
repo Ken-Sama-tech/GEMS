@@ -99,7 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         return {
-                            name: removeExtraWhiteSpaces(name), lrn: lrn, elem: profileBox, sex: data.sex, currAdd: currAdd, permAdd: permAdd
+                            name: removeExtraWhiteSpaces(name),
+                            lrn: lrn,
+                            elem: profileBox,
+                            sex: data.sex,
+                            currAdd: currAdd,
+                            permAdd: permAdd
                         };
                     });
 
@@ -216,7 +221,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         parent.appendChild(clone);
 
-                        return { lrn: dataLrn, name: convertDataNameBackToString, tr: clonedTr };
+                        return {
+                            lrn: dataLrn,
+                            name: convertDataNameBackToString,
+                            tr: clonedTr
+                        };
                     });
 
                     if (callback) {
@@ -329,7 +338,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         const filteredName = convertedTheArrayBackToString;
 
-                        return { name: filteredName, lrn: dataLrn, row: tableRow }
+                        return {
+                            name: filteredName,
+                            lrn: dataLrn,
+                            row: tableRow
+                        }
 
                     });
 
@@ -449,7 +462,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         const setClonedObjectAttribute = (() => {
                             const arr = [tr, row, lrn, name, sex, violation, date];
 
-                            arr.forEach(item => { item.vID = d.vID; item.lrn = dLrn; item.name = dName });
+                            arr.forEach(item => {
+                                item.vID = d.vID;
+                                item.lrn = dLrn;
+                                item.name = dName
+                            });
                         })();
 
                         row.textContent = rowNum++;
@@ -461,7 +478,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         this.tBody.appendChild(clone);
 
-                        return { lrn: dLrn, name: dName, sex: dSex, violation: `ARTICLE ${d.article}, ${d.articleSection}, SANCTION: ${d.sanction}`, trow: tr }
+                        return {
+                            lrn: dLrn,
+                            name: dName,
+                            sex: dSex,
+                            violation: `ARTICLE ${d.article}, ${d.articleSection}, SANCTION: ${d.sanction}`,
+                            trow: tr
+                        }
                     });
 
                     if (callback) {

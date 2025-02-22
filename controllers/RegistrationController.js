@@ -1,5 +1,8 @@
 import MakeServerRequest from "../services/js/ServerRequests";
-import { EventListener, GlobalEventListeners } from "../includes/utils/js/domHelper";
+import {
+    EventListener,
+    GlobalEventListeners
+} from "../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -7,14 +10,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const evntLi = new EventListener();
     const event = new GlobalEventListeners();
 
-    const dropArea = document.querySelectorAll('#form-table');
+    const allowDataDragging = () => {
 
-    const allowDropping = () => {
-
+        const forms = document.querySelectorAll('#registration-form');
         const selected = document.querySelectorAll('[selected]');
+
+        selected.forEach(select => {
+
+            let tr = null;
+
+            evntLi.callEvent(select, 'dragstart', (e) => {
+
+                tr = e.target.closest('tr');
+
+                forms.forEach(form => {
+
+                    evntLi.callEvent(form, 'dragover', e => {
+                        e.preventDefault();
+                    });
+
+                    evntLi.callEvent(form, 'drop', () => {
+                        const table = form.querySelector('#form-table');
+
+                        if (tr !== null && form.dropping === "allowed")
+                            table.appendChild(tr);
+
+                        tr = null;
+                    });
+                });
+            });
+        });
     }
 
-    const checkIfFormAllowedDroping = () => {
+    const isFormAlledDropping = () => {
 
         const forms = document.querySelectorAll('#registration-form');
 
@@ -29,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 dropBox.classList.add('border-dark')
                 form.dropping = "allowed";
+                allowDataDragging();
             } else {
                 dropBox.classList.remove('border-dark');
                 form.dropping = "not-allowed";
@@ -42,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         evntLi.callEvent(select, 'change', () => {
 
-            checkIfFormAllowedDroping();
+            isFormAlledDropping();
         });
     })
 
