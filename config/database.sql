@@ -21,7 +21,7 @@ CREATE TABLE studentInfo(
     email VARCHAR(50) NOT NULL,
     civilStatus ENUM(
         'SINGLE',
-        'TAKEN',
+        'IN A RELATIONSHIP',
         'MARRIED',
         'DIVORCED',
         'WIDOWED'
@@ -47,43 +47,33 @@ CREATE TABLE studentInfo(
     fatherExtensionName VARCHAR(50),
     fatherPhoneNumber VARCHAR(50)
 ) ENGINE = InnoDB;
-
 --
 --
 --
-
 CREATE TABLE articles(
     articleID INT AUTO_INCREMENT PRIMARY KEY,
     studentID INT,
     article VARCHAR(255),
     articleDescription VARCHAR(255),
-
     INDEX idx_of_student_id (studentID),
     FOREIGN KEY (studentID) REFERENCES studentInfo(studentID)
-)   ENGINE = InnoDB;
-
-INSERT INTO articles 
-(`article`, `articleDescription`)
-VALUES 
-('A', 'PAGLABAG SA AKADEMIKONG PAG-UNLAD'),
-('B', 'PAGLABAS SA KILOS NG PAGIGING MAG-AARAL'),
-('C', 'PAGLABAG SA KARAPATAN NG IBA'),
-('D', 'PAGLABAG SA KARANGALAN NG PAARALAN');
-
+) ENGINE = InnoDB;
+INSERT INTO articles (`article`, `articleDescription`)
+VALUES ('A', 'PAGLABAG SA AKADEMIKONG PAG-UNLAD'),
+    ('B', 'PAGLABAS SA KILOS NG PAGIGING MAG-AARAL'),
+    ('C', 'PAGLABAG SA KARAPATAN NG IBA'),
+    ('D', 'PAGLABAG SA KARANGALAN NG PAARALAN');
 --
 --
 --
-
 CREATE TABLE articleSections(
     articleSectionID INT AUTO_INCREMENT PRIMARY KEY,
     articleID INT,
     articleSection VARCHAR(255),
     articleSectionDescription VARCHAR(255),
-
     INDEX idx_of_article_id (articleID),
     FOREIGN KEY (articleID) REFERENCES articles(articleID)
 ) ENGINE = InnoDB;
-
 INSERT INTO articleSections(
         `articleID`,
         `articleSection`,
@@ -346,12 +336,10 @@ VALUES (
         'SECTION 5',
         'PAGGAMIT NG PANGALAN NG PAARALAN SA KALOKOHAN O SA MGA BAGAY NA IKASISIRA NG MAGANDA NITONG IMAHE'
     );
-
 CREATE TABLE sanctions(
     sanctionID INT AUTO_INCREMENT PRIMARY KEY,
     sanction VARCHAR(255)
 ) ENGINE = InnoDB;
-
 INSERT INTO sanctions(`sanction`)
 VALUES ('PAGPAPA-ALALA'),
     ('PAGKUMPIKSA AT PAGPAPATAWAG SA MAGULANG'),
@@ -395,21 +383,18 @@ VALUES ('PAGPAPA-ALALA'),
     ),
     ('PANANAGOT SA R.A. 9344'),
     ('PANANAGOT SA BATAS NA NAAAYON SA DSWD');
-
 CREATE TABLE violationLogs(
     violationLogID INT AUTO_INCREMENT PRIMARY KEY,
     studentID INT,
     articleID INT,
-    articleSectionID INT, 
+    articleSectionID INT,
     sanctionID INT,
     violationDate DATE DEFAULT NULL,
     lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
     INDEX idx_of_article_id (articleID),
     INDEX idx_of_article_section_id (articleSectionID),
     INDEX idx_of_sanction_Id (sanctionID),
     INDEX idx_of_student_id (studentID),
-
     FOREIGN KEY (articleID) REFERENCES articles(articleID),
     FOREIGN KEY (articleSectionID) REFERENCES articleSections(articleSectionID),
     FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID),
@@ -423,7 +408,6 @@ CREATE TABLE gradeLevels(
     educationLevel ENUM('JR HIGH', 'SR HIGH'),
     gradeLevel VARCHAR(255) NOT NULL
 ) ENGINE = InnoDB;
-
 INSERT INTO gradeLevels(`educationLevel`, `gradelevel`)
 VALUES ('JR HIGH', 'GRADE 7'),
     ('JR HIGH', 'GRADE 8'),
@@ -431,31 +415,33 @@ VALUES ('JR HIGH', 'GRADE 7'),
     ('JR HIGH', 'GRADE 10'),
     ('SR HIGH', 'GRADE 11'),
     ('SR HIGH', 'GRADE 12');
-
 --
 --
 --
-
 CREATE TABLE IF NOT EXISTS `gradesections` (
-  `sectionID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `gradeLevelID` int DEFAULT NULL,
-  `section` varchar(255) DEFAULT NULL,
-
-  INDEX idx_of_grade_level_id(gradeLevelID),
-  FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID)
-) ENGINE=InnoDB;
-
-
-INSERT INTO `gradesections` ( `gradeLevelID`, `section`) VALUES
-(6, 'CASTILLO'),
-(6, 'LAZATIN'),
-(6, 'MACARAEG'),
-(6, 'GALUPE'),
-(6, 'SALVIEJO'),
-(5, 'ERMITANIO'),
-(5, 'VALEROSO'),
-(5, 'HILARIO'),
-(5, 'MAGBALOT');
+    `sectionID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `gradeLevelID` int DEFAULT NULL,
+    `section` varchar(255) DEFAULT NULL,
+    INDEX idx_of_grade_level_id(gradeLevelID),
+    FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID)
+) ENGINE = InnoDB;
+INSERT INTO `gradesections` (`gradeLevelID`, `section`)
+VALUES (6, 'CASTILLO'),
+    (6, 'LAZATIN'),
+    (6, 'MACARAEG'),
+    (6, 'GALUPE'),
+    (6, 'SALVIEJO'),
+    (5, 'ERMITANIO'),
+    (5, 'VALEROSO'),
+    (5, 'HILARIO'),
+    (5, 'MAGBALOT');
+--
+--
+--
+CREATE TABLE schoolYears(
+    schoolYearID INT AUTO_INCREMENT PRIMARY KEY,
+    schoolYear VARCHAR(10) NOT NULL,
+) ENGINE = InnoDB;
 --
 --
 --
@@ -464,9 +450,10 @@ CREATE TABLE registration(
     registrationDate DATE,
     studentID INT,
     gradeSectionID INT,
-    schoolYear VARCHAR(10),
-
+    schoolYearID INT,
     INDEX idx_of_student_id(studentID),
     INDEX idx_of_grade_section_id(gradeSectionID),
-    FOREIGN KEY(studentID)
-)ENGINE = InnoDB;
+    FOREIGN KEY(studentID) REFERENCES studentInfo(studentID),
+    FOREIGN KEY(gradeSectionID) REFERENCES gradesections(sectionID),
+    FOREIGN KEY(schoolYearID) REFERENCES schoolYears(schoolYearID)
+) ENGINE = InnoDB;

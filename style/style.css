@@ -190,6 +190,7 @@ input[type="number"]::-webkit-outer-spin-button {
 /* registration */
 #reg-main-container {
   height: 100%;
+  padding-bottom: 1rem;
   overflow-y: auto;
 }
 
@@ -213,22 +214,28 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #unreg-stds-table {
-  table-layout: fixed;
-  height: 100%;
   width: 100%;
+  height: fit-content;
 }
 
-#form-table > tr > th,
-#form-table > tr > #reg-td-sex {
+#form-table,
+#form-table > tbody {
+  width: 100%;
+  height: fit-content;
+}
+
+#form-table > tbody > tr > th,
+#form-table > tbody > tr > #reg-td-sex {
   display: none;
 }
 
-#form-table > tr {
+#form-table > tbody > tr {
   display: flex;
   gap: 0 5px;
   text-overflow: ellipsis;
   overflow-x: hidden;
   text-wrap: nowrap;
+  width: 100%;
 }
 
 #form-table > tr > td {

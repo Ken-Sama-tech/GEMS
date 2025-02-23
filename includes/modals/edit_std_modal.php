@@ -63,7 +63,7 @@
                                 <label for="edit-civilStatus" class="form-label">Civil Status</label>
                                 <select id="edit-civilStatus" name="civilStatus" class="form-select">
                                     <option value="SINGLE">Single</option>
-                                    <option value="TAKEN">Taken</option>
+                                    <option value="IN A RELATIONSHIP">IN A RELATIONSHIP</option>
                                     <option value="MARRIED">Married</option>
                                     <option value="DIVORCED">Divorced</option>
                                     <option value="WIDOWED">Widowed</option>

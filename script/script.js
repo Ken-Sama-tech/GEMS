@@ -790,13 +790,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     name.textContent = dName;
                     sex.textContent = dSex;
 
-                    const idk = [tr, rowNum, lrn, name, sex];
-                    idk.forEach(i => {
-                        i.lrn = dLrn;
-                        i.name = dName;
-                        i.sex = dSex;
-                        i.sID = d.studentID;
-                    })
+                    tr.sID = d.studentID;
 
                     this.tBody.appendChild(clone);
                 });
@@ -816,7 +810,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let data = serverReq.data;
 
-                console.log(data);
                 data.forEach(d => {
 
                     selectGradeLevel.forEach(select => {

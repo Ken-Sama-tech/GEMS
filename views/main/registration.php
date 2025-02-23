@@ -69,9 +69,9 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                        <div class="w-100 h-100 overflow-x-auto ">
                             <table class="table h-100 w-100" id="form-table">
-
+                                <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
                     </form>
@@ -89,9 +89,9 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                        <div class="w-100 h-100 overflow-x-auto">
                             <table class="table h-100 w-100" id="form-table">
-
+                                <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
                     </form>
@@ -109,9 +109,9 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                        <div class="w-100 h-100 overflow-x-auto ">
                             <table class="table h-100 w-100" id="form-table">
-
+                                <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
                     </form>
@@ -129,9 +129,9 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                        <div class="w-100 h-100 overflow-x-auto">
                             <table class="table h-100 w-100" id="form-table">
-
+                                <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
                     </form>
@@ -149,14 +149,18 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                        <div class="w-100 h-100 overflow-x-auto">
                             <table class="table h-100 w-100" id="form-table">
-
+                                <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
                     </form>
                 </div>
             </section>
+        </div>
+
+        <div class="col-12 my-2">
+            <button id="reg-btn" class="btn btn-primary w-100">Register</button>
         </div>
     </div>
 </body>
