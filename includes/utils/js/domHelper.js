@@ -13,7 +13,7 @@ export class GlobalEventListeners {
     globalEvent(type, selector, func) {
         document.addEventListener(type, e => {
             if (e.target.matches(selector)) {
-                func(e);
+                return func(e);
             }
         });
     }
@@ -35,3 +35,34 @@ export class Debounce {
         }
     }
 }
+
+//
+export const throttle = (func, wait = 1000) => {
+
+    let shouldWait = false;
+    let waitingArgs;
+
+    const timeoutFunc = () => {
+        if (waitingArgs == null)
+            shouldWait = false
+        else {
+
+            func(...waitingArgs)
+            waitingArgs = null;
+
+            setTimeout(timeoutFunc, wait);
+        }
+    }
+
+    return (...args) => {
+        if (shouldWait) {
+            waitingArgs = args;
+            return;
+        }
+
+        func(...args)
+        shouldWait = true;
+
+        setTimeout(timeoutFunc, wait);
+    }
+};

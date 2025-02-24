@@ -2,7 +2,8 @@ import MakeServerRequest from "../services/js/ServerRequests";
 import {
     EventListener,
     GlobalEventListeners,
-    Debounce
+    Debounce,
+    throttle,
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const allowDataDragging = () => {
 
         const forms = document.querySelectorAll('#registration-form');
-        const selected = document.querySelectorAll('[selected]');
 
         forms.forEach(form => {
 
@@ -29,81 +29,94 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            if (form.dropping === "allowed") {
+            if (form.dropping == "allowed") {
 
                 form.querySelectorAll('tr').forEach(tr => {
 
-                    if (tr.state == 'dropped')
-                        tr.classList.remove('bg-danger', 'text-light');
+                    tr.classList.remove('bg-danger', 'text-light');
                 });
             }
 
         });
 
-        selected.forEach(select => {
+        let tr = null;
 
-            let tr = null;
+        const handleDragStart = e => {
+            tr = e.target.closest('tr');
+            tr.state = "dragging";
+            tr.classList.add('bg-warning');
 
-            evntLi.callEvent(select, 'dragstart', () => {
+            if (tr.dragging == 'true')
+                return;
 
-                tr = select.closest('tr');
-                tr.state = "dragging";
-                tr.classList.add('bg-warning');
+            tr.dragging = 'true';
 
-                if (tr !== null) {
+            if (tr !== null) {
+                const upperSection = document.getElementById('reg-upper-section');
+                const tBody = upperSection.querySelector('#reg-tBody');
 
-                    const upperSection = document.getElementById('reg-upper-section');
 
-                    evntLi.callEvent(upperSection, 'dragover', e => {
-                        e.preventDefault();
-                    });
+                function handleUpperDragOver(e) {
 
-                    evntLi.callEvent(upperSection, 'drop', () => {
-
-                        if (tr !== null) {
-                            const tBody = upperSection.querySelector('#reg-tBody');
-                            tBody.appendChild(tr);
-                        }
-                    });
-
-                    forms.forEach(form => {
-
-                        if (form.dropping == "allowed") {
-
-                            evntLi.callEvent(form, 'dragover', e => {
-                                e.preventDefault();
-                            });
-
-                            evntLi.callEvent(form, 'drop', () => {
-                                const table = form.querySelector('#form-tBody');
-
-                                if (tr !== null && form.dropping === "allowed") {
-                                    table.appendChild(tr);
-                                    tr.state = "dropped";
-                                }
-                            });
-                        }
-                    });
+                    e.preventDefault();
                 }
-            });
 
-            evntLi.callEvent(select, 'dragend', e => {
+                function handleUpperDrop() {
+                    if (tr !== null) {
+                        tBody.appendChild(tr);
+                        upperSection.removeEventListener('dragover', handleUpperDragOver);
+                        upperSection.removeEventListener('drop', handleUpperDrop);
+                    }
+                }
+
+                upperSection.addEventListener('dragover', handleUpperDragOver);
+                upperSection.addEventListener('drop', handleUpperDrop);
+
+                forms.forEach(form => {
+                    if (form.dropping == "allowed") {
+
+                        function handleFormDragOver(e) {
+                            e.preventDefault();
+                        }
+
+                        function handleFormDrop() {
+                            const table = form.querySelector('#form-tBody');
+                            if (tr !== null && form.dropping === "allowed") {
+                                table.appendChild(tr);
+                                tr.state = "dropped";
+                                form.removeEventListener('dragover', handleFormDragOver);
+                                form.removeEventListener('drop', handleFormDrop);
+                            }
+                        }
+
+                        form.addEventListener('dragover', handleFormDragOver);
+                        form.addEventListener('drop', handleFormDrop);
+                    }
+                });
+            }
+
+            evntLi.callEvent(tr, 'dragend', () => {
+
+                e.target.removeEventListener('dragstart', handleDragStart);
                 updateDragging();
                 updateRowOrder();
+
                 if (tr !== null) {
+                    tr.dragging = 'false';
                     tr.classList.remove('bg-warning');
-                    tr = null;
                 }
             });
-        });
+        };
+
+        event.globalEvent('dragstart', '[selected]', handleDragStart)
+
     }
 
-    const updateDragging = dbnc.debounce(() => {
-
+    const updateDragging = throttle(() => {
         allowDataDragging();
-    }, 100);
+    }, 10);
 
-    const isFormAlledDropping = () => {
+    const isFormAllowedDropping = () => {
 
         const forms = document.querySelectorAll('#registration-form');
 
@@ -133,11 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         evntLi.callEvent(select, 'change', () => {
 
-            isFormAlledDropping();
+            isFormAllowedDropping();
         });
     });
 
     const updateRowOrder = dbnc.debounce(() => {
+
         const table = document.getElementById('unreg-stds-table');
         const content = table.querySelector('tbody');
         let rows = [...content.querySelectorAll('tr')];
@@ -149,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
         rows.forEach(row => {
             content.appendChild(row);
         });
-
     });
 
     const isGradeLevelAndSectionValid = (gradeLevel, section) => {
@@ -160,7 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let data = serverReq.data;
 
-            console.log(data)
+            if (data.gradeLevel !== 'valid')
+                throw new Error('Invalid gradelevel');
+
+            if (data.section !== 'valid')
+                throw new Error('Invalid section');
+
         });
     };
 

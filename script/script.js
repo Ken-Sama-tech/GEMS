@@ -804,11 +804,11 @@ document.addEventListener('DOMContentLoaded', () => {
         setRegistrationGradeLevelOption() {
 
             const serverReq = new MakeServerRequest('../../services/php/GradeLevels.php');
-            const selectGradeLevel = document.querySelectorAll('#select-grade-level');
 
             serverReq.requestData(() => {
 
                 let data = serverReq.data;
+                const selectGradeLevel = document.querySelectorAll('#select-grade-level');
 
                 data.forEach(d => {
 
@@ -820,20 +820,36 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setSectionsForEachGrade() {
-
             const serverReq = new MakeServerRequest('../../services/php/Sections.php');
 
             serverReq.requestData(() => {
 
                 let data = serverReq.data;
 
-                const selectSection = document.querySelectorAll('#select-grade-section');
+                const forms = [...document.querySelectorAll('#registration-form')];
 
-                data.forEach(d => {
-                    selectSection.forEach(select => {
-                        select.innerHTML += `<option id="option" value="${d.sectionID}"> ${d.section}</option> `;
+                const sectionsForEachForm = (index) => {
+
+                    const gradeLev = forms[index].querySelector('#select-grade-level');
+                    const gradeSec = forms[index].querySelector('#select-grade-section');
+
+                    eventListener.callEvent(gradeLev, 'change', () => {
+
+                        sectionsForEachForm(index);
                     });
-                });
+
+                    gradeSec.innerHTML = '<option id="option" value="0">Select Section</option>';
+
+                    data.forEach(d => {
+                        if (gradeLev.value != d.gradeLevelID)
+                            return
+                        gradeSec.innerHTML += `<option id="option" value="${d.sectionID}">${d.section}</option>`;
+                    });
+                }
+
+                for (let i = 0; i < forms.length; i++) {
+                    sectionsForEachForm([i]);
+                }
             });
         }
     }
@@ -842,8 +858,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const reg = new Registration();
 
     reg.displayStudent();
-    reg.setRegistrationGradeLevelOption();
     reg.setSectionsForEachGrade();
+    reg.setRegistrationGradeLevelOption();
 
     //vars
     const regSearch = document.getElementById('reg-search');

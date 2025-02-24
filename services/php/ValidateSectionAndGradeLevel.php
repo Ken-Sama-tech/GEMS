@@ -41,7 +41,7 @@ class Validate extends DataBaseHost
             if (count($result) <= 0)
                 throw new Exception('Invalid Grade Level');
             else
-                $this->validity['gradeLevel'] = 'Valid Grade Level';
+                $this->validity['gradeLevel'] = 'valid';
         } catch (Exception $e) {
             $this->validity['gradeLevel'] = $e->getMessage();
         }
@@ -71,7 +71,7 @@ class Validate extends DataBaseHost
             if (count($result) <= 0)
                 throw new Exception('Invalid Section');
             else
-                $this->validity['section'] = 'Valid Section';
+                $this->validity['section'] = 'valid';
         } catch (Exception $e) {
             $this->validity['section'] = $e->getMessage();
         }

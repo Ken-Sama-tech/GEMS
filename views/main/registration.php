@@ -70,7 +70,7 @@
                         </select>
 
                         <div class="w-100 h-100 overflow-x-auto ">
-                            <table class="table h-100 w-100" id="form-table">
+                            <table class="table h-100 w-100 border-bottom" id="form-table">
                                 <tbody id="form-tBody"></tbody>
                             </table>
                         </div>

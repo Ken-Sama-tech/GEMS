@@ -238,9 +238,10 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 100%;
 }
 
-#form-table > tr > td {
+#form-table > tbody > tr > td {
   font-size: 1rem;
   font-weight: 600;
+  width: 100%;
 }
 
 /* --------------------------------------------- */
