@@ -2,6 +2,15 @@
 
 require_once('../../config/database.php');
 require_once('../../includes/utils/php/jsonEncoder.inc.php');
+require_once('../../includes/utils/php/tableValidator.php');
+
+//validate if table exist
+$validate = new Validator();
+$validate->isTableExist('violationLogs');
+$validate->isTableExist('studentInfo');
+$validate->isTableExist('articles');
+$validate->isTableExist('articleSections');
+$validate->isTableExist('sanctions');
 
 class FetchViolators extends DataBaseHost
 {

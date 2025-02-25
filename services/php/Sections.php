@@ -1,9 +1,11 @@
 <?php
 
-use Random\Engine\Secure;
-
 require_once('../../config/database.php');
 require_once('../../includes/utils/php/jsonEncoder.inc.php');
+require_once('../../includes/utils/php/tableValidator.php');
+
+$validate = new Validator();
+$validate->isTableExist('gradeSections');
 
 class Sections extends DataBaseHost
 {

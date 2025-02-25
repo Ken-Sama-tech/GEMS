@@ -18,6 +18,7 @@ export default class MakeServerRequest {
             }
 
             const data = await response.json();
+
             this.data = data;
 
             if (callback) {
@@ -45,6 +46,7 @@ export default class MakeServerRequest {
             }
 
             const data = await response.json();
+
             this.data = data;
 
             if (callback) {
@@ -71,6 +73,7 @@ export default class MakeServerRequest {
             }
 
             const data = await response.json();
+
             this.data = data;
 
             if (callback) {

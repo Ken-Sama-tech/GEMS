@@ -18,7 +18,7 @@ class DataBaseHost
             );
             return  $conn;
         } catch (PDOException $e) {
-            echo json_encode('connection failed' . $e->getMessage());
+            echo json_encode(['exception' => $e->getMessage()]);
             die();
         }
     }

@@ -3,6 +3,11 @@
 require_once('../../config/database.php');
 require_once('../../includes/utils/php/sanitizer.inc.php');
 require_once('../../includes/utils/php/jsonEncoder.inc.php');
+require_once('../../includes/utils/php/tableValidator.php');
+
+//validate if table exist
+$validate = new Validator();
+$validate->isTableExist('violationLogs');
 
 class AddViolator extends DataBaseHost
 {
@@ -23,8 +28,8 @@ class AddViolator extends DataBaseHost
 
     public function add()
     {
-
         try {
+
             if (empty($this->stdId)) {
                 throw new Error('No student selected');
             }
@@ -48,6 +53,7 @@ class AddViolator extends DataBaseHost
             JsonEncoder::jsonEncode(['success' => 'Violator successfully added']);
         } catch (Error $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
+            die();
         }
     }
 }

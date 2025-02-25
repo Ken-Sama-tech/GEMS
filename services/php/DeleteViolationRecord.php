@@ -3,6 +3,12 @@
 require_once('../../config/database.php');
 require_once('../../includes/utils/php/jsonEncoder.inc.php');
 
+require_once('../../includes/utils/php/tableValidator.php');
+
+//validate if table exist
+$validate = new Validator();
+$validate->isTableExist('violationLogs');
+
 class ViolationRecord extends DataBaseHost
 {
     private $vID;

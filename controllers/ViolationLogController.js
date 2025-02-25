@@ -103,6 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let data = serverReq.data;
 
+                if (data.exception)
+                    throw new Error(data.exception);
+
                 const optionsForArticle = data.articles.map(d => {
 
                     return `<option id="option" value="${d.articleID}"> ${d.article}</option>`;
@@ -132,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let data = serverReq.data;
 
+                if (data.exception)
+                    throw new Error(data.exception);
+
                 const optionsForSection = (() => {
 
                     section.innerHTML = `<option value="0" id="option">Select Section</option>`;
@@ -158,7 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
             serverReq.sendData(() => {
 
                 let data = serverReq.data;
-                console.log(data)
+
+                if (data.exception)
+                    throw new Error(data.exception);
 
                 article.value = data.articleID;
                 this.changeOptionOfArticleSection(data.articleSectionID);
@@ -190,6 +198,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 serverReq.requestData(() => {
 
                     let data = serverReq.data;
+
+                    if (data.exception)
+                        throw new Error(data.exception);
 
                     data.articles.find(d => {
 
@@ -312,6 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 serverReq.sendData(() => {
 
                     let data = serverReq.data;
+
+                    if (data.exception)
+                        throw new Error(data.exception);
 
                     if (data.article === 'ok' && data.section === 'ok' && data.sanction === 'ok') {
 

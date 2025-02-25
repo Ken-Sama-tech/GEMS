@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     let datas = serverReq.data;
 
+                    if (datas.exception)
+                        throw new Error(datas.exception);
+
                     const template = document.getElementById('profile-box-temp');
 
                     // if (sortViaLrn.checked) {
@@ -189,6 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     let rowNum = 0;
 
                     const data = serverReq.data;
+
+                    if (data.exception)
+                        throw new Error(data.exception);
+
                     this.data = data.map(dta => {
                         const clone = template.content.cloneNode(true);
 
@@ -292,6 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.tBody.innerHTML = '';
 
                     const data = serverReq.data;
+
+                    if (data.exception)
+                        throw new Error(data.exception);
+
                     let num = 0;
                     const template = document.getElementById('ANV-table-template');
 
@@ -363,6 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 serverReq.requestData(() => {
                     const data = serverReq.data;
 
+                    if (data.exception)
+                        throw new Error(data.exception);
+
                     const articles = data.articles;
                     const sections = data.articleSections;
                     const sanctions = data.sanctions;
@@ -417,6 +431,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 serverReq.requestData(() => {
 
                     let data = serverReq.data;
+
+                    if (data.exception)
+                        throw new Error(data.exception);
 
                     let rowNum = 1;
                     const template = document.getElementById('violation-log-template');
@@ -620,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.displayStudentOnTable(() => {
 
                 let infos = this.data;
-
+                console.log(infos)
                 const search = addViolatorSearch.value.toUpperCase();
 
                 infos.forEach(info => {
@@ -769,6 +786,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let data = serverReq.data;
 
+                if (data.exception)
+                    throw new Error(data.exception);
+
                 let num = 1;
 
                 this.data = data.map(d => {
@@ -808,6 +828,10 @@ document.addEventListener('DOMContentLoaded', () => {
             serverReq.requestData(() => {
 
                 let data = serverReq.data;
+
+                if (data.exception)
+                    throw new Error(data.exception);
+
                 const selectGradeLevel = document.querySelectorAll('#select-grade-level');
 
                 data.forEach(d => {
@@ -825,6 +849,9 @@ document.addEventListener('DOMContentLoaded', () => {
             serverReq.requestData(() => {
 
                 let data = serverReq.data;
+
+                if (data.exception)
+                    throw new Error(data.exception);
 
                 const forms = [...document.querySelectorAll('#registration-form')];
 
@@ -857,16 +884,16 @@ document.addEventListener('DOMContentLoaded', () => {
     //instances 
     const reg = new Registration();
 
-    reg.displayStudent();
-    reg.setSectionsForEachGrade();
-    reg.setRegistrationGradeLevelOption();
+    // reg.displayStudent();
+    // reg.setSectionsForEachGrade();
+    // reg.setRegistrationGradeLevelOption();
 
-    //vars
-    const regSearch = document.getElementById('reg-search');
+    // //vars
+    // const regSearch = document.getElementById('reg-search');
 
-    eventListener.callEvent(regSearch, 'input', (e) => {
+    // eventListener.callEvent(regSearch, 'input', (e) => {
 
-        reg.displayStudent();
-        console.log(e.target.value)
-    });
+    //     reg.displayStudent();
+    //     console.log(e.target.value)
+    // });
 });

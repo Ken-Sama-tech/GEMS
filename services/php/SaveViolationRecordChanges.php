@@ -2,10 +2,13 @@
 
 require_once('../../config/database.php');
 require_once('../../includes/utils/php/jsonEncoder.inc.php');
+require_once('../../includes/utils/php/tableValidator.php');
+
+$validate = new Validator();
+$validate->isTableExist('violationLogs');
 
 class SaveChanges extends DataBaseHost
 {
-
     private $article;
     private $section;
     private $sanction;
