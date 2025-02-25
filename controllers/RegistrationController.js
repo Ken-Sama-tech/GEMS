@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     tr.state = "danger";
                     if (tr.state === "danger")
-                        tr.classList.add('bg-danger', 'text-light');
+                        tr.classList.add('bg-danger');
+
                 });
             }
 
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 form.querySelectorAll('tr').forEach(tr => {
 
-                    tr.classList.remove('bg-danger', 'text-light');
+                    tr.classList.remove('bg-danger');
                 });
             }
 
@@ -129,10 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (gradeLev.value != 0 && gardeSec.value != 0) {
 
-                dropBox.classList.add('border-dark')
+                dropBox.classList.add('border-success', 'border-3');
                 form.dropping = "allowed";
             } else {
-                dropBox.classList.remove('border-dark');
+                dropBox.classList.remove('border-success', 'border-3');
                 form.dropping = "not-allowed";
             }
         });
@@ -195,5 +196,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 isGradeLevelAndSectionValid(gradeLevel.value, section.value);
             }
         });
+    });
+    const lowerSection = document.getElementById('reg-lower-section');
+
+    const dropBoxes = document.querySelectorAll('#drop-box');
+
+    dropBoxes.forEach(box => {
+
+        evntLi.callEvent(box, 'dblclick', e => {
+
+            if (box.contains(e.target))
+                lowerSection.appendChild(e.target.closest('#drop-box'));
+        });
+
+        evntLi.callEvent(box, 'contextmenu', e => {
+            e.preventDefault();
+            if (box.contains(e.target)) {
+                dropBoxes.forEach(innerBox => {
+                    innerBox.classList.toggle('resize');
+                });
+            }
+
+        })
+    });
+
+    const hdm = document.querySelector('#hdm-container');
+    const menu = document.querySelector('.hdm-menu');
+
+    //open the menu
+    evntLi.callEvent(hdm, 'click', () => {
+
+        menu.classList.toggle('is-shown');
+    });
+
+    //closses menu when clicked outside the target
+    evntLi.callEvent(document, 'click', e => {
+        if (!hdm.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove('is-shown');
+        }
     });
 });

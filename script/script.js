@@ -884,16 +884,18 @@ document.addEventListener('DOMContentLoaded', () => {
     //instances 
     const reg = new Registration();
 
-    // reg.displayStudent();
-    // reg.setSectionsForEachGrade();
-    // reg.setRegistrationGradeLevelOption();
+    //vars
+    const regSearch = document.getElementById('reg-search');
 
-    // //vars
-    // const regSearch = document.getElementById('reg-search');
+    if (regSearch) {
+        reg.displayStudent();
+        reg.setSectionsForEachGrade();
+        reg.setRegistrationGradeLevelOption();
 
-    // eventListener.callEvent(regSearch, 'input', (e) => {
+        eventListener.callEvent(regSearch, 'input', (e) => {
 
-    //     reg.displayStudent();
-    //     console.log(e.target.value)
-    // });
+            reg.displayStudent();
+            console.log(e.target.value)
+        });
+    }
 });

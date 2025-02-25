@@ -18,10 +18,34 @@
 
         <!-- search -->
         <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <form class="d-flex" role="search">
+            <div class="container-fluid d-flex justify-items-start">
+                <div class="d-flex" role="search">
                     <input id="reg-search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                </form>
+                    <div class="container position-relative w-25">
+                        <div class="d-flex justify-content-center align-items-center h-100" id="hdm-container">
+                            <span class="horizontal-dots-menu"></span>
+                            <span class="horizontal-dots-menu"></span>
+                            <span class="horizontal-dots-menu"></span>
+                        </div>
+
+                        <!-- drop-down-list -->
+                        <ul class="hdm-menu">
+                            <h6>Filter</h6>
+                            <li class="hdm-item">
+                                <input type="checkbox" name="VL-setting" id="VL-filter-male">
+                                <label for="VL-filter-male"> Male </label>
+                            </li>
+                            <li class="hdm-item">
+                                <input type="checkbox" name="VL-setting" id="VL-filter-female">
+                                <label for="VL-filter-female"> Female </label>
+                            </li>
+                            <h6>Additional Setting</h6>
+                            <li class="hdm-item">
+                                <button class="btn btn-outline-secondary ms-2" id="change-forms-size">Change Forms Size</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -58,7 +82,7 @@
             <section id="reg-lower-section" class="d-flex gap-1 flex-wrap">
 
                 <!-- first form -->
-                <div id="drop-box" class="col-md-6 col-12 border">
+                <div id="drop-box" class="container-fluid col-md-6 col-12 border border-secondary">
                     <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
                         <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
@@ -69,8 +93,8 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto ">
-                            <table class="table h-100 w-100 border-bottom" id="form-table">
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table  h-100 w-100 " id="form-table">
                                 <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
@@ -78,7 +102,7 @@
                 </div>
 
                 <!-- second form -->
-                <div id="drop-box" class="col-md-6 col-12 border">
+                <div id="drop-box" class="container-fluid  col-md-6 col-12 border border-secondary">
                     <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
                         <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
@@ -89,8 +113,8 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto">
-                            <table class="table h-100 w-100" id="form-table">
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table  h-100 w-100 " id="form-table">
                                 <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
@@ -98,7 +122,7 @@
                 </div>
 
                 <!-- third form  -->
-                <div id="drop-box" class="col-md-6 col-12 border">
+                <div id="drop-box" class="container-fluid  col-md-6 col-12 border border-secondary">
                     <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
                         <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
@@ -109,8 +133,8 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto ">
-                            <table class="table h-100 w-100" id="form-table">
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table  h-100 w-100 " id="form-table">
                                 <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
@@ -118,7 +142,7 @@
                 </div>
 
                 <!-- fourth form  -->
-                <div id="drop-box" class="col-md-6 col-12 border">
+                <div id="drop-box" class="container-fluid  col-md-6 col-12 border border-secondary">
                     <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
                         <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
@@ -129,8 +153,8 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto">
-                            <table class="table h-100 w-100" id="form-table">
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table  h-100 w-100 " id="form-table">
                                 <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
@@ -138,7 +162,7 @@
                 </div>
 
                 <!-- fifth form  -->
-                <div id="drop-box" class="col-md-6 col-12 border">
+                <div id="drop-box" class="container-fluid col-md-6 col-12 border border-secondary">
                     <form method="post" class="h-100 d-flex flex-column" id="registration-form">
 
                         <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
@@ -149,8 +173,8 @@
                             <option value="0">Select Section</option>
                         </select>
 
-                        <div class="w-100 h-100 overflow-x-auto">
-                            <table class="table h-100 w-100" id="form-table">
+                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
+                            <table class="table  h-100 w-100 " id="form-table">
                                 <tbody id="form-tBody"></tbody>
                             </table>
                         </div>
