@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //open delete modal
         deleteModal.show();
-        deleteModaltext.innerHTML = `Delete Student <b>${name}</b> (${lrn})?`
+        deleteModaltext.innerHTML = `Delete This Record Associated with Student <b>${name}</b> (${lrn})?`
 
         evntLi.callEvent(yesBtn, 'click', () => {
 

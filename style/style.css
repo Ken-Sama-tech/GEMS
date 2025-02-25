@@ -180,6 +180,8 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
   gap: 0 1rem;
+  position: relative;
+  overflow-y: hidden;
 }
 
 #cards {
