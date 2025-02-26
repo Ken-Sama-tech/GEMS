@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../includes/navbar/navbar.css">
     <link rel="stylesheet" href="../../style/style.css">
+    <script src="../../charts/node_modules/chart.js/dist/chart.umd.js"></script>
 </head>
 
 <body>
@@ -71,18 +72,35 @@
             </template>
         </section>
 
-        <div class="container-fluid h-100 my-2 d-flex flex-wrap justify-content-center align-items-start">
+        <div class="container-fluid h-100 my-2 d-flex justify-content-center align-items-start">
 
-            <div class="row w-100 mt-2 p-0 d-flex" style="height: 40%;">
-                <section id="chart-section" class="container-fluid p-0 border col-12 col-md-6 col-lg-4">
-                    <div class=" w-100 h-100">
-                        <canvas id="violations-chart"></canvas>
+            <div class="row w-100 p-0 border border-dark d-flex" style="height: 50%;">
+
+                <!-- Chart Section -->
+                <section id="doughnut-chart" class="col-md-12 col-lg-4 p-0 h-100">
+                    <div class="w-100 h-100">
+                        <canvas id="violations-severity-chart" class="w-100 h-100"></canvas>
                     </div>
                 </section>
 
-                <section id="idk-yet" class="container-fluid col-12 col-md-6 col-lg-7">
-
+                <!-- Statistic Time Range -->
+                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 colh-100 pt-1 border border-2">
+                    <select id="statistic-time-range" value="1" class="form-select">
+                        <option value="1" id="option">Overall</option>
+                        <option value="2" id="option">Year</option>
+                        <option value="3" id="option">Monthly</option>
+                        <option value="4" id="option">Weekly</option>
+                        <option value="5" id="option">Daily</option>
+                    </select>
                 </section>
+
+                <!-- Additional Section -->
+                <section id="scatter-chart" class="col-md-12 col-lg-6 h-100 p-0">
+                    <div class="w-100 h-100">
+                        <canvas id="violations-chart" class="border border-primary h-100"></canvas>
+                    </div>
+                </section>
+
             </div>
         </div>
     </div>
