@@ -13,10 +13,9 @@ class Charts {
         this.doughnut = null;
         this.scatter = null;
     }
-    doughnutChart(canvasID, arrLabels, arrData,) {
+    doughnutChart(canvasID, arrLabels, arrData, ) {
         const canvas = document.querySelector(canvasID);
 
-        // Check if the canvas exists
         if (!canvas) {
             console.error(`Canvas element with ID ${canvasID} not found.`);
             return;
@@ -185,4 +184,31 @@ const chartSetings = (() => {
     });
 
     changeChartTimeRange();
+})();
+
+const simpleCalculator = (() => {
+
+    function isValidExpression(input) {
+        const regex = /^-?(\d+(\.\d+)?)([+\-*/]-?(\d+(\.\d+)?))*$/;
+        return regex.test(input);
+    }
+
+    function calculate(input) {
+        if (!isValidExpression(input)) {
+            return "Invalid input";
+        }
+
+        try {
+            return eval(input);
+        } catch (error) {
+            return "Error in calculation";
+        }
+    }
+
+    const calculateBtn = document.getElementById('calculate-btn');
+    evntLi.callEvent(calculateBtn, 'click', () => {
+        const calculator = document.getElementById('calculator')
+        const result = eval(calculator.value);
+        calculator.value = result;
+    });
 })();

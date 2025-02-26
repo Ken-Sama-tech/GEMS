@@ -17,7 +17,7 @@
 
     <div id="container" class="container-fluid d-flex flex-wrap col-lg-10 col-md-9 overflow-y-auto remove-scroll-bar position-absolute h-100 end-0">
 
-        <section id="cards-section" class="container-fluid overflow-x-auto mt-1 position-relative col-12 border border-2 border-secondary rounded-2 ">
+        <section id="cards-section" class="container-fluid overflow-x-auto mt-1 position-relative col-12 custom-scroll-bar rounded-2 ">
 
             <div class="col-3 card bg-primary text-light" id="cards">
                 <h3 id="card-header" class="ps-2">Grade 7</h3>
@@ -63,7 +63,7 @@
 
             <!-- template -->
             <template id="cards-template">
-                <div class="col-3 card bg-success  text-light" id="cards">
+                <div class="col-3 card bg-success text-light" id="cards">
                     <h3 id="card-header" class="ps-2">Grade 7</h3>
                     <div class="line w-100 m-0 p-0 bg-light mb-3" style="height:2px"></div>
                     <h3 class="text-center" id="violation-counter">0</h3>
@@ -74,7 +74,7 @@
 
         <div class="container-fluid h-100 my-2 d-flex justify-content-center align-items-start">
 
-            <div class="row w-100 p-0 border border-dark d-flex" style="height: 50%;">
+            <div class="row w-100 p-0 border border-2 d-flex" style="height: 50%;">
 
                 <!-- Chart Section -->
                 <section id="doughnut-chart" class="col-md-12 col-lg-4 p-0 h-100">
@@ -84,7 +84,7 @@
                 </section>
 
                 <!-- Statistic Time Range -->
-                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 colh-100 pt-1 border border-2">
+                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 col h-100 pt-1 border border-2">
                     <select id="statistic-time-range" value="1" class="form-select">
                         <option value="1" id="option">Overall</option>
                         <option value="2" id="option">Yearly</option>
@@ -92,6 +92,9 @@
                         <option value="4" id="option">Weekly</option>
                         <option value="5" id="option">Daily</option>
                     </select>
+
+                    <input type="text" class="mt-2 form-control" id="calculator">
+                    <button class="btn btn-primary mt-2 w-100" id="calculate-btn">Calculate</button>
                 </section>
 
                 <!-- Additional Section -->

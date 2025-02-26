@@ -18,6 +18,38 @@
   display: none;
 }
 
+.custom-scroll-bar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 10px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ff7eb3, #ff758c); /* Gradient effect */
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Thumb hover effect */
+.custom-scroll-bar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #ff758c, #ff4b91);
+  box-shadow: 0 0 5px rgba(255, 120, 150, 0.7);
+}
+
+/* Optional: Scrollbar buttons (not always visible) */
+.custom-scroll-bar::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Optional: Corner where horizontal & vertical scrollbars meet */
+.custom-scroll-bar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 #container {
   height: auto;
 }
