@@ -26,9 +26,15 @@ html::-webkit-scrollbar {
   display: none;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   scroll-behavior: smooth;
 }
+
+/* -------------------------------- */
 
 /*add new student page styles*/
 .form-control:focus,
@@ -286,5 +292,20 @@ input[type="number"]::-webkit-outer-spin-button {
 @media screen and (max-width: 500px) {
   .hdm-menu {
     right: 0%;
+  }
+}
+
+@media print {
+  body {
+    visibility: hidden;
+  }
+
+  /* #showStdDetailsModal {
+    visibility: visible;
+  } */
+
+  /* add this to make something printable */
+  .printable {
+    visibility: visible;
   }
 }

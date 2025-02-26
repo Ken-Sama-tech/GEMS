@@ -1,4 +1,4 @@
-<div class="modal fade" id="showStdDetailsModal" tabindex="-1" aria-labelledby="showStdDetailsModal" aria-hidden="true">
+<div class="modal fade printable remove-scroll-bar" id="showStdDetailsModal" tabindex="-1" aria-labelledby="showStdDetailsModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

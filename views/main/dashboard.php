@@ -87,7 +87,7 @@
                 <section id="statistic-time-range-section" class="col-md-12 col-lg-2 colh-100 pt-1 border border-2">
                     <select id="statistic-time-range" value="1" class="form-select">
                         <option value="1" id="option">Overall</option>
-                        <option value="2" id="option">Year</option>
+                        <option value="2" id="option">Yearly</option>
                         <option value="3" id="option">Monthly</option>
                         <option value="4" id="option">Weekly</option>
                         <option value="5" id="option">Daily</option>
@@ -97,7 +97,7 @@
                 <!-- Additional Section -->
                 <section id="scatter-chart" class="col-md-12 col-lg-6 h-100 p-0">
                     <div class="w-100 h-100">
-                        <canvas id="violations-chart" class="border border-primary h-100"></canvas>
+                        <canvas id="violations-chart" class="h-100"></canvas>
                     </div>
                 </section>
 
