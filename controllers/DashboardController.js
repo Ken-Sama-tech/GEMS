@@ -27,17 +27,17 @@ class Charts {
       type: "doughnut",
       data: {
         labels: arrLabels,
-        datasets: [
-          {
-            label: "Total",
-            data: arrData,
-            backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
-            hoverOffset: 2,
-          },
-        ],
+        datasets: [{
+          label: "Total",
+          data: arrData,
+          backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
+          hoverOffset: 2,
+        }, ],
       },
       options: {
         cutout: "60%",
+        responsive: true,
+        maintainAspectRatio: false,
       },
     });
   }
@@ -56,8 +56,7 @@ class Charts {
       type: "scatter",
       data: {
         labels: range,
-        datasets: [
-          {
+        datasets: [{
             type: "bar",
             label: "Total Violations",
             data: arrData,
@@ -244,7 +243,7 @@ const simpleCalculator = (() => {
   const calculateBtn = document.getElementById("calculate-btn");
   evntLi.callEvent(calculateBtn, "click", () => {
     const calculator = document.getElementById("calculator");
-    const result = eval(calculator.value);
+    const result = calculate(calculator.value);
     calculator.value = result;
   });
 })();
@@ -253,8 +252,8 @@ const chartsMinMaxToggle = (() => {
   const chartsSection = document.getElementById("charts-section");
   const toggleBtn = document.querySelector(".chart-toggle-btn");
 
-  evntLi.callEvent(toggleBtn, 'click', (e)=>{
-   toggleBtn.classList.toggle('active');
+  evntLi.callEvent(toggleBtn, 'click', (e) => {
+    toggleBtn.classList.toggle('active');
     chartsSection.classList.toggle('minimize');
   });
 

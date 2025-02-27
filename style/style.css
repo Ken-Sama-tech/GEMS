@@ -53,7 +53,7 @@
 }
 
 #container {
-  height: auto ;
+  height: auto;
 }
 
 html::-webkit-scrollbar {
@@ -229,7 +229,13 @@ input[type="number"]::-webkit-outer-spin-button {
   flex: 0 0 300px;
 }
 
+#dashboard-main-section {
+  height: fit-content;
+}
+
 .min-max-sym {
+  height: 1px !important;
+  width: 15px !important;
   z-index: -1;
   position: absolute;
   left: 50%;
@@ -238,35 +244,45 @@ input[type="number"]::-webkit-outer-spin-button {
   transform: all 0.2s ease;
 }
 
+.chart-toggle-btn {
+  height: 19px;
+  width: 50px;
+}
+
 .chart-toggle-btn.active .min-max-sym:nth-child(2) {
   transform: translate(-7px) rotate(90deg) !important;
-  top:45%;
+  top: 45%;
   width: 14px !important;
   transition: all 0.3s ease;
   transform: translate(-50%, -50%);
 }
 
-#charts-section{
+#charts-section {
+  height: 50vh !important;
   transition: all 0.3s ease-in-out;
 }
 
-#charts-section.minimize{
+#charts-section.minimize {
   height: 25px !important;
 }
 
-#charts-section.minimize *{
-  visibility:hidden ;
+#charts-section.minimize * {
+  visibility: hidden;
   z-index: -1;
 }
 
-#charts-section.minimize .chart-toggle-btn{
+#charts-section.minimize .chart-toggle-btn {
   visibility: visible;
   z-index: 1;
 }
 
-#charts-section.minimize .chart-toggle-btn *{
+#charts-section.minimize .chart-toggle-btn * {
   visibility: visible;
   z-index: -1;
+}
+
+#progress-tracker {
+  height: 50vh !important;
 }
 
 /* registration */
@@ -334,6 +350,30 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* --------------------------------------------- */
+
+@media screen and (max-width: 991px) {
+  #charts-section {
+    height: fit-content !important;
+  }
+
+  #doughnut-chart {
+    height: 50vh !important;
+  }
+
+  #statistic-time-range-section {
+    height: 20vh !important;
+    border: 1px solid red;
+  }
+
+  #scatter-chart {
+    height: 50vh !important;
+    border: 1px solid blue;
+  }
+
+  #progress-tracker {
+    height: 70vh !important;
+  }
+}
 
 @media screen and (max-width: 767px) {
   #container {

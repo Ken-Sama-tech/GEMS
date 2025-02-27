@@ -16,7 +16,7 @@
     require_once '../../includes/navbar/navbar.php';
     ?>
 
-    <div id="container" class="container-fluid d-flex flex-wrap col-lg-10 col-md-9 overflow-y-auto remove-scroll-bar position-absolute h-100 end-0">
+    <div id="container" class="container-fluid d-flex flex-column col-lg-10 col-md-9 overflow-y-auto remove-scroll-bar position-absolute h-100 end-0">
 
         <section id="cards-section" class="container-fluid overflow-x-auto mt-1 position-relative col-12 custom-scroll-bar rounded-2 ">
 
@@ -73,12 +73,12 @@
             </template>
         </section>
 
-        <div class="container-fluid h-100 my-2 d-flex flex-column align-items-center border border-danger">
+        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0" id="dashboard-main-section">
 
-            <div class="row w-100 p-0 border border-2 d-md-grid d-lg-flex h-50 position-relative gap-0" id="charts-section">
-                <div class="position-absolute end-0 pointer chart-toggle-btn d-flex" style="height:19px; width:50px;"> 
-                    <span class="position-absolute border border-2 border-secondary min-max-sym" style="height:1px; width:15px;"></span>
-                    <span class="position-absolute border border-2 border-secondary min-max-sym" style="height:1px; width:15px;"></span>
+            <div class="row w-100 p-0 border border-2 d-lg-flex flex-wrap position-relative gap-0" id="charts-section">
+                <div class="position-absolute end-0 pointer chart-toggle-btn d-flex">
+                    <span class="position-absolute border border-2 border-secondary min-max-sym"></span>
+                    <span class="position-absolute border border-2 border-secondary min-max-sym"></span>
                 </div>
                 <!-- Chart Section -->
                 <section id="doughnut-chart" class="col-md-12 col-lg-4 p-0 h-100">
@@ -88,8 +88,8 @@
                 </section>
 
                 <!-- Statistic Time Range -->
-                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 col h-100 pt-1 border border-2 ">
-                    <select id="statistic-time-range" value="1" class="form-select h-0">
+                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 col h-100 pt-1 d-flex flex-column align-items-center mt-2 justify-content-start gap-0">
+                    <select id="statistic-time-range" value="1" class="form-select w-100">
                         <option value="1" id="option">Overall</option>
                         <option value="2" id="option">Yearly</option>
                         <option value="3" id="option">Monthly</option>
@@ -97,8 +97,8 @@
                         <option value="5" id="option">Daily</option>
                     </select>
 
-                    <input type="text" class="mt-2 form-control h-0" id="calculator">
-                    <button class="btn btn-primary mt-2 w-100 h-0" id="calculate-btn">Calculate</button>
+                    <input type="text" class="mt-2 form-control w-100" id="calculator">
+                    <button class="btn btn-primary mt-2 w-100" id="calculate-btn">Calculate</button>
                 </section>
 
                 <section id="scatter-chart" class="col-md-12 col-lg-6 h-100 p-0">
@@ -109,11 +109,20 @@
 
             </div>
 
-            <div class="container border border-primary h-50 m-0 col-12 d-flex p-0 mt-3">
-                <div class="col-lg-6 border border-dark">
-                    <span>To do list</span>
+            <div class="containe-fluid border m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
+
+                <div class="col-12 col-lg-6 border border-2 border-secondary h-100" id="to-do-list-container">
+                    <div class="to-do-list-header border-bottom border-2 d-flex" style="height:10%;">
+                        <span class="fw-bold align-self-center ps-2">To do list</span>
+                    </div>
+                    <div class="to-do-list-body pt-2">
+                        <div class="border border-primary" style="height:30px;">
+                            <input type="checkbox" name="" id=""> IDK
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6 border border-dark"></div>
+
+                <div class="col-12 col-lg-6 border"></div>
             </div>
         </div>
     </div>
@@ -122,4 +131,5 @@
 <script type="module" src="../../controllers/DashboardController.js" defer></script>
 <script src=" ../../includes/navbar/navbar.js">
 </script>
+
 </html>
