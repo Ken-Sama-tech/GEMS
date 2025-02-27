@@ -18,9 +18,14 @@
   display: none;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .custom-scroll-bar::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+  cursor: pointer;
 }
 
 .custom-scroll-bar::-webkit-scrollbar-track {
@@ -29,29 +34,26 @@
 }
 
 .custom-scroll-bar::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #ff7eb3, #ff758c); /* Gradient effect */
+  background: linear-gradient(45deg, #ff7eb3, #ff758c);
   border-radius: 10px;
   transition: background 0.3s ease-in-out;
 }
 
-/* Thumb hover effect */
 .custom-scroll-bar::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, #ff758c, #ff4b91);
   box-shadow: 0 0 5px rgba(255, 120, 150, 0.7);
 }
 
-/* Optional: Scrollbar buttons (not always visible) */
 .custom-scroll-bar::-webkit-scrollbar-button {
   display: none;
 }
 
-/* Optional: Corner where horizontal & vertical scrollbars meet */
 .custom-scroll-bar::-webkit-scrollbar-corner {
   background: transparent;
 }
 
 #container {
-  height: auto;
+  height: auto ;
 }
 
 html::-webkit-scrollbar {
@@ -225,6 +227,46 @@ input[type="number"]::-webkit-outer-spin-button {
 #cards {
   height: 150px;
   flex: 0 0 300px;
+}
+
+.min-max-sym {
+  z-index: -1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform: all 0.2s ease;
+}
+
+.chart-toggle-btn.active .min-max-sym:nth-child(2) {
+  transform: translate(-7px) rotate(90deg) !important;
+  top:45%;
+  width: 14px !important;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+#charts-section{
+  transition: all 0.3s ease-in-out;
+}
+
+#charts-section.minimize{
+  height: 25px !important;
+}
+
+#charts-section.minimize *{
+  visibility:hidden ;
+  z-index: -1;
+}
+
+#charts-section.minimize .chart-toggle-btn{
+  visibility: visible;
+  z-index: 1;
+}
+
+#charts-section.minimize .chart-toggle-btn *{
+  visibility: visible;
+  z-index: -1;
 }
 
 /* registration */

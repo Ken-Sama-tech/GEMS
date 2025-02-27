@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../includes/navbar/navbar.css">
     <link rel="stylesheet" href="../../style/style.css">
+    <!-- charts src -->
     <script src="../../charts/node_modules/chart.js/dist/chart.umd.js"></script>
 </head>
 
@@ -72,10 +73,13 @@
             </template>
         </section>
 
-        <div class="container-fluid h-100 my-2 d-flex justify-content-center align-items-start">
+        <div class="container-fluid h-100 my-2 d-flex flex-column align-items-center border border-danger">
 
-            <div class="row w-100 p-0 border border-2 d-flex" style="height: 50%;">
-
+            <div class="row w-100 p-0 border border-2 d-md-grid d-lg-flex h-50 position-relative gap-0" id="charts-section">
+                <div class="position-absolute end-0 pointer chart-toggle-btn d-flex" style="height:19px; width:50px;"> 
+                    <span class="position-absolute border border-2 border-secondary min-max-sym" style="height:1px; width:15px;"></span>
+                    <span class="position-absolute border border-2 border-secondary min-max-sym" style="height:1px; width:15px;"></span>
+                </div>
                 <!-- Chart Section -->
                 <section id="doughnut-chart" class="col-md-12 col-lg-4 p-0 h-100">
                     <div class="w-100 h-100">
@@ -84,8 +88,8 @@
                 </section>
 
                 <!-- Statistic Time Range -->
-                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 col h-100 pt-1 border border-2">
-                    <select id="statistic-time-range" value="1" class="form-select">
+                <section id="statistic-time-range-section" class="col-md-12 col-lg-2 col h-100 pt-1 border border-2 ">
+                    <select id="statistic-time-range" value="1" class="form-select h-0">
                         <option value="1" id="option">Overall</option>
                         <option value="2" id="option">Yearly</option>
                         <option value="3" id="option">Monthly</option>
@@ -93,17 +97,23 @@
                         <option value="5" id="option">Daily</option>
                     </select>
 
-                    <input type="text" class="mt-2 form-control" id="calculator">
-                    <button class="btn btn-primary mt-2 w-100" id="calculate-btn">Calculate</button>
+                    <input type="text" class="mt-2 form-control h-0" id="calculator">
+                    <button class="btn btn-primary mt-2 w-100 h-0" id="calculate-btn">Calculate</button>
                 </section>
 
-                <!-- Additional Section -->
                 <section id="scatter-chart" class="col-md-12 col-lg-6 h-100 p-0">
                     <div class="w-100 h-100">
                         <canvas id="violations-chart" class="h-100"></canvas>
                     </div>
                 </section>
 
+            </div>
+
+            <div class="container border border-primary h-50 m-0 col-12 d-flex p-0 mt-3">
+                <div class="col-lg-6 border border-dark">
+                    <span>To do list</span>
+                </div>
+                <div class="col-lg-6 border border-dark"></div>
             </div>
         </div>
     </div>
@@ -112,5 +122,4 @@
 <script type="module" src="../../controllers/DashboardController.js" defer></script>
 <script src=" ../../includes/navbar/navbar.js">
 </script>
-
 </html>
