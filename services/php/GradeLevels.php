@@ -15,14 +15,12 @@ class GradeLevels extends DatabaseHost
         try {
 
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = "SELECT * FROM gradeLevels";
 
             $stmt = $conn->prepare($sql);
 
             $stmt->execute();
-            $conn->commit();
 
             $result = [];
 

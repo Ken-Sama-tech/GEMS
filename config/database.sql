@@ -490,5 +490,5 @@ CREATE TABLE registration(
 CREATE TABLE toDoLists(
     toDoListID INT AUTO_INCREMENT PRIMARY KEY,
     toDo VARCHAR(255),
-    toDOStatus ENUM('PENDING', 'COMPLETED')
+    toDoStatus ENUM('PENDING', 'COMPLETED')
 );

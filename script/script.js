@@ -1,7 +1,9 @@
 import MakeServerRequest from "../services/js/ServerRequests";
 import {
     EventListener,
-    Debounce
+    GlobalEventListeners,
+    Debounce,
+    generateUnqId,
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //utility instances ------------------------------
     const eventListener = new EventListener();
     const util = new Debounce();
+    const event = new GlobalEventListeners();
 
     //internal classes ---------------------------------
     class StudentDirectory {
@@ -884,7 +887,43 @@ document.addEventListener('DOMContentLoaded', () => {
     class Dashboard {
         displayTaskList() {
 
-            const serverReq = new MakeServerRequest();
+            const serverReq = new MakeServerRequest('../../services/php/ToDoLists.php');
+            const mainBody = document.getElementById('to-do-list-body');
+            const template = document.getElementById('to-do-list-template');
+
+            serverReq.requestData(() => {
+                mainBody.innerHTML = '';
+                let data = serverReq.data;
+
+                if (data.exception)
+                    throw new Error(data.exception);
+
+                if (data.void) {
+                    mainBody.innerHTML += `<tr><th colspan="3" class="text-success">${data.void}</th></tr>`;
+                }
+
+                if (data.success) {
+                    //I re-declare data now the value had changed
+                    data = data.success;
+
+                    const idk = data.map(d => {
+                        const clone = template.content.cloneNode(true);
+                        const toDo = clone.querySelector('.task');
+                        const toDoStatus = clone.querySelector('.to-do-status');
+
+                        let uniqID = generateUnqId();
+                        const checkbox = clone.querySelector('#to-do-list-checkbox');
+                        const checkboxLabel = clone.querySelector('#checkbox-label');
+                        checkbox.id = uniqID;
+                        checkboxLabel.setAttribute('for', uniqID);
+
+                        toDo.innerHTML = d.toDo;
+                        toDoStatus.innerHTML = d.toDoStatus;
+
+                        mainBody.appendChild(clone);
+                    });
+                }
+            });
         }
     }
 
@@ -908,5 +947,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //dashboard
+    dashboard.displayTaskList();
 
+    event.globalEvent('click', '#add-new-list', () => {
+        setTimeout(() => {
+            dashboard.displayTaskList();
+        }, 1000);
+    });
 });

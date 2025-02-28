@@ -22,7 +22,6 @@ class CheckStudentDataBeforeEdit extends DatabaseHost
         try {
 
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = "SELECT * FROM `studentInfo` WHERE learnerReferenceNumber = :lrn";
 

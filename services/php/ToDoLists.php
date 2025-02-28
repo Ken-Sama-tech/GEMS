@@ -5,47 +5,37 @@ require_once('../../includes/utils/php/jsonEncoder.inc.php');
 require_once('../../includes/utils/php/tableValidator.php');
 
 $validate = new Validator();
-$validate->isTableExist('violationLogs');
+$validate->isTableExist('toDoLists');
 
-
-class ViolationLogs extends DatabaseHost
+class ToDoList extends DatabaseHost
 {
-    private $vID;
-
-    public function __construct($vID)
+    public function tasksList()
     {
-        $this->vID = $vID;
-    }
-
-    public function fetchRecord()
-    {
-
         try {
             $conn = $this->connect();
 
-            $sql = "SELECT * FROM violationLogs WHERE violationLogID = :vID";
-
+            $sql = "SELECT * FROM `toDoLists` WHERE toDoStatus = 'PENDING'";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':vID', $this->vID);
 
             $stmt->execute();
 
             $result = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $result = $row;
+                $result[] = $row;
             }
 
-            JsonEncoder::jsonEncode($result);
+            if (count($result) <= 0) {
+                JsonEncoder::jsonEncode(['void' => 'No tasks available']);
+                return;
+            }
+
+            JsonEncoder::jsonEncode(['success' => $result]);
         } catch (Exception $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $log = new ViolationLogs($_POST['vID']);
-
-    $log->fetchRecord();
-}
+$toDoList = new ToDoList();
+$toDoList->tasksList();

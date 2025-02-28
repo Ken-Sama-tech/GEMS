@@ -70,3 +70,7 @@ export const throttle = (func, wait = 1000) => {
 export const generateUnqId = (prefix = '') => {
     return prefix + Math.random().toString(36).substring(2, 9);
 }
+
+export const sendAsUrlCom = (component) => {
+    return encodeURIComponent(component);
+}

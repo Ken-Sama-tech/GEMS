@@ -13,14 +13,12 @@ class Sections extends DatabaseHost
     public function getSections()
     {
         $conn = $this->connect();
-        $conn->beginTransaction();
 
         $sql = "SELECT * FROM gradeSections";
 
         $stmt = $conn->prepare($sql);
 
         $stmt->execute();
-        $conn->commit();
 
         $result = [];
 

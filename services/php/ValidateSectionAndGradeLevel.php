@@ -27,7 +27,6 @@ class Validate extends DatabaseHost
         try {
 
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = "SELECT * FROM gradeLevels WHERE gradeLevelID = :gradeLevel";
 
@@ -35,7 +34,6 @@ class Validate extends DatabaseHost
             $stmt->bindParam(':gradeLevel', $this->gradeLevel);
 
             $stmt->execute();
-            $conn->commit();
 
             $result = null;
 
@@ -57,7 +55,6 @@ class Validate extends DatabaseHost
         try {
 
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = "SELECT * FROM gradeSections WHERE sectionID = :section";
 
@@ -65,7 +62,6 @@ class Validate extends DatabaseHost
             $stmt->bindParam(':section', $this->gradeSection);
 
             $stmt->execute();
-            $conn->commit();
 
             $result = null;
 

@@ -73,7 +73,7 @@
             </template>
         </section>
 
-        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0" id="dashboard-main-section">
+        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0 border" id="dashboard-main-section">
 
             <div class="row w-100 p-0 border border-2 d-lg-flex flex-wrap position-relative gap-0" id="charts-section">
                 <div class="position-absolute end-0 pointer chart-toggle-btn d-flex">
@@ -109,10 +109,10 @@
 
             </div>
 
-            <div class="containe-fluid border m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
+            <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
 
                 <div class="col-12 col-lg-6 border border-2 border-secondary h-100" id="to-do-list-container">
-                    <div class="to-do-list h-100 position-relative">
+                    <div class="to-do-list h-100 position-relative overflow-hidden">
                         <div class="overflow-y-auto" style="height:calc(100% - 40px)">
                             <table class="table">
                                 <colgroup>
@@ -129,19 +129,9 @@
                                 </thead>
 
                                 <tbody id="to-do-list-body">
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox">
-                                            <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox">&check;</label>
-                                        </td>
-                                        <td class="fw-bold">
-                                            <input type="text" id="to-do-list" class="h-100 w-100" style="all:unset;">
-                                        </td>
-                                        <td>Pending...</td>
-                                    </tr>
                                 </tbody>
                                 <template id="to-do-list-template">
-                                    <tr>
+                                    <tr id="to-do-list-row">
                                         <td>
                                             <input type="checkbox" class="btn-check" id="to-do-list-checkbox">
                                             <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
@@ -149,14 +139,14 @@
                                         <td class="fw-bold task">
 
                                         </td>
-                                        <td>Pending...</td>
+                                        <td class="to-do-status">Pending...</td>
                                     </tr>
                                 </template>
                             </table>
                         </div>
                         <div class="add-new-to-do-list position-absolute w-100 bottom-0 bg-light border-top border-2 p-1 d-flex align-items-center justify-content-between">
-                            <input type="text" to-do-list class="h-100 w-75">
-                            <button class="btn btn-primary py-1" id="add-new-list">Add List</button>
+                            <input type="text" id="new-task" class="h-100 w-75">
+                            <button class="btn btn-primary py-1" id="add-new-list">Add To List</button>
                         </div>
                     </div>
                 </div>
@@ -167,6 +157,7 @@
     </div>
 </body>
 <!-- script section here-->
+<script type="module" src="../../script/script.js"></script>
 <script type="module" src="../../controllers/DashboardController.js" defer></script>
 <script src=" ../../includes/navbar/navbar.js">
 </script>

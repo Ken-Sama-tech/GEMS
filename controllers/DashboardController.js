@@ -2,8 +2,10 @@ import {
   EventListener,
   GlobalEventListeners,
   Debounce,
-  generateUnqId
+  sendAsUrlCom,
+
 } from "../includes/utils/js/domHelper";
+import MakeServerRequest from "../services/js/ServerRequests";
 
 const evntLi = new EventListener();
 const event = new GlobalEventListeners();
@@ -260,10 +262,26 @@ const chartsMinMaxToggle = (() => {
 
 })();
 
-const toDOList = (() => {
+const toDoList = (() => {
 
+  const addNewTask = (task) => {
+    const serverReq = new MakeServerRequest('../../services/php/AddNewTask.php', `task=${sendAsUrlCom(task)}`);
 
-  evntLi.callEvent(addNewList, 'click', () => {
+    serverReq.sendData(() => {
+      console.log(serverReq.data);
+    });
+  }
 
+  event.globalEvent('click', '#add-new-list', () => {
+    const newTask = document.getElementById('new-task');
+    addNewTask(newTask.value);
+    newTask.value = '';
+  });
+
+  const toDoListContainer = document.querySelector('.to-do-list');
+  evntLi.callEvent(toDoListContainer, 'contextmenu', e => {
+    e.preventDefault();
+    if (toDoListContainer.contains(e.target))
+      console.log(e.target.closest('#to-do-list-row'));
   });
 })();

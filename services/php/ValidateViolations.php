@@ -29,15 +29,12 @@ class Validate extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = 'SELECT `articleID` FROM `articles` WHERE articleID = :article ';
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':article', $this->article);
             $stmt->execute();
-
-            $conn->commit();
 
             $result = [];
 
@@ -59,15 +56,12 @@ class Validate extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = 'SELECT `articleSectionID` FROM `articleSections` WHERE articleSectionID = :section ';
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':section', $this->section);
             $stmt->execute();
-
-            $conn->commit();
 
             $result = [];
 
@@ -90,15 +84,12 @@ class Validate extends DatabaseHost
         try {
 
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = 'SELECT `sanctionID` FROM `sanctions` WHERE sanctionID = :sanction ';
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':sanction', $this->sanction);
             $stmt->execute();
-
-            $conn->commit();
 
             $result = [];
 

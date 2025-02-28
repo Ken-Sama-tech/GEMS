@@ -18,7 +18,6 @@ class Violation extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = 'SELECT * FROM articles';
 
@@ -29,7 +28,6 @@ class Violation extends DatabaseHost
             }
 
             $stmt->execute();
-            $conn->commit();
             $result = [];
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -47,7 +45,6 @@ class Violation extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = 'SELECT * FROM articleSections';
 
@@ -60,7 +57,6 @@ class Violation extends DatabaseHost
             $result = [];
 
             $stmt->execute();
-            $conn->commit();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $result[] = $row;
@@ -76,7 +72,6 @@ class Violation extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $conn->beginTransaction();
 
             $sql = 'SELECT * FROM sanctions';
 
@@ -89,7 +84,6 @@ class Violation extends DatabaseHost
             $result = [];
 
             $stmt->execute();
-            $conn->commit();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $result[] = $row;
