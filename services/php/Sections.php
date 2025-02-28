@@ -7,7 +7,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('gradeSections');
 
-class Sections extends DataBaseHost
+class Sections extends DatabaseHost
 {
 
     public function getSections()

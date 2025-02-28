@@ -7,7 +7,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('studentInfo');
 
-class NewStudentFormData extends DataBaseHost
+class NewStudentFormData extends DatabaseHost
 {
 
     private $std_lrn;

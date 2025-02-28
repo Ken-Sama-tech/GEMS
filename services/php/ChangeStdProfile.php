@@ -9,7 +9,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('studentInfo');
 
-class UploadStudentProfile extends DataBaseHost
+class UploadStudentProfile extends DatabaseHost
 {
 
     private $img;

@@ -66,3 +66,7 @@ export const throttle = (func, wait = 1000) => {
         setTimeout(timeoutFunc, wait);
     }
 };
+
+export const generateUnqId = (prefix = '') => {
+    return prefix + Math.random().toString(36).substring(2, 9);
+}

@@ -9,7 +9,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('violationLogs');
 
-class ViolationRecord extends DataBaseHost
+class ViolationRecord extends DatabaseHost
 {
     private $vID;
 

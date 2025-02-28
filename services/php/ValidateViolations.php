@@ -9,7 +9,7 @@ $validate->isTableExist('articles');
 $validate->isTableExist('articleSections');
 $validate->isTableExist('sanctions');
 
-class Validate extends DataBaseHost
+class Validate extends DatabaseHost
 {
 
     private $article;

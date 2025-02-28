@@ -9,7 +9,7 @@ $validate->isTableExist('articles');
 $validate->isTableExist('articleSections');
 $validate->isTableExist('sanctions');
 
-class Violation extends DataBaseHost
+class Violation extends DatabaseHost
 {
 
     private $violations = [];

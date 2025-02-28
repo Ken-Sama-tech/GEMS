@@ -2,6 +2,7 @@ import {
   EventListener,
   GlobalEventListeners,
   Debounce,
+  generateUnqId
 } from "../includes/utils/js/domHelper";
 
 const evntLi = new EventListener();
@@ -85,9 +86,9 @@ class Charts {
   }
 }
 
-const charts = new Charts();
-
 const chartSetings = (() => {
+  const charts = new Charts();
+
   const changeChartTimeRange = utils.debounce(() => {
     if (range.value == 5) {
       charts.updateChart(charts.scatter, () => {
@@ -257,4 +258,12 @@ const chartsMinMaxToggle = (() => {
     chartsSection.classList.toggle('minimize');
   });
 
+})();
+
+const toDOList = (() => {
+
+
+  evntLi.callEvent(addNewList, 'click', () => {
+
+  });
 })();

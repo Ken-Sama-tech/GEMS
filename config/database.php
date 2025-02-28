@@ -1,6 +1,6 @@
 <?php
 
-class DataBaseHost
+class DatabaseHost
 {
     private $host = 'localhost';
     private $username = 'root';

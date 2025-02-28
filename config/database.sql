@@ -484,3 +484,11 @@ CREATE TABLE registration(
     FOREIGN KEY(gradeSectionID) REFERENCES gradesections(sectionID),
     FOREIGN KEY(schoolYearID) REFERENCES schoolYears(schoolYearID)
 ) ENGINE = InnoDB;
+--
+--
+--
+CREATE TABLE toDoLists(
+    toDoListID INT AUTO_INCREMENT PRIMARY KEY,
+    toDo VARCHAR(255),
+    toDOStatus ENUM('PENDING', 'COMPLETED')
+);

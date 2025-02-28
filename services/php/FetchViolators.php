@@ -12,7 +12,7 @@ $validate->isTableExist('articles');
 $validate->isTableExist('articleSections');
 $validate->isTableExist('sanctions');
 
-class FetchViolators extends DataBaseHost
+class FetchViolators extends DatabaseHost
 {
 
     public function getViolators()

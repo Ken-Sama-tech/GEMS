@@ -881,8 +881,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    class Dashboard {
+        displayTaskList() {
+
+            const serverReq = new MakeServerRequest();
+        }
+    }
+
     //instances 
     const reg = new Registration();
+    const dashboard = new Dashboard();
 
     //vars
     const regSearch = document.getElementById('reg-search');
@@ -898,4 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(e.target.value)
         });
     }
+
+    //dashboard
+
 });

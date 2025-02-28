@@ -7,7 +7,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('violationLogs');
 
-class SaveChanges extends DataBaseHost
+class SaveChanges extends DatabaseHost
 {
     private $article;
     private $section;

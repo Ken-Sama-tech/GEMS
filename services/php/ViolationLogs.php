@@ -8,7 +8,7 @@ $validate = new Validator();
 $validate->isTableExist('violationLogs');
 
 
-class ViolationLogs extends DataBaseHost
+class ViolationLogs extends DatabaseHost
 {
     private $vID;
 

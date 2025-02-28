@@ -8,7 +8,7 @@ $validate = new Validator();
 $validate->isTableExist('gradeLevels');
 $validate->isTableExist('gradeSections');
 
-class Validate extends DataBaseHost
+class Validate extends DatabaseHost
 {
 
     private $gradeLevel;

@@ -112,12 +112,51 @@
             <div class="containe-fluid border m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
 
                 <div class="col-12 col-lg-6 border border-2 border-secondary h-100" id="to-do-list-container">
-                    <div class="to-do-list-header border-bottom border-2 d-flex" style="height:10%;">
-                        <span class="fw-bold align-self-center ps-2">To do list</span>
-                    </div>
-                    <div class="to-do-list-body pt-2">
-                        <div class="border border-primary" style="height:30px;">
-                            <input type="checkbox" name="" id=""> IDK
+                    <div class="to-do-list h-100 position-relative">
+                        <div class="overflow-y-auto" style="height:calc(100% - 40px)">
+                            <table class="table">
+                                <colgroup>
+                                    <col class="col-1">
+                                    <col class="col-9">
+                                    <col class="col-2 ">
+                                </colgroup>
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="2">To Do List</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="to-do-list-body">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox">
+                                            <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox">&check;</label>
+                                        </td>
+                                        <td class="fw-bold">
+                                            <input type="text" id="to-do-list" class="h-100 w-100" style="all:unset;">
+                                        </td>
+                                        <td>Pending...</td>
+                                    </tr>
+                                </tbody>
+                                <template id="to-do-list-template">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox">
+                                            <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
+                                        </td>
+                                        <td class="fw-bold task">
+
+                                        </td>
+                                        <td>Pending...</td>
+                                    </tr>
+                                </template>
+                            </table>
+                        </div>
+                        <div class="add-new-to-do-list position-absolute w-100 bottom-0 bg-light border-top border-2 p-1 d-flex align-items-center justify-content-between">
+                            <input type="text" to-do-list class="h-100 w-75">
+                            <button class="btn btn-primary py-1" id="add-new-list">Add List</button>
                         </div>
                     </div>
                 </div>

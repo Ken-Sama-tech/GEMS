@@ -8,7 +8,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('studentInfo');
 
-class CheckStudentDataBeforeEdit extends DataBaseHost
+class CheckStudentDataBeforeEdit extends DatabaseHost
 {
     private $std_lrn;
 

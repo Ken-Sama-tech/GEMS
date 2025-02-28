@@ -9,7 +9,7 @@ require_once('../../includes/utils/php/tableValidator.php');
 $validate = new Validator();
 $validate->isTableExist('studentInfo');
 
-class DeleteStudent extends DataBaseHost
+class DeleteStudent extends DatabaseHost
 {
 
     private $std_lrn;

@@ -8,7 +8,7 @@
     $validate = new Validator();
     $validate->isTableExist('studentInfo');
 
-    class EditStudentData extends DataBaseHost
+    class EditStudentData extends DatabaseHost
     {
         private $std_lrn;
         private $std_last_name;
