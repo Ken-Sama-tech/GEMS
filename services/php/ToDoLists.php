@@ -9,7 +9,14 @@ $validate->isTableExist('toDoLists');
 
 class ToDoList extends DatabaseHost
 {
-    public function tasksList()
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = [];
+    }
+
+    private function fetchPendingTask()
     {
         try {
             $conn = $this->connect();
@@ -25,17 +32,43 @@ class ToDoList extends DatabaseHost
                 $result[] = $row;
             }
 
-            if (count($result) <= 0) {
-                JsonEncoder::jsonEncode(['void' => 'No tasks available']);
-                return;
-            }
-
-            JsonEncoder::jsonEncode(['success' => $result]);
+            $this->tasks['pending'] = $result;
         } catch (Exception $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
+            die();
         }
+    }
+
+    private function fetchCompletedTasks()
+    {
+        try {
+            $conn = $this->connect();
+
+            $sql = "SELECT * FROM `toDoLists` WHERE toDoStatus = 'COMPLETED'";
+            $stmt = $conn->prepare($sql);
+
+            $stmt->execute();
+
+            $result = [];
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $result[] = $row;
+            }
+
+            $this->tasks['completed'] = $result;
+        } catch (Exception $e) {
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
+            die();
+        }
+    }
+
+    public function fetchAll()
+    {
+        $this->fetchCompletedTasks();
+        $this->fetchPendingTask();
+        JsonEncoder::jsonEncode(['success' => $this->tasks]);
     }
 }
 
 $toDoList = new ToDoList();
-$toDoList->tasksList();
+$toDoList->fetchAll();

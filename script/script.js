@@ -4,13 +4,14 @@ import {
     GlobalEventListeners,
     Debounce,
     generateUnqId,
+    sendAsUrlCom
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
 
     //utility instances ------------------------------
-    const eventListener = new EventListener();
-    const util = new Debounce();
+    const evntLi = new EventListener();
+    const utils = new Debounce();
     const event = new GlobalEventListeners();
 
     //internal classes ---------------------------------
@@ -391,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         selectArticle.innerHTML += `<option id="articles" value="${article.articleID}">${num}. ${article.article}</option>`;
                     });
 
-                    eventListener.callEvent(selectArticle, 'change', () => {
+                    evntLi.callEvent(selectArticle, 'change', () => {
                         selectArticleSection.innerHTML = '' + `<option value="0" id="article-sections">Select Section</option>`;
                         sections.forEach(section => {
 
@@ -452,6 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const sex = clone.getElementById('sex');
                         const violation = clone.getElementById('violation');
                         const date = clone.getElementById('date');
+                        const status = clone.getElementById('v-status');
 
                         const removeExtraWhiteSpaces = (param) => {
                             const arry = param.split(' ');
@@ -478,6 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const dSex = d.sex;
                         const dViolation = `${isShowDescriptionChecked()}`;
                         const dDate = d.violationDate;
+                        const dStatus = d.violationStatus;
 
                         const setClonedObjectAttribute = (() => {
                             const arr = [tr, row, lrn, name, sex, violation, date];
@@ -495,6 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         sex.textContent = dSex;
                         violation.innerHTML = dViolation;
                         date.textContent = dDate;
+                        status.textContent = dStatus;
 
                         this.tBody.appendChild(clone);
 
@@ -503,7 +507,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             name: dName,
                             sex: dSex,
                             violation: `ARTICLE ${d.article}, ${d.articleSection}, SANCTION: ${d.sanction}`,
-                            trow: tr
+                            trow: tr,
+                            status: dStatus
                         }
                     });
 
@@ -553,11 +558,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterViaViolation = document.getElementById('VL-filter-violation');
     const filterMale = document.getElementById('VL-filter-male');
     const filterFemale = document.getElementById('VL-filter-female');
+    const filterViaStatus = document.getElementById('VL-filter-status');
 
     // SD -------------------------------------------------------------------------------------------
     // search event ----------------------------------------------
     // search w/ debounce
-    const updateDSD = util.debounce(() => {
+    const updateDSD = utils.debounce(() => {
         SD.search();
     }, 300);
 
@@ -565,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortSDDisplayedData = () => {
 
         dataOrders.forEach(dataOrder => {
-            eventListener.callEvent(dataOrder, 'change', () => {
+            evntLi.callEvent(dataOrder, 'change', () => {
                 updateDSD();
             })
         });
@@ -574,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stdDirSearch) {
         SD.displayStudentData();
 
-        eventListener.callEvent(stdDirSearch, 'input', () => {
+        evntLi.callEvent(stdDirSearch, 'input', () => {
 
             updateDSD();
 
@@ -584,12 +590,12 @@ document.addEventListener('DOMContentLoaded', () => {
         stdDirFilter.forEach(box => {
             //filter is inside search function of std directory class
             //why? figure it out yourself 
-            eventListener.callEvent(box, 'change', () => {
+            evntLi.callEvent(box, 'change', () => {
                 updateDSD();
             });
         });
 
-        eventListener.callEvent(filterViaAddress, 'input', () => {
+        evntLi.callEvent(filterViaAddress, 'input', () => {
             updateDSD();
         });
 
@@ -599,11 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ANS ------------------------------------------------------------------------------------------
     //search events ----------------------------------------------
     //debounce search event.
-    const updateEditableDisplay = util.debounce(() => {
+    const updateEditableDisplay = utils.debounce(() => {
         showEditableData();
     }, 300);
 
-    const updateDeletableDisplay = util.debounce(() => {
+    const updateDeletableDisplay = utils.debounce(() => {
         showDeletableData();
     }, 300);
 
@@ -621,11 +627,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         showDeletableData();
 
-        eventListener.callEvent(editSearch, 'input', () => {
+        evntLi.callEvent(editSearch, 'input', () => {
             updateEditableDisplay();
         });
 
-        eventListener.callEvent(delSearch, 'input', () => {
+        evntLi.callEvent(delSearch, 'input', () => {
             updateDeletableDisplay();
         });
     }
@@ -667,13 +673,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ANVSS = new ANVSSearch();
 
-    const updateANVSS = util.debounce(() => {
+    const updateANVSS = utils.debounce(() => {
         ANVSS.search();
     }, 300);
 
     if (addViolatorSearch) {
 
-        eventListener.callEvent(addViolatorSearch, 'input', () => {
+        evntLi.callEvent(addViolatorSearch, 'input', () => {
             updateANVSS();
         });
 
@@ -690,6 +696,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const search = violationLogSearch.value.toUpperCase();
                 const filterViolation = filterViaViolation.value.toUpperCase();
+                const filterStatus = filterViaStatus.value.toUpperCase();
 
                 data.forEach(d => {
                     const tr = d.trow;
@@ -706,7 +713,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         tr.setAttribute('state', 'hidden');
                     }
 
+                    if (!d.status.includes(filterStatus)) {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'hidden');
+                    }
+
                     if (filterMale.checked && d.sex == 'FEMALE') {
+                        tr.classList.add('d-none');
+                        tr.setAttribute('state', 'hidden');
+                    }
+
+                    if (filterFemale.checked && d.sex == 'MALE') {
                         tr.classList.add('d-none');
                         tr.setAttribute('state', 'hidden');
                     }
@@ -728,7 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const VLS = new VLSearch();
 
-    const updateVLS = util.debounce(() => {
+    const updateVLS = utils.debounce(() => {
         VLS.search();
     }, 300);
 
@@ -737,19 +754,19 @@ document.addEventListener('DOMContentLoaded', () => {
         VL.displayViolators();
 
         VLSetting.forEach(cb => {
-            eventListener.callEvent(cb, 'change', () => {
+            evntLi.callEvent(cb, 'change', () => {
 
                 updateVLS();
             });
         });
 
-        eventListener.callEvent(violationLogSearch, 'input', () => {
+        evntLi.callEvent(violationLogSearch, 'input', () => {
             updateVLS();
         });
 
         VLInputs.forEach(inpt => {
 
-            eventListener.callEvent(inpt, 'input', () => {
+            evntLi.callEvent(inpt, 'input', () => {
                 updateVLS();
             });
         });
@@ -863,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const gradeLev = forms[index].querySelector('#select-grade-level');
                     const gradeSec = forms[index].querySelector('#select-grade-section');
 
-                    eventListener.callEvent(gradeLev, 'change', () => {
+                    evntLi.callEvent(gradeLev, 'change', () => {
 
                         sectionsForEachForm(index);
                     });
@@ -898,30 +915,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.exception)
                     throw new Error(data.exception);
 
-                if (data.void) {
-                    mainBody.innerHTML += `<tr><th colspan="3" class="text-success">${data.void}</th></tr>`;
-                }
+                if (data.error)
+                    throw new Error(data.error);
 
                 if (data.success) {
-                    //I re-declare data now the value had changed
+                    //redeclare data 
                     data = data.success;
 
-                    const idk = data.map(d => {
-                        const clone = template.content.cloneNode(true);
-                        const toDo = clone.querySelector('.task');
-                        const toDoStatus = clone.querySelector('.to-do-status');
+                    const cloneTasks = (tasks) => {
+                        tasks.forEach(task => {
+                            let recordDate = new Date(task.lastUpdate);
+                            let currentDate = new Date();
 
-                        let uniqID = generateUnqId();
-                        const checkbox = clone.querySelector('#to-do-list-checkbox');
-                        const checkboxLabel = clone.querySelector('#checkbox-label');
-                        checkbox.id = uniqID;
-                        checkboxLabel.setAttribute('for', uniqID);
+                            const clone = template.content.cloneNode(true);
+                            const row = clone.querySelector('tr');
+                            const toDo = clone.querySelector('.task');
+                            const toDoStatus = clone.querySelector('.to-do-status');
 
-                        toDo.innerHTML = d.toDo;
-                        toDoStatus.innerHTML = d.toDoStatus;
+                            let uniqID = generateUnqId();
+                            const checkbox = clone.querySelector('[to-do-list-checkbox]');
+                            const checkboxLabel = clone.querySelector('#checkbox-label');
+                            checkbox.id = uniqID;
+                            checkboxLabel.setAttribute('for', uniqID);
 
-                        mainBody.appendChild(clone);
-                    });
+                            let timeDifference = Math.abs(recordDate - currentDate);
+
+                            let gapInterval = Math.floor(timeDifference / 60000);
+
+                            if (task.toDoStatus == 'COMPLETED' && gapInterval >= 60)
+                                return;
+
+                            if (task.toDoStatus == 'COMPLETED') {
+                                toDo.classList.add('text-decoration-line-through', 'fst-italic');
+                                toDo.classList.remove('fw-bold');
+                                toDoStatus.classList.add('text-success');
+                                checkbox.checked = true;
+                            }
+
+                            row.tID = task.toDoListID;
+                            row.setAttribute('state', 'visible');
+                            toDo.innerHTML = task.toDo;
+                            toDoStatus.innerHTML = task.toDoStatus;
+
+                            mainBody.appendChild(clone);
+                        });
+                        const toDoList = document.querySelectorAll('[state = visible]');
+                        //show this when no pending task 
+                        if (tasks == data.pending && toDoList.length == 0)
+                            mainBody.innerHTML += `<tr id="to-do-list-row"><th colspan="3" class="text-success">No task available</th></tr>`
+
+                    }
+
+                    cloneTasks(data.pending);
+                    cloneTasks(data.completed);
                 }
             });
         }
@@ -939,7 +985,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reg.setSectionsForEachGrade();
         reg.setRegistrationGradeLevelOption();
 
-        eventListener.callEvent(regSearch, 'input', (e) => {
+        evntLi.callEvent(regSearch, 'input', (e) => {
 
             reg.displayStudent();
             console.log(e.target.value)
@@ -949,9 +995,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //dashboard
     dashboard.displayTaskList();
 
+    const updateDDTL = utils.debounce(() => {
+        dashboard.displayTaskList();
+    }, 1000);
+
     event.globalEvent('click', '#add-new-list', () => {
-        setTimeout(() => {
-            dashboard.displayTaskList();
-        }, 1000);
+        updateDDTL();
     });
 });

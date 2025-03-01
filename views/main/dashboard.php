@@ -133,10 +133,10 @@
                                 <template id="to-do-list-template">
                                     <tr id="to-do-list-row">
                                         <td>
-                                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox">
+                                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox" to-do-list-checkbox>
                                             <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
                                         </td>
-                                        <td class="fw-bold task">
+                                        <td class="fw-bold task" to-do>
 
                                         </td>
                                         <td class="to-do-status">Pending...</td>

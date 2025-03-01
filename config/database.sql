@@ -410,6 +410,7 @@ VALUES ('PAGPAPA-ALALA', 'MINOR'),
         'PANANAGOT SA BATAS NA NAAAYON SA DSWD',
         'CRITICAL'
     );
+
 CREATE TABLE violationLogs(
     violationLogID INT AUTO_INCREMENT PRIMARY KEY,
     studentID INT,
@@ -417,7 +418,8 @@ CREATE TABLE violationLogs(
     articleSectionID INT,
     sanctionID INT,
     violationDate DATE DEFAULT NULL,
-    lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    violationStatus ENUM('PENDING', 'IN-PROGRESS', 'COMPLETED'),
+    lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_of_article_id (articleID),
     INDEX idx_of_article_section_id (articleSectionID),
     INDEX idx_of_sanction_Id (sanctionID),
@@ -490,5 +492,6 @@ CREATE TABLE registration(
 CREATE TABLE toDoLists(
     toDoListID INT AUTO_INCREMENT PRIMARY KEY,
     toDo VARCHAR(255),
-    toDoStatus ENUM('PENDING', 'COMPLETED')
+    toDoStatus ENUM('PENDING', 'COMPLETED'),
+    lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

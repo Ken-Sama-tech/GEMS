@@ -46,6 +46,10 @@
                                 <label for="VL-filter-violation"> Violation </label>
                                 <input type="text" name="VL-input" class="ms-4 w-75" id="VL-filter-violation">
                             </li>
+                            <li class="hdm-item">
+                                <label for="VL-filter-status"> Status </label>
+                                <input type="text" name="VL-input" class="ms-4 w-75" id="VL-filter-status">
+                            </li>
                             <h6>Additional Setting</h6>
                             <li class="hdm-item">
                                 <input type="checkbox" name="VL-setting" id="VL-show-description">
@@ -68,6 +72,7 @@
                         <th scope="col">Sex</th>
                         <th scope="col">Violation</th>
                         <th scope="col">Date</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody id="violation-log-tBody">
@@ -82,6 +87,7 @@
                     <td selected id="sex"></td>
                     <td selected id="violation"></td>
                     <td selected id="date"></td>
+                    <td selected id="v-status"></td>
                 </tr>
             </template>
         </div>

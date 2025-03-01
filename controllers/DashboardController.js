@@ -35,7 +35,7 @@ class Charts {
           data: arrData,
           backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
           hoverOffset: 2,
-        }, ],
+        },],
       },
       options: {
         cutout: "60%",
@@ -60,19 +60,19 @@ class Charts {
       data: {
         labels: range,
         datasets: [{
-            type: "bar",
-            label: "Total Violations",
-            data: arrData,
-            backgroundColor: "rgba(54, 162, 235, 0.6)",
-            borderColor: "#FF0000",
-          },
-          {
-            type: "line",
-            label: "Average Violations",
-            data: trendData,
-            fill: false,
-            borderColor: "rgb(54, 162, 235)",
-          },
+          type: "bar",
+          label: "Total Violations",
+          data: arrData,
+          backgroundColor: "rgba(54, 162, 235, 0.6)",
+          borderColor: "#FF0000",
+        },
+        {
+          type: "line",
+          label: "Average Violations",
+          data: trendData,
+          fill: false,
+          borderColor: "rgb(54, 162, 235)",
+        },
         ],
       },
       options: {
@@ -264,24 +264,69 @@ const chartsMinMaxToggle = (() => {
 
 const toDoList = (() => {
 
+  let taskList = null;
+
+  const isTaskListLoaded = () => {
+    taskList = document.querySelectorAll('#to-do-list-row');
+
+    if (taskList.length == 0) {
+      //add delay to ensure tasks is loaded
+      setTimeout(() => {
+        isTaskListLoaded();
+      }, 2000);
+
+      return;
+    }
+
+    isTaskCompleted();
+  }
+
+  isTaskListLoaded();
+
+  const updateTaskListLoader = utils.debounce(() => {
+    isTaskListLoaded();
+  }, 2000);
+
+  const isTaskCompleted = () => {
+    const checkboxes = document.querySelectorAll('[to-do-list-checkbox]');
+
+    const updateTaskList = (tID, status) => {
+
+      const serverReq = new MakeServerRequest('../../services/php/UpdateTaskProgress.php', `tID=${sendAsUrlCom(tID)}&status=${sendAsUrlCom(status)}`);
+
+      serverReq.sendData();
+    }
+
+    checkboxes.forEach(checkbox => {
+      evntLi.callEvent(checkbox, 'change', (e) => {
+        let tID = e.target.closest('tr').tID;
+        if (checkbox.checked == true)
+          updateTaskList(tID, 'COMPLETED');
+
+        if (checkbox.checked == false)
+          updateTaskList(tID, 'PENDING');
+      });
+    });
+  }
+
   const addNewTask = (task) => {
     const serverReq = new MakeServerRequest('../../services/php/AddNewTask.php', `task=${sendAsUrlCom(task)}`);
 
-    serverReq.sendData(() => {
-      console.log(serverReq.data);
-    });
+    serverReq.sendData();
   }
 
   event.globalEvent('click', '#add-new-list', () => {
     const newTask = document.getElementById('new-task');
     addNewTask(newTask.value);
     newTask.value = '';
+    updateTaskListLoader();
   });
 
   const toDoListContainer = document.querySelector('.to-do-list');
   evntLi.callEvent(toDoListContainer, 'contextmenu', e => {
     e.preventDefault();
-    if (toDoListContainer.contains(e.target))
-      console.log(e.target.closest('#to-do-list-row'));
+    if (toDoListContainer.contains(e.target)) {
+      const selectedTask = e.target.closest('#to-do-list-row');
+    }
   });
 })();
