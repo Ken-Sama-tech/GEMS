@@ -40,9 +40,6 @@
                                 <label for="VL-filter-female"> Female </label>
                             </li>
                             <h6>Additional Setting</h6>
-                            <li class="hdm-item">
-                                <button class="btn btn-outline-secondary ms-2" id="change-forms-size">Change Forms Size</button>
-                            </li>
                         </ul>
                     </div>
                 </div>

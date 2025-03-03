@@ -73,7 +73,7 @@
             </template>
         </section>
 
-        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0 border" id="dashboard-main-section">
+        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0" id="dashboard-main-section">
 
             <div class="row w-100 p-0 border border-2 d-lg-flex flex-wrap position-relative gap-0" id="charts-section">
                 <div class="position-absolute end-0 pointer chart-toggle-btn d-flex">
@@ -111,46 +111,33 @@
 
             <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
 
-                <div class="col-12 col-lg-6 border border-2 border-secondary h-100" id="to-do-list-container">
-                    <div class="to-do-list h-100 position-relative overflow-hidden">
-                        <div class="overflow-y-auto" style="height:calc(100% - 40px)">
-                            <table class="table">
-                                <colgroup>
-                                    <col class="col-1">
-                                    <col class="col-9">
-                                    <col class="col-2 ">
-                                </colgroup>
+                <div class="col-12 col-lg-6 border border-2 border-primary border-primary h-100 position-relative" id="to-do-list-container">
+                    <span class="fs-5 fw-bolder" style="height: 20px;">To Do List</span>
+                    <ul class="list-group w-100 overflow-auto" id="to-do-list-body">
 
-                                <thead>
-                                    <tr>
-                                        <th scope="col" colspan="2">To Do List</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
+                    </ul>
+                    <div class="add-new-to-do-list w-100 bg-light border-top border-2 p-1 d-flex align-items-center justify-content-between">
+                        <input type="text" id="new-task" class="h-100 w-75">
+                        <button class="btn btn-primary py-1" id="add-new-list">Add a new list</button>
+                    </div>
 
-                                <tbody id="to-do-list-body">
-                                </tbody>
-                                <template id="to-do-list-template">
-                                    <tr id="to-do-list-row">
-                                        <td>
-                                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox" to-do-list-checkbox>
-                                            <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
-                                        </td>
-                                        <td class="fw-bold task" to-do>
-
-                                        </td>
-                                        <td class="to-do-status">Pending...</td>
-                                    </tr>
-                                </template>
-                            </table>
-                        </div>
-                        <div class="add-new-to-do-list position-absolute w-100 bottom-0 bg-light border-top border-2 p-1 d-flex align-items-center justify-content-between">
-                            <input type="text" id="new-task" class="h-100 w-75">
-                            <button class="btn btn-primary py-1" id="add-new-list">Add To List</button>
-                        </div>
+                    <!-- context menu -->
+                    <div class="container p-0 position-absolute d-none contextmenu rounded-3 px-2">
+                        <ul class="list-group d-flex justify-content-center h-100">
+                            <li class="list-group-item bg-danger text-light dlt-task-btn pointer">Delete Task</li>
+                        </ul>
                     </div>
                 </div>
 
+                <!-- template -->
+                <template id="to-do-list-template">
+                    <li class="list-group-item d-flex gap-2 hover-gray" id="to-do-list-row">
+                        <input type="checkbox" class="btn-check" id="to-do-list-checkbox" to-do-list-checkbox>
+                        <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
+                        <span class="col-8 text-nowrap ps-2 overflow-x-auto remove-scroll-bar fw-bold task"></span>
+                        <span class="col-2 text-center to-do-status ms-5"></span>
+                    </li>
+                </template>
                 <div class="col-12 col-lg-6 border"></div>
             </div>
         </div>
