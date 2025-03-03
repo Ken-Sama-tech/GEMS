@@ -110,8 +110,8 @@
             </div>
 
             <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
-
-                <div class="col-12 col-lg-6 border border-2 border-primary border-primary h-100 position-relative" id="to-do-list-container">
+                <!-- to do list  -->
+                <div class="col-12 col-lg-6 border border-secondary h-100 position-relative" id="to-do-list-container">
                     <span class="fs-5 fw-bolder" style="height: 20px;">To Do List</span>
                     <ul class="list-group w-100 overflow-auto" id="to-do-list-body">
 
@@ -127,17 +127,18 @@
                             <li class="list-group-item bg-danger text-light dlt-task-btn pointer">Delete Task</li>
                         </ul>
                     </div>
+
+                    <!-- template -->
+                    <template id="to-do-list-template">
+                        <li class="list-group-item d-flex gap-2 hover-gray" id="to-do-list-row">
+                            <input type="checkbox" class="btn-check" id="to-do-list-checkbox" to-do-list-checkbox>
+                            <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
+                            <span class="col-8 text-nowrap ps-2 overflow-x-auto remove-scroll-bar fw-bold task"></span>
+                            <span class="col-2 text-center to-do-status ms-5"></span>
+                        </li>
+                    </template>
                 </div>
 
-                <!-- template -->
-                <template id="to-do-list-template">
-                    <li class="list-group-item d-flex gap-2 hover-gray" id="to-do-list-row">
-                        <input type="checkbox" class="btn-check" id="to-do-list-checkbox" to-do-list-checkbox>
-                        <label class="btn btn-outline-primary text-light py-0 px-2 rounded-0" for="to-do-list-checkbox" id="checkbox-label">&check;</label>
-                        <span class="col-8 text-nowrap ps-2 overflow-x-auto remove-scroll-bar fw-bold task"></span>
-                        <span class="col-2 text-center to-do-status ms-5"></span>
-                    </li>
-                </template>
                 <div class="col-12 col-lg-6 border"></div>
             </div>
         </div>

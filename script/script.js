@@ -992,16 +992,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //dashboard
-    // dashboard.displayTaskList();
+    dashboard
+    dashboard.displayTaskList();
 
-    // const updateDDTL = utils.debounce(() => {
-    //     dashboard.displayTaskList();
-    // }, 1000);
+    const updateDDTL = utils.debounce(() => {
+        dashboard.displayTaskList();
+    }, 1000);
 
-    // event.globalEvent('click', '#add-new-list', () => {
-    //     updateDDTL();
-    // });
+    event.globalEvent('click', '#add-new-list', () => {
+        updateDDTL();
+    });
 
     // charts ---------------------------------------------------------
 
@@ -1082,140 +1082,140 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // const chartSetings = (() => {
-    //     const charts = new Charts();
+    const chartSetings = (() => {
+        const charts = new Charts();
 
-    //     const changeChartTimeRange = utils.debounce(() => {
-    //         if (range.value == 5) {
-    //             charts.updateChart(charts.scatter, () => {
-    //                 charts.scatterChart(
-    //                     "#violations-chart",
-    //                     [
-    //                         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    //                         20, 21, 22, 23, 24,
-    //                     ],
-    //                     [0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    //                     [
-    //                         0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    //                         0,
-    //                     ]
-    //                 );
-    //             });
+        const changeChartTimeRange = utils.debounce(() => {
+            if (range.value == 5) {
+                charts.updateChart(charts.scatter, () => {
+                    charts.scatterChart(
+                        "#violations-chart",
+                        [
+                            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                            20, 21, 22, 23, 24,
+                        ],
+                        [0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [
+                            0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                            0,
+                        ]
+                    );
+                });
 
-    //             charts.updateChart(charts.doughnut, () => {
-    //                 charts.doughnutChart(
-    //                     "#violations-severity-chart",
-    //                     ["Critical", "Major", "Minor"],
-    //                     [14, 43, 85]
-    //                 );
-    //             });
-    //         }
+                charts.updateChart(charts.doughnut, () => {
+                    charts.doughnutChart(
+                        "#violations-severity-chart",
+                        ["Critical", "Major", "Minor"],
+                        [14, 43, 85]
+                    );
+                });
+            }
 
-    //         if (range.value == 4) {
-    //             charts.updateChart(charts.scatter, () => {
-    //                 charts.scatterChart(
-    //                     "#violations-chart",
-    //                     [
-    //                         "Monday",
-    //                         "Tuesday",
-    //                         "Wednesday",
-    //                         "Thursday",
-    //                         "Friday",
-    //                         "Saturday",
-    //                         "Sunday",
-    //                     ],
-    //                     [12, 18, 15, 20, 25, 30, 22],
-    //                     [6, 9, 8, 10, 12, 15, 11]
-    //                 );
-    //             });
+            if (range.value == 4) {
+                charts.updateChart(charts.scatter, () => {
+                    charts.scatterChart(
+                        "#violations-chart",
+                        [
+                            "Monday",
+                            "Tuesday",
+                            "Wednesday",
+                            "Thursday",
+                            "Friday",
+                            "Saturday",
+                            "Sunday",
+                        ],
+                        [12, 18, 15, 20, 25, 30, 22],
+                        [6, 9, 8, 10, 12, 15, 11]
+                    );
+                });
 
-    //             charts.updateChart(charts.doughnut, () => {
-    //                 charts.doughnutChart(
-    //                     "#violations-severity-chart",
-    //                     ["Critical", "Major", "Minor"],
-    //                     [14, 43, 85]
-    //                 );
-    //             });
-    //         }
+                charts.updateChart(charts.doughnut, () => {
+                    charts.doughnutChart(
+                        "#violations-severity-chart",
+                        ["Critical", "Major", "Minor"],
+                        [14, 43, 85]
+                    );
+                });
+            }
 
-    //         if (range.value == 3) {
-    //             charts.updateChart(charts.scatter, () => {
-    //                 charts.scatterChart(
-    //                     "#violations-chart",
-    //                     ["Week 1", "Week 2", "Week 3", "Week 4"],
-    //                     [45, 50, 72, 60],
-    //                     [10, 15, 18, 14]
-    //                 );
-    //             });
+            if (range.value == 3) {
+                charts.updateChart(charts.scatter, () => {
+                    charts.scatterChart(
+                        "#violations-chart",
+                        ["Week 1", "Week 2", "Week 3", "Week 4"],
+                        [45, 50, 72, 60],
+                        [10, 15, 18, 14]
+                    );
+                });
 
-    //             charts.updateChart(charts.doughnut, () => {
-    //                 charts.doughnutChart(
-    //                     "#violations-severity-chart",
-    //                     ["Critical", "Major", "Minor"],
-    //                     [23, 68, 136]
-    //                 );
-    //             });
-    //         }
+                charts.updateChart(charts.doughnut, () => {
+                    charts.doughnutChart(
+                        "#violations-severity-chart",
+                        ["Critical", "Major", "Minor"],
+                        [23, 68, 136]
+                    );
+                });
+            }
 
-    //         if (range.value == 2) {
-    //             charts.updateChart(charts.scatter, () => {
-    //                 charts.scatterChart(
-    //                     "#violations-chart",
-    //                     [
-    //                         "January",
-    //                         "February",
-    //                         "March",
-    //                         "April",
-    //                         "May",
-    //                         "June",
-    //                         "July",
-    //                         "August",
-    //                         "September",
-    //                         "October",
-    //                         "November",
-    //                         "December",
-    //                     ],
-    //                     [30, 25, 40, 35, 50, 75, 90, 85, 70, 60, 45, 35],
-    //                     [10, 12, 15, 14, 20, 30, 35, 33, 28, 22, 18, 12]
-    //                 );
-    //             });
+            if (range.value == 2) {
+                charts.updateChart(charts.scatter, () => {
+                    charts.scatterChart(
+                        "#violations-chart",
+                        [
+                            "January",
+                            "February",
+                            "March",
+                            "April",
+                            "May",
+                            "June",
+                            "July",
+                            "August",
+                            "September",
+                            "October",
+                            "November",
+                            "December",
+                        ],
+                        [30, 25, 40, 35, 50, 75, 90, 85, 70, 60, 45, 35],
+                        [10, 12, 15, 14, 20, 30, 35, 33, 28, 22, 18, 12]
+                    );
+                });
 
-    //             charts.updateChart(charts.doughnut, () => {
-    //                 charts.doughnutChart(
-    //                     "#violations-severity-chart",
-    //                     ["Critical", "Major", "Minor"],
-    //                     [64, 192, 384]
-    //                 );
-    //             });
-    //         }
+                charts.updateChart(charts.doughnut, () => {
+                    charts.doughnutChart(
+                        "#violations-severity-chart",
+                        ["Critical", "Major", "Minor"],
+                        [64, 192, 384]
+                    );
+                });
+            }
 
-    //         if (range.value == 1) {
-    //             let latestYearTotal = 1450;
+            if (range.value == 1) {
+                let latestYearTotal = 1450;
 
-    //             charts.updateChart(charts.scatter, () => {
-    //                 charts.scatterChart(
-    //                     "#violations-chart",
-    //                     ["Year 1", "Year 2"],
-    //                     [1450, 1500],
-    //                     [870, 890]
-    //                 );
-    //             });
+                charts.updateChart(charts.scatter, () => {
+                    charts.scatterChart(
+                        "#violations-chart",
+                        ["Year 1", "Year 2"],
+                        [1450, 1500],
+                        [870, 890]
+                    );
+                });
 
-    //             charts.updateChart(charts.doughnut, () => {
-    //                 charts.doughnutChart(
-    //                     "#violations-severity-chart",
-    //                     ["Critical", "Major", "Minor"],
-    //                     [1600, 500, 850]
-    //                 );
-    //             });
-    //         }
-    //     }, 500);
+                charts.updateChart(charts.doughnut, () => {
+                    charts.doughnutChart(
+                        "#violations-severity-chart",
+                        ["Critical", "Major", "Minor"],
+                        [1600, 500, 850]
+                    );
+                });
+            }
+        }, 500);
 
-    //     const range = document.getElementById("statistic-time-range");
-    //     evntLi.callEvent(range, "change", () => {
-    //         changeChartTimeRange();
-    //     });
+        const range = document.getElementById("statistic-time-range");
+        evntLi.callEvent(range, "change", () => {
+            changeChartTimeRange();
+        });
 
-    //     changeChartTimeRange();
-    // })();
+        changeChartTimeRange();
+    })();
 });
