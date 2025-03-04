@@ -73,7 +73,7 @@
             </template>
         </section>
 
-        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0" id="dashboard-main-section">
+        <div class="container-fluid my-2 d-flex flex-column align-items-center p-0 " id="dashboard-main-section">
 
             <div class="row w-100 p-0 border border-2 d-lg-flex flex-wrap position-relative gap-0" id="charts-section">
                 <div class="position-absolute end-0 pointer chart-toggle-btn d-flex">
@@ -109,16 +109,16 @@
 
             </div>
 
-            <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
+            <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3 border border-primary" id="progress-tracker">
                 <!-- to do list  -->
                 <div class="col-12 col-lg-6 border border-secondary h-100 position-relative" id="to-do-list-container">
-                    <span class="fs-5 fw-bolder" style="height: 20px;">To Do List</span>
+                    <span class="fs-5 fw-bolder ps-2" style="height: 20px;">To Do List</span>
                     <ul class="list-group w-100 overflow-auto" id="to-do-list-body">
 
                     </ul>
                     <div class="add-new-to-do-list w-100 bg-light border-top border-2 p-1 d-flex align-items-center justify-content-between">
                         <input type="text" id="new-task" class="h-100 w-75">
-                        <button class="btn btn-primary py-1" id="add-new-list">Add a new list</button>
+                        <button class="btn btn-primary py-1 text-truncate" id="add-new-list">Add a new list</button>
                     </div>
 
                     <!-- context menu -->
@@ -139,7 +139,30 @@
                     </template>
                 </div>
 
-                <div class="col-12 col-lg-6 border"></div>
+                <div class="col-12 col-lg-6 position-relative" id="student-progress-log-container">
+                    <!-- student progress -->
+                    <span class="fs-5 fw-bolder ps-2" style="height: 20px;">Student Progress Log</span>
+                    <ul class="list-group w-100 overflow-auto h-100" id="progress-log">
+                    </ul>
+
+                    <!-- context menu -->
+                    <div class="container p-0 position-absolute d-none progress-logs-contextmenu rounded-3 px-2">
+                        <ul class="list-group d-flex justify-content-center h-100">
+                          <li class="list-group-item pointer hover-gray" id="pending-btn">PENDING</li>
+                          <li class="list-group-item pointer hover-gray" id="in-progress-btn">IN-PROGRESS</li>
+                          <li class="list-group-item pointer hover-gray" id="completed-btn">COMPLETED</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- template -->
+                    <template id="progress-log-template">
+                        <li class="list-group-item d-flex gap-2 hover-gray" id="progress-log-row">
+                            <span class="col-3 lrn"></span>
+                            <span class="col-5 text-nowrap ps-2 overflow-x-auto remove-scroll-bar fw-bold log-desc"></span>
+                            <span class="col-1 text-center progress-status ms-5"></span>
+                        </li>
+                    </template>
+                </div>
             </div>
         </div>
     </div>

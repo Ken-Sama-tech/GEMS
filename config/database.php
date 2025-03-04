@@ -7,7 +7,6 @@ class DatabaseHost
     private $password = '';
     private $database = 'student_record';
 
-
     protected function connect()
     {
         try {

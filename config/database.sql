@@ -418,7 +418,7 @@ CREATE TABLE violationLogs(
     articleSectionID INT,
     sanctionID INT,
     violationDate DATE DEFAULT NULL,
-    violationStatus ENUM('PENDING', 'IN-PROGRESS', 'COMPLETED'),
+    violationStatus ENUM('PENDING', 'IN-PROGRESS', 'COMPLETED') DEFAULT 'PENDING' NOT NULL,
     lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_of_article_id (articleID),
     INDEX idx_of_article_section_id (articleSectionID),

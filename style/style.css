@@ -315,6 +315,20 @@ input[type="number"]::-webkit-outer-spin-button {
   display: block !important;
 }
 
+.progress-logs-contextmenu {
+  height: 150px;
+  width: 50%;
+  background-color: var(--white-background);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(0, 0, 0, 0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.progress-logs-contextmenu.active {
+  display: block !important;
+}
+
 /* registration */
 #reg-main-container {
   height: 100%;
@@ -401,7 +415,15 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   #progress-tracker {
-    height: 70vh !important;
+    height: 100vh !important;
+  }
+
+  #to-do-list-container{
+    height: 50% !important;
+  }
+  
+  #student-progress-log-container{
+    height: 50% !important;
   }
 }
 
@@ -443,10 +465,6 @@ input[type="number"]::-webkit-outer-spin-button {
   body {
     visibility: hidden;
   }
-
-  /* #showStdDetailsModal {
-    visibility: visible;
-  } */
 
   /* add this to make something printable */
   .printable {

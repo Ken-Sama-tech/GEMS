@@ -3,7 +3,6 @@ import {
   GlobalEventListeners,
   Debounce,
   sendAsUrlCom,
-
 } from "../includes/utils/js/domHelper";
 import MakeServerRequest from "../services/js/ServerRequests";
 
@@ -41,19 +40,17 @@ const chartsMinMaxToggle = (() => {
   const chartsSection = document.getElementById("charts-section");
   const toggleBtn = document.querySelector(".chart-toggle-btn");
 
-  evntLi.callEvent(toggleBtn, 'click', (e) => {
-    toggleBtn.classList.toggle('active');
-    chartsSection.classList.toggle('minimize');
+  evntLi.callEvent(toggleBtn, "click", (e) => {
+    toggleBtn.classList.toggle("active");
+    chartsSection.classList.toggle("minimize");
   });
-
 })();
 
 const toDoList = (() => {
-
   let taskList = null;
 
   const isTaskListLoaded = () => {
-    taskList = document.querySelectorAll('#to-do-list-row');
+    taskList = document.querySelectorAll("#to-do-list-row");
 
     if (taskList.length == 0) {
       //add delay to ensure tasks is loaded
@@ -65,7 +62,7 @@ const toDoList = (() => {
     }
 
     isTaskCompleted();
-  }
+  };
 
   isTaskListLoaded();
 
@@ -74,63 +71,128 @@ const toDoList = (() => {
   }, 2000);
 
   const isTaskCompleted = () => {
-    const checkboxes = document.querySelectorAll('[to-do-list-checkbox]');
+    const checkboxes = document.querySelectorAll("[to-do-list-checkbox]");
 
     const updateTaskList = (tID, status) => {
-
-      const serverReq = new MakeServerRequest('../../services/php/UpdateTaskProgress.php', `tID=${sendAsUrlCom(tID)}&status=${sendAsUrlCom(status)}`);
+      const serverReq = new MakeServerRequest(
+        "../../services/php/UpdateTaskProgress.php",
+        `tID=${sendAsUrlCom(tID)}&status=${sendAsUrlCom(status)}`
+      );
 
       serverReq.sendData();
-    }
+    };
 
-    checkboxes.forEach(checkbox => {
-      evntLi.callEvent(checkbox, 'change', (e) => {
-        let tID = e.target.closest('li').tID;
-        if (checkbox.checked)
-          updateTaskList(tID, 'COMPLETED');
+    checkboxes.forEach((checkbox) => {
+      evntLi.callEvent(checkbox, "change", (e) => {
+        let tID = e.target.closest("li").tID;
+        if (checkbox.checked) updateTaskList(tID, "COMPLETED");
 
-        if (checkbox.checked == false)
-          updateTaskList(tID, 'PENDING');
+        if (checkbox.checked == false) updateTaskList(tID, "PENDING");
       });
     });
-  }
+  };
 
   const addNewTask = (task) => {
-    const serverReq = new MakeServerRequest('../../services/php/AddNewTask.php', `task=${sendAsUrlCom(task)}`);
+    const serverReq = new MakeServerRequest(
+      "../../services/php/AddNewTask.php",
+      `task=${sendAsUrlCom(task)}`
+    );
 
     serverReq.sendData();
-  }
+  };
 
   const deleteTask = (tID) => {
-    const serverReq = new MakeServerRequest('../../services/php/DeleteTask.php', `tID=${sendAsUrlCom(tID)}`);
+    const serverReq = new MakeServerRequest(
+      "../../services/php/DeleteTask.php",
+      `tID=${sendAsUrlCom(tID)}`
+    );
 
     serverReq.sendData();
-  }
+  };
 
-  event.globalEvent('click', '#add-new-list', () => {
-    const newTask = document.getElementById('new-task');
+  event.globalEvent("click", "#add-new-list", () => {
+    const newTask = document.getElementById("new-task");
     addNewTask(newTask.value);
-    newTask.value = '';
+    newTask.value = "";
     updateTaskListLoader();
   });
 
-  const toDoListContainer = document.querySelector('#to-do-list-body');
-  evntLi.callEvent(toDoListContainer, 'contextmenu', e => {
+  const toDoListContainer = document.querySelector("#to-do-list-body");
+  evntLi.callEvent(toDoListContainer, "contextmenu", (e) => {
     e.preventDefault();
 
-    if (toDoListContainer.contains(e.target) && e.target.matches('#to-do-list-row')) {
-      console.log(e.target)
-      const selectedTask = e.target.closest('#to-do-list-row');
-      const contextmenu = document.querySelector('.contextmenu');
-      contextmenu.classList.toggle('active');
+    if (toDoListContainer.contains(e.target)) {
+      if (!e.target.closest("#to-do-list-row")) return;
 
-      // deleteTask(selectedTask.tID);
+      const selectedTask = e.target.closest("#to-do-list-row");
 
-      evntLi.callEvent(document, 'click', (e) => {
+      if (selectedTask.contains(e.target)) {
+        const contextmenu = document.querySelector(".contextmenu");
+
+        event.globalEvent("click", ".dlt-task-btn", () => {
+          deleteTask(selectedTask.tID);
+          contextmenu.classList.remove("active");
+        });
+
+        contextmenu.classList.toggle("active");
+
+        evntLi.callEvent(document, "click", (e) => {
+          if (!contextmenu.contains(e.target)) {
+            contextmenu.classList.remove("active");
+            contextmenu.classList.remove("active-effect");
+          }
+        });
+      }
+    }
+  });
+})();
+
+const proressLog = (() => {
+  let logs = null;
+
+  const isProgressLogLoaded = () => {
+    logs = document.querySelectorAll("#progress-log-row");
+
+    if (logs.length == 0) {
+      //add delay to ensure logs is loaded
+      setTimeout(() => {
+        isProgressLogLoaded();
+      }, 2000);
+
+      return;
+    }
+
+    isProgressLogLoaded();
+  };
+
+  const updateProgressLoader = utils.debounce(() => {
+    isProgressLogLoaded();
+  });
+
+  // updateStudentProgressStatus = (status) => {
+
+  // }
+
+  const progressLog = document.getElementById("progress-log");
+
+  evntLi.callEvent(progressLog, "contextmenu", (e) => {
+    e.preventDefault();
+
+    if (progressLog.contains(e.target)) {
+      if (!e.target.closest("#progress-log-row")) return;
+
+      const selected = e.target.closest("#progress-log-row");
+      const contextmenu = document.querySelector(".progress-logs-contextmenu");
+
+      contextmenu.classList.toggle("active");
+      console.log(selected);
+
+      evntLi.callEvent(document, "click", (e) => {
         if (!contextmenu.contains(e.target))
-          contextmenu.classList.remove('active');
-        contextmenu.classList.remove('active-effect');
+          contextmenu.classList.remove("active");
       });
+
+      event.globalEvent();
     }
   });
 })();
