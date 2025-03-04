@@ -109,10 +109,12 @@
 
             </div>
 
-            <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3 border border-primary" id="progress-tracker">
+            <div class="container-fluid m-0 col-12 d-flex flex-wrap p-0 mt-3" id="progress-tracker">
                 <!-- to do list  -->
                 <div class="col-12 col-lg-6 border border-secondary h-100 position-relative" id="to-do-list-container">
-                    <span class="fs-5 fw-bolder ps-2" style="height: 20px;">To Do List</span>
+                    <div class="w-100" style="height:35px">
+                        <span class="fs-5 fw-bolder ps-2">To Do List</span>
+                    </div>
                     <ul class="list-group w-100 overflow-auto" id="to-do-list-body">
 
                     </ul>
@@ -139,21 +141,24 @@
                     </template>
                 </div>
 
-                <div class="col-12 col-lg-6 position-relative" id="student-progress-log-container">
+                <div class="col-12 col-lg-6 position-relative h-100 border border-secondary" id="student-progress-log-container">
                     <!-- student progress -->
-                    <span class="fs-5 fw-bolder ps-2" style="height: 20px;">Student Progress Log</span>
-                    <ul class="list-group w-100 overflow-auto h-100" id="progress-log">
+                    <nav class="navbar d-flex p-0 border border-bottom align-item-start" id="mini-navbar">
+                        <span class="fs-5 fw-bolder ps-2">Student Progress Log</span>
+                        <input type="search" id="mini-search-bar" placeholder="Search...">
+                    </nav>
+                    <ul class="list-group w-100 overflow-auto" id="progress-log">
                     </ul>
 
                     <!-- context menu -->
                     <div class="container p-0 position-absolute d-none progress-logs-contextmenu rounded-3 px-2">
                         <ul class="list-group d-flex justify-content-center h-100">
-                          <li class="list-group-item pointer hover-gray" id="pending-btn">PENDING</li>
-                          <li class="list-group-item pointer hover-gray" id="in-progress-btn">IN-PROGRESS</li>
-                          <li class="list-group-item pointer hover-gray" id="completed-btn">COMPLETED</li>
+                            <li class="list-group-item pointer hover-gray" set-status-to="PENDING">PENDING</li>
+                            <li class="list-group-item pointer hover-gray" set-status-to="IN-PROGRESS">IN-PROGRESS</li>
+                            <li class="list-group-item pointer hover-gray" set-status-to="COMPLETED">COMPLETED</li>
                         </ul>
                     </div>
-                    
+
                     <!-- template -->
                     <template id="progress-log-template">
                         <li class="list-group-item d-flex gap-2 hover-gray" id="progress-log-row">

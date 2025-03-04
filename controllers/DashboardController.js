@@ -121,18 +121,26 @@ const toDoList = (() => {
   evntLi.callEvent(toDoListContainer, "contextmenu", (e) => {
     e.preventDefault();
 
-    if (toDoListContainer.contains(e.target)) {
-      if (!e.target.closest("#to-do-list-row")) return;
+    let selectedTask = null;
 
-      const selectedTask = e.target.closest("#to-do-list-row");
+    if (toDoListContainer.contains(e.target)) {
+      if (!e.target.closest("#to-do-list-row"))
+        return;
+
+      selectedTask = e.target.closest("#to-do-list-row");
 
       if (selectedTask.contains(e.target)) {
         const contextmenu = document.querySelector(".contextmenu");
 
-        event.globalEvent("click", ".dlt-task-btn", () => {
+        const eventHandler = () => {
+          if (selectedTask == null)
+            return
           deleteTask(selectedTask.tID);
           contextmenu.classList.remove("active");
-        });
+          selectedTask = null;
+        }
+
+        event.globalEvent("click", ".dlt-task-btn", eventHandler);
 
         contextmenu.classList.toggle("active");
 
@@ -152,7 +160,6 @@ const proressLog = (() => {
 
   const isProgressLogLoaded = () => {
     logs = document.querySelectorAll("#progress-log-row");
-
     if (logs.length == 0) {
       //add delay to ensure logs is loaded
       setTimeout(() => {
@@ -161,38 +168,49 @@ const proressLog = (() => {
 
       return;
     }
-
-    isProgressLogLoaded();
   };
+
+  isProgressLogLoaded();
 
   const updateProgressLoader = utils.debounce(() => {
     isProgressLogLoaded();
   });
 
-  // updateStudentProgressStatus = (status) => {
+  const updateStudentProgressStatus = (status, vID) => {
+    const serverReq = new MakeServerRequest('../../services/php/UpdateViolationStatus.php', `vStatus=${sendAsUrlCom(status)}&vID=${sendAsUrlCom(vID)}`);
 
-  // }
+    serverReq.sendData(() => {
+      updateProgressLoader();
+    });
+  }
 
   const progressLog = document.getElementById("progress-log");
 
   evntLi.callEvent(progressLog, "contextmenu", (e) => {
-    e.preventDefault();
 
+    let selected = null;
+    e.preventDefault();
     if (progressLog.contains(e.target)) {
       if (!e.target.closest("#progress-log-row")) return;
 
-      const selected = e.target.closest("#progress-log-row");
+      selected = e.target.closest("#progress-log-row");
       const contextmenu = document.querySelector(".progress-logs-contextmenu");
 
       contextmenu.classList.toggle("active");
-      console.log(selected);
 
-      evntLi.callEvent(document, "click", (e) => {
+      event.globalEvent('click', '[set-status-to]', (e) => {
+        if (selected == null)
+          return;
+        updateStudentProgressStatus(e.target.getAttribute('set-status-to'), selected.vID);
+        contextmenu.classList.remove("active");
+        selected = null;
+      });
+
+      evntLi.callEvent(document, 'click', e => {
         if (!contextmenu.contains(e.target))
           contextmenu.classList.remove("active");
       });
 
-      event.globalEvent();
     }
   });
 })();

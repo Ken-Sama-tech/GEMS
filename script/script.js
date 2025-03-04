@@ -54,12 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
                   b.extensionName
                 ).localeCompare(
                   a.lastName +
-                    " " +
-                    a.firstName +
-                    " " +
-                    a.middleName +
-                    " " +
-                    b.extensionName
+                  " " +
+                  a.firstName +
+                  " " +
+                  a.middleName +
+                  " " +
+                  b.extensionName
                 )
               );
             } else {
@@ -74,12 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
                   a.extensionName
                 ).localeCompare(
                   b.lastName +
-                    " " +
-                    b.firstName +
-                    " " +
-                    b.middleName +
-                    " " +
-                    b.extensionName
+                  " " +
+                  b.firstName +
+                  " " +
+                  b.middleName +
+                  " " +
+                  b.extensionName
                 )
               );
             }
@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const dStatus = d.violationStatus;
 
             const setClonedObjectAttribute = (() => {
-              const arr = [tr, row, lrn, name, sex, violation, date];
+              const arr = [tr, row, lrn, name, sex, violation, date, status];
 
               arr.forEach((item) => {
                 item.vID = d.vID;
@@ -516,6 +516,12 @@ document.addEventListener("DOMContentLoaded", () => {
             violation.innerHTML = dViolation;
             date.textContent = dDate;
             status.textContent = dStatus;
+
+            if (dStatus == 'COMPLETED')
+              status.className = ('completed');
+
+            if (dStatus == 'IN-PROGRESS')
+              status.classList.add('in-progress');
 
             this.tBody.appendChild(clone);
 
@@ -666,7 +672,6 @@ document.addEventListener("DOMContentLoaded", () => {
     search() {
       this.displayStudentOnTable(() => {
         let infos = this.data;
-        console.log(infos);
         const search = addViolatorSearch.value.toUpperCase();
 
         infos.forEach((info) => {
@@ -913,6 +918,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   class Dashboard {
+
+    constructor() {
+      this.data = [];
+      this.log = document.getElementById("progress-log");
+    }
+
     displayTaskList() {
       const serverReq = new MakeServerRequest(
         "../../services/php/ToDoLists.php"
@@ -983,34 +994,104 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    displayStudentPprogress() {
+    displayStudentProgress(callback) {
       const serverReq = new MakeServerRequest(
         "../../services/php/FetchViolators.php"
       );
       const template = document.getElementById("progress-log-template");
-      const log = document.getElementById("progress-log");
+      this.log.innerHTML = '';
 
       serverReq.requestData(() => {
         let data = serverReq.data;
 
-        data.forEach(d => {
-            console.log(d)
+        if (data.exception)
+          throw new Error(data.exception);
+
+        this.data = data.map(d => {
+
+          let recordDate = new Date(d.lastUpdate);
+          let currentDate = new Date();
+
+          let timeDifference = Math.abs(recordDate - currentDate);
+
+          let gapInterval = Math.floor(timeDifference / 60000);
+
           const clone = template.content.cloneNode(true);
           const row = clone.querySelector('li');
           const identifier = clone.querySelector('.lrn');
           const logDesc = clone.querySelector('.log-desc');
           const status = clone.querySelector('.progress-status');
 
+          const removeExtraWhiteSpaces = (param) => {
+            const arry = param.split(" ");
+
+            const filter = arry.filter((s) => {
+              if (s !== "") {
+                return s;
+              }
+            });
+
+            const str = filter.join(" ");
+
+            return str;
+          };
+
           const sanction = d.sanction;
           const vStatus = d.violationStatus;
-          const student = `(${d.lrn}) ${d.name}`;
+          const student = `(${d.lrn}) ${removeExtraWhiteSpaces(d.name)})`;
+
+          if (d.violationStatus == "COMPLETED" && gapInterval >= 60)
+            return;
 
           row.vID = d.vID;
+          row.vStatus = vStatus;
           identifier.innerHTML = student;
-          logDesc.innerHTML =  sanction;
+          logDesc.innerHTML = sanction;
           status.innerHTML = vStatus;
-          log.appendChild(clone);
+
+          if (vStatus == 'IN-PROGRESS')
+            status.classList.add('in-progress');
+
+          if (vStatus == 'COMPLETED') {
+            status.classList.add('completed');
+          }
+
+          this.log.appendChild(clone);
+
+          return { name: removeExtraWhiteSpaces(d.name), lrn: d.lrn, vStatus: vStatus, row: row };
         });
+
+        if (callback)
+          callback(this.data);
+      });
+    }
+
+    miniSearchBar() {
+      this.displayStudentProgress(() => {
+        let data = this.data;
+
+        const search = dashboardMiniSearchBar.value.toUpperCase();
+
+        data.forEach(d => {
+
+          if (d == null || !d)
+            return;
+
+          const lrn = d.lrn.toString();
+          const row = d.row;
+
+          row.classList.remove('d-none');
+          row.setAttribute('state', 'is-visible');
+
+          if (!d.name.includes(search) && !lrn.includes(search)) {
+            row.classList.add('d-none');
+            row.setAttribute('state', 'is-hidden');
+          }
+        });
+
+        const result = document.querySelectorAll('[state=is-visible]');
+        if (result.length == 0)
+          this.log.innerHTML = `<li><h2>No students found matching your criteria </h2></li>`;
       });
     }
   }
@@ -1019,10 +1100,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const reg = new Registration();
   const dashboard = new Dashboard();
 
-  dashboard.displayStudentPprogress();
-
-  //vars
+  //vars ---------------------------------------------------
+  //registration
   const regSearch = document.getElementById("reg-search");
+
+  //dashboard
+  const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
 
   if (regSearch) {
     reg.displayStudent();
@@ -1036,19 +1119,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // dashboard
-  dashboard.displayTaskList();
-
+  //DDTL dashboard display tasklist 
   const updateDDTL = utils.debounce(() => {
     dashboard.displayTaskList();
   }, 1000);
+  //DDSP dashboard display student progress
+  const updateDDSP = utils.debounce(() => {
+    dashboard.miniSearchBar();
+  }, 300);
 
-  event.globalEvent("click", "#add-new-list", () => {
-    updateDDTL();
-  });
+  if (dashboardMiniSearchBar) {
+    dashboard.displayStudentProgress();
+    dashboard.displayTaskList();
 
-  event.globalEvent("click", ".dlt-task-btn", () => {
-    updateDDTL();
-  });
+    event.globalEvent("click", "#add-new-list", () => {
+      updateDDTL();
+    });
+
+    event.globalEvent("click", ".dlt-task-btn", () => {
+      updateDDTL();
+    });
+
+    evntLi.callEvent(dashboardMiniSearchBar, 'input', () => {
+      updateDDSP();
+    });
+
+    event.globalEvent('click', '[set-status-to]', () => {
+      updateDDSP();
+    });
+  }
 
   // charts ---------------------------------------------------------
 
@@ -1265,6 +1364,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 500);
 
     const range = document.getElementById("statistic-time-range");
+
+    if (!range)
+      return;
+
     evntLi.callEvent(range, "change", () => {
       changeChartTimeRange();
     });
