@@ -804,9 +804,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     displayStudent(callback) {
+      const sy = document.getElementById('school-year');
       const serverReq = new MakeServerRequest(
-        "../../services/php/AllStdData.php"
+        "../../services/php/FetchUnregisteredStudents.php", `sy=${sendAsUrlCom(sy.value)}`
       );
+
+      this.tBody.innerHTML = '';
+
       const template = document.getElementById("reg-table-template");
 
       const removeWhiteExtraWhiteSpace = (param) => {
@@ -821,37 +825,45 @@ document.addEventListener("DOMContentLoaded", () => {
         return string;
       };
 
-      serverReq.requestData(() => {
+      serverReq.sendData(() => {
         let data = serverReq.data;
+        console.log(data)
 
-        if (data.exception) throw new Error(data.exception);
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error);
 
         let num = 1;
 
-        this.data = data.map((d) => {
-          const clone = template.content.cloneNode(true);
+        if (data.success) {
+          data = data.success;
+          this.data = data.map((d) => {
+            const clone = template.content.cloneNode(true);
 
-          const tr = clone.querySelector(".reg-tr");
-          const rowNum = clone.getElementById("row-num");
-          const lrn = clone.getElementById("reg-td-lrn");
-          const name = clone.getElementById("reg-td-name");
-          const sex = clone.getElementById("reg-td-sex");
+            const tr = clone.querySelector(".reg-tr");
+            const rowNum = clone.getElementById("row-num");
+            const lrn = clone.getElementById("reg-td-lrn");
+            const name = clone.getElementById("reg-td-name");
+            const sex = clone.getElementById("reg-td-sex");
 
-          const dLrn = d.learnerReferenceNumber;
-          const dName = removeWhiteExtraWhiteSpace(
-            `${d.firstName} ${d.middleName} ${d.lastName} ${d.extensionName}`
-          );
-          const dSex = d.sex;
+            const dLrn = d.learnerReferenceNumber;
+            const dName = removeWhiteExtraWhiteSpace(
+              `${d.firstName} ${d.middleName} ${d.lastName} ${d.extensionName}`
+            );
+            const dSex = d.sex;
 
-          rowNum.textContent = num++;
-          lrn.textContent = dLrn;
-          name.textContent = dName;
-          sex.textContent = dSex;
+            rowNum.textContent = num++;
+            lrn.textContent = dLrn;
+            name.textContent = dName;
+            sex.textContent = dSex;
 
-          tr.sID = d.studentID;
+            tr.sID = d.studentID;
 
-          this.tBody.appendChild(clone);
-        });
+            this.tBody.appendChild(clone);
+          });
+        };
 
         if (callback) {
           callback(this.data);
@@ -1038,7 +1050,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const sanction = d.sanction;
           const vStatus = d.violationStatus;
-          const student = `(${d.lrn}) ${removeExtraWhiteSpaces(d.name)})`;
+          const student = `(${d.lrn}) ${removeExtraWhiteSpaces(d.name)} <mark class="bg-info">${d.violationDate}</mark>`;
 
           if (d.violationStatus == "COMPLETED" && gapInterval >= 60)
             return;
@@ -1083,7 +1095,7 @@ document.addEventListener("DOMContentLoaded", () => {
           row.classList.remove('d-none');
           row.setAttribute('state', 'is-visible');
 
-          if (!d.name.includes(search) && !lrn.includes(search)) {
+          if (!d.name.includes(search) && !lrn.includes(search) && !d.vStatus.includes(search)) {
             row.classList.add('d-none');
             row.setAttribute('state', 'is-hidden');
           }
@@ -1091,7 +1103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const result = document.querySelectorAll('[state=is-visible]');
         if (result.length == 0)
-          this.log.innerHTML = `<li><h2>No students found matching your criteria </h2></li>`;
+          this.log.innerHTML = `<li><h4>No record found matching your criteria </h4></li>`;
       });
     }
   }
@@ -1107,6 +1119,11 @@ document.addEventListener("DOMContentLoaded", () => {
   //dashboard
   const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
 
+  //registration search
+  const updateRDS = utils.debounce(() => {
+    reg.displayStudent();
+  }, 500);
+
   if (regSearch) {
     reg.displayStudent();
     reg.setSectionsForEachGrade();
@@ -1116,6 +1133,10 @@ document.addEventListener("DOMContentLoaded", () => {
       reg.displayStudent();
       console.log(e.target.value);
     });
+
+    event.globalEvent('change', '#school-year', () => {
+      updateRDS();
+    })
   }
 
   // dashboard
@@ -1126,7 +1147,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //DDSP dashboard display student progress
   const updateDDSP = utils.debounce(() => {
     dashboard.miniSearchBar();
-  }, 300);
+  }, 500);
 
   if (dashboardMiniSearchBar) {
     dashboard.displayStudentProgress();

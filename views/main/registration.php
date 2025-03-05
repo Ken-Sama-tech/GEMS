@@ -40,6 +40,14 @@
                                 <label for="VL-filter-female"> Female </label>
                             </li>
                             <h6>Additional Setting</h6>
+                            <li>
+                                <label for="school-year">SchoolYear</label>
+                                <select class="form-select w-75 ms-5" id="school-year"></select>
+                            </li>
+                            <li>
+                                <label for="reg-date">Registration Date</label>
+                                <input type="date" class="form-control w-75 ms-5" id="reg-date">
+                            </li>
                         </ul>
                     </div>
                 </div>

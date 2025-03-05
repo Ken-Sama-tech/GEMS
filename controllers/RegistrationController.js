@@ -4,6 +4,7 @@ import {
     GlobalEventListeners,
     Debounce,
     throttle,
+    sendAsUrlCom,
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,6 +13,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const evntLi = new EventListener();
     const event = new GlobalEventListeners();
     const dbnc = new Debounce();
+
+    class Registration {
+        setSchoolYearOptions() {
+            const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
+
+            serverReq.requestData(() => {
+                let data = serverReq.data;
+
+                if (data.exception)
+                    throw new Error(data.exception);
+
+                if (data.error)
+                    throw new Error(data.error);
+
+                if (data.success) {
+                    data = data.success
+                    const select = document.getElementById('school-year');
+
+                    data.sort((a, b) => {
+                        const getStartYear = (yearRange) => parseInt(yearRange.split("-")[0]);
+
+                        return getStartYear(a.schoolYear) - getStartYear(b.schoolYear);
+                    });
+
+                    data.forEach(d => {
+                        select.innerHTML += `<option value="${d.schoolYearID}"> ${d.schoolYear} </option> `;
+                    });
+                }
+            });
+        }
+
+        setDefaultRegistrationDate() {
+            const regDate = document.getElementById('reg-date');
+            const curr_date = new Date();
+            const curr_year = curr_date.getFullYear();
+            const curr_month = curr_date.getMonth() + 1;
+            const curr_day = curr_date.getDate();
+
+            const addPadding = (param) => {
+                return param.toString().padStart(2, '0');
+            }
+
+            regDate.value = `${curr_year}-${addPadding(curr_month)}-${addPadding(curr_day)}`;
+        }
+
+        registerStudents(form) {
+
+            const students = form.querySelectorAll('tr');
+            const section = form.querySelector('#select-grade-section');
+            const regDate = document.querySelector('#reg-date');
+            const sy = document.querySelector('#school-year');
+
+            students.forEach(student => {
+                const serverReq = new MakeServerRequest('../../services/php/Register.php', `sID=${sendAsUrlCom(student.sID)}&section=${sendAsUrlCom(section.value)}&sy=${sendAsUrlCom(sy.value)}&reg-date=${regDate.value}`);
+
+                serverReq.sendData(() => {
+
+                    let data = serverReq.data;
+
+                    if (data.exception)
+                        throw new Error(data.exception);
+
+                    if (data.error)
+                        throw new Error(data.error);
+
+                    console.log(data);
+                })
+            });
+        }
+    }
+
+    //instances 
+    const registration = new Registration();
+
+    registration.setSchoolYearOptions();
+    registration.setDefaultRegistrationDate();
+    // registration.registerStudents();
 
     const allowDataDragging = () => {
 
@@ -166,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const isGradeLevelAndSectionValid = (gradeLevel, section) => {
+    const isGradeLevelAndSectionValid = (gradeLevel, section, form) => {
 
         const serverReq = new MakeServerRequest('../../services/php/ValidateSectionAndGradeLevel.php', `gradeLevel=${gradeLevel}&gradeSection=${section}`);
 
@@ -179,6 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data.section !== 'valid')
                 throw new Error('Invalid section');
+
+            registration.registerStudents(form);
 
         });
     };
@@ -193,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gradeLevel = form.querySelector('#select-grade-level');
                 const section = form.querySelector('#select-grade-section');
 
-                isGradeLevelAndSectionValid(gradeLevel.value, section.value);
+                isGradeLevelAndSectionValid(gradeLevel.value, section.value, form);
             }
         });
     });
