@@ -1119,7 +1119,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // dashboard
-  //DDTL dashboard display tasklist 
+  //DDTL dashboard display task lists
   const updateDDTL = utils.debounce(() => {
     dashboard.displayTaskList();
   }, 1000);
@@ -1233,6 +1233,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const chartSetings = (() => {
     const charts = new Charts();
+
+    const serverReq = new MakeServerRequest('../../services/php/FetchViolators.php');
+
+    serverReq.requestData(() => {
+      console.log(serverReq.data);
+    })
 
     const changeChartTimeRange = utils.debounce(() => {
       if (range.value == 5) {

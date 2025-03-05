@@ -118,10 +118,13 @@ const toDoList = (() => {
   });
 
   const toDoListContainer = document.querySelector("#to-do-list-body");
+
+  let selectedTask;
+
   evntLi.callEvent(toDoListContainer, "contextmenu", (e) => {
     e.preventDefault();
 
-    let selectedTask = null;
+    selectedTask = null;
 
     if (toDoListContainer.contains(e.target)) {
       if (!e.target.closest("#to-do-list-row"))
@@ -132,15 +135,13 @@ const toDoList = (() => {
       if (selectedTask.contains(e.target)) {
         const contextmenu = document.querySelector(".contextmenu");
 
-        const eventHandler = () => {
+        event.globalEvent("click", ".dlt-task-btn", () => {
           if (selectedTask == null)
-            return
+            return;
           deleteTask(selectedTask.tID);
           contextmenu.classList.remove("active");
           selectedTask = null;
-        }
-
-        event.globalEvent("click", ".dlt-task-btn", eventHandler);
+        });
 
         contextmenu.classList.toggle("active");
 
@@ -148,6 +149,7 @@ const toDoList = (() => {
           if (!contextmenu.contains(e.target)) {
             contextmenu.classList.remove("active");
             contextmenu.classList.remove("active-effect");
+            selectedTask = null;
           }
         });
       }
@@ -186,29 +188,33 @@ const proressLog = (() => {
 
   const progressLog = document.getElementById("progress-log");
 
+  let selectedStudent;
+
   evntLi.callEvent(progressLog, "contextmenu", (e) => {
 
-    let selected = null;
+    selectedStudent = null;
     e.preventDefault();
     if (progressLog.contains(e.target)) {
       if (!e.target.closest("#progress-log-row")) return;
 
-      selected = e.target.closest("#progress-log-row");
+      selectedStudent = e.target.closest("#progress-log-row");
       const contextmenu = document.querySelector(".progress-logs-contextmenu");
 
       contextmenu.classList.toggle("active");
 
       event.globalEvent('click', '[set-status-to]', (e) => {
-        if (selected == null)
+        if (selectedStudent == null)
           return;
-        updateStudentProgressStatus(e.target.getAttribute('set-status-to'), selected.vID);
+        updateStudentProgressStatus(e.target.getAttribute('set-status-to'), selectedStudent.vID);
         contextmenu.classList.remove("active");
-        selected = null;
+        selectedStudent = null;
       });
 
       evntLi.callEvent(document, 'click', e => {
-        if (!contextmenu.contains(e.target))
+        if (!contextmenu.contains(e.target)) {
           contextmenu.classList.remove("active");
+          selectedStudent = null;
+        }
       });
 
     }

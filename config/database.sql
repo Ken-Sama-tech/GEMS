@@ -30,7 +30,7 @@ CREATE TABLE studentInfo(
     current_address VARCHAR(255) NOT NULL,
     permanent_address VARCHAR(255),
     nationality VARCHAR(50) NOT NULL,
-    disability VARCHAR(100) DEFAULT 'none',
+    disability VARCHAR(100) DEFAULT 'NOT STATED',
     guardianLastName VARCHAR(50),
     guardianFirstName VARCHAR(50),
     guardianMiddleName VARCHAR(50),
@@ -474,7 +474,7 @@ CREATE TABLE schoolYears(
 --
 --
 --
-CREATE TABLE registration(
+CREATE TABLE registrations(
     registrationID INT AUTO_INCREMENT PRIMARY KEY,
     registrationDate DATE,
     studentID INT,
@@ -482,6 +482,7 @@ CREATE TABLE registration(
     schoolYearID INT,
     INDEX idx_of_student_id(studentID),
     INDEX idx_of_grade_section_id(gradeSectionID),
+    INDEX idx_of_schoolyear_id(schoolYearID),
     FOREIGN KEY(studentID) REFERENCES studentInfo(studentID),
     FOREIGN KEY(gradeSectionID) REFERENCES gradesections(sectionID),
     FOREIGN KEY(schoolYearID) REFERENCES schoolYears(schoolYearID)
