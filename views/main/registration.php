@@ -42,7 +42,7 @@
                             <h6>Additional Setting</h6>
                             <li>
                                 <label for="school-year">SchoolYear</label>
-                                <select class="form-select w-75 ms-5" id="school-year"></select>
+                                <select class="form-select w-75 ms-5" id="school-year" value="1"></select>
                             </li>
                             <li>
                                 <label for="reg-date">Registration Date</label>
@@ -66,6 +66,7 @@
                             <th scope="col">LRN</th>
                             <th scope="col">Name</th>
                             <th scope="col">sex</th>
+                            <th scope="col" id="displayed-SY"></th>
                         </tr>
                     </thead>
                     <tbody id="reg-tBody">
@@ -79,6 +80,7 @@
                             <td class="bg-transparent" selected id="reg-td-lrn"></td>
                             <td class="bg-transparent" selected id="reg-td-name"></td>
                             <td class="bg-transparent" selected id="reg-td-sex"></td>
+                            <td class="bg-transparent" selected id="reg-td-sy"></td>
                         </tr>
                     </template>
                 </table>

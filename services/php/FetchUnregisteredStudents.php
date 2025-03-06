@@ -22,7 +22,7 @@ class Registration extends DatabaseHost
         try {
             $conn = $this->connect();
 
-            $sql = "SELECT studentInfo.studentID, studentInfo.learnerReferenceNumber, studentInfo.lastName, studentInfo.firstName, studentInfo.middleName, studentInfo.extensionName, studentInfo.sex, registration .schoolYearID FROM studentInfo LEFT JOIN registrations ON  registrations.studentID = studentInfo.studentID LEFT JOIN schoolyears ON registrations.schoolYearID = schoolyears.schoolYearID AND schoolYears.schoolYearID = :sy WHERE registrations.schoolYearID IS NULL";
+            $sql = "SELECT studentInfo.studentID, studentInfo.learnerReferenceNumber, studentInfo.lastName, studentInfo.firstName, studentInfo.middleName, studentInfo.extensionName, studentInfo.sex, registrations.schoolYearID, schoolYears.schoolYear FROM studentInfo LEFT JOIN registrations ON  registrations.studentID = studentInfo.studentID LEFT JOIN schoolyears ON registrations.schoolYearID = schoolyears.schoolYearID WHERE registrations.schoolYearID = :sy";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':sy', $this->sy);
@@ -33,7 +33,7 @@ class Registration extends DatabaseHost
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $result[] = $row;
             }
-
+            
             JsonEncoder::jsonEncode(['success' => $result]);
         } catch (Exception $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);

@@ -805,6 +805,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     displayStudent(callback) {
       const sy = document.getElementById('school-year');
+      const specifiedSY = document.getElementById('displayed-SY');
+
+      const setSelectedYear = utils.debounce((year)=>{
+        specifiedSY.innerHTML = year;
+      }, 100);
+
+      console.log(sy.value)
       const serverReq = new MakeServerRequest(
         "../../services/php/FetchUnregisteredStudents.php", `sy=${sendAsUrlCom(sy.value)}`
       );
@@ -839,6 +846,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (data.success) {
           data = data.success;
+
           this.data = data.map((d) => {
             const clone = template.content.cloneNode(true);
 
@@ -847,6 +855,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const lrn = clone.getElementById("reg-td-lrn");
             const name = clone.getElementById("reg-td-name");
             const sex = clone.getElementById("reg-td-sex");
+            const isEnrolled = clone.getElementById('reg-td-sy');
 
             const dLrn = d.learnerReferenceNumber;
             const dName = removeWhiteExtraWhiteSpace(
@@ -854,12 +863,18 @@ document.addEventListener("DOMContentLoaded", () => {
             );
             const dSex = d.sex;
 
+            if(sy.value == d.schoolYearID){
+              isEnrolled.innerHTML = `<b class="text-success">Enrolled</b>`;
+            }
+
             rowNum.textContent = num++;
             lrn.textContent = dLrn;
             name.textContent = dName;
             sex.textContent = dSex;
 
             tr.sID = d.studentID;
+
+            setSelectedYear(d.schoolYear);
 
             this.tBody.appendChild(clone);
           });
@@ -1125,7 +1140,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 500);
 
   if (regSearch) {
-    reg.displayStudent();
+    //add 2sec delay to ensure everything is loaded
+    setTimeout(()=>{
+      reg.displayStudent();
+    }, 2000);
     reg.setSectionsForEachGrade();
     reg.setRegistrationGradeLevelOption();
 
