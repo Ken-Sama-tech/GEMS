@@ -50,12 +50,17 @@
             </a>
         </li>
         <li class="nav-item flex-grow-1">
+            <a href="view-registered-students.php" class="nav-link h-100 w-100 justify-content-start d-flex align-items-center text-light">
+                view registered students
+            </a>
+        </li>
+        <li class="nav-item flex-grow-1">
             <a href="setting.php" class="nav-link h-100 w-100 justify-content-start d-flex align-items-center text-light">
                 settings
             </a>
         </li>
         <li class="nav-item flex-grow-1">
-            <a href="logout.php" class="nav-link h-100 w-100 justify-content-start d-flex align-items-center text-light">
+            <a href="../../logout.php" class="nav-link h-100 w-100 justify-content-start d-flex align-items-center text-light">
                 logout
             </a>
         </li>

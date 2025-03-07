@@ -10,6 +10,7 @@ const schoolYear = document.getElementById('school-year');
 const gradelevel = document.getElementById('grade-level');
 const gradeSections = document.getElementById('section');
 const newSY = document.getElementById('new-school-year');
+const hasNoRecord = document.getElementById('has-no-record');
 
 event.globalEvent('click', '#reg-search', () => {
     const serverReq = new MakeServerRequest('../../services/php/FindStudent.php', `lrn=${sendAsUrlCom(regSearch.value)}&sy=${sendAsUrlCom(schoolYear.value)}`);
@@ -32,12 +33,11 @@ event.globalEvent('click', '#reg-search', () => {
             data = data.success;
             console.log(data)
             const clone = template.content.cloneNode(true);
-            const lrn = clone.querySelector('[lrn]');
-            const name = clone.querySelector('[name]');
-            const sex = clone.querySelector('[sex]');
+            const lrn = clone.querySelector('[lrn]').textContent = data.lrn;
+            const name = clone.querySelector('[name]').textContent = data.studentName;
+            const sex = clone.querySelector('[sex]').textContent = data.sex;
 
             resultTable.appendChild(clone);
         }
-
     });
 });

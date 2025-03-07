@@ -4,8 +4,8 @@
 }
 
 :root {
-  --background-color: #1b5e20;
-  --primary-color: #2e7d32;
+  --background-color: #3b82f6;
+  --primary-color: #1e3a8a;
   --accent-color: #ffd54f;
   --text-color: #f1f8e9;
   --secondary-text-color: #c8e6c9;
@@ -358,7 +358,7 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 80vh !important;
 }
 
-.reg-nav {
+.search-nav {
   height: fit-content !important;
 }
 

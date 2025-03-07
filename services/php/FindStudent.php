@@ -23,7 +23,7 @@ class Student extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $sql = "SELECT registrations.registrationID AS regID, studentInfo.learnerReferenceNumber AS lrn, CONCAT(studentInfo.firstName, studentInfo.middleName,studentInfo.lastName, studentInfo.extensionName) AS studentName, studentInfo.sex, registrations.schoolYearID, schoolYears.schoolYear FROM studentInfo RIGHT JOIN registrations ON studentInfo.studentID = registrations.studentID LEFT JOIN schoolYears ON registrations.schoolYearID = schoolYears.schoolYearID WHERE learnerReferenceNumber = :lrn AND registrations.schoolYearID = :sy";
+            $sql = "SELECT registrations.registrationID AS regID, studentInfo.learnerReferenceNumber AS lrn, CONCAT(studentInfo.firstName, ' ', studentInfo.middleName,' ', studentInfo.lastName, ' ', studentInfo.extensionName) AS studentName, studentInfo.sex, registrations.schoolYearID, schoolYears.schoolYear FROM studentInfo RIGHT JOIN registrations ON studentInfo.studentID = registrations.studentID LEFT JOIN schoolYears ON registrations.schoolYearID = schoolYears.schoolYearID WHERE learnerReferenceNumber = :lrn AND registrations.schoolYearID = :sy";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':lrn', $this->lrn);
             $stmt->bindParam(':sy', $this->sy);
@@ -32,7 +32,7 @@ class Student extends DatabaseHost
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$result || $result == false)
-                JsonEncoder::jsonEncode(['missing' => 'Invalid LRN or No student with the provided LRN is registered for the specified school year']);
+                JsonEncoder::jsonEncode(['missing' => 'Invalid LRN or no student with the provided LRN is registered for the specified school year']);
             else
                 JsonEncoder::jsonEncode(['success' => $result]);
         } catch (Exception $e) {

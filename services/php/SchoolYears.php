@@ -14,7 +14,7 @@ class SchoolYears extends DatabaseHost
         try {
             $conn = $this->connect();
 
-            $sql = "SELECT * FROM schoolYears";
+            $sql = "SELECT * FROM schoolYears ORDER BY schoolYear ASC";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
 

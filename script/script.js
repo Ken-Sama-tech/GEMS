@@ -814,6 +814,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.success) {
           data = data.success;
           schoolYear.innerHTML = `<option valuue="0">Select SY</option>`;
+
           data.forEach(d => {
             const sy = d.schoolYear
             schoolYear.innerHTML += `<option value="${d.schoolYearID}">${sy}</option>`;
@@ -1084,32 +1085,62 @@ document.addEventListener("DOMContentLoaded", () => {
   const gradelevel = document.getElementById('grade-level');
   const gradeSections = document.getElementById('section');
   const newSY = document.getElementById('new-school-year');
+  const regDate = document.getElementById('reg-date');
+  const regSelectOption = document.querySelectorAll('[select-option]');
+  const hasNoRecord = document.getElementById('has-no-record');
 
   //dashboard
   const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
 
   //registration search
-
   const updateSectionsOptions = utils.debounce(() => {
-    reg.setSectionOptions(gradelevel.value, schoolYear.value);
+    reg.setSectionOptions(gradelevel.value, newSY.value);
   }, 200);
 
   const updateNewSchoolYearOptions = utils.debounce(() => {
     reg.setNewSchoolYearOptions();
-  });
+    updateSectionsOptions();
+  }, 200);
 
   if (regSearch) {
     reg.setSchoolYearOptions();
     reg.setGradeLevelsOptions();
-
-    evntLi.callEvent(gradelevel, 'change', () => {
-      updateSectionsOptions();
+    //all select option except select for section
+    regSelectOption.forEach(select => {
+      evntLi.callEvent(select, 'change', () => {
+        updateSectionsOptions();
+      });
     });
-
+    //sy
     evntLi.callEvent(schoolYear, 'change', () => {
-      updateSectionsOptions();
       updateNewSchoolYearOptions();
     });
+
+    // checkbox (has no record) 
+    evntLi.callEvent(hasNoRecord, 'change', () => {
+      if (hasNoRecord.checked) {
+        schoolYear.value = 0;
+        schoolYear.classList.add('d-none');
+        updateNewSchoolYearOptions();
+      } else {
+        updateNewSchoolYearOptions();
+        schoolYear.classList.remove('d-none');
+      }
+    });
+
+    const regDateDefault = (() => {
+
+      const addPadding = (param) => {
+        return param.toString().padStart(2, '0');
+      };
+
+      const curr_date = new Date();
+      const curr_year = curr_date.getFullYear();
+      const curr_month = addPadding(curr_date.getMonth() + 1);
+      const curr_day = addPadding(curr_date.getDate());
+
+      regDate.value = `${curr_year}-${curr_month}-${curr_day}`;
+    })();
   }
 
   // dashboard
