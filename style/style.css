@@ -353,68 +353,13 @@ input[type="number"]::-webkit-outer-spin-button {
   display: block !important;
 }
 
-/* registration */
-#reg-main-container {
-  height: 100%;
-  padding-bottom: 1rem;
-  overflow-y: auto;
+/*registration*/
+.reg-container {
+  height: 80vh !important;
 }
 
-#reg-upper-section,
-#reg-lower-section {
-  height: calc(50% - 10px);
-  display: flex;
-  justify-content: center;
-}
-
-#drop-box {
-  height: 100%;
-  flex: 1 1 200px;
-  overflow: auto;
-  max-height: 100%;
-}
-
-#drop-box.resize {
-  flex: none;
-  max-width: 49.8%;
-  min-height: 100%;
-}
-
-#select-grade-section,
-#select-grade-level {
-  all: unset;
-  text-align: center;
-  border-bottom: 1px solid black;
-}
-
-#unreg-stds-table {
-  width: 100%;
-  height: fit-content;
-}
-
-#form-table,
-#form-table > tbody {
-  width: 100%;
-  height: fit-content;
-}
-
-#form-table > tbody > tr > th,
-#form-table > tbody > tr > #reg-td-sex {
-  display: none;
-}
-
-#form-table > tbody > tr {
-  display: flex;
-  gap: 0 5px;
-  overflow-x: hidden;
-  text-wrap: nowrap;
-  width: 100%;
-}
-
-#form-table > tbody > tr > td {
-  font-size: 1rem;
-  font-weight: 600;
-  width: 100%;
+.reg-nav {
+  height: fit-content !important;
 }
 
 /* --------------------------------------------- */

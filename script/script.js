@@ -798,43 +798,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //classes -----------------------------------------------------------
   class Registration {
-    constructor() {
-      this.data = [];
-      this.tBody = document.getElementById("reg-tBody");
-    }
 
-    displayStudent(callback) {
-      const sy = document.getElementById('school-year');
-      const specifiedSY = document.getElementById('displayed-SY');
+    setSchoolYearOptions() {
+      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
 
-      const setSelectedYear = utils.debounce((year)=>{
-        specifiedSY.innerHTML = year;
-      }, 100);
-
-      console.log(sy.value)
-      const serverReq = new MakeServerRequest(
-        "../../services/php/FetchUnregisteredStudents.php", `sy=${sendAsUrlCom(sy.value)}`
-      );
-
-      this.tBody.innerHTML = '';
-
-      const template = document.getElementById("reg-table-template");
-
-      const removeWhiteExtraWhiteSpace = (param) => {
-        const arr = param.split(" ");
-
-        const filter = arr.filter((str) => {
-          if (str !== "") return str;
-        });
-
-        const string = filter.join(" ");
-
-        return string;
-      };
-
-      serverReq.sendData(() => {
+      serverReq.requestData(() => {
         let data = serverReq.data;
-        console.log(data)
 
         if (data.exception)
           throw new Error(data.exception);
@@ -842,103 +811,84 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.error)
           throw new Error(data.error);
 
-        let num = 1;
+        if (data.success) {
+          data = data.success;
+          schoolYear.innerHTML = `<option valuue="0">Select SY</option>`;
+          data.forEach(d => {
+            const sy = d.schoolYear
+            schoolYear.innerHTML += `<option value="${d.schoolYearID}">${sy}</option>`;
+          });
+        }
+      })
+    }
+
+    setGradeLevelsOptions() {
+      const serverReq = new MakeServerRequest('../../services/php/GradeLevels.php');
+
+      serverReq.requestData(() => {
+        let data = serverReq.data;
+
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
-
-          this.data = data.map((d) => {
-            const clone = template.content.cloneNode(true);
-
-            const tr = clone.querySelector(".reg-tr");
-            const rowNum = clone.getElementById("row-num");
-            const lrn = clone.getElementById("reg-td-lrn");
-            const name = clone.getElementById("reg-td-name");
-            const sex = clone.getElementById("reg-td-sex");
-            const isEnrolled = clone.getElementById('reg-td-sy');
-
-            const dLrn = d.learnerReferenceNumber;
-            const dName = removeWhiteExtraWhiteSpace(
-              `${d.firstName} ${d.middleName} ${d.lastName} ${d.extensionName}`
-            );
-            const dSex = d.sex;
-
-            if(sy.value == d.schoolYearID){
-              isEnrolled.innerHTML = `<b class="text-success">Enrolled</b>`;
-            }
-
-            rowNum.textContent = num++;
-            lrn.textContent = dLrn;
-            name.textContent = dName;
-            sex.textContent = dSex;
-
-            tr.sID = d.studentID;
-
-            setSelectedYear(d.schoolYear);
-
-            this.tBody.appendChild(clone);
+          gradelevel.innerHTML = `<option value="0">Grade Level</option>`;
+          data.forEach(d => {
+            gradelevel.innerHTML += `<option value="${d.gradeLevelID}">${d.educationLevel} ${d.gradeLevel}</option>`;
           });
-        };
-
-        if (callback) {
-          callback(this.data);
         }
       });
     }
 
-    setRegistrationGradeLevelOption() {
-      const serverReq = new MakeServerRequest(
-        "../../services/php/GradeLevels.php"
-      );
+    setSectionOptions(gID, sy) {
+      const serverReq = new MakeServerRequest('../../services/php/Sections.php', `gID=${sendAsUrlCom(gID)}&sy=${sendAsUrlCom(sy)}`);
 
-      serverReq.requestData(() => {
+      serverReq.sendData(() => {
         let data = serverReq.data;
 
-        if (data.exception) throw new Error(data.exception);
+        console.log(data);
 
-        const selectGradeLevel = document.querySelectorAll(
-          "#select-grade-level"
-        );
+        if (data.exception)
+          throw new Error(data.exception);
 
-        data.forEach((d) => {
-          selectGradeLevel.forEach((select) => {
-            select.innerHTML += `<option id="option" value="${d.gradeLevelID}"> ${d.educationLevel} ${d.gradeLevel}`;
+        if (data.error)
+          throw new Error(data.error);
+
+        if (data.success) {
+          data = data.success;
+
+          gradeSections.innerHTML = `<option value="0">section</option`;
+
+          data.forEach(d => {
+            gradeSections.innerHTML += `<option value="${d.sectionID}">${d.section}</option`;
           });
-        });
-      });
+        }
+      })
     }
 
-    setSectionsForEachGrade() {
-      const serverReq = new MakeServerRequest(
-        "../../services/php/Sections.php"
-      );
+    setNewSchoolYearOptions() {
+      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php', `sy=${sendAsUrlCom(schoolYear.value)}`);
 
-      serverReq.requestData(() => {
+      serverReq.sendData(() => {
         let data = serverReq.data;
 
-        if (data.exception) throw new Error(data.exception);
+        if (data.exception)
+          throw new Error(data.exception);
 
-        const forms = [...document.querySelectorAll("#registration-form")];
+        if (data.error)
+          throw new Error(data.error);
 
-        const sectionsForEachForm = (index) => {
-          const gradeLev = forms[index].querySelector("#select-grade-level");
-          const gradeSec = forms[index].querySelector("#select-grade-section");
+        if (data.success) {
+          data = data.success;
+          newSY.innerHTML = ` <option value="0">new sy</option>`;
 
-          evntLi.callEvent(gradeLev, "change", () => {
-            sectionsForEachForm(index);
+          data.forEach(d => {
+            newSY.innerHTML += ` <option value="${d.schoolYearID}">${d.schoolYear}</option>`;
           });
-
-          gradeSec.innerHTML =
-            '<option id="option" value="0">Select Section</option>';
-
-          data.forEach((d) => {
-            if (gradeLev.value != d.gradeLevelID) return;
-            gradeSec.innerHTML += `<option id="option" value="${d.sectionID}">${d.section}</option>`;
-          });
-        };
-
-        for (let i = 0; i < forms.length; i++) {
-          sectionsForEachForm([i]);
         }
       });
     }
@@ -1129,32 +1079,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //vars ---------------------------------------------------
   //registration
-  const regSearch = document.getElementById("reg-search");
+  const regSearch = document.getElementById('find-std');
+  const schoolYear = document.getElementById('school-year');
+  const gradelevel = document.getElementById('grade-level');
+  const gradeSections = document.getElementById('section');
+  const newSY = document.getElementById('new-school-year');
 
   //dashboard
   const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
 
   //registration search
-  const updateRDS = utils.debounce(() => {
-    reg.displayStudent();
-  }, 500);
+
+  const updateSectionsOptions = utils.debounce(() => {
+    reg.setSectionOptions(gradelevel.value, schoolYear.value);
+  }, 200);
+
+  const updateNewSchoolYearOptions = utils.debounce(() => {
+    reg.setNewSchoolYearOptions();
+  });
 
   if (regSearch) {
-    //add 2sec delay to ensure everything is loaded
-    setTimeout(()=>{
-      reg.displayStudent();
-    }, 2000);
-    reg.setSectionsForEachGrade();
-    reg.setRegistrationGradeLevelOption();
+    reg.setSchoolYearOptions();
+    reg.setGradeLevelsOptions();
 
-    evntLi.callEvent(regSearch, "input", (e) => {
-      reg.displayStudent();
-      console.log(e.target.value);
+    evntLi.callEvent(gradelevel, 'change', () => {
+      updateSectionsOptions();
     });
 
-    event.globalEvent('change', '#school-year', () => {
-      updateRDS();
-    })
+    evntLi.callEvent(schoolYear, 'change', () => {
+      updateSectionsOptions();
+      updateNewSchoolYearOptions();
+    });
   }
 
   // dashboard
@@ -1275,9 +1230,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const serverReq = new MakeServerRequest('../../services/php/FetchViolators.php');
 
-    serverReq.requestData(() => {
-      console.log(serverReq.data);
-    })
+    // serverReq.requestData(() => {
+    //   console.log(serverReq.data);
+    // })
 
     const changeChartTimeRange = utils.debounce(() => {
       if (range.value == 5) {

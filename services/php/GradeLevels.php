@@ -28,7 +28,7 @@ class GradeLevels extends DatabaseHost
                 $result[] = $row;
             }
 
-            JsonEncoder::jsonEncode($result);
+            JsonEncoder::jsonEncode(['success' => $result]);
         } catch (Exception $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }

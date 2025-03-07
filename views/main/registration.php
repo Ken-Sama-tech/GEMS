@@ -14,189 +14,66 @@
     require_once '../../includes/navbar/navbar.php';
     ?>
 
-    <div id="container" class="container-fluid position-fixed col-lg-10 col-md-9 end-0 d-flex overflow-y-auto flex-column justify-content-center h-100 m-0">
-
-        <!-- search -->
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid d-flex justify-items-start">
-                <div class="d-flex" role="search">
-                    <input id="reg-search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <div class="container position-relative w-25">
-                        <div class="d-flex justify-content-center align-items-center h-100" id="hdm-container">
-                            <span class="horizontal-dots-menu"></span>
-                            <span class="horizontal-dots-menu"></span>
-                            <span class="horizontal-dots-menu"></span>
-                        </div>
-
-                        <!-- drop-down-list -->
-                        <ul class="hdm-menu">
-                            <h6>Filter</h6>
-                            <li class="hdm-item">
-                                <input type="checkbox" name="VL-setting" id="VL-filter-male">
-                                <label for="VL-filter-male"> Male </label>
-                            </li>
-                            <li class="hdm-item">
-                                <input type="checkbox" name="VL-setting" id="VL-filter-female">
-                                <label for="VL-filter-female"> Female </label>
-                            </li>
-                            <h6>Additional Setting</h6>
-                            <li>
-                                <label for="school-year">SchoolYear</label>
-                                <select class="form-select w-75 ms-5" id="school-year" value="1"></select>
-                            </li>
-                            <li>
-                                <label for="reg-date">Registration Date</label>
-                                <input type="date" class="form-control w-75 ms-5" id="reg-date">
-                            </li>
-                        </ul>
+    <div class="container-fluid position-absolute col-md-9 col-lg-10 end-0 p-0" id="container">
+        <!-- navbar  -->
+        <nav class="navbar bg-body-tertiary reg-nav">
+            <div class="container-fluid h-100">
+                <form class="d-flex flex-wrap p-0" role="search">
+                    <div class="container p-0 d-flex">
+                        <input class="form-control me-2 w-50" id="find-std" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="button" id="reg-search">Search</button>
                     </div>
-                </div>
+
+                    <div class="container-fluid h-100 d-flex flex-nowrap p-0 mt-2 gap-2">
+                        <select name="school-year" id="school-year" class="form-select ">
+                            <option value="">School Year</option>
+                        </select>
+                        <select name="grade-level" id="grade-level" class="form-select ">
+                            <option value="">Grade Level</option>
+                        </select>
+                        <select name="section" id="section" class="form-select ">
+                            <option value="">section</option>
+                        </select>
+                        <select name="new-school-year" id="new-school-year" class="form-select ">
+                            <option value="">new sy</option>
+                        </select>
+                    </div>
+                </form>
             </div>
         </nav>
 
-        <!-- main section -->
-        <div class="container-fluid overflow-y-auto gap-2 d-flex flex-column" id="reg-main-container">
-
-            <section id="reg-upper-section" class="container-fluid border border-dark overflow-auto remove-scroll-bar">
-
-                <table class="table" id="unreg-stds-table">
+        <!-- main body  -->
+        <div class="container-fluid p-0 mt-1 reg-container">
+            <div class=" reg-table-wrapper h-100 w-100">
+                <table class="table table-borderless">
                     <thead>
-                        <tr id="tr">
-                            <th scope="col">#</th>
-                            <th scope="col">LRN</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">sex</th>
-                            <th scope="col" id="displayed-SY"></th>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
-                    <tbody id="reg-tBody">
+                    <tbody id="reg-search-result">
 
                     </tbody>
 
-                    <!-- template -->
+                    <!-- template  -->
                     <template id="reg-table-template">
-                        <tr selected class="reg-tr p-1 z-3" draggable="true">
-                            <th class="bg-transparent" selected scope="row" id="row-num"></th>
-                            <td class="bg-transparent" selected id="reg-td-lrn"></td>
-                            <td class="bg-transparent" selected id="reg-td-name"></td>
-                            <td class="bg-transparent" selected id="reg-td-sex"></td>
-                            <td class="bg-transparent" selected id="reg-td-sy"></td>
+                        <tr class="border-bottom">
+                            <td class="col-4" lrn>sample</td>
+                            <td class="col-4" name>sample</td>
+                            <td class="col-2" sex>sample</td>
+                            <td class="col-2" enroll-btn><button class="btn btn-outline-success">Enroll</button></td>
                         </tr>
                     </template>
                 </table>
-            </section>
-
-            <section id="reg-lower-section" class="d-flex gap-1 flex-wrap">
-
-                <!-- first form -->
-                <div id="drop-box" class="container-fluid col-md-6 col-12 border border-secondary">
-                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
-
-                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
-                            <option value="0">Select Grade Level</option>
-                        </select>
-
-                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
-                            <option value="0">Select Section</option>
-                        </select>
-
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                            <table class="table  h-100 w-100 " id="form-table">
-                                <tbody id="form-tBody"></tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- second form -->
-                <div id="drop-box" class="container-fluid  col-md-6 col-12 border border-secondary">
-                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
-
-                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
-                            <option value="0">Select Grade Level</option>
-                        </select>
-
-                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
-                            <option value="0">Select Section</option>
-                        </select>
-
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                            <table class="table  h-100 w-100 " id="form-table">
-                                <tbody id="form-tBody"></tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- third form  -->
-                <div id="drop-box" class="container-fluid  col-md-6 col-12 border border-secondary">
-                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
-
-                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
-                            <option value="0">Select Grade Level</option>
-                        </select>
-
-                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
-                            <option value="0">Select Section</option>
-                        </select>
-
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                            <table class="table  h-100 w-100 " id="form-table">
-                                <tbody id="form-tBody"></tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- fourth form  -->
-                <div id="drop-box" class="container-fluid  col-md-6 col-12 border border-secondary">
-                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
-
-                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
-                            <option value="0">Select Grade Level</option>
-                        </select>
-
-                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
-                            <option value="0">Select Section</option>
-                        </select>
-
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                            <table class="table  h-100 w-100 " id="form-table">
-                                <tbody id="form-tBody"></tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- fifth form  -->
-                <div id="drop-box" class="container-fluid col-md-6 col-12 border border-secondary">
-                    <form method="post" class="h-100 d-flex flex-column" id="registration-form">
-
-                        <select value="0" reg-form-select name="gradeLevel" id="select-grade-level" class="w-100 border-bottom">
-                            <option value="0">Select Grade Level</option>
-                        </select>
-
-                        <select value="0" reg-form-select name="gradeSection" id="select-grade-section" class="w-100 border-bottom">
-                            <option value="0">Select Section</option>
-                        </select>
-
-                        <div class="w-100 h-100 overflow-x-auto remove-scroll-bar">
-                            <table class="table  h-100 w-100 " id="form-table">
-                                <tbody id="form-tBody"></tbody>
-                            </table>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-12 my-2">
-            <button id="reg-btn" class="btn btn-primary w-100">Register</button>
+            </div>
         </div>
     </div>
 </body>
 <!-- script section here-->
-<script type="module" src="../../controllers/RegistrationController.js"></script>
+<script type="module" src="../../controllers/RegistrationController.js" defer></script>
 <script type="module" src="../../script/script.js"></script>
 <script src="../../includes/navbar/navbar.js"></script>
 

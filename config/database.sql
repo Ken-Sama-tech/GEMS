@@ -447,30 +447,35 @@ VALUES ('JR HIGH', 'GRADE 7'),
 --
 --
 --
-CREATE TABLE IF NOT EXISTS `gradesections` (
-    `sectionID` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `gradeLevelID` int DEFAULT NULL,
-    `section` varchar(255) DEFAULT NULL,
-    INDEX idx_of_grade_level_id(gradeLevelID),
-    FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID)
-) ENGINE = InnoDB;
-INSERT INTO `gradesections` (`gradeLevelID`, `section`)
-VALUES (6, 'CASTILLO'),
-    (6, 'LAZATIN'),
-    (6, 'MACARAEG'),
-    (6, 'GALUPE'),
-    (6, 'SALVIEJO'),
-    (5, 'ERMITANIO'),
-    (5, 'VALEROSO'),
-    (5, 'HILARIO'),
-    (5, 'MAGBALOT');
---
---
---
 CREATE TABLE schoolYears(
     schoolYearID INT AUTO_INCREMENT PRIMARY KEY,
     schoolYear VARCHAR(10) NOT NULL
 ) ENGINE = InnoDB;
+
+INSERT INTO schoolYears(schoolYear) VALUES ('2024-2025');
+--
+--
+--
+CREATE TABLE IF NOT EXISTS `gradesections` (
+    `sectionID` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `gradeLevelID` INT NOT NULL,
+    `section` VARCHAR(255) DEFAULT NULL,
+    `schoolYearID` INT NOT NULL,
+    INDEX idx_of_grade_level_id(gradeLevelID),
+    INDEX idx_of_school_year_id(schoolYearID),
+    FOREIGN KEY (gradeLevelID) REFERENCES gradeLevels(gradeLevelID),
+    FOREIGN KEY (schoolYearID) REFERENCES schoolYears(schoolYearID)
+) ENGINE = InnoDB;
+INSERT INTO `gradesections` (`gradeLevelID`, `section`, `schoolYearID`)
+VALUES (6, 'CASTILLO', 1),
+    (6, 'LAZATIN', 1),
+    (6, 'MACARAEG', 1),
+    (6, 'GALUPE', 1),
+    (6, 'SALVIEJO', 1),
+    (5, 'ERMITANIO', 1),
+    (5, 'VALEROSO', 1),
+    (5, 'HILARIO', 1),
+    (5, 'MAGBALOT', 1);
 --
 --
 --

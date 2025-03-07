@@ -9,26 +9,33 @@ $validate->isTableExist('gradeSections');
 
 class Sections extends DatabaseHost
 {
-
-    public function getSections()
+    public function getSections($gID = null, $sy = null)
     {
-        $conn = $this->connect();
+        try {
+            $conn = $this->connect();
 
-        $sql = "SELECT * FROM gradeSections";
+            $sql = "SELECT * FROM gradeSections WHERE gradeLevelID = :gID AND schoolYearID = :sy";
 
-        $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':gID', $gID);
+            $stmt->bindParam(':sy', $sy);
 
-        $stmt->execute();
+            $stmt->execute();
 
-        $result = [];
+            $result = [];
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $result[] = $row;
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $result[] = $row;
+            }
+
+            JsonEncoder::jsonEncode(['success' => $result]);
+        } catch (Exception $e) {
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }
-
-        JsonEncoder::jsonEncode($result);
     }
 }
 
-$section = new Sections();
-$section->getSections();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $sections = new Sections();
+    $sections->getSections($_POST['gID'], $_POST['sy']);
+}
