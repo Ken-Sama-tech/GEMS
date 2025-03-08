@@ -11,9 +11,11 @@ const event = new GlobalEventListeners();
 const regSearch = document.getElementById('find-std');
 const schoolYear = document.getElementById('school-year');
 const gradelevel = document.getElementById('grade-level');
-const gradeSections = document.getElementById('section');
+const gradeSection = document.getElementById('section');
 const newSY = document.getElementById('new-school-year');
 const hasNoRecord = document.getElementById('has-no-record');
+const student = document.getElementById('reg-std');
+const registrationDate = document.getElementById('reg-date')
 
 //search
 event.globalEvent('click', '#reg-search', () => {
@@ -32,7 +34,7 @@ event.globalEvent('click', '#reg-search', () => {
         let data = serverReq.data;
         const resultTable = document.getElementById('reg-search-result');
         resultTable.innerHTML = '';
-        console.log(data)
+
         if (data.exception)
             throw new Error(data.exception);
 
@@ -44,7 +46,7 @@ event.globalEvent('click', '#reg-search', () => {
 
         if (data.success) {
             data = data.success;
-            document.getElementById('reg-std-lrn').value = data.lrn;
+            student.value = data.studentID;
             const clone = template.content.cloneNode(true);
             clone.querySelector('[lrn]').textContent = data.lrn;
             clone.querySelector('[name]').textContent = data.studentName;
@@ -55,11 +57,40 @@ event.globalEvent('click', '#reg-search', () => {
     });
 });
 
-enroll
+//enroll
 event.globalEvent('click', '[enroll-btn]', () => {
     let stdData = {
-        lrn: 10121212,
+        sID: student.value,
+        nsy: newSY.value,
+        section: gradeSection.value,
+        regDate: registrationDate.value
     }
 
-    const serverReq = new MakeServerRequest('../../services/php/Register.php', stdData);
+    const serverReq = new MakeServerRequest('../../services/php/Register.php', JSON.stringify(stdData));
+    serverReq.sendData(() => {
+        let data = serverReq.data;
+        const modal = new bootstrap.Modal('#staticBackdrop');
+        const modalText = document.getElementById('staticModalBody');
+
+        event.globalEvent('click', '#promtOkayButton', () => {
+            modal.hide();
+        });
+
+        if (data.exception)
+            throw new Error(data.exception);
+
+        if (data.error) {
+            let error = data.error;
+            modal.show();
+            modalText.textContent = error;
+            modalText.setAttribute('class', 'text-danger');
+        }
+
+        if (data.success) {
+            let success = data.success;
+            modal.show();
+            modalText.textContent = success;
+            modalText.setAttribute('class', 'text-success');
+        }
+    });
 });

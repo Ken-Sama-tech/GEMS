@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../includes/navbar/navbar.css">
-    <link rel="stylesheet" href="../../style/style.css">
+    <?php
+    require_once('../../includes/ui-kit/css/styles.html');
+    ?>
     <!-- charts src -->
     <script src="../../charts/node_modules/chart.js/dist/chart.umd.js"></script>
 </head>
@@ -173,9 +174,12 @@
     </div>
 </body>
 <!-- script section here-->
-<script type="module" src="../../script/script.js"></script>
+<!-- <script type="module" src="../../script/script.js"></script> -->
 <script type="module" src="../../controllers/DashboardController.js" defer></script>
-<script src=" ../../includes/navbar/navbar.js">
+<!-- <script src=" ../../includes/navbar/navbar.js"> -->
+<?php
+require_once('../../includes/ui-kit/js/scripts.html');
+?>
 </script>
 
 </html>

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../bootstraps/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../includes/navbar/navbar.css">
-    <link rel="stylesheet" href="../../style/style.css">
+    <?php
+    require_once('../../includes/ui-kit/css/styles.html');
+    ?>
 </head>
 
 <body>
@@ -63,7 +63,7 @@
 
         <div class="container-fluid d-flex flex-column w-100 overflow-y-auto z-1 h-100 ">
             <!-- table -->
-            <table class="table bg-light rounded-3 mt-3 w-100 text-center printable">
+            <table class="table table-bordered bg-light rounded-3 mt-3 w-100 text-center printable">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -102,10 +102,13 @@
     ?>
 </body>
 <!-- script section here-->
-<script src="../../includes/navbar/navbar.js"></script>
-<script type="module" src="../../script/script.js"></script>
 <script type="module" src="../../controllers/ViolationLogController.js"></script>
+<?php
+require_once('../../includes/ui-kit/js/scripts.html');
+?>
+<!-- <script src="../../includes/navbar/navbar.js"></script>
+<script type="module" src="../../script/script.js"></script>
 <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
 
 </html>

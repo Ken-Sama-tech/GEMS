@@ -1,7 +1,5 @@
 <?php
-require_once('../../config/database.php');
-require_once('../../includes/utils/php/jsonEncoder.inc.php');
-require_once('../../includes/utils/php/tableValidator.php');
+require_once('../../includes/bcknd-kit/requires.php');
 
 $validate = new Validator();
 $validate->isTableExist('studentInfo');
@@ -44,7 +42,7 @@ class Student extends DatabaseHost
     {
         try {
             $conn = $this->connect();
-            $sql = "SELECT studentID, learnerReferenceNumber AS lrn, CONCAT(firstName, middleName, lastName, extensionName) AS studentName, sex FROM studentInfo WHERE learnerReferenceNumber = :lrn";
+            $sql = "SELECT studentID, learnerReferenceNumber AS lrn, CONCAT(firstName, ' ' , middleName, ' ', lastName, ' ', extensionName) AS studentName, sex FROM studentInfo WHERE learnerReferenceNumber = :lrn";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':lrn', $this->lrn);

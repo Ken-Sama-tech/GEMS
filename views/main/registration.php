@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../includes/navbar/navbar.css">
-    <link rel="stylesheet" href="../../style/style.css">
+    <?php
+    require_once('../../includes/ui-kit/css/styles.html');
+    ?>
 </head>
 
 <body>
@@ -18,12 +19,12 @@
         <!-- navbar  -->
         <nav class="navbar bg-body-tertiary search-nav">
             <div class="container-fluid h-100">
-                <form class="d-flex flex-wrap  align-items-center p-0 w-100 h-100" role="search">
+                <div class="d-flex flex-wrap  align-items-center p-0 w-100 h-100" role="search">
                     <div class="container p-0 d-flex w-50 pe-1 h-100">
                         <select name="school-year" id="school-year" class="form-select w-50 me-2">
                             <option value="">School Year</option>
                         </select>
-                        <input class="form-control me-2 w-50" id="find-std" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2 w-50" id="find-std" type="number" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="button" id="reg-search">Search</button>
                     </div>
 
@@ -35,11 +36,11 @@
                             </label>
                         </div>
                         <fieldset>
-                            <input class="form-" type="date" value="" id="reg-date">
+                            <input class="form-" type="date" id="reg-date">
                             <label for="reg-date" class="form-label fs-6">Registration Date</label>
                         </fieldset>
                     </div>
-                </form>
+                </div>
             </div>
         </nav>
 
@@ -55,7 +56,7 @@
                 <select name="section" id="section" class="form-select">
                     <option value="">section</option>
                 </select>
-                <input type="hidden" name="lrn" id="reg-std-lrn">
+                <input type="hidden" name="lrn" id="reg-std">
             </div>
             <div class=" reg-table-wrapper h-100 w-100 mt-1">
                 <table class="table table-borderless">
@@ -77,17 +78,23 @@
                             <td class="col-4" lrn>sample</td>
                             <td class="col-4" name>sample</td>
                             <td class="col-2" sex>sample</td>
-                            <td class="col-2" enroll-btn><button class="btn btn-outline-success">Enroll</button></td>
+                            <td class="col-2"><button class="btn btn-outline-success" enroll-btn>Enroll</button></td>
                         </tr>
                     </template>
                 </table>
             </div>
         </div>
     </div>
+    <!-- modal here  -->
+    <?php
+    require_once('../../includes/modals/promt_modal.php');
+    ?>
 </body>
 <!-- script section here-->
 <script type="module" src="../../controllers/RegistrationController.js" defer></script>
 <script type="module" src="../../script/script.js"></script>
 <script src="../../includes/navbar/navbar.js"></script>
+<script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

@@ -5,6 +5,8 @@ import {
   Debounce,
   generateUnqId,
   sendAsUrlCom,
+  removeExtraWhiteSpaces,
+  observeVisibility
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -123,20 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             profileBoxContainer.appendChild(clone);
 
-            const removeExtraWhiteSpaces = (param) => {
-              const arry = param.split(" ");
-
-              const filter = arry.filter((s) => {
-                if (s !== "") {
-                  return s;
-                }
-              });
-
-              const str = filter.join(" ");
-
-              return str;
-            };
-
             return {
               name: removeExtraWhiteSpaces(name),
               lrn: lrn,
@@ -245,14 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
             const dataSex = `${dta.sex}`;
 
-            const covertDataNameToArray = dataName.split(" ");
-
-            const filterEmptyString = covertDataNameToArray.filter(
-              (item) => item !== ""
-            );
-
-            const convertDataNameBackToString = filterEmptyString.join(" ");
-
             rowNum = rowNum + 1;
 
             clonedRowNum.textContent = rowNum;
@@ -267,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             return {
               lrn: dataLrn,
-              name: convertDataNameBackToString,
+              name: removeExtraWhiteSpaces(dataName),
               tr: clonedTr,
             };
           });
@@ -365,22 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             this.tBody.appendChild(clone);
 
-            const convertedDataNameToArray = dataName.split(" ");
-
-            const removeEmptyString = convertedDataNameToArray.filter(
-              (name) => {
-                if (name !== "") {
-                  return name;
-                }
-              }
-            );
-
-            const convertedTheArrayBackToString = removeEmptyString.join(" ");
-
-            const filteredName = convertedTheArrayBackToString;
-
             return {
-              name: filteredName,
+              name: removeExtraWhiteSpaces(dataName),
               lrn: dataLrn,
               row: tableRow,
             };
@@ -474,16 +440,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const violation = clone.getElementById("violation");
             const date = clone.getElementById("date");
             const status = clone.getElementById("v-status");
-
-            const removeExtraWhiteSpaces = (param) => {
-              const arry = param.split(" ");
-
-              const filter = arry.filter((item) => {
-                if (item !== "") return item;
-              });
-
-              return filter.join(" ");
-            };
 
             const isShowDescriptionChecked = () => {
               if (showViolationDescription.checked)
@@ -622,6 +578,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     sortSDDisplayedData();
+    observeVisibility('#profile-box')
   }
 
   // ANS ------------------------------------------------------------------------------------------
@@ -763,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -998,20 +955,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const logDesc = clone.querySelector('.log-desc');
           const status = clone.querySelector('.progress-status');
 
-          const removeExtraWhiteSpaces = (param) => {
-            const arry = param.split(" ");
-
-            const filter = arry.filter((s) => {
-              if (s !== "") {
-                return s;
-              }
-            });
-
-            const str = filter.join(" ");
-
-            return str;
-          };
-
           const sanction = d.sanction;
           const vStatus = d.violationStatus;
           const student = `(${d.lrn}) ${removeExtraWhiteSpaces(d.name)} <mark class="bg-info">${d.violationDate}</mark>`;
@@ -1077,9 +1020,73 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  class ViewRegisteredStudent {
+    setSchoolYearRange() {
+      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
+
+      serverReq.requestData(() => {
+        let data = serverReq.data;
+
+        syRange.innerHTML = '';
+
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error)
+
+        if (data.success) {
+          data = data.success;
+
+          data.forEach(d => {
+            syRange.innerHTML += `<option value="${d.schoolYearID}">${d.schoolYear}</option>`;
+          });
+
+          this.displayEnrolledStudent();
+        }
+      });
+    }
+
+    displayEnrolledStudent() {
+      const serverReq = new MakeServerRequest('../../services/php/FetchEnrolledStd.php', `sy=${sendAsUrlCom(1)}`);
+
+      serverReq.sendData(() => {
+        let data = serverReq.data;
+        viewRegTbody.innerHTML = '';
+        const template = document.getElementById('view-reg-tb-template');
+
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error)
+
+        if (data.success) {
+          data = data.success;
+
+          let num = 1;
+          console.log(data)
+          data.forEach(d => {
+            const clone = template.content.cloneNode(true);
+            clone.querySelector('[row-num]').textContent = num++;
+            clone.querySelector('[lrn]').textContent = d.lrn;
+            clone.querySelector('[name]').textContent = d.studentName;
+            clone.querySelector('[sex]').textContent = d.sex;
+            clone.querySelector('[grade-level]').textContent = d.gradeLevel;
+            clone.querySelector('[section]').textContent = d.section;
+            viewRegTbody.appendChild(clone);
+          });
+        }
+      });
+    }
+  }
+
   //instances
   const reg = new Registration();
   const dashboard = new Dashboard();
+  const VRS = new ViewRegisteredStudent();
+
+  VRS.setSchoolYearRange();
 
   //vars ---------------------------------------------------
   //registration
@@ -1094,6 +1101,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //dashboard
   const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
+
+  //vrs (view register...)
+  const syRange = document.getElementById('reg-sy-range');
+  const VRSSearch = document.getElementById('');
+  const viewRegTbody = document.getElementById('view-reg-tb');
 
   //registration search
   const updateSectionsOptions = utils.debounce(() => {
@@ -1203,7 +1215,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data: arrData,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
-          }, ],
+          },],
         },
         options: {
           cutout: "60%",
@@ -1228,19 +1240,19 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
           labels: range,
           datasets: [{
-              type: "bar",
-              label: "Total Violations",
-              data: arrData,
-              backgroundColor: "rgba(54, 162, 235, 0.6)",
-              borderColor: "#FF0000",
-            },
-            {
-              type: "line",
-              label: "Average Violations",
-              data: trendData,
-              fill: false,
-              borderColor: "rgb(54, 162, 235)",
-            },
+            type: "bar",
+            label: "Total Violations",
+            data: arrData,
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+            borderColor: "#FF0000",
+          },
+          {
+            type: "line",
+            label: "Average Violations",
+            data: trendData,
+            fill: false,
+            borderColor: "rgb(54, 162, 235)",
+          },
           ],
         },
         options: {
