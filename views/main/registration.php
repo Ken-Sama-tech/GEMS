@@ -55,6 +55,7 @@
                 <select name="section" id="section" class="form-select">
                     <option value="">section</option>
                 </select>
+                <input type="hidden" name="lrn" id="reg-std-lrn">
             </div>
             <div class=" reg-table-wrapper h-100 w-100 mt-1">
                 <table class="table table-borderless">

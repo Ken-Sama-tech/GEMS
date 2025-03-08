@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -850,8 +850,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       serverReq.sendData(() => {
         let data = serverReq.data;
-
-        console.log(data);
 
         if (data.exception)
           throw new Error(data.exception);
@@ -1036,7 +1034,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
           this.log.appendChild(clone);
 
-          return { name: removeExtraWhiteSpaces(d.name), lrn: d.lrn, vStatus: vStatus, row: row };
+          return {
+            name: removeExtraWhiteSpaces(d.name),
+            lrn: d.lrn,
+            vStatus: vStatus,
+            row: row
+          };
         });
 
         if (callback)
@@ -1195,14 +1198,12 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "doughnut",
         data: {
           labels: arrLabels,
-          datasets: [
-            {
-              label: "Total",
-              data: arrData,
-              backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
-              hoverOffset: 2,
-            },
-          ],
+          datasets: [{
+            label: "Total",
+            data: arrData,
+            backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
+            hoverOffset: 2,
+          }, ],
         },
         options: {
           cutout: "60%",
@@ -1226,8 +1227,7 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "scatter",
         data: {
           labels: range,
-          datasets: [
-            {
+          datasets: [{
               type: "bar",
               label: "Total Violations",
               data: arrData,

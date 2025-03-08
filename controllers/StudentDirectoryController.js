@@ -1,5 +1,10 @@
 import MakeServerRequest from "../services/js/ServerRequests";
-import { EventListener, GlobalEventListeners, Debounce } from "../includes/utils/js/domHelper";
+import {
+    EventListener,
+    GlobalEventListeners,
+    Debounce,
+    sendAsUrlCom
+} from "../includes/utils/js/domHelper";
 
 // utility intances ------------------------------
 const eventListener = new EventListener();
@@ -87,7 +92,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
         // lrn of the student you were going to fetch the data, its different from the lrn above this. I have a really bad naming sense
         const alsoLrn = e.target.getAttribute('lrn');
 
-        const serverReq = new MakeServerRequest('../../services/php/FetchAllDataOfStdUsingLrn.php', 'lrn=' + encodeURIComponent(alsoLrn));
+        const serverReq = new MakeServerRequest('../../services/php/FetchAllDataOfStdUsingLrn.php', `lrn=${sendAsUrlCom(alsoLrn)}`);
 
         serverReq.sendData(() => {
 
@@ -107,7 +112,7 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
             let birthMonth = birthDate.getMonth() + 1;
             let birthDay = birthDate.getDate();
 
-            //set the textconten of idk. the student you want see the data?
+            //set the textcontent of idk. the student you want see the data?
 
             let stdAge = currentYear - birthYear;
 

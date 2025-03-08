@@ -19,7 +19,7 @@ class Student extends DatabaseHost
         $this->sy = $post['sy'];
     }
 
-    public function getStudentData()
+    public function findPreviouslyEnrolledStd()
     {
         try {
             $conn = $this->connect();
@@ -32,9 +32,30 @@ class Student extends DatabaseHost
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$result || $result == false)
-                JsonEncoder::jsonEncode(['missing' => 'Invalid LRN or no student with the provided LRN is registered for the specified school year']);
-            else
-                JsonEncoder::jsonEncode(['success' => $result]);
+                return JsonEncoder::jsonEncode(['missing' => 'Invalid LRN or no student with the provided LRN is registered for the specified school year']);
+
+            JsonEncoder::jsonEncode(['success' => $result]);
+        } catch (Exception $e) {
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function findNotPreviouslyEnrolledStd()
+    {
+        try {
+            $conn = $this->connect();
+            $sql = "SELECT studentID, learnerReferenceNumber AS lrn, CONCAT(firstName, middleName, lastName, extensionName) AS studentName, sex FROM studentInfo WHERE learnerReferenceNumber = :lrn";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':lrn', $this->lrn);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$result || $result == null)
+                return JsonEncoder::jsonEncode(['missing' => 'No record found matching your criteria']);
+
+            JsonEncoder::jsonEncode(['success' => $result]);
         } catch (Exception $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
         }
@@ -43,5 +64,9 @@ class Student extends DatabaseHost
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $std = new Student($_POST);
-    $std->getStudentData();
+
+    if ($_POST['hasRecord'] == 'yes')
+        $std->findPreviouslyEnrolledStd();
+    else
+        $std->findNotPreviouslyEnrolledStd();
 }
