@@ -720,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -1266,7 +1266,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data: arrData,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
-          }, ],
+          },],
         },
         options: {
           cutout: "60%",
@@ -1291,19 +1291,19 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
           labels: range,
           datasets: [{
-              type: "bar",
-              label: "Total Violations",
-              data: arrData,
-              backgroundColor: "rgba(54, 162, 235, 0.6)",
-              borderColor: "#FF0000",
-            },
-            {
-              type: "line",
-              label: "Average Violations",
-              data: trendData,
-              fill: false,
-              borderColor: "rgb(54, 162, 235)",
-            },
+            type: "bar",
+            label: "Total Violations",
+            data: arrData,
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+            borderColor: "#FF0000",
+          },
+          {
+            type: "line",
+            label: "Average Violations",
+            data: trendData,
+            fill: false,
+            borderColor: "rgb(54, 162, 235)",
+          },
           ],
         },
         options: {
@@ -1322,14 +1322,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const chartSetings = (() => {
     const charts = new Charts();
 
-    const serverReq = new MakeServerRequest('../../services/php/FetchViolators.php');
+    const getTimelineData = (trend = null) => {
+      const serverReq = new MakeServerRequest('../../services/php/ChartsData.php', `trend=${sendAsUrlCom(trend)}`);
 
-    // serverReq.requestData(() => {
-    //   console.log(serverReq.data);
-    // })
+      serverReq.sendData(() => {
+        console.log(serverReq.data);
+      });
+    }
 
     const changeChartTimeRange = utils.debounce(() => {
       if (range.value == 5) {
+        getTimelineData('daily');
         charts.updateChart(charts.scatter, () => {
           charts.scatterChart(
             "#violations-chart",

@@ -23,7 +23,7 @@ class Sanitizers
             return null;
 
         if ($date != '')
-            return date('Y-m-d', strtotime($date));
+            return date('Y-m-d H:i:s', strtotime($date));
     }
 
     public static function sanitizeImage($image)

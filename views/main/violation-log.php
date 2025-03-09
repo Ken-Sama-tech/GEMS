@@ -63,7 +63,7 @@
 
         <div class="container-fluid d-flex flex-column w-100 overflow-y-auto z-1 h-100 ">
             <!-- table -->
-            <table class="table table-bordered bg-light rounded-3 mt-3 w-100 text-center printable">
+            <table class="table table-bordered table-hover bg-light rounded-3 mt-3 w-100 text-center printable">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

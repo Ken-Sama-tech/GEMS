@@ -32,7 +32,7 @@
 
                     <div class="col-12 m-2">
                         <label for="vDate" class="form-label">Violation Date</label>
-                        <input type="date" name="vDate" id="vDate" class="form-control">
+                        <input type="datetime-local" name="vDate" id="vDate" class="form-control">
                         <label for="sanction" class="form-label">Sanction:</label>
                         <select name="sanction" id="sanction" class="form-select col-12">
                             <option value="0" id="option">Select Sanction</option>

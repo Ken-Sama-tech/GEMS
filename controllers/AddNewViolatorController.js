@@ -177,6 +177,11 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                 serverReq.sendDataForm(() => {
                     let data = serverReq.data;
 
+                    if (!form.checkValidity()) {
+                        form.classList.add('was-validated');
+                        throw new Error('Please comeplete necessary data');
+                    }
+
                     if (data.error) {
                         throw new Error(data.error);
                     }
@@ -195,7 +200,6 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
                         eventListener.callEvent(okayBtn, 'click', () => {
                             window.location.reload();
                         })
-
                     }
                 });
             }

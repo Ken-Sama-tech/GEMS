@@ -26,7 +26,7 @@
         </nav>
 
         <div class="container-fluid border my-2 rounded-2 d-flex flex-column p-3 border border-2" id="add-violator-main-container">
-            <table class="rounded-1 table-bordered overflow-hidden" id="ANV-table">
+            <table class="rounded-1 table-bordered  table-hover overflow-hidden" id="ANV-table">
                 <thead id="ANV-thead">
                     <tr class="row border-bottom p-1">
                         <th class="col-1 text-center">#</th>
@@ -83,7 +83,7 @@
 
                         <div class="col-6">
                             <label for="sanction" class="form-label">Violation Date</label>
-                            <input type="date" name="violation-date" id="violation-date" class="form-control">
+                            <input type="datetime-local" name="violation-date" id="violation-date" class="form-control" required>
                         </div>
 
                     </div>

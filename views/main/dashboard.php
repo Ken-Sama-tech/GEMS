@@ -173,10 +173,7 @@
         </div>
     </div>
 </body>
-<!-- script section here-->
-<!-- <script type="module" src="../../script/script.js"></script> -->
 <script type="module" src="../../controllers/DashboardController.js" defer></script>
-<!-- <script src=" ../../includes/navbar/navbar.js"> -->
 <?php
 require_once('../../includes/ui-kit/js/scripts.html');
 ?>

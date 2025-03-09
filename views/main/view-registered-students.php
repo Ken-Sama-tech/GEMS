@@ -17,7 +17,7 @@
 
     <div class="container-fluid p-0 position-absolute end-0 col-lg-10 col-md-9" id="container">
         <div class="container mt-5">
-            <div class="container-fluid p-2 d-flex align-items-center position-sticky top-0 bg-primary text-light">
+            <div class="container-fluid p-2 d-flex align-items-center position-sticky top-0">
                 <h2 class="">Registered Students</h2>
                 <div class="form-select-wrapper">
                     <select id="reg-sy-range" class="form-select ms-2">
