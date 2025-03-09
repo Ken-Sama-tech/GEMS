@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div class="form-input-wrapper ms-3">
-                    <input type="search" id="" class="form-control" placeholder="Search...">
+                    <input type="search" id="view-reg-std-search" class="form-control" placeholder="Search...">
                 </div>
             </div>
             <table class="table table-bordered table-hover">
@@ -45,7 +45,7 @@
                 </tbody>
                 <!-- template  -->
                 <template id="view-reg-tb-template">
-                    <tr id="kunwari">
+                    <tr>
                         <th row-num>1</th>
                         <td lrn>105414120013</td>
                         <td name>male</td>

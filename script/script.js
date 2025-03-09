@@ -720,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -846,6 +846,103 @@ document.addEventListener("DOMContentLoaded", () => {
             newSY.innerHTML += ` <option value="${d.schoolYearID}">${d.schoolYear}</option>`;
           });
         }
+      });
+    }
+  }
+
+  class ViewRegisteredStudent {
+    constructor() {
+      this.data = [];
+    }
+    setSchoolYearRange() {
+      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
+
+      serverReq.requestData(() => {
+        let data = serverReq.data;
+
+        syRange.innerHTML = '';
+
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error)
+
+        if (data.success) {
+          data = data.success;
+
+          data.forEach(d => {
+            syRange.innerHTML += `<option value="${d.schoolYearID}">${d.schoolYear}</option>`;
+          });
+
+          this.displayEnrolledStudent();
+        }
+      });
+    }
+
+    displayEnrolledStudent(callback) {
+      const serverReq = new MakeServerRequest('../../services/php/FetchEnrolledStd.php', `sy=${sendAsUrlCom(syRange.value)}`);
+
+      serverReq.sendData(() => {
+        let data = serverReq.data;
+        viewRegTbody.innerHTML = '';
+        const template = document.getElementById('view-reg-tb-template');
+
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error)
+
+        if (data.success) {
+          data = data.success;
+
+          let num = 1;
+          this.data = data.map(d => {
+            const clone = template.content.cloneNode(true);
+            const row = clone.querySelector('tr');
+            clone.querySelector('[row-num]').textContent = num++;
+            clone.querySelector('[lrn]').textContent = d.lrn;
+            clone.querySelector('[name]').textContent = removeExtraWhiteSpaces(d.studentName);
+            clone.querySelector('[sex]').textContent = d.sex;
+            clone.querySelector('[grade-level]').textContent = d.gradeLevel;
+            clone.querySelector('[section]').textContent = d.section;
+            viewRegTbody.appendChild(clone);
+
+            return {
+              lrn: d.lrn,
+              name: removeExtraWhiteSpaces(d.studentName),
+              row: row,
+            };
+          });
+
+          if (callback) {
+            callback(this.data);
+          }
+        }
+      });
+    }
+
+    search() {
+      this.displayEnrolledStudent(() => {
+        let data = this.data;
+
+        const search = VRSSearch.value.toUpperCase();
+
+        data.forEach(d => {
+          const lrn = d.lrn.toString();
+          const name = d.name;
+          const row = d.row;
+          console.log(name)
+          console.log(row)
+          row.classList.remove('d-none');
+          row.setAttribute('state', 'visible');
+
+          if (!name.includes(search) && !lrn.includes(search)) {
+            row.classList.add('d-none');
+            row.setAttribute('state', 'hidden');
+          }
+        });
       });
     }
   }
@@ -1020,73 +1117,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  class ViewRegisteredStudent {
-    setSchoolYearRange() {
-      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
-
-      serverReq.requestData(() => {
-        let data = serverReq.data;
-
-        syRange.innerHTML = '';
-
-        if (data.exception)
-          throw new Error(data.exception);
-
-        if (data.error)
-          throw new Error(data.error)
-
-        if (data.success) {
-          data = data.success;
-
-          data.forEach(d => {
-            syRange.innerHTML += `<option value="${d.schoolYearID}">${d.schoolYear}</option>`;
-          });
-
-          this.displayEnrolledStudent();
-        }
-      });
-    }
-
-    displayEnrolledStudent() {
-      const serverReq = new MakeServerRequest('../../services/php/FetchEnrolledStd.php', `sy=${sendAsUrlCom(1)}`);
-
-      serverReq.sendData(() => {
-        let data = serverReq.data;
-        viewRegTbody.innerHTML = '';
-        const template = document.getElementById('view-reg-tb-template');
-
-        if (data.exception)
-          throw new Error(data.exception);
-
-        if (data.error)
-          throw new Error(data.error)
-
-        if (data.success) {
-          data = data.success;
-
-          let num = 1;
-          console.log(data)
-          data.forEach(d => {
-            const clone = template.content.cloneNode(true);
-            clone.querySelector('[row-num]').textContent = num++;
-            clone.querySelector('[lrn]').textContent = d.lrn;
-            clone.querySelector('[name]').textContent = d.studentName;
-            clone.querySelector('[sex]').textContent = d.sex;
-            clone.querySelector('[grade-level]').textContent = d.gradeLevel;
-            clone.querySelector('[section]').textContent = d.section;
-            viewRegTbody.appendChild(clone);
-          });
-        }
-      });
-    }
-  }
-
   //instances
   const reg = new Registration();
   const dashboard = new Dashboard();
   const VRS = new ViewRegisteredStudent();
-
-  VRS.setSchoolYearRange();
 
   //vars ---------------------------------------------------
   //registration
@@ -1099,13 +1133,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const regSelectOption = document.querySelectorAll('[select-option]');
   const hasNoRecord = document.getElementById('has-no-record');
 
+  //vrs (view registered...)
+  const syRange = document.getElementById('reg-sy-range');
+  const VRSSearch = document.getElementById('view-reg-std-search');
+  const viewRegTbody = document.getElementById('view-reg-tb');
+
   //dashboard
   const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
-
-  //vrs (view register...)
-  const syRange = document.getElementById('reg-sy-range');
-  const VRSSearch = document.getElementById('');
-  const viewRegTbody = document.getElementById('view-reg-tb');
 
   //registration search
   const updateSectionsOptions = utils.debounce(() => {
@@ -1156,6 +1190,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       regDate.value = `${curr_year}-${curr_month}-${curr_day}`;
     })();
+  }
+
+  //vrs search 
+  const updateVRSD = utils.debounce(() => {
+    VRS.search();
+  }, 500);
+
+  if (VRSSearch) {
+    VRS.setSchoolYearRange();
+
+    evntLi.callEvent(syRange, 'change', () => {
+      updateVRSD();
+    });
+
+    evntLi.callEvent(VRSSearch, 'input', () => {
+      updateVRSD();
+    });
   }
 
   // dashboard
@@ -1215,7 +1266,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data: arrData,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
-          },],
+          }, ],
         },
         options: {
           cutout: "60%",
@@ -1240,19 +1291,19 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
           labels: range,
           datasets: [{
-            type: "bar",
-            label: "Total Violations",
-            data: arrData,
-            backgroundColor: "rgba(54, 162, 235, 0.6)",
-            borderColor: "#FF0000",
-          },
-          {
-            type: "line",
-            label: "Average Violations",
-            data: trendData,
-            fill: false,
-            borderColor: "rgb(54, 162, 235)",
-          },
+              type: "bar",
+              label: "Total Violations",
+              data: arrData,
+              backgroundColor: "rgba(54, 162, 235, 0.6)",
+              borderColor: "#FF0000",
+            },
+            {
+              type: "line",
+              label: "Average Violations",
+              data: trendData,
+              fill: false,
+              borderColor: "rgb(54, 162, 235)",
+            },
           ],
         },
         options: {
