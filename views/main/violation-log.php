@@ -1,3 +1,7 @@
+<?php
+require_once('../../includes/ui-kit/session.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

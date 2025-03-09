@@ -720,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -1266,7 +1266,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data: dataset,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
-          },],
+          }, ],
         },
         options: {
           cutout: "60%",
@@ -1291,19 +1291,19 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
           labels: range,
           datasets: [{
-            type: "bar",
-            label: "Total Violations",
-            data: dataset,
-            backgroundColor: "rgba(54, 162, 235, 0.6)",
-            borderColor: "#FF0000",
-          },
-          {
-            type: "line",
-            label: "Average Violations",
-            data: trendData,
-            fill: false,
-            borderColor: "rgb(54, 162, 235)",
-          },
+              type: "bar",
+              label: "Total Violations",
+              data: dataset,
+              backgroundColor: "rgba(54, 162, 235, 0.6)",
+              borderColor: "#FF0000",
+            },
+            {
+              type: "line",
+              label: "Average Violations",
+              data: trendData,
+              fill: false,
+              borderColor: "rgb(54, 162, 235)",
+            },
           ],
         },
         options: {
@@ -1368,6 +1368,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (trend == 'yearly') {
+          callback({
+            label: datasetArr.map(([key]) => label(key)),
+            data: datasetArr.map(([key]) => data(key)),
+          });
+        }
+
+        if (trend == 'overall') {
           callback({
             label: datasetArr.map(([key]) => label(key)),
             data: datasetArr.map(([key]) => data(key)),
@@ -1515,24 +1522,41 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (range.value == 1) {
-        let latestYearTotal = 1450;
+        getTimelineData('overall',
+          (yearly) => {
+            let data = yearly.data;
+            let label = yearly.label;
+            let average = Array.from(data, d => d.average);
+            let total = Array.from(data, d => d.total)
+            let minor_violations = Array.from(data, d => d.minor_violations);
+            let major_violations = Array.from(data, d => d.major_violations);
+            let critical_violations = Array.from(data, d => d.critical_violations);
 
-        charts.updateChart(charts.scatter, () => {
-          charts.scatterChart(
-            "#violations-chart",
-            ["Year 1", "Year 2"],
-            [1450, 1500],
-            [870, 890]
-          );
-        });
+            minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+            major_violations = major_violations.reduce((a, b) => a + b, 0);
+            critical_violations = critical_violations.reduce((a, b) => a + b, 0);
 
-        charts.updateChart(charts.doughnut, () => {
-          charts.doughnutChart(
-            "#violations-severity-chart",
-            ["Critical", "Major", "Minor"],
-            [1600, 500, 850]
-          );
-        });
+            charts.updateChart(charts.scatter, () => {
+              charts.scatterChart(
+                "#violations-chart",
+                //label
+                label,
+                //data
+                total,
+                //average
+                average
+              );
+            });
+
+
+            charts.updateChart(charts.doughnut, () => {
+              charts.doughnutChart(
+                "#violations-severity-chart",
+                ["Critical", "Major", "Minor"],
+                [critical_violations, major_violations, minor_violations]
+              );
+            });
+          });
       }
     }, 500);
 

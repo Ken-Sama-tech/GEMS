@@ -410,7 +410,6 @@ VALUES ('PAGPAPA-ALALA', 'MINOR'),
         'PANANAGOT SA BATAS NA NAAAYON SA DSWD',
         'CRITICAL'
     );
-
 CREATE TABLE violationLogs(
     violationLogID INT AUTO_INCREMENT PRIMARY KEY,
     studentID INT,
@@ -451,8 +450,8 @@ CREATE TABLE schoolYears(
     schoolYearID INT AUTO_INCREMENT PRIMARY KEY,
     schoolYear VARCHAR(10) NOT NULL
 ) ENGINE = InnoDB;
-
-INSERT INTO schoolYears(schoolYear) VALUES ('2024-2025');
+INSERT INTO schoolYears(schoolYear)
+VALUES ('2024-2025');
 --
 --
 --
@@ -502,4 +501,12 @@ CREATE TABLE toDoLists(
     toDo VARCHAR(255),
     toDoStatus ENUM('PENDING', 'COMPLETED'),
     lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+--
+--
+--
+CREATE TABLE users(
+    userID INT AUTO_INCREMENT PRIMARY KEY,
+    userName VARCHAR(255) NOT NULL,
+    userPassword VARCHAR(255) NOT NULL,
 );
