@@ -38,7 +38,18 @@ class ChartsData extends DatabaseHost
                 CONVERT(IFNULL(SUM(CASE WHEN category = 'CRITICAL' THEN 1 ELSE 0 END), 0), SIGNED) AS critical_violations,
                 CONVERT(IFNULL(SUM(CASE WHEN category = 'MAJOR' THEN 1 ELSE 0 END), 0), SIGNED) AS major_violations,
                 CONVERT(IFNULL(SUM(CASE WHEN category = 'MINOR' THEN 1 ELSE 0 END), 0), SIGNED) AS minor_violations,
-                IFNULL(COUNT(*), 0) AS total
+                IFNULL(COUNT(*), 0) AS total,
+                CONVERT(
+                IFNULL(
+                    ROUND(
+                        SUM(CASE WHEN category IN ('CRITICAL', 'MAJOR', 'MINOR') THEN 1 ELSE 0 END) 
+                        / NULLIF(COUNT(DISTINCT DATE(violationDate)), 0),
+                    0 
+                    ),
+                    0
+                ),
+                SIGNED
+            ) AS average
                 FROM violationlogs
                 LEFT JOIN sanctions ON violationlogs.sanctionID = sanctions.sanctionID
                 WHERE violationDate BETWEEN :start_time AND :end_time;
@@ -69,38 +80,76 @@ class ChartsData extends DatabaseHost
     }
 }
 
-
 $chart = new ChartsData();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $trend = $_POST['trend'];
 
     if ($trend == 'daily') {
-        $start_time = date('Y-m-d H:i:s', strtotime('yesterday 00:00:00'));
-        $end_of_day = date('Y-m-d H:i:s', strtotime('today 00:00:00') - 1);
+        $start_time = date('Y-m-d H:i:s', strtotime('today 00:00:00'));
+        $end_of_day = date('Y-m-d H:i:s', strtotime('tomorrow 00:00:00') - 1);
 
         $hour = 1;
-        for ($i = 0; $start_time < $end_of_day; $i++) {
-            $end_time = date('Y-m-d H:i:s', strtotime($start_time) + 3600);
+        while ($start_time < $end_of_day) {
+            $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 hour'));
             $label = (string) $hour . "hour";
             $chart->fetchData($start_time, $end_time, $label);
-            if ($i == 23)
-                $chart->result();
+
             $hour++;
             $start_time = date('Y-m-d H:i:s', strtotime($start_time) + 3600);
         }
+        $chart->result();
     }
 
-    // if ($trend == 'weekly') {
-    //     $start_time = date('Y-m-d H:i:s', strtotime('monday this week 00:00:00'));
-    //     $end_of_week = date('Y-m-d H:i:s', strtotime('sunday this week 00:00:00') - 1);
+    if ($trend == 'weekly') {
+        $start_time = date('Y-m-d H:i:s', strtotime('monday this week 00:00:00'));
+        $end_of_week = date('Y-m-d H:i:s', strtotime('monday next week 00:00:00') - 1);
 
-    //     for ($i = 0; $start_time < $end_of_week; $i++) {
-    //         $end_time = date('Y-m-d H:i:s', strtotime($start_time) + (3600 * 24));
+        while ($start_time < $end_of_week) {
+            $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 day'));
+            // echo "start:{$start_time} end:{$end_time}<br>";
+            $label =  date('l', strtotime($start_time));
+            $chart->fetchData($start_time, $end_time, $label);
 
-    //         $label =  date('l', strtotime($start_time));
-    //         prepareTimeline($start_time, $end_time, $label);
-    //         $start_time = date('Y-m-d H:i:s', strtotime($start_time) + (3600 * 24));
-    //     }
-    // }
+            $start_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 day'));
+        }
+
+        $chart->result();
+    }
+
+    if ($trend == 'monthly') {
+        $start_time = date('Y-m-d H:i:s', strtotime('first day of this month 00:00:00'));
+        $end_of_month = date('Y-m-d H:i:s', strtotime('first day of next month 00:00:00') - 1);
+
+        while ($start_time < $end_of_month) {
+            $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+7 days'));
+
+            if ($end_time >= $end_of_month)
+                $end_time = $end_of_month;
+
+            $label =  date('d', strtotime($start_time)) . '-' . date('d', strtotime($end_time));
+
+            $chart->fetchData($start_time, $end_time, $label);
+
+            $start_time = date('Y-m-d H:i:s', strtotime($start_time . '+7 days'));
+        }
+        $chart->result();
+    }
+
+    if ($trend == 'yearly') {
+        $start_time = date('Y-m-d H:i:s', strtotime('first day of january this year 00:00:00'));
+        $end_of_year = date('Y-m-d H:i:s', strtotime('first day of january next year 00:00:00') - 1);
+
+        while ($start_time < $end_of_year) {
+            $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 month'));
+            echo `start: $start_time end: $end_time <br>`;
+
+            $label =  date('F', strtotime($start_time));
+
+            $chart->fetchData($start_time, $end_time, $label);
+
+            $start_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 month'));
+        }
+        $chart->result();
+    }
 }

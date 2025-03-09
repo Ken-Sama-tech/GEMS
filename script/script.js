@@ -1327,7 +1327,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       serverReq.sendData(() => {
         let dataset = serverReq.data;
-        // console.log(dataset['1hour'].data)
 
         if (dataset.exception)
           throw new Error(dataset.exception);
@@ -1343,34 +1342,61 @@ document.addEventListener("DOMContentLoaded", () => {
           return dataset[param].data;
         }
 
-        if (trend == 'daily')
+        console.log(dataset);
+        let datasetArr = Object.entries(dataset);
+        console.log(datasetArr)
+
+        if (trend == 'daily') {
           callback({
-            label: Array.from({ length: 24 }, (_, i) => label(`${i + 1}hour`)),
-            data: Array.from({ length: 24 }, (_, i) => data(`${i + 1}hour`))
+            label: datasetArr.map(([key]) => label(key)),
+            data: datasetArr.map(([key]) => data(key)),
           });
+        }
+
+        if (trend == 'weekly') {
+          callback({
+            label: datasetArr.map(([key]) => label(key)),
+            data: datasetArr.map(([key]) => data(key)),
+          });
+        }
+
+        if (trend == 'monthly') {
+          callback({
+            label: datasetArr.map(([key]) => label(key)),
+            data: datasetArr.map(([key]) => data(key)),
+          });
+        }
+
+        if (trend == 'yearly') {
+          callback({
+            label: datasetArr.map(([key]) => label(key)),
+            data: datasetArr.map(([key]) => data(key)),
+          });
+        }
       });
     }
 
     const changeChartTimeRange = utils.debounce(() => {
       if (range.value == 5) {
         getTimelineData('daily',
-          hourly => {
+          (hourly) => {
             let data = hourly.data;
-
+            let label = hourly.label;
+            let average = Array.from(data, d => d.average);
             let total = Array.from(data, d => d.total)
-            console.log(total)
+            let minor_violations = Array.from(data, d => d.minor_violations);
+            let major_violations = Array.from(data, d => d.major_violations);
+            let critical_violations = Array.from(data, d => d.critical_violations);
 
-            let sumTotals = total.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
-            let average = sumTotals / 23;
-            average = Array(24).fill(Math.floor(average))
-            console.log(average)
+            minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+            major_violations = major_violations.reduce((a, b) => a + b, 0);
+            critical_violations = critical_violations.reduce((a, b) => a + b, 0);
 
             charts.updateChart(charts.scatter, () => {
               charts.scatterChart(
                 "#violations-chart",
                 //label
-                hourly.label,
+                label,
                 //data
                 total,
                 //average
@@ -1378,91 +1404,113 @@ document.addEventListener("DOMContentLoaded", () => {
               );
             });
 
+
             charts.updateChart(charts.doughnut, () => {
               charts.doughnutChart(
                 "#violations-severity-chart",
                 ["Critical", "Major", "Minor"],
-                [14, 43, 85]
+                [critical_violations, major_violations, minor_violations]
               );
             });
           });
       }
 
       if (range.value == 4) {
-        charts.updateChart(charts.scatter, () => {
-          charts.scatterChart(
-            "#violations-chart",
-            [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday",
-            ],
-            [12, 18, 15, 20, 25, 30, 22],
-            [6, 9, 8, 10, 12, 15, 11]
-          );
-        });
+        getTimelineData('weekly', (daily) => {
+          let data = daily.data;
+          let label = daily.label;
+          let total = Array.from(data, d => d.total);
+          let average = Array.from(data, d => d.average);
+          let minor_violations = Array.from(data, d => d.minor_violations);
+          let major_violations = Array.from(data, d => d.major_violations);
+          let critical_violations = Array.from(data, d => d.critical_violations);
 
-        charts.updateChart(charts.doughnut, () => {
-          charts.doughnutChart(
-            "#violations-severity-chart",
-            ["Critical", "Major", "Minor"],
-            [14, 43, 85]
-          );
+          minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+          major_violations = major_violations.reduce((a, b) => a + b, 0)
+          critical_violations = critical_violations.reduce((a, b) => a + b, 0);
+
+          charts.updateChart(charts.scatter, () => {
+            charts.scatterChart(
+              "#violations-chart",
+              label,
+              total,
+              average
+            );
+          });
+
+          charts.updateChart(charts.doughnut, () => {
+            charts.doughnutChart(
+              "#violations-severity-chart",
+              ["Critical", "Major", "Minor"],
+              [critical_violations, major_violations, minor_violations]
+            );
+          });
         });
       }
 
       if (range.value == 3) {
-        charts.updateChart(charts.scatter, () => {
-          charts.scatterChart(
-            "#violations-chart",
-            ["Week 1", "Week 2", "Week 3", "Week 4"],
-            [45, 50, 72, 60],
-            [10, 15, 18, 14]
-          );
-        });
+        getTimelineData('monthly', (weekly) => {
+          let data = weekly.data;
+          let label = weekly.label;
+          let total = Array.from(data, d => d.total);
+          let average = Array.from(data, d => d.average);
+          let minor_violations = Array.from(data, d => d.minor_violations);
+          let major_violations = Array.from(data, d => d.major_violations);
+          let critical_violations = Array.from(data, d => d.critical_violations);
 
-        charts.updateChart(charts.doughnut, () => {
-          charts.doughnutChart(
-            "#violations-severity-chart",
-            ["Critical", "Major", "Minor"],
-            [23, 68, 136]
-          );
+          minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+          major_violations = major_violations.reduce((a, b) => a + b, 0)
+          critical_violations = critical_violations.reduce((a, b) => a + b, 0);
+
+          charts.updateChart(charts.scatter, () => {
+            charts.scatterChart(
+              "#violations-chart",
+              label,
+              total,
+              average
+            );
+          });
+
+          charts.updateChart(charts.doughnut, () => {
+            charts.doughnutChart(
+              "#violations-severity-chart",
+              ["Critical", "Major", "Minor"],
+              [critical_violations, major_violations, minor_violations]
+            );
+          });
         });
       }
 
       if (range.value == 2) {
-        charts.updateChart(charts.scatter, () => {
-          charts.scatterChart(
-            "#violations-chart",
-            [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ],
-            [30, 25, 40, 35, 50, 75, 90, 85, 70, 60, 45, 35],
-            [10, 12, 15, 14, 20, 30, 35, 33, 28, 22, 18, 12]
-          );
-        });
+        getTimelineData('yearly', (monthly) => {
+          let data = monthly.data;
+          let label = monthly.label;
+          let total = Array.from(data, d => d.total);
+          let average = Array.from(data, d => d.average);
+          let minor_violations = Array.from(data, d => d.minor_violations);
+          let major_violations = Array.from(data, d => d.major_violations);
+          let critical_violations = Array.from(data, d => d.critical_violations);
 
-        charts.updateChart(charts.doughnut, () => {
-          charts.doughnutChart(
-            "#violations-severity-chart",
-            ["Critical", "Major", "Minor"],
-            [64, 192, 384]
-          );
+          minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+          major_violations = major_violations.reduce((a, b) => a + b, 0)
+          critical_violations = critical_violations.reduce((a, b) => a + b, 0);
+
+          charts.updateChart(charts.scatter, () => {
+            charts.scatterChart(
+              "#violations-chart",
+              label,
+              total,
+              average
+            );
+          });
+
+          charts.updateChart(charts.doughnut, () => {
+            charts.doughnutChart(
+              "#violations-severity-chart",
+              ["Critical", "Major", "Minor"],
+              [critical_violations, major_violations, minor_violations]
+            );
+          });
         });
       }
 
