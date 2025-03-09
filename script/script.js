@@ -1247,7 +1247,7 @@ document.addEventListener("DOMContentLoaded", () => {
       this.doughnut = null;
       this.scatter = null;
     }
-    doughnutChart(canvasID, arrLabels, arrData) {
+    doughnutChart(canvasID, arrLabels, dataset) {
       const canvas = document.querySelector(canvasID);
 
       if (!canvas) {
@@ -1263,7 +1263,7 @@ document.addEventListener("DOMContentLoaded", () => {
           labels: arrLabels,
           datasets: [{
             label: "Total",
-            data: arrData,
+            data: dataset,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
           },],
@@ -1276,7 +1276,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    scatterChart(canvasID, range, arrData, trendData) {
+    scatterChart(canvasID, range, dataset, trendData) {
       const canvas = document.querySelector(canvasID);
 
       if (!canvas) {
@@ -1293,7 +1293,7 @@ document.addEventListener("DOMContentLoaded", () => {
           datasets: [{
             type: "bar",
             label: "Total Violations",
-            data: arrData,
+            data: dataset,
             backgroundColor: "rgba(54, 162, 235, 0.6)",
             borderColor: "#FF0000",
           },
@@ -1322,42 +1322,70 @@ document.addEventListener("DOMContentLoaded", () => {
   const chartSetings = (() => {
     const charts = new Charts();
 
-    const getTimelineData = (trend = null) => {
+    const getTimelineData = (trend = null, callback) => {
       const serverReq = new MakeServerRequest('../../services/php/ChartsData.php', `trend=${sendAsUrlCom(trend)}`);
 
       serverReq.sendData(() => {
-        console.log(serverReq.data);
+        let dataset = serverReq.data;
+        // console.log(dataset['1hour'].data)
+
+        if (dataset.exception)
+          throw new Error(dataset.exception);
+
+        if (dataset.error)
+          throw new Error(dataset.error);
+
+        const label = (param) => {
+          return dataset[param].label;
+        }
+
+        const data = (param) => {
+          return dataset[param].data;
+        }
+
+        if (trend == 'daily')
+          callback({
+            label: Array.from({ length: 24 }, (_, i) => label(`${i + 1}hour`)),
+            data: Array.from({ length: 24 }, (_, i) => data(`${i + 1}hour`))
+          });
       });
     }
 
     const changeChartTimeRange = utils.debounce(() => {
       if (range.value == 5) {
-        getTimelineData('daily');
-        charts.updateChart(charts.scatter, () => {
-          charts.scatterChart(
-            "#violations-chart",
-            [
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20, 21, 22, 23, 24,
-            ],
-            [
-              0, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-              0,
-            ],
-            [
-              0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
-              0, 0,
-            ]
-          );
-        });
+        getTimelineData('daily',
+          hourly => {
+            let data = hourly.data;
 
-        charts.updateChart(charts.doughnut, () => {
-          charts.doughnutChart(
-            "#violations-severity-chart",
-            ["Critical", "Major", "Minor"],
-            [14, 43, 85]
-          );
-        });
+            let total = Array.from(data, d => d.total)
+            console.log(total)
+
+            let sumTotals = total.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+            let average = sumTotals / 23;
+            average = Array(24).fill(Math.floor(average))
+            console.log(average)
+
+            charts.updateChart(charts.scatter, () => {
+              charts.scatterChart(
+                "#violations-chart",
+                //label
+                hourly.label,
+                //data
+                total,
+                //average
+                average
+              );
+            });
+
+            charts.updateChart(charts.doughnut, () => {
+              charts.doughnutChart(
+                "#violations-severity-chart",
+                ["Critical", "Major", "Minor"],
+                [14, 43, 85]
+              );
+            });
+          });
       }
 
       if (range.value == 4) {

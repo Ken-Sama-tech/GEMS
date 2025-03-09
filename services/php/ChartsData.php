@@ -51,7 +51,7 @@ class ChartsData extends DatabaseHost
 
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $this->data[] = [
+            $this->data["{$this->label}"] = [
                 'status' => 'success',
                 'label' => $this->label,
                 'data' =>  $data,
