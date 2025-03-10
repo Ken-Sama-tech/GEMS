@@ -165,55 +165,47 @@ eventListener.callEvent(document, 'DOMContentLoaded', () => {
     //submit btn
     eventListener.callEvent(submitViolationFormBtn, 'click', (e) => {
         e.preventDefault();
+        function addViolator(url, formID) {
 
-        try {
-
-            function addViolator(url, formID) {
-
-                const form = document.querySelector(formID);
+            const form = document.querySelector(formID);
+            let serverReq;
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+            } else {
                 const formData = new FormData(form);
-                const serverReq = new MakeServerRequest(url, formData);
-
-                serverReq.sendDataForm(() => {
-                    let data = serverReq.data;
-
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated');
-                        throw new Error('Please comeplete necessary data');
-                    }
-
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
-
-                    if (data.success) {
-                        const modal = new bootstrap.Modal('#staticBackdrop');
-                        modal.show();
-
-                        const modalText = document.getElementById('staticModalBody');
-
-                        modalText.textContent = data.success;
-                        modalText.className = 'text-success ';
-
-                        const okayBtn = document.getElementById('promtOkayButton');
-
-                        eventListener.callEvent(okayBtn, 'click', () => {
-                            window.location.reload();
-                        })
-                    }
-                });
+                serverReq = new MakeServerRequest(url, formData);
             }
 
-            VSV.validate(() => {
-                if (VSV.ok) {
-                    addViolator('../../services/php/AddViolator.php', '#add-violator-form');
+            serverReq.sendDataForm(() => {
+                let data = serverReq.data;
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                if (data.success) {
+                    const modal = new bootstrap.Modal('#staticBackdrop');
+                    modal.show();
+
+                    const modalText = document.getElementById('staticModalBody');
+
+                    modalText.textContent = data.success;
+                    modalText.className = 'text-success ';
+
+                    const okayBtn = document.getElementById('promtOkayButton');
+
+                    eventListener.callEvent(okayBtn, 'click', () => {
+                        window.location.reload();
+                    })
                 }
             });
-
-        } catch (error) {
-            console.error('Error: ' + error.message);
         }
 
+        VSV.validate(() => {
+            if (VSV.ok) {
+                addViolator('../../services/php/AddViolator.php', '#add-violator-form');
+            }
+        });
     });
 
 });

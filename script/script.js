@@ -720,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -1072,7 +1072,21 @@ document.addEventListener("DOMContentLoaded", () => {
             status.classList.add('completed');
           }
 
-          this.log.appendChild(clone);
+          if (vStatus == 'COMPLETED') {
+            setTimeout(() => {
+              this.log.appendChild(clone);
+            }, 5000);
+          }
+
+          if (vStatus == 'IN-PROGRESS') {
+            setTimeout(() => {
+              this.log.appendChild(clone);
+            }, 3000);
+          }
+
+          if (vStatus == 'PENDING') {
+            this.log.appendChild(clone);
+          }
 
           return {
             name: removeExtraWhiteSpaces(d.name),
@@ -1266,7 +1280,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data: dataset,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
-          }, ],
+          },],
         },
         options: {
           cutout: "60%",
@@ -1291,19 +1305,19 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
           labels: range,
           datasets: [{
-              type: "bar",
-              label: "Total Violations",
-              data: dataset,
-              backgroundColor: "rgba(54, 162, 235, 0.6)",
-              borderColor: "#FF0000",
-            },
-            {
-              type: "line",
-              label: "Average Violations",
-              data: trendData,
-              fill: false,
-              borderColor: "rgb(54, 162, 235)",
-            },
+            type: "bar",
+            label: "Total Violations",
+            data: dataset,
+            backgroundColor: "rgba(54, 162, 235, 0.6)",
+            borderColor: "#FF0000",
+          },
+          {
+            type: "line",
+            label: "Average Violations",
+            data: trendData,
+            fill: false,
+            borderColor: "rgb(54, 162, 235)",
+          },
           ],
         },
         options: {
@@ -1458,6 +1472,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (range.value == 3) {
         getTimelineData('monthly', (weekly) => {
           let data = weekly.data;
+          console.log(data);
           let label = weekly.label;
           let total = Array.from(data, d => d.total);
           let average = Array.from(data, d => d.average);
@@ -1490,6 +1505,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (range.value == 2) {
         getTimelineData('yearly', (monthly) => {
+          console.log(monthly)
           let data = monthly.data;
           let label = monthly.label;
           let total = Array.from(data, d => d.total);

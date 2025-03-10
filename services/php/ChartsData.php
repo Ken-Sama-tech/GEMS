@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $chart->fetchData($start_time, $end_time, $label);
 
             $hour++;
-            $start_time = date('Y-m-d H:i:s', strtotime($start_time) + 3600);
+            $start_time = date('Y-m-d H:i:s', strtotime($start_time . '+1hour'));
         }
         $chart->result();
     }
@@ -122,8 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $end_of_month = date('Y-m-d H:i:s', strtotime('first day of next month 00:00:00') - 1);
 
         while ($start_time < $end_of_month) {
-            $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+7 days'));
-
+            $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+7 days') - 1);
+            // echo "start:" . $start_time . ' end: ' . $end_time . "<br>";
             if ($end_time >= $end_of_month)
                 $end_time = $end_of_month;
 
@@ -142,12 +142,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         while ($start_time < $end_of_year) {
             $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 month'));
-            echo `start: $start_time end: $end_time <br>`;
+            // echo `start: $start_time end: $end_time <br>`;
 
             $label =  date('F', strtotime($start_time));
 
             $chart->fetchData($start_time, $end_time, $label);
-
             $start_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 month'));
         }
         $chart->result();
@@ -158,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $end_of_curr_year = date('Y-m-d H:i:s', strtotime('first day of january next year 00:00:00') - 1);
         while ($start_time < $end_of_curr_year) {
             $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 year'));
-            // echo `start: $start_time end: $end_time <br>`;
+            // echo "start: $start_time end: $end_time <br>";
 
             $label =  date('Y', strtotime($start_time)) . '-' . date('Y', strtotime($end_time));
 

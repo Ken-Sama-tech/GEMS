@@ -1,3 +1,22 @@
+<?php
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $proto_user = 'admin';
+    $proto_pass = 'admin';
+
+    if ($username == $proto_user && $password == $proto_pass) {
+        $_SESSION['logged-in'] = true;
+    }
+
+    if (isset($_SESSION['logged-in'])) {
+        header('Location: views/main/dashboard.php');
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,9 +30,8 @@
 </head>
 
 <body>
-
     <div class="login-container">
-        <form action="login.php" method="POST">
+        <form action="login.php" method="POST" id="login-form" novalidate>
             <div class="text-center">PANGET POTA</div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -35,13 +53,12 @@
                     placeholder="Enter your password"
                     required />
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100" id="log-in">Login</button>
         </form>
     </div>
-
-    <!-- Bootstrap JS Bundle -->
+    <!-- Bootstrap JS Bundle and scripts-->
     <script src="bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="login.js" defer></script>
 </body>
 
 </html>
