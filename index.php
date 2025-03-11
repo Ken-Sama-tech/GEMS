@@ -10,6 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($username == $proto_user && $password == $proto_pass) {
         $_SESSION['logged-in'] = true;
     }
+    //  else {
+    //     echo json_encode(['error' => 'wrong username or password']);
+    // }
 
     if (isset($_SESSION['logged-in'])) {
         header('Location: views/main/dashboard.php');
@@ -38,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </a>
         </div>
 
-        <form action="login.php" method="POST" id="login-form" novalidate>
+        <form action="index.php" method="POST" id="login-form" novalidate>
             <div class="text-center">GNHS GUIDANCE EFFECTIVE MONITORING SYSTEM</div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

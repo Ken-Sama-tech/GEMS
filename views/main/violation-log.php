@@ -52,7 +52,11 @@ require_once('../../includes/ui-kit/session.php');
                             </li>
                             <li class="hdm-item">
                                 <label for="VL-filter-status"> Status </label>
-                                <input type="text" name="VL-input" class="ms-4 w-75" id="VL-filter-status">
+                                <input type="text" name="VL-input" class="ms-4 w-75" id="VL-filter-status" placeholder="PENDING">
+                            </li>
+                            <li class="hdm-item">
+                                <label for="VL-filter-jump"> Jump </label>
+                                <input type="text" name="VL-input" class="ms-4 w-75" id="VL-filter-jump" placeholder="1-100">
                             </li>
                             <h6>Additional Setting</h6>
                             <li class="hdm-item">

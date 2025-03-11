@@ -6,7 +6,8 @@ import {
   generateUnqId,
   sendAsUrlCom,
   removeExtraWhiteSpaces,
-  observeVisibility
+  observeVisibility,
+  throttle
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,7 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
         serverReq.requestData(() => {
           let datas = serverReq.data;
 
-          if (datas.exception) throw new Error(datas.exception);
+          if (datas.exception)
+            throw new Error(datas.exception);
 
           const template = document.getElementById("profile-box-temp");
 
@@ -105,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             profileBox.setAttribute("lrn", lrn);
             pContainer.setAttribute("lrn", lrn);
 
-            p.forEach((ps) => {
+            p.forEach(ps => {
               ps.setAttribute("lrn", lrn);
             });
 
@@ -426,7 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (data.exception) throw new Error(data.exception);
 
-          let rowNum = 1;
+          let rowNum = 0;
           const template = document.getElementById("violation-log-template");
 
           this.data = data.map((d) => {
@@ -464,8 +466,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.name = dName;
               });
             })();
+            rowNum++
 
-            row.textContent = rowNum++;
+            row.textContent = rowNum;
             lrn.textContent = dLrn;
             name.textContent = dName;
             sex.textContent = dSex;
@@ -488,6 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
               violation: `ARTICLE ${d.article}, ${d.articleSection}, SANCTION: ${d.sanction}`,
               trow: tr,
               status: dStatus,
+              row: rowNum,
             };
           });
 
@@ -531,15 +535,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Vl vars
   const VLSetting = document.querySelectorAll("[name = VL-setting]");
-  const showViolationDescription = document.getElementById(
-    "VL-show-description"
-  );
+  const showViolationDescription = document.getElementById("VL-show-description");
   const VLInputs = document.querySelectorAll("[name = VL-input]");
   const violationLogSearch = document.getElementById("VL-search");
   const filterViaViolation = document.getElementById("VL-filter-violation");
   const filterMale = document.getElementById("VL-filter-male");
   const filterFemale = document.getElementById("VL-filter-female");
   const filterViaStatus = document.getElementById("VL-filter-status");
+  const filterJump = document.getElementById("VL-filter-jump");
 
   // SD -------------------------------------------------------------------------------------------
   // search event ----------------------------------------------
@@ -714,13 +717,31 @@ document.addEventListener("DOMContentLoaded", () => {
             tr.classList.add("d-none");
             tr.setAttribute("state", "hidden");
           }
+
+          const jump = (() => {
+            if (filterJump.value == '' || filterJump.value == null)
+              return;
+
+            const arr = filterJump.value.split('-');
+
+            if (arr[1] == undefined || arr[1] == null)
+              arr.push('1');
+
+            arr.sort((a, b) => a - b);
+
+            if (!(d.row >= arr[0] && d.row <= arr[1])) {
+              tr.classList.add("d-none");
+              tr.setAttribute("state", "hidden");
+            }
+          })();
+
         });
 
         const result = document.querySelectorAll("[state = visible]");
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -1072,21 +1093,10 @@ document.addEventListener("DOMContentLoaded", () => {
             status.classList.add('completed');
           }
 
-          if (vStatus == 'COMPLETED') {
-            setTimeout(() => {
-              this.log.appendChild(clone);
-            }, 5000);
-          }
-
-          if (vStatus == 'IN-PROGRESS') {
-            setTimeout(() => {
-              this.log.appendChild(clone);
-            }, 3000);
-          }
-
-          if (vStatus == 'PENDING') {
+          if (vStatus == 'PENDING')
+            this.log.prepend(clone);
+          else
             this.log.appendChild(clone);
-          }
 
           return {
             name: removeExtraWhiteSpaces(d.name),
@@ -1280,7 +1290,7 @@ document.addEventListener("DOMContentLoaded", () => {
             data: dataset,
             backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
             hoverOffset: 2,
-          },],
+          }, ],
         },
         options: {
           cutout: "60%",
@@ -1305,19 +1315,19 @@ document.addEventListener("DOMContentLoaded", () => {
         data: {
           labels: range,
           datasets: [{
-            type: "bar",
-            label: "Total Violations",
-            data: dataset,
-            backgroundColor: "rgba(54, 162, 235, 0.6)",
-            borderColor: "#FF0000",
-          },
-          {
-            type: "line",
-            label: "Average Violations",
-            data: trendData,
-            fill: false,
-            borderColor: "rgb(54, 162, 235)",
-          },
+              type: "bar",
+              label: "Total Violations",
+              data: dataset,
+              backgroundColor: "rgba(54, 162, 235, 0.6)",
+              borderColor: "#FF0000",
+            },
+            {
+              type: "line",
+              label: "Average Violations",
+              data: trendData,
+              fill: false,
+              borderColor: "rgb(54, 162, 235)",
+            },
           ],
         },
         options: {

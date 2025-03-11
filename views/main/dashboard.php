@@ -66,16 +66,6 @@ require_once('../../includes/ui-kit/session.php');
                 <h3 class="text-center" id="violation-counter">0</h3>
                 <p id="card-text" class="ps-2">Some sentence or sorts</p>
             </div>
-
-            <!-- template -->
-            <template id="cards-template">
-                <div class="col-3 card bg-success text-light" id="cards">
-                    <h3 id="card-header" class="ps-2">Grade 7</h3>
-                    <div class="line w-100 m-0 p-0 bg-light mb-3" style="height:2px"></div>
-                    <h3 class="text-center" id="violation-counter">0</h3>
-                    <p id="card-text" class="ps-2">Idk</p>
-                </div>
-            </template>
         </section>
 
         <div class="container-fluid my-2 d-flex flex-column align-items-center p-0 " id="dashboard-main-section">

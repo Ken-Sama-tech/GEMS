@@ -2,6 +2,6 @@
 session_start();
 
 if (empty($_SESSION['logged-in'])) {
-    header('Location: ../../login.php');
+    header('Location: ../../index.php');
     exit;
 }
