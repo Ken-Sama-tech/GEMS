@@ -30,9 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
+
     <div class="login-container">
+        <div class="container p-0 d-flex align-items-center justify-content-center">
+            <a href="#" id="logo-wrapper">
+                <img src="imgs/defaultImgs/Galvan.png" alt="Galvan.png" class="brand-image img-circle elevation-3 " style="opacity:.8; object-fit: cover; height: 100px">
+            </a>
+        </div>
+
         <form action="login.php" method="POST" id="login-form" novalidate>
-            <div class="text-center">PANGET POTA</div>
+            <div class="text-center">GNHS GUIDANCE EFFECTIVE MONITORING SYSTEM</div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input
