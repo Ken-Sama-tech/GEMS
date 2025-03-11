@@ -1,16 +1,21 @@
+@import 'typeface-source-sans-pro';
+
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Source Sans Pro';
+  font-weight: 500;
 }
 
 :root {
   --background-color: #3b82f6;
-  --primary-color: #1e3a8a;
+  --primary-color: rgba(60, 60, 60, 1);
   --accent-color: #ffd54f;
   --text-color: #f1f8e9;
   --secondary-text-color: #c8e6c9;
   --link-color: #81c784;
   --white-background: #ffffff;
+  --hover-nav: rgb(50, 50, 50);
 }
 
 /* apply to all */
