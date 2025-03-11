@@ -31,7 +31,7 @@
 }
 
 .nav .nav-item:hover {
-  background-color: var(--background-color);
+  background-color: var(--hover-nav);
 }
 
 .is-active {

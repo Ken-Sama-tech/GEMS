@@ -204,7 +204,7 @@ require_once('../../includes/ui-kit/session.php');
 
                     <!-- Submit Button -->
                     <div class="d-grid mt-4">
-                        <button type="submit" id="submit-new-std-info" class="btn">Submit</button>
+                        <button type="submit" id="submit-new-std-info" class="btn btn-success">Submit</button>
                     </div>
                 </form>
             </div>
