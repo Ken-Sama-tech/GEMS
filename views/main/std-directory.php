@@ -123,7 +123,7 @@ require_once('../../includes/ui-kit/session.php');
                 <div class="row m-auto d-flex">
                     <div class="col-12 col-md-4 col-lg-2 d-flex justify-content-center align-items-center">
                         <a id="std-profile-link" class="overflow-hidden rounded-2 p-0 h-100 w-100">
-                            <img src="" class="img-fluid" alt="Student Profile" id="std-profile-img">
+                            <img src="" class="img-fluid" alt="Student Profile" id="std-profile-img" loading="lazy">
                         </a>
                     </div>
 
@@ -153,11 +153,7 @@ require_once('../../includes/ui-kit/session.php');
     ?>
     <!-- script section here-->
 </body>
-<!-- <script type="module" src="../../script/script.js"></script>
-<script src="../../includes/navbar/navbar.js"></script> -->
 <script type="module" src="../../controllers/StudentDirectoryController.js"></script>
-<!-- <script src="../../bootstraps/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="../../bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
 <?php
 require_once('../../includes/ui-kit/js/scripts.html');
 ?>

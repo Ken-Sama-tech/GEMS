@@ -153,8 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($trend == 'overall') {
-        $start_time = date('Y-m-d H:i:s', strtotime('first day of january 2024 00:00:00'));
-        $end_of_curr_year = date('Y-m-d H:i:s', strtotime('first day of january next year 00:00:00') - 1);
+        $start_time = date('Y-m-d H:i:s', strtotime('first day of august 2024 00:00:00'));
+        $end_of_curr_year = date('Y-m-d H:i:s', strtotime('last day of april next year 00:00:00') - 1);
         while ($start_time < $end_of_curr_year) {
             $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 year'));
             // echo "start: $start_time end: $end_time <br>";

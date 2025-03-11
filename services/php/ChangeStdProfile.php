@@ -18,7 +18,7 @@ class UploadStudentProfile extends DatabaseHost
             require_once('../../includes/utils/php/sanitizer.inc.php');
 
             $this->lrn = Sanitizers::sanitizeNumber($lrn['lrn']);
-            $this->img = Sanitizers::sanitizeImage($img['img']);
+            $this->img = Sanitizers::sanitizeImage($img['img'], '../../imgs/studentProfile/');
         } catch (Exception $e) {
             JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
             die();

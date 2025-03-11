@@ -45,7 +45,7 @@ class NewStudentFormData extends DatabaseHost
 
         try {
             $this->std_lrn = Sanitizers::sanitizeNumber($std_data['lrn']);
-            $this->std_img = Sanitizers::sanitizeImage($image['std_img']);
+            $this->std_img = Sanitizers::sanitizeImage($image['std_img'], '../../imgs/defaultImgs/');
             $this->std_last_name = Sanitizers::sanitizeString($std_data['last_name']);
             $this->std_first_name = Sanitizers::sanitizeString($std_data['first_name']);
             $this->std_middle_name = Sanitizers::sanitizeString($std_data['middle_name']);

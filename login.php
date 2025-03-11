@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-    <div class="login-container">
+    <div class="login-container d-flex flex-column">
         <div class="container p-0 d-flex align-items-center justify-content-center">
             <a href="#" id="logo-wrapper">
                 <img src="imgs/defaultImgs/Galvan.png" alt="Galvan.png" class="brand-image img-circle elevation-3 " style="opacity:.8; object-fit: cover; height: 100px">
@@ -62,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <button type="submit" class="btn btn-primary w-100" id="log-in">Login</button>
         </form>
+        <footer class="footer position-relative d-flex justify-content-center" style="top:15px; height:25px">
+            <p>&copy; 2024-2025 <a href="GEMS.html" class="text-decoration-none">GEMS</a></p>
+        </footer>
     </div>
     <!-- Bootstrap JS Bundle and scripts-->
     <script src="bootstraps/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

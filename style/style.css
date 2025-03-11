@@ -1,9 +1,9 @@
-@import 'typeface-source-sans-pro';
+@import "./node_modules/typeface-source-sans-pro/index.css";
 
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Source Sans Pro';
+  font-family: "Source Sans Pro";
   font-weight: 500;
 }
 

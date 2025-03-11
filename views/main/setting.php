@@ -24,7 +24,7 @@ require_once('../../includes/ui-kit/session.php');
         <br>
         <h2>Future developments will includes the following:</h2>
         <ul>
-            <li>View article, sections, sanctions</li>
+            <li>View article, sections, and sanctions</li>
             <li>Add section (Grade section)</li>
             <li>Add schoolyear</li>
             <li>Violation settings</li>
