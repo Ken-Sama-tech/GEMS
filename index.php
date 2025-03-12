@@ -1,22 +1,54 @@
 <?php
+require_once('config/database.php');
 session_start();
+
+if (isset($_SESSION['logged-in'])) {
+    header('Location: views/main/dashboard.php');
+}
+
+class Users extends DatabaseHost
+{
+    private $username;
+    private $password;
+
+    public function __construct($post)
+    {
+        $this->username = filter_var(trim($post['username']), FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->password =  filter_var(trim($post['password']), FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+
+    public function isUserAndPasswordValid()
+    {
+        try {
+            $conn = $this->connect();
+            $sql = "SELECT username AS username, userPassword AS password FROM users WHERE username = :username";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':username', $this->username);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$result) {
+                throw new Exception('No such user found');
+            }
+
+            if (password_verify($this->password, $result['password'])) {
+                $_SESSION['logged-in'] = true;
+                echo json_encode(['success' => 'logged-in succesfully']);
+                die();
+            } else {
+                throw new Exception('Wrong password');
+            }
+            die();
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    $proto_user = 'admin';
-    $proto_pass = 'admin';
-
-    if ($username == $proto_user && $password == $proto_pass) {
-        $_SESSION['logged-in'] = true;
-    }
-    //  else {
-    //     echo json_encode(['error' => 'wrong username or password']);
-    // }
-
-    if (isset($_SESSION['logged-in'])) {
-        header('Location: views/main/dashboard.php');
-    }
+    $user = new Users($_POST);
+    $user->isUserAndPasswordValid();
 }
 ?>
 
@@ -27,13 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <!-- Bootstrap CSS -->
+    <!-- don't mind ts -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css"> -->
     <link rel="stylesheet" href="bootstraps/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
-
     <div class="login-container d-flex flex-column">
         <div class="container p-0 d-flex align-items-center justify-content-center">
             <a href="#" id="logo-wrapper">
@@ -41,8 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </a>
         </div>
 
-        <form action="index.php" method="POST" id="login-form" novalidate>
+        <form method="POST" id="login-form" novalidate>
             <div class="text-center">GNHS GUIDANCE EFFECTIVE MONITORING SYSTEM</div>
+            <span id="error"></span>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input

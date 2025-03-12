@@ -507,6 +507,6 @@ CREATE TABLE toDoLists(
 --
 CREATE TABLE users(
     userID INT AUTO_INCREMENT PRIMARY KEY,
-    userName VARCHAR(255) NOT NULL,
-    userPassword VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    userPassword VARCHAR(255) NOT NULL
 );
