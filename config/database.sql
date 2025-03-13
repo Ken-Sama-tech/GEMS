@@ -510,3 +510,5 @@ CREATE TABLE users(
     username VARCHAR(255) NOT NULL,
     userPassword VARCHAR(255) NOT NULL
 );
+
+INSERT INTO users(username, userPassword) VALUES ('admin', '$2y$10$xkMitJgpgwwujJ4ovE2AQOmfDKmlSzoC/cXH504jzCmSihh3Gh.jG');

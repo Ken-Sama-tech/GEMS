@@ -1,6 +1,11 @@
 <?php
-require_once('config/database.php');
 session_start();
+require_once('config/database.php');
+require_once('includes/utils/php/jsonEncoder.inc.php');
+require_once('includes/utils/php/tableValidator.php');
+
+$validate = new Validator();
+$validate->isTableExist('users');
 
 if (isset($_SESSION['logged-in'])) {
     header('Location: views/main/dashboard.php');
@@ -34,14 +39,15 @@ class Users extends DatabaseHost
 
             if (password_verify($this->password, $result['password'])) {
                 $_SESSION['logged-in'] = true;
-                echo json_encode(['success' => 'logged-in succesfully']);
+                JsonEncoder::jsonEncode(['success' => 'logged-in succesfully']);
                 die();
             } else {
                 throw new Exception('Wrong password');
             }
             die();
         } catch (Exception $e) {
-            echo json_encode(['error' => $e->getMessage()]);
+            JsonEncoder::jsonEncode(['error' => $e->getMessage()]);
+            die();
         }
     }
 }

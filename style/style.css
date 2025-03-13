@@ -23,8 +23,8 @@
   display: none;
 }
 
-.custom-primary-bg {
-  background-color: var(--primary-color) !important;
+.custom-bg {
+  background-color:#ff7eb3 !important;
 }
 /* 
 .pending {
@@ -256,6 +256,13 @@ input[type="number"]::-webkit-outer-spin-button {
 #cards {
   height: 150px;
   flex: 0 0 300px;
+  cursor: pointer;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(0, 0, 0, 0.3);
+}
+
+#cards.active{
+  transform: scale(1.06);
+  transition: all 0.2s ease;
 }
 
 #dashboard-main-section {
@@ -411,24 +418,6 @@ input[type="number"]::-webkit-outer-spin-button {
   #std-profile-link {
     margin: 10px 0;
   }
-
-  #reg-lower-section {
-    overflow-y: auto;
-  }
-
-  #drop-box {
-    height: 100%;
-    flex: none;
-    overflow: auto;
-    max-height: 100%;
-    max-width: 100%;
-  }
-
-  #drop-box.resize {
-    width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-  }
 }
 
 @media screen and (max-width: 500px) {
@@ -442,7 +431,7 @@ input[type="number"]::-webkit-outer-spin-button {
     visibility: hidden;
   }
 
-  /* add this to make something printable */
+  /* add this to make visible when printing */
   .printable {
     visibility: visible;
   }

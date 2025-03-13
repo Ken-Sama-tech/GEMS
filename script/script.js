@@ -7,7 +7,7 @@ import {
   sendAsUrlCom,
   removeExtraWhiteSpaces,
   observeVisibility,
-  throttle
+  throttle,
 } from "../includes/utils/js/domHelper";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -32,8 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         serverReq.requestData(() => {
           let datas = serverReq.data;
 
-          if (datas.exception)
-            throw new Error(datas.exception);
+          if (datas.exception) throw new Error(datas.exception);
 
           const template = document.getElementById("profile-box-temp");
 
@@ -58,12 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
                   b.extensionName
                 ).localeCompare(
                   a.lastName +
-                  " " +
-                  a.firstName +
-                  " " +
-                  a.middleName +
-                  " " +
-                  b.extensionName
+                    " " +
+                    a.firstName +
+                    " " +
+                    a.middleName +
+                    " " +
+                    b.extensionName
                 )
               );
             } else {
@@ -78,12 +77,12 @@ document.addEventListener("DOMContentLoaded", () => {
                   a.extensionName
                 ).localeCompare(
                   b.lastName +
-                  " " +
-                  b.firstName +
-                  " " +
-                  b.middleName +
-                  " " +
-                  b.extensionName
+                    " " +
+                    b.firstName +
+                    " " +
+                    b.middleName +
+                    " " +
+                    b.extensionName
                 )
               );
             }
@@ -107,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
             profileBox.setAttribute("lrn", lrn);
             pContainer.setAttribute("lrn", lrn);
 
-            p.forEach(ps => {
+            p.forEach((ps) => {
               ps.setAttribute("lrn", lrn);
             });
 
@@ -466,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.name = dName;
               });
             })();
-            rowNum++
+            rowNum++;
 
             row.textContent = rowNum;
             lrn.textContent = dLrn;
@@ -476,11 +475,9 @@ document.addEventListener("DOMContentLoaded", () => {
             date.textContent = dDate;
             status.textContent = dStatus;
 
-            if (dStatus == 'COMPLETED')
-              status.className = ('completed');
+            if (dStatus == "COMPLETED") status.className = "completed";
 
-            if (dStatus == 'IN-PROGRESS')
-              status.classList.add('in-progress');
+            if (dStatus == "IN-PROGRESS") status.classList.add("in-progress");
 
             this.tBody.appendChild(clone);
 
@@ -535,7 +532,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Vl vars
   const VLSetting = document.querySelectorAll("[name = VL-setting]");
-  const showViolationDescription = document.getElementById("VL-show-description");
+  const showViolationDescription = document.getElementById(
+    "VL-show-description"
+  );
   const VLInputs = document.querySelectorAll("[name = VL-input]");
   const violationLogSearch = document.getElementById("VL-search");
   const filterViaViolation = document.getElementById("VL-filter-violation");
@@ -581,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     sortSDDisplayedData();
-    observeVisibility('#profile-box')
+    observeVisibility("#profile-box");
   }
 
   // ANS ------------------------------------------------------------------------------------------
@@ -719,13 +718,11 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           const jump = (() => {
-            if (filterJump.value == '' || filterJump.value == null)
-              return;
+            if (filterJump.value == "" || filterJump.value == null) return;
 
-            const arr = filterJump.value.split('-');
+            const arr = filterJump.value.split("-");
 
-            if (arr[1] == undefined || arr[1] == null)
-              arr.push('1');
+            if (arr[1] == undefined || arr[1] == null) arr.push("1");
 
             arr.sort((a, b) => a - b);
 
@@ -734,14 +731,13 @@ document.addEventListener("DOMContentLoaded", () => {
               tr.setAttribute("state", "hidden");
             }
           })();
-
         });
 
         const result = document.querySelectorAll("[state = visible]");
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -776,47 +772,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //classes -----------------------------------------------------------
   class Registration {
-
     setSchoolYearOptions() {
-      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
+      const serverReq = new MakeServerRequest(
+        "../../services/php/SchoolYears.php"
+      );
 
       serverReq.requestData(() => {
         let data = serverReq.data;
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        if (data.error)
-          throw new Error(data.error);
+        if (data.error) throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
           schoolYear.innerHTML = `<option valuue="0">Select SY</option>`;
 
-          data.forEach(d => {
-            const sy = d.schoolYear
+          data.forEach((d) => {
+            const sy = d.schoolYear;
             schoolYear.innerHTML += `<option value="${d.schoolYearID}">${sy}</option>`;
           });
         }
-      })
+      });
     }
 
     setGradeLevelsOptions() {
-      const serverReq = new MakeServerRequest('../../services/php/GradeLevels.php');
+      const serverReq = new MakeServerRequest(
+        "../../services/php/GradeLevels.php"
+      );
 
       serverReq.requestData(() => {
         let data = serverReq.data;
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        if (data.error)
-          throw new Error(data.error);
+        if (data.error) throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
           gradelevel.innerHTML = `<option value="0">Grade Level</option>`;
-          data.forEach(d => {
+          data.forEach((d) => {
             gradelevel.innerHTML += `<option value="${d.gradeLevelID}">${d.educationLevel} ${d.gradeLevel}</option>`;
           });
         }
@@ -824,46 +819,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setSectionOptions(gID, sy) {
-      const serverReq = new MakeServerRequest('../../services/php/Sections.php', `gID=${sendAsUrlCom(gID)}&sy=${sendAsUrlCom(sy)}`);
+      const serverReq = new MakeServerRequest(
+        "../../services/php/Sections.php",
+        `gID=${sendAsUrlCom(gID)}&sy=${sendAsUrlCom(sy)}`
+      );
 
       serverReq.sendData(() => {
         let data = serverReq.data;
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        if (data.error)
-          throw new Error(data.error);
+        if (data.error) throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
 
           gradeSections.innerHTML = `<option value="0">section</option`;
 
-          data.forEach(d => {
+          data.forEach((d) => {
             gradeSections.innerHTML += `<option value="${d.sectionID}">${d.section}</option`;
           });
         }
-      })
+      });
     }
 
     setNewSchoolYearOptions() {
-      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php', `sy=${sendAsUrlCom(schoolYear.value)}`);
+      const serverReq = new MakeServerRequest(
+        "../../services/php/SchoolYears.php",
+        `sy=${sendAsUrlCom(schoolYear.value)}`
+      );
 
       serverReq.sendData(() => {
         let data = serverReq.data;
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        if (data.error)
-          throw new Error(data.error);
+        if (data.error) throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
           newSY.innerHTML = ` <option value="0">new sy</option>`;
 
-          data.forEach(d => {
+          data.forEach((d) => {
             newSY.innerHTML += ` <option value="${d.schoolYearID}">${d.schoolYear}</option>`;
           });
         }
@@ -876,23 +873,23 @@ document.addEventListener("DOMContentLoaded", () => {
       this.data = [];
     }
     setSchoolYearRange() {
-      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
+      const serverReq = new MakeServerRequest(
+        "../../services/php/SchoolYears.php"
+      );
 
       serverReq.requestData(() => {
         let data = serverReq.data;
 
-        syRange.innerHTML = '';
+        syRange.innerHTML = "";
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        if (data.error)
-          throw new Error(data.error)
+        if (data.error) throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
 
-          data.forEach(d => {
+          data.forEach((d) => {
             syRange.innerHTML += `<option value="${d.schoolYearID}">${d.schoolYear}</option>`;
           });
 
@@ -902,32 +899,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     displayEnrolledStudent(callback) {
-      const serverReq = new MakeServerRequest('../../services/php/FetchEnrolledStd.php', `sy=${sendAsUrlCom(syRange.value)}`);
+      const serverReq = new MakeServerRequest(
+        "../../services/php/FetchEnrolledStd.php",
+        `sy=${sendAsUrlCom(syRange.value)}`
+      );
 
       serverReq.sendData(() => {
         let data = serverReq.data;
-        viewRegTbody.innerHTML = '';
-        const template = document.getElementById('view-reg-tb-template');
+        viewRegTbody.innerHTML = "";
+        const template = document.getElementById("view-reg-tb-template");
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        if (data.error)
-          throw new Error(data.error)
+        if (data.error) throw new Error(data.error);
 
         if (data.success) {
           data = data.success;
 
           let num = 1;
-          this.data = data.map(d => {
+          this.data = data.map((d) => {
             const clone = template.content.cloneNode(true);
-            const row = clone.querySelector('tr');
-            clone.querySelector('[row-num]').textContent = num++;
-            clone.querySelector('[lrn]').textContent = d.lrn;
-            clone.querySelector('[name]').textContent = removeExtraWhiteSpaces(d.studentName);
-            clone.querySelector('[sex]').textContent = d.sex;
-            clone.querySelector('[grade-level]').textContent = d.gradeLevel;
-            clone.querySelector('[section]').textContent = d.section;
+            const row = clone.querySelector("tr");
+            clone.querySelector("[row-num]").textContent = num++;
+            clone.querySelector("[lrn]").textContent = d.lrn;
+            clone.querySelector("[name]").textContent = removeExtraWhiteSpaces(
+              d.studentName
+            );
+            clone.querySelector("[sex]").textContent = d.sex;
+            clone.querySelector("[grade-level]").textContent = d.gradeLevel;
+            clone.querySelector("[section]").textContent = d.section;
             viewRegTbody.appendChild(clone);
 
             return {
@@ -950,18 +950,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const search = VRSSearch.value.toUpperCase();
 
-        data.forEach(d => {
+        data.forEach((d) => {
           const lrn = d.lrn.toString();
           const name = d.name;
           const row = d.row;
-          console.log(name)
-          console.log(row)
-          row.classList.remove('d-none');
-          row.setAttribute('state', 'visible');
+          console.log(name);
+          console.log(row);
+          row.classList.remove("d-none");
+          row.setAttribute("state", "visible");
 
           if (!name.includes(search) && !lrn.includes(search)) {
-            row.classList.add('d-none');
-            row.setAttribute('state', 'hidden');
+            row.classList.add("d-none");
+            row.setAttribute("state", "hidden");
           }
         });
       });
@@ -969,7 +969,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   class Dashboard {
-
     constructor() {
       this.data = [];
       this.log = document.getElementById("progress-log");
@@ -1050,16 +1049,14 @@ document.addEventListener("DOMContentLoaded", () => {
         "../../services/php/FetchViolators.php"
       );
       const template = document.getElementById("progress-log-template");
-      this.log.innerHTML = '';
+      this.log.innerHTML = "";
 
       serverReq.requestData(() => {
         let data = serverReq.data;
 
-        if (data.exception)
-          throw new Error(data.exception);
+        if (data.exception) throw new Error(data.exception);
 
-        this.data = data.map(d => {
-
+        this.data = data.map((d) => {
           let recordDate = new Date(d.lastUpdate);
           let currentDate = new Date();
 
@@ -1068,17 +1065,18 @@ document.addEventListener("DOMContentLoaded", () => {
           let gapInterval = Math.floor(timeDifference / 60000);
 
           const clone = template.content.cloneNode(true);
-          const row = clone.querySelector('li');
-          const identifier = clone.querySelector('.lrn');
-          const logDesc = clone.querySelector('.log-desc');
-          const status = clone.querySelector('.progress-status');
+          const row = clone.querySelector("li");
+          const identifier = clone.querySelector(".lrn");
+          const logDesc = clone.querySelector(".log-desc");
+          const status = clone.querySelector(".progress-status");
 
           const sanction = d.sanction;
           const vStatus = d.violationStatus;
-          const student = `(${d.lrn}) ${removeExtraWhiteSpaces(d.name)} <mark class="bg-info">${d.violationDate}</mark>`;
+          const student = `(${d.lrn}) ${removeExtraWhiteSpaces(
+            d.name
+          )} <mark class="bg-info">${d.violationDate}</mark>`;
 
-          if (d.violationStatus == "COMPLETED" && gapInterval >= 60)
-            return;
+          if (d.violationStatus == "COMPLETED" && gapInterval >= 60) return;
 
           row.vID = d.vID;
           row.vStatus = vStatus;
@@ -1086,28 +1084,24 @@ document.addEventListener("DOMContentLoaded", () => {
           logDesc.innerHTML = sanction;
           status.innerHTML = vStatus;
 
-          if (vStatus == 'IN-PROGRESS')
-            status.classList.add('in-progress');
+          if (vStatus == "IN-PROGRESS") status.classList.add("in-progress");
 
-          if (vStatus == 'COMPLETED') {
-            status.classList.add('completed');
+          if (vStatus == "COMPLETED") {
+            status.classList.add("completed");
           }
 
-          if (vStatus == 'PENDING')
-            this.log.prepend(clone);
-          else
-            this.log.appendChild(clone);
+          if (vStatus == "PENDING") this.log.prepend(clone);
+          else this.log.appendChild(clone);
 
           return {
             name: removeExtraWhiteSpaces(d.name),
             lrn: d.lrn,
             vStatus: vStatus,
-            row: row
+            row: row,
           };
         });
 
-        if (callback)
-          callback(this.data);
+        if (callback) callback(this.data);
       });
     }
 
@@ -1117,24 +1111,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const search = dashboardMiniSearchBar.value.toUpperCase();
 
-        data.forEach(d => {
-
-          if (d == null || !d)
-            return;
+        data.forEach((d) => {
+          if (d == null || !d) return;
 
           const lrn = d.lrn.toString();
           const row = d.row;
 
-          row.classList.remove('d-none');
-          row.setAttribute('state', 'is-visible');
+          row.classList.remove("d-none");
+          row.setAttribute("state", "is-visible");
 
-          if (!d.name.includes(search) && !lrn.includes(search) && !d.vStatus.includes(search)) {
-            row.classList.add('d-none');
-            row.setAttribute('state', 'is-hidden');
+          if (
+            !d.name.includes(search) &&
+            !lrn.includes(search) &&
+            !d.vStatus.includes(search)
+          ) {
+            row.classList.add("d-none");
+            row.setAttribute("state", "is-hidden");
           }
         });
 
-        const result = document.querySelectorAll('[state=is-visible]');
+        const result = document.querySelectorAll("[state=is-visible]");
         if (result.length == 0)
           this.log.innerHTML = `<li><h4>No record found matching your criteria </h4></li>`;
       });
@@ -1148,22 +1144,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //vars ---------------------------------------------------
   //registration
-  const regSearch = document.getElementById('find-std');
-  const schoolYear = document.getElementById('school-year');
-  const gradelevel = document.getElementById('grade-level');
-  const gradeSections = document.getElementById('section');
-  const newSY = document.getElementById('new-school-year');
-  const regDate = document.getElementById('reg-date');
-  const regSelectOption = document.querySelectorAll('[select-option]');
-  const hasNoRecord = document.getElementById('has-no-record');
+  const regSearch = document.getElementById("find-std");
+  const schoolYear = document.getElementById("school-year");
+  const gradelevel = document.getElementById("grade-level");
+  const gradeSections = document.getElementById("section");
+  const newSY = document.getElementById("new-school-year");
+  const regDate = document.getElementById("reg-date");
+  const regSelectOption = document.querySelectorAll("[select-option]");
+  const hasNoRecord = document.getElementById("has-no-record");
 
   //vrs (view registered...)
-  const syRange = document.getElementById('reg-sy-range');
-  const VRSSearch = document.getElementById('view-reg-std-search');
-  const viewRegTbody = document.getElementById('view-reg-tb');
+  const syRange = document.getElementById("reg-sy-range");
+  const VRSSearch = document.getElementById("view-reg-std-search");
+  const viewRegTbody = document.getElementById("view-reg-tb");
 
   //dashboard
-  const dashboardMiniSearchBar = document.getElementById('mini-search-bar');
+  const dashboardMiniSearchBar = document.getElementById("mini-search-bar");
 
   //registration search
   const updateSectionsOptions = utils.debounce(() => {
@@ -1179,32 +1175,31 @@ document.addEventListener("DOMContentLoaded", () => {
     reg.setSchoolYearOptions();
     reg.setGradeLevelsOptions();
     //all select option except select for section
-    regSelectOption.forEach(select => {
-      evntLi.callEvent(select, 'change', () => {
+    regSelectOption.forEach((select) => {
+      evntLi.callEvent(select, "change", () => {
         updateSectionsOptions();
       });
     });
     //sy
-    evntLi.callEvent(schoolYear, 'change', () => {
+    evntLi.callEvent(schoolYear, "change", () => {
       updateNewSchoolYearOptions();
     });
 
-    // checkbox (has no record) 
-    evntLi.callEvent(hasNoRecord, 'change', () => {
+    // checkbox (has no record)
+    evntLi.callEvent(hasNoRecord, "change", () => {
       if (hasNoRecord.checked) {
         schoolYear.value = 0;
-        schoolYear.classList.add('d-none');
+        schoolYear.classList.add("d-none");
         updateNewSchoolYearOptions();
       } else {
         updateNewSchoolYearOptions();
-        schoolYear.classList.remove('d-none');
+        schoolYear.classList.remove("d-none");
       }
     });
 
     const regDateDefault = (() => {
-
       const addPadding = (param) => {
-        return param.toString().padStart(2, '0');
+        return param.toString().padStart(2, "0");
       };
 
       const curr_date = new Date();
@@ -1216,7 +1211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
   }
 
-  //vrs search 
+  //vrs search
   const updateVRSD = utils.debounce(() => {
     VRS.search();
   }, 500);
@@ -1224,11 +1219,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (VRSSearch) {
     VRS.setSchoolYearRange();
 
-    evntLi.callEvent(syRange, 'change', () => {
+    evntLi.callEvent(syRange, "change", () => {
       updateVRSD();
     });
 
-    evntLi.callEvent(VRSSearch, 'input', () => {
+    evntLi.callEvent(VRSSearch, "input", () => {
       updateVRSD();
     });
   }
@@ -1255,11 +1250,11 @@ document.addEventListener("DOMContentLoaded", () => {
       updateDDTL();
     });
 
-    evntLi.callEvent(dashboardMiniSearchBar, 'input', () => {
+    evntLi.callEvent(dashboardMiniSearchBar, "input", () => {
       updateDDSP();
     });
 
-    event.globalEvent('click', '[set-status-to]', () => {
+    event.globalEvent("click", "[set-status-to]", () => {
       updateDDSP();
     });
   }
@@ -1285,12 +1280,14 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "doughnut",
         data: {
           labels: arrLabels,
-          datasets: [{
-            label: "Total",
-            data: dataset,
-            backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
-            hoverOffset: 2,
-          }, ],
+          datasets: [
+            {
+              label: "Total",
+              data: dataset,
+              backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
+              hoverOffset: 2,
+            },
+          ],
         },
         options: {
           cutout: "60%",
@@ -1314,7 +1311,8 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "scatter",
         data: {
           labels: range,
-          datasets: [{
+          datasets: [
+            {
               type: "bar",
               label: "Total Violations",
               data: dataset,
@@ -1347,126 +1345,126 @@ document.addEventListener("DOMContentLoaded", () => {
     const charts = new Charts();
 
     const getTimelineData = (trend = null, callback) => {
-      const serverReq = new MakeServerRequest('../../services/php/ChartsData.php', `trend=${sendAsUrlCom(trend)}`);
+      const serverReq = new MakeServerRequest(
+        "../../services/php/ChartsData.php",
+        `trend=${sendAsUrlCom(trend)}`
+      );
 
       serverReq.sendData(() => {
         let dataset = serverReq.data;
 
-        if (dataset.exception)
-          throw new Error(dataset.exception);
+        if (dataset.exception) throw new Error(dataset.exception);
 
-        if (dataset.error)
-          throw new Error(dataset.error);
+        if (dataset.error) throw new Error(dataset.error);
 
         const label = (param) => {
           return dataset[param].label;
-        }
+        };
 
         const data = (param) => {
           return dataset[param].data;
-        }
+        };
 
         console.log(dataset);
         let datasetArr = Object.entries(dataset);
-        console.log(datasetArr)
+        console.log(datasetArr);
 
-        if (trend == 'daily') {
+        if (trend == "daily") {
           callback({
             label: datasetArr.map(([key]) => label(key)),
             data: datasetArr.map(([key]) => data(key)),
           });
         }
 
-        if (trend == 'weekly') {
+        if (trend == "weekly") {
           callback({
             label: datasetArr.map(([key]) => label(key)),
             data: datasetArr.map(([key]) => data(key)),
           });
         }
 
-        if (trend == 'monthly') {
+        if (trend == "monthly") {
           callback({
             label: datasetArr.map(([key]) => label(key)),
             data: datasetArr.map(([key]) => data(key)),
           });
         }
 
-        if (trend == 'yearly') {
+        if (trend == "yearly") {
           callback({
             label: datasetArr.map(([key]) => label(key)),
             data: datasetArr.map(([key]) => data(key)),
           });
         }
 
-        if (trend == 'overall') {
+        if (trend == "overall") {
           callback({
             label: datasetArr.map(([key]) => label(key)),
             data: datasetArr.map(([key]) => data(key)),
           });
         }
       });
-    }
+    };
 
     const changeChartTimeRange = utils.debounce(() => {
       if (range.value == 5) {
-        getTimelineData('daily',
-          (hourly) => {
-            let data = hourly.data;
-            let label = hourly.label;
-            let average = Array.from(data, d => d.average);
-            let total = Array.from(data, d => d.total)
-            let minor_violations = Array.from(data, d => d.minor_violations);
-            let major_violations = Array.from(data, d => d.major_violations);
-            let critical_violations = Array.from(data, d => d.critical_violations);
-
-            minor_violations = minor_violations.reduce((a, b) => a + b, 0);
-            major_violations = major_violations.reduce((a, b) => a + b, 0);
-            critical_violations = critical_violations.reduce((a, b) => a + b, 0);
-
-            charts.updateChart(charts.scatter, () => {
-              charts.scatterChart(
-                "#violations-chart",
-                //label
-                label,
-                //data
-                total,
-                //average
-                average
-              );
-            });
-
-
-            charts.updateChart(charts.doughnut, () => {
-              charts.doughnutChart(
-                "#violations-severity-chart",
-                ["Critical", "Major", "Minor"],
-                [critical_violations, major_violations, minor_violations]
-              );
-            });
-          });
-      }
-
-      if (range.value == 4) {
-        getTimelineData('weekly', (daily) => {
-          let data = daily.data;
-          let label = daily.label;
-          let total = Array.from(data, d => d.total);
-          let average = Array.from(data, d => d.average);
-          let minor_violations = Array.from(data, d => d.minor_violations);
-          let major_violations = Array.from(data, d => d.major_violations);
-          let critical_violations = Array.from(data, d => d.critical_violations);
+        getTimelineData("daily", (hourly) => {
+          let data = hourly.data;
+          let label = hourly.label;
+          let average = Array.from(data, (d) => d.average);
+          let total = Array.from(data, (d) => d.total);
+          let minor_violations = Array.from(data, (d) => d.minor_violations);
+          let major_violations = Array.from(data, (d) => d.major_violations);
+          let critical_violations = Array.from(
+            data,
+            (d) => d.critical_violations
+          );
 
           minor_violations = minor_violations.reduce((a, b) => a + b, 0);
-          major_violations = major_violations.reduce((a, b) => a + b, 0)
+          major_violations = major_violations.reduce((a, b) => a + b, 0);
           critical_violations = critical_violations.reduce((a, b) => a + b, 0);
 
           charts.updateChart(charts.scatter, () => {
             charts.scatterChart(
               "#violations-chart",
+              //label
               label,
+              //data
               total,
+              //average
               average
             );
+          });
+
+          charts.updateChart(charts.doughnut, () => {
+            charts.doughnutChart(
+              "#violations-severity-chart",
+              ["Critical", "Major", "Minor"],
+              [critical_violations, major_violations, minor_violations]
+            );
+          });
+        });
+      }
+
+      if (range.value == 4) {
+        getTimelineData("weekly", (daily) => {
+          let data = daily.data;
+          let label = daily.label;
+          let total = Array.from(data, (d) => d.total);
+          let average = Array.from(data, (d) => d.average);
+          let minor_violations = Array.from(data, (d) => d.minor_violations);
+          let major_violations = Array.from(data, (d) => d.major_violations);
+          let critical_violations = Array.from(
+            data,
+            (d) => d.critical_violations
+          );
+
+          minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+          major_violations = major_violations.reduce((a, b) => a + b, 0);
+          critical_violations = critical_violations.reduce((a, b) => a + b, 0);
+
+          charts.updateChart(charts.scatter, () => {
+            charts.scatterChart("#violations-chart", label, total, average);
           });
 
           charts.updateChart(charts.doughnut, () => {
@@ -1480,27 +1478,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (range.value == 3) {
-        getTimelineData('monthly', (weekly) => {
+        getTimelineData("monthly", (weekly) => {
           let data = weekly.data;
           console.log(data);
           let label = weekly.label;
-          let total = Array.from(data, d => d.total);
-          let average = Array.from(data, d => d.average);
-          let minor_violations = Array.from(data, d => d.minor_violations);
-          let major_violations = Array.from(data, d => d.major_violations);
-          let critical_violations = Array.from(data, d => d.critical_violations);
+          let total = Array.from(data, (d) => d.total);
+          let average = Array.from(data, (d) => d.average);
+          let minor_violations = Array.from(data, (d) => d.minor_violations);
+          let major_violations = Array.from(data, (d) => d.major_violations);
+          let critical_violations = Array.from(
+            data,
+            (d) => d.critical_violations
+          );
 
           minor_violations = minor_violations.reduce((a, b) => a + b, 0);
-          major_violations = major_violations.reduce((a, b) => a + b, 0)
+          major_violations = major_violations.reduce((a, b) => a + b, 0);
           critical_violations = critical_violations.reduce((a, b) => a + b, 0);
 
           charts.updateChart(charts.scatter, () => {
-            charts.scatterChart(
-              "#violations-chart",
-              label,
-              total,
-              average
-            );
+            charts.scatterChart("#violations-chart", label, total, average);
           });
 
           charts.updateChart(charts.doughnut, () => {
@@ -1514,27 +1510,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (range.value == 2) {
-        getTimelineData('yearly', (monthly) => {
-          console.log(monthly)
+        getTimelineData("yearly", (monthly) => {
+          console.log(monthly);
           let data = monthly.data;
           let label = monthly.label;
-          let total = Array.from(data, d => d.total);
-          let average = Array.from(data, d => d.average);
-          let minor_violations = Array.from(data, d => d.minor_violations);
-          let major_violations = Array.from(data, d => d.major_violations);
-          let critical_violations = Array.from(data, d => d.critical_violations);
+          let total = Array.from(data, (d) => d.total);
+          let average = Array.from(data, (d) => d.average);
+          let minor_violations = Array.from(data, (d) => d.minor_violations);
+          let major_violations = Array.from(data, (d) => d.major_violations);
+          let critical_violations = Array.from(
+            data,
+            (d) => d.critical_violations
+          );
 
           minor_violations = minor_violations.reduce((a, b) => a + b, 0);
-          major_violations = major_violations.reduce((a, b) => a + b, 0)
+          major_violations = major_violations.reduce((a, b) => a + b, 0);
           critical_violations = critical_violations.reduce((a, b) => a + b, 0);
 
           charts.updateChart(charts.scatter, () => {
-            charts.scatterChart(
-              "#violations-chart",
-              label,
-              total,
-              average
-            );
+            charts.scatterChart("#violations-chart", label, total, average);
           });
 
           charts.updateChart(charts.doughnut, () => {
@@ -1548,53 +1542,62 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (range.value == 1) {
-        getTimelineData('overall',
-          (yearly) => {
-            let data = yearly.data;
-            let label = yearly.label;
-            let average = Array.from(data, d => d.average);
-            let total = Array.from(data, d => d.total)
-            let minor_violations = Array.from(data, d => d.minor_violations);
-            let major_violations = Array.from(data, d => d.major_violations);
-            let critical_violations = Array.from(data, d => d.critical_violations);
+        getTimelineData("overall", (yearly) => {
+          let data = yearly.data;
+          let label = yearly.label;
+          let average = Array.from(data, (d) => d.average);
+          let total = Array.from(data, (d) => d.total);
+          let minor_violations = Array.from(data, (d) => d.minor_violations);
+          let major_violations = Array.from(data, (d) => d.major_violations);
+          let critical_violations = Array.from(
+            data,
+            (d) => d.critical_violations
+          );
 
-            minor_violations = minor_violations.reduce((a, b) => a + b, 0);
-            major_violations = major_violations.reduce((a, b) => a + b, 0);
-            critical_violations = critical_violations.reduce((a, b) => a + b, 0);
+          minor_violations = minor_violations.reduce((a, b) => a + b, 0);
+          major_violations = major_violations.reduce((a, b) => a + b, 0);
+          critical_violations = critical_violations.reduce((a, b) => a + b, 0);
 
-            charts.updateChart(charts.scatter, () => {
-              charts.scatterChart(
-                "#violations-chart",
-                //label
-                label,
-                //data
-                total,
-                //average
-                average
-              );
-            });
-
-
-            charts.updateChart(charts.doughnut, () => {
-              charts.doughnutChart(
-                "#violations-severity-chart",
-                ["Critical", "Major", "Minor"],
-                [critical_violations, major_violations, minor_violations]
-              );
-            });
+          charts.updateChart(charts.scatter, () => {
+            charts.scatterChart(
+              "#violations-chart",
+              //label
+              label,
+              //data
+              total,
+              //average
+              average
+            );
           });
+
+          charts.updateChart(charts.doughnut, () => {
+            charts.doughnutChart(
+              "#violations-severity-chart",
+              ["Critical", "Major", "Minor"],
+              [critical_violations, major_violations, minor_violations]
+            );
+          });
+        });
       }
     }, 500);
 
     const range = document.getElementById("statistic-time-range");
 
-    if (!range)
-      return;
+    if (!range) return;
 
     evntLi.callEvent(range, "change", () => {
       changeChartTimeRange();
     });
 
     changeChartTimeRange();
+
+    const gradeCards = document.querySelectorAll("#cards");
+
+    let lastActiveCard = null;
+    
   })();
+
+  // const cardsData = () => {
+
+  // }
 });
