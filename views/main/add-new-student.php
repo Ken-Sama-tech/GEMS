@@ -231,7 +231,7 @@ require_once('../../includes/ui-kit/session.php');
                     </tbody>
                     <!--template-->
                     <template id="ANS-edt-table-template">
-                        <tr>
+                        <tr id="ANS-edt-tr">
                             <th scope="row" id="row-num"></th>
                             <td class="text-break" id="td-lrn"></td>
                             <td class="text-break" id="td-name"></td>

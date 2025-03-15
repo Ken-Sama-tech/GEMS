@@ -57,12 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
                   b.extensionName
                 ).localeCompare(
                   a.lastName +
-                    " " +
-                    a.firstName +
-                    " " +
-                    a.middleName +
-                    " " +
-                    b.extensionName
+                  " " +
+                  a.firstName +
+                  " " +
+                  a.middleName +
+                  " " +
+                  b.extensionName
                 )
               );
             } else {
@@ -77,21 +77,23 @@ document.addEventListener("DOMContentLoaded", () => {
                   a.extensionName
                 ).localeCompare(
                   b.lastName +
-                    " " +
-                    b.firstName +
-                    " " +
-                    b.middleName +
-                    " " +
-                    b.extensionName
+                  " " +
+                  b.firstName +
+                  " " +
+                  b.middleName +
+                  " " +
+                  b.extensionName
                 )
               );
             }
           }
 
+          let renderQueue = [];
+
           this.data = datas.map((data) => {
             const clone = template.content.cloneNode(true);
 
-            const p = clone.querySelectorAll("p");
+            const ps = clone.querySelectorAll("p");
             const img = clone.getElementById("std-profile-img");
 
             const name = `${data.lastName}, ${data.firstName} ${data.middleName} ${data.extensionName}`;
@@ -106,25 +108,25 @@ document.addEventListener("DOMContentLoaded", () => {
             profileBox.setAttribute("lrn", lrn);
             pContainer.setAttribute("lrn", lrn);
 
-            p.forEach((ps) => {
-              ps.setAttribute("lrn", lrn);
+            ps.forEach(p => {
+              p.setAttribute("lrn", lrn);
             });
 
             img.src = data.studentImg;
             img.setAttribute("lrn", lrn);
-            p[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
-            p[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
-            p[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${data.civilStatus}`;
-            p[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${data.birthDate}`;
-            p[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${data.sex}`;
-            p[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${data.nationality}`;
-            p[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${data.religion}`;
-            p[7].innerHTML = `<span class="fw-bolder">Email: </span> ${data.email}`;
-            p[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${data.phoneNumber}`;
-            p[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${currAdd}`;
-            p[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${permAdd}`;
+            ps[0].innerHTML = `<span class="fw-bolder">Name: </span> ${name}`;
+            ps[1].innerHTML = `<span class="fw-bolder">LRN: </span> ${lrn}`;
+            ps[2].innerHTML = `<span class="fw-bolder">Civil Status: </span> ${data.civilStatus}`;
+            ps[3].innerHTML = `<span class="fw-bolder">Birthdate: </span> ${data.birthDate}`;
+            ps[4].innerHTML = `<span class="fw-bolder">Sex: </span> ${data.sex}`;
+            ps[5].innerHTML = `<span class="fw-bolder">Nationality: </span> ${data.nationality}`;
+            ps[6].innerHTML = `<span class="fw-bolder">Religion: </span> ${data.religion}`;
+            ps[7].innerHTML = `<span class="fw-bolder">Email: </span> ${data.email}`;
+            ps[8].innerHTML = `<span class="fw-bolder">Phone Number: </span> ${data.phoneNumber}`;
+            ps[9].innerHTML = `<span class="fw-bolder">Current Address: </span> ${currAdd}`;
+            ps[10].innerHTML = `<span class="fw-bolder">Permanent Address: </span> ${permAdd}`;
 
-            profileBoxContainer.appendChild(clone);
+            renderQueue.push(clone);
 
             return {
               name: removeExtraWhiteSpaces(name),
@@ -133,8 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
               sex: data.sex,
               currAdd: currAdd,
               permAdd: permAdd,
+              queue: clone
             };
           });
+
+          observeVisibility(renderQueue, profileBoxContainer, '#profile-box');
 
           if (callback) {
             callback(this.data);
@@ -146,23 +151,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     search() {
-      const person = stdDirSearch.value.toUpperCase();
       this.displayStudentData(() => {
         this.data.forEach((data) => {
           let box = data.elem;
+          const person = stdDirSearch.value.toUpperCase();
+          const personAdd = filterViaAddress.value.toUpperCase();
 
           box.classList.add("d-none");
           box.setAttribute("data", "hidden");
 
           const lrn = data.lrn.toString();
 
-          if (data.name.includes(person)) {
+          if (data.name.includes(person) || lrn.includes(person)) {
+            profileBoxContainer.append(data.queue);
             box.classList.remove("d-none");
-            box.setAttribute("data", "visible");
-          }
-
-          if (lrn.includes(person)) {
-            box.classList.remove("d-none");
+            console.log(box)
             box.setAttribute("data", "visible");
           }
 
@@ -179,8 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
             box.setAttribute("data", "hidden");
           }
 
-          const personAdd = filterViaAddress.value.toUpperCase();
-
           if (
             !data.currAdd.includes(personAdd) &&
             !data.permAdd.includes(personAdd)
@@ -189,12 +190,16 @@ document.addEventListener("DOMContentLoaded", () => {
             box.setAttribute("data", "hidden");
           }
 
-          const result = document.querySelectorAll("[data = visible]");
+          //set delay to ensure new elements is appended before checking the result
+          const delay = 2000;
+          setTimeout(() => {
+            const result = document.querySelectorAll("[data = visible]");
 
-          if (result.length <= 0) {
-            profileBoxContainer.innerHTML =
-              "<h2> No students found matching your criteria <h2>";
-          }
+            if (result.length <= 0) {
+              profileBoxContainer.innerHTML =
+                "<h2> No students found matching your criteria <h2>";
+            }
+          }, delay);
         });
       });
     }
@@ -203,6 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
   class AddNewStudent {
     constructor() {
       this.data = [];
+      this.parent;
     }
 
     displayStudentData(templateId, whereToAppend, callback) {
@@ -212,13 +218,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const showData = () => {
         serverReq.requestData(() => {
           const template = document.querySelector(templateId);
-          const parent = document.querySelector(whereToAppend);
-          parent.innerHTML = "";
+          this.parent = document.querySelector(whereToAppend);
+          this.parent.innerHTML = "";
           let rowNum = 0;
 
           const data = serverReq.data;
 
           if (data.exception) throw new Error(data.exception);
+
+          let renderQueue = [];
 
           this.data = data.map((dta) => {
             const clone = template.content.cloneNode(true);
@@ -244,24 +252,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             clonedTr.setAttribute("state", "is-visible");
 
-            parent.appendChild(clone);
+            renderQueue.push(clone);
+            observeVisibility(renderQueue, this.parent, '#ANS-edt-tr');
 
             return {
               lrn: dataLrn,
               name: removeExtraWhiteSpaces(dataName),
               tr: clonedTr,
+              queue: clone
             };
           });
 
           if (callback) {
             callback(this.data);
-          }
-
-          const result = parent.querySelectorAll("[state = is-visible]");
-
-          if (result.length <= 0) {
-            parent.innerHTML =
-              '<h2 class="position-absolute">No students found matching your criteria<h2>';
           }
         });
       };
@@ -281,6 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
           tr.setAttribute("state", "is-hidden");
 
           if (dta.name.includes(search)) {
+            this.parent.appendChild(dta.queue);
             tr.classList.remove("d-none");
             tr.setAttribute("state", "is-visible");
           }
@@ -289,6 +293,16 @@ document.addEventListener("DOMContentLoaded", () => {
             tr.classList.remove("d-none");
             tr.setAttribute("state", "is-visible");
           }
+
+          const delay = 2000;
+
+          setTimeout(() => {
+            const result = this.parent.querySelectorAll("[state = is-visible]");
+            if (result.length <= 0) {
+              this.parent.innerHTML =
+                '<tr><h2 class="position-absolute">No students found matching your criteria<h2></tr>';
+            }
+          }, delay);
         });
       });
     }
@@ -315,6 +329,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
           let num = 0;
           const template = document.getElementById("ANV-table-template");
+
+          let renderQueue = [];
 
           this.data = data.map((dta) => {
             const clone = template.content.cloneNode(true);
@@ -344,12 +360,15 @@ document.addEventListener("DOMContentLoaded", () => {
               selected.stdId = studentID;
             });
 
-            this.tBody.appendChild(clone);
+            renderQueue.push(clone);
+
+            observeVisibility(renderQueue, this.tBody, '#ANV-table-row');
 
             return {
               name: removeExtraWhiteSpaces(dataName),
               lrn: dataLrn,
               row: tableRow,
+              queue: clone,
             };
           });
 
@@ -430,6 +449,8 @@ document.addEventListener("DOMContentLoaded", () => {
           let rowNum = 0;
           const template = document.getElementById("violation-log-template");
 
+          let renderQueue = [];
+
           this.data = data.map((d) => {
             const clone = template.content.cloneNode(true);
 
@@ -479,7 +500,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (dStatus == "IN-PROGRESS") status.classList.add("in-progress");
 
-            this.tBody.appendChild(clone);
+            renderQueue.push(clone);
+
+            observeVisibility(renderQueue, this.tBody, '#VL-tr');
 
             return {
               lrn: dLrn,
@@ -489,6 +512,7 @@ document.addEventListener("DOMContentLoaded", () => {
               trow: tr,
               status: dStatus,
               row: rowNum,
+              queue: clone
             };
           });
 
@@ -580,7 +604,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     sortSDDisplayedData();
-    observeVisibility("#profile-box");
   }
 
   // ANS ------------------------------------------------------------------------------------------
@@ -636,14 +659,16 @@ document.addEventListener("DOMContentLoaded", () => {
         infos.forEach((info) => {
           const tr = info.row;
 
-          tr.setAttribute("state", "is-visible");
+          tr.setAttribute("state", "is-hidden");
+          tr.classList.add('d-none');
 
           if (
-            !info.name.includes(search) &&
-            !info.lrn.toString().includes(search)
+            info.name.includes(search) &&
+            info.lrn.toString().includes(search)
           ) {
-            tr.classList.add("d-none");
-            tr.setAttribute("state", "is-hidden");
+            this.tBody.appendChild(info.queue);
+            tr.classList.remove("d-none");
+            tr.setAttribute("state", "is-visible");
           }
         });
 
@@ -684,12 +709,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         data.forEach((d) => {
           const tr = d.trow;
+          tr.classList.add('d-none');
+          tr.setAttribute("state", "hidden");
 
-          tr.setAttribute("state", "visible");
-
-          if (!d.name.includes(search) && !d.lrn.toString().includes(search)) {
-            tr.classList.add("d-none");
-            tr.setAttribute("state", "hidden");
+          if (d.name.includes(search) || d.lrn.toString().includes(search)) {
+            this.tBody.appendChild(d.queue);
+            tr.classList.remove("d-none");
+            tr.setAttribute("state", "visible");
           }
 
           if (!d.violation.includes(filterViolation)) {
@@ -737,7 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.length <= 0)
           this.tBody.innerHTML =
-            '<h2 class="position-absolute"> No students found matching your criteria <h2>';
+          '<h2 class="position-absolute"> No students found matching your criteria <h2>';
       });
     }
   }
@@ -1280,14 +1306,12 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "doughnut",
         data: {
           labels: arrLabels,
-          datasets: [
-            {
-              label: "Total",
-              data: dataset,
-              backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
-              hoverOffset: 2,
-            },
-          ],
+          datasets: [{
+            label: "Total",
+            data: dataset,
+            backgroundColor: ["#FF0000", "#FFA500", "#FFFF00"],
+            hoverOffset: 2,
+          }, ],
         },
         options: {
           cutout: "60%",
@@ -1311,8 +1335,7 @@ document.addEventListener("DOMContentLoaded", () => {
         type: "scatter",
         data: {
           labels: range,
-          datasets: [
-            {
+          datasets: [{
               type: "bar",
               label: "Total Violations",
               data: dataset,
@@ -1594,7 +1617,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gradeCards = document.querySelectorAll("#cards");
 
     let lastActiveCard = null;
-    
+
   })();
 
   // const cardsData = () => {

@@ -19,9 +19,9 @@ require_once('../../includes/ui-kit/session.php');
     require_once '../../includes/navbar/navbar.php';
     ?>
 
-    <div class="container-fluid p-0 position-absolute end-0 col-lg-10 col-md-9" id="container">
-        <div class="container mt-5">
-            <div class="container-fluid p-2 d-flex align-items-center position-sticky top-0">
+    <div class="container-fluid p-0 position-absolute end-0 col-lg-10 col-md-9" id="container" style="height: 100vh;">
+        <div class="container mt-5 overflow-y-scroll h-100">
+            <div class="container-fluid p-2 d-flex align-items-center position-sticky top-0 bg-light">
                 <h2 class="">Registered Students</h2>
                 <div class="form-select-wrapper">
                     <select id="reg-sy-range" class="form-select ms-2">
@@ -49,7 +49,7 @@ require_once('../../includes/ui-kit/session.php');
                 </tbody>
                 <!-- template  -->
                 <template id="view-reg-tb-template">
-                    <tr>
+                    <tr class="rowsss">
                         <th row-num>1</th>
                         <td lrn>105414120013</td>
                         <td name>male</td>
