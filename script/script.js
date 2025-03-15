@@ -315,61 +315,66 @@ document.addEventListener("DOMContentLoaded", () => {
 
     displayStudentOnTable(callback) {
       const serverReq = new MakeServerRequest(
-        "../../services/php/AllStdData.php"
+        "../../services/php/FetchEnrolledStd.php", `sy=${sendAsUrlCom(ansSyRange.value)}&gLevel=${sendAsUrlCom(null)}`
       );
 
       const fetchStudentsData = () => {
-        serverReq.requestData(() => {
+        serverReq.sendData(() => {
           this.tBody.innerHTML = "";
 
-          const data = serverReq.data;
-
+          let data = serverReq.data;
+          console.log(ansSyRange.value)
           if (data.exception) throw new Error(data.exception);
+
+          if (data.error) throw new Error(data.error)
+
+          if (data.success)
+            console.log(data.success)
 
           let num = 0;
           const template = document.getElementById("ANV-table-template");
 
           let renderQueue = [];
 
-          this.data = data.map((dta) => {
-            const clone = template.content.cloneNode(true);
-            const rowNum = clone.getElementById("row-num");
-            const lrn = clone.getElementById("td-lrn");
-            const name = clone.getElementById("td-name");
-            const sex = clone.getElementById("td-sex");
+          // this.data = data.map((dta) => {
+          //   const clone = template.content.cloneNode(true);
+          //   const rowNum = clone.getElementById("row-num");
+          //   const lrn = clone.getElementById("td-lrn");
+          //   const name = clone.getElementById("td-name");
+          //   const sex = clone.getElementById("td-sex");
 
-            const tableRow = clone.getElementById("ANV-table-row");
-            const selectedElement = clone.querySelectorAll("[selected]");
+          //   const tableRow = clone.getElementById("ANV-table-row");
+          //   const selectedElement = clone.querySelectorAll("[selected]");
 
-            const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
-            const dataLrn = dta.learnerReferenceNumber;
-            const dataSex = dta.sex;
-            const studentID = dta.studentID;
-            num = num + 1;
+          //   const dataName = `${dta.firstName} ${dta.middleName} ${dta.lastName} ${dta.extensionName}`;
+          //   const dataLrn = dta.learnerReferenceNumber;
+          //   const dataSex = dta.sex;
+          //   const studentID = dta.studentID;
+          //   num = num + 1;
 
-            rowNum.textContent = num;
-            lrn.textContent = dataLrn;
-            name.textContent = dataName;
-            sex.textContent = dataSex;
+          //   rowNum.textContent = num;
+          //   lrn.textContent = dataLrn;
+          //   name.textContent = dataName;
+          //   sex.textContent = dataSex;
 
-            selectedElement.forEach((selected) => {
-              selected.lrn = dataLrn;
-              selected.name = dataName;
-              selected.sex = dataSex;
-              selected.stdId = studentID;
-            });
+          //   selectedElement.forEach((selected) => {
+          //     selected.lrn = dataLrn;
+          //     selected.name = dataName;
+          //     selected.sex = dataSex;
+          //     selected.stdId = studentID;
+          //   });
 
-            renderQueue.push(clone);
+          //   renderQueue.push(clone);
 
-            observeVisibility(renderQueue, this.tBody, '#ANV-table-row');
+          //   observeVisibility(renderQueue, this.tBody, '#ANV-table-row');
 
-            return {
-              name: removeExtraWhiteSpaces(dataName),
-              lrn: dataLrn,
-              row: tableRow,
-              queue: clone,
-            };
-          });
+          //   return {
+          //     name: removeExtraWhiteSpaces(dataName),
+          //     lrn: dataLrn,
+          //     row: tableRow,
+          //     queue: clone,
+          //   };
+          // });
 
           if (callback) {
             callback(this.data);
@@ -380,8 +385,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return fetchStudentsData();
     }
 
-    //set options on selects
-    setSelectOptions(url) {
+    //set violation options on selects
+    setViolationOptions(url) {
       const serverReq = new MakeServerRequest(url);
 
       const setOptions = () => {
@@ -424,6 +429,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return setOptions();
     }
+
+    //set sy range
+    setSchoolYearOptions() {
+      const serverReq = new MakeServerRequest('../../services/php/SchoolYears.php');
+
+      serverReq.requestData(() => {
+        let data = serverReq.data;
+
+        if (data.exception)
+          throw new Error(data.exception);
+
+        if (data.error)
+          throw new Error(data.error);
+
+        if (data.success) {
+          data = data.success;
+          ansSyRange.innerHTML
+          Array.from(data, d => {
+            ansSyRange.innerHTML = `<option value="${d.schoolYearID}"> ${d.schoolYear}</option>`;
+          })
+        }
+      });
+    }
   }
 
   class ViolationLog {
@@ -444,6 +472,8 @@ document.addEventListener("DOMContentLoaded", () => {
           let data = serverReq.data;
 
           if (data.exception) throw new Error(data.exception);
+
+          if (data.error) throw new Error(data.error);
 
           let rowNum = 0;
           const template = document.getElementById("violation-log-template");
@@ -552,6 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const selectArticleSection = document.getElementById("article-section");
   const selectSanction = document.getElementById("sanction");
   const addViolatorSearch = document.getElementById("add-violator-search");
+  const ansSyRange = document.getElementById('ANV-SY-range');
 
   //Vl vars
   const VLSetting = document.querySelectorAll("[name = VL-setting]");
@@ -692,8 +723,9 @@ document.addEventListener("DOMContentLoaded", () => {
       updateANVSS();
     });
 
+    ANV.setViolationOptions("../../services/php/Violations.php");
+    ANV.setSchoolYearOptions();
     ANV.displayStudentOnTable();
-    ANV.setSelectOptions("../../services/php/Violations.php");
   }
 
   // VIOLATION LOG---------------------------------------------------------------------------------
@@ -1101,6 +1133,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let data = serverReq.data;
 
         if (data.exception) throw new Error(data.exception);
+
+        if (data.error) throw new Error(data.error);
 
         this.data = data.map((d) => {
           let recordDate = new Date(d.lastUpdate);

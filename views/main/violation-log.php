@@ -24,10 +24,14 @@ require_once('../../includes/ui-kit/session.php');
         <!-- nav -->
         <nav class="navbar border rounded-3 position-sticky top-0 bg-light w-100 z-2 ">
             <div class="container-fluid">
-                <div class="d-flex" role="search">
-                    <input class="form-control me-2" name="VL-input" type="search" placeholder="Search" aria-label="Search" id="VL-search">
+                <div class="d-flex w-100" role="search">
+                    <input class="form-control me-2 w-25" name="VL-input" type="search" placeholder="Search" aria-label="Search" id="VL-search">
 
-                    <div class="container position-relative w-25">
+                    <select name="" id="" class="form-select w-25">
+                        <option value="">School Year</option>
+                    </select>
+
+                    <div class="container d-flex position-relative w-50 justify-self-end justify-content-end">
 
                         <div class="d-flex justify-content-center align-items-center h-100" id="hdm-container">
                             <span class="horizontal-dots-menu"></span>

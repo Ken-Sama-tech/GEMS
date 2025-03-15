@@ -29,7 +29,7 @@ require_once('../../includes/ui-kit/session.php');
                             school year
                         </option>
                     </select>
-                    <select name="" id="reg-gl-range" class="form-select">
+                    <select value="1" id="reg-gl-range" class="form-select">
                         <option value="">grade level</option>
                     </select>
                 </div>

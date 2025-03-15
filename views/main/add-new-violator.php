@@ -23,8 +23,11 @@ require_once('../../includes/ui-kit/session.php');
 
         <nav class="navbar bg-body-tertiary position-relative mt-2 border border-2 w-100 z-2 rounded-2">
             <div class="container-fluid">
-                <div class="d-flex" role="search">
+                <div class="d-flex w-50 gap-2" role="search">
                     <input class="form-control rounded-1" type="search" id="add-violator-search" placeholder="Search" aria-label="Search">
+                    <select id="ANV-SY-range" class="form-select" value="1">
+                        <option value="">School Year</option>
+                    </select>
                 </div>
             </div>
         </nav>

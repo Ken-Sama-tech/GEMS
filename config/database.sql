@@ -410,24 +410,6 @@ VALUES ('PAGPAPA-ALALA', 'MINOR'),
         'PANANAGOT SA BATAS NA NAAAYON SA DSWD',
         'CRITICAL'
     );
-CREATE TABLE violationLogs(
-    violationLogID INT AUTO_INCREMENT PRIMARY KEY,
-    studentID INT,
-    articleID INT,
-    articleSectionID INT,
-    sanctionID INT,
-    violationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    violationStatus ENUM('PENDING', 'IN-PROGRESS', 'COMPLETED') DEFAULT 'PENDING' NOT NULL,
-    lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_of_article_id (articleID),
-    INDEX idx_of_article_section_id (articleSectionID),
-    INDEX idx_of_sanction_Id (sanctionID),
-    INDEX idx_of_student_id (studentID),
-    FOREIGN KEY (articleID) REFERENCES articles(articleID),
-    FOREIGN KEY (articleSectionID) REFERENCES articleSections(articleSectionID),
-    FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID),
-    FOREIGN KEY (studentID) REFERENCES studentInfo(studentID)
-) ENGINE = InnoDB;
 --
 --
 --
@@ -496,6 +478,27 @@ CREATE TABLE registrations(
 --
 --
 --
+CREATE TABLE violationLogs(
+    violationLogID INT AUTO_INCREMENT PRIMARY KEY,
+    registrationID INT,
+    articleID INT,
+    articleSectionID INT,
+    sanctionID INT,
+    violationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    violationStatus ENUM('PENDING', 'IN-PROGRESS', 'COMPLETED') DEFAULT 'PENDING' NOT NULL,
+    lastUpdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_of_article_id (articleID),
+    INDEX idx_of_article_section_id (articleSectionID),
+    INDEX idx_of_sanction_Id (sanctionID),
+    INDEX idx_of_registration_id (registrationID),
+    FOREIGN KEY (articleID) REFERENCES articles(articleID),
+    FOREIGN KEY (articleSectionID) REFERENCES articleSections(articleSectionID),
+    FOREIGN KEY (sanctionID) REFERENCES sanctions(sanctionID),
+    FOREIGN KEY (registrationID) REFERENCES registrations(registrationID)
+) ENGINE = InnoDB;
+--
+--
+--
 CREATE TABLE toDoLists(
     toDoListID INT AUTO_INCREMENT PRIMARY KEY,
     toDo VARCHAR(255),
@@ -510,5 +513,8 @@ CREATE TABLE users(
     username VARCHAR(255) NOT NULL,
     userPassword VARCHAR(255) NOT NULL
 );
-
-INSERT INTO users(username, userPassword) VALUES ('admin', '$2y$10$xkMitJgpgwwujJ4ovE2AQOmfDKmlSzoC/cXH504jzCmSihh3Gh.jG');
+INSERT INTO users(username, userPassword)
+VALUES (
+        'admin',
+        '$2y$10$xkMitJgpgwwujJ4ovE2AQOmfDKmlSzoC/cXH504jzCmSihh3Gh.jG'
+    );
