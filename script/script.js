@@ -165,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if (data.name.includes(person) || lrn.includes(person)) {
             profileBoxContainer.append(data.queue);
             box.classList.remove("d-none");
-            console.log(box)
             box.setAttribute("data", "visible");
           }
 
@@ -663,7 +662,7 @@ document.addEventListener("DOMContentLoaded", () => {
           tr.classList.add('d-none');
 
           if (
-            info.name.includes(search) &&
+            info.name.includes(search) ||
             info.lrn.toString().includes(search)
           ) {
             this.tBody.appendChild(info.queue);
@@ -924,10 +923,33 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    setGradeLevelRange() {
+      const serverReq = new MakeServerRequest('../../services/php/GradeLevels.php');
+
+      serverReq.requestData(() => {
+        let data = serverReq.data;
+
+        if (data.exception) throw new Error(data.exception);
+
+        if (data.error) throw new Error(data.error);
+
+        gLevelRange.innerHTML = '';
+
+        if (data.success) {
+          data = data.success;
+
+          data.forEach(d => {
+            gLevelRange.innerHTML += `<option value="${d.gradeLevelID}"> ${d.gradeLevel}</option>`;
+          });
+        }
+
+      });
+    }
+
     displayEnrolledStudent(callback) {
       const serverReq = new MakeServerRequest(
         "../../services/php/FetchEnrolledStd.php",
-        `sy=${sendAsUrlCom(syRange.value)}`
+        `sy=${sendAsUrlCom(syRange.value)}&gLevel=${gLevelRange.value}`
       );
 
       serverReq.sendData(() => {
@@ -980,8 +1002,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const lrn = d.lrn.toString();
           const name = d.name;
           const row = d.row;
-          console.log(name);
-          console.log(row);
           row.classList.remove("d-none");
           row.setAttribute("state", "visible");
 
@@ -1183,6 +1203,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const syRange = document.getElementById("reg-sy-range");
   const VRSSearch = document.getElementById("view-reg-std-search");
   const viewRegTbody = document.getElementById("view-reg-tb");
+  const gLevelRange = document.getElementById('reg-gl-range');
 
   //dashboard
   const dashboardMiniSearchBar = document.getElementById("mini-search-bar");
@@ -1245,11 +1266,17 @@ document.addEventListener("DOMContentLoaded", () => {
   if (VRSSearch) {
     VRS.setSchoolYearRange();
 
+    VRS.setGradeLevelRange();
+
     evntLi.callEvent(syRange, "change", () => {
       updateVRSD();
     });
 
     evntLi.callEvent(VRSSearch, "input", () => {
+      updateVRSD();
+    });
+
+    evntLi.callEvent(gLevelRange, "change", () => {
       updateVRSD();
     });
   }
@@ -1388,9 +1415,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return dataset[param].data;
         };
 
-        console.log(dataset);
         let datasetArr = Object.entries(dataset);
-        console.log(datasetArr);
 
         if (trend == "daily") {
           callback({
@@ -1503,7 +1528,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (range.value == 3) {
         getTimelineData("monthly", (weekly) => {
           let data = weekly.data;
-          console.log(data);
           let label = weekly.label;
           let total = Array.from(data, (d) => d.total);
           let average = Array.from(data, (d) => d.average);
@@ -1534,7 +1558,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (range.value == 2) {
         getTimelineData("yearly", (monthly) => {
-          console.log(monthly);
           let data = monthly.data;
           let label = monthly.label;
           let total = Array.from(data, (d) => d.total);
@@ -1616,11 +1639,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const gradeCards = document.querySelectorAll("#cards");
 
-    let lastActiveCard = null;
+    gradeCards.forEach(card => {
+      evntLi.callEvent(card, 'click', e => {
+        if (card.contains(e.target)) {
+          card.classList.toggle('active');
+          card.setAttribute('card-state', 'active');
+        }
+
+        gradeCards.forEach(alsoCard => {
+          if (!alsoCard.contains(e.target)) {
+            alsoCard.classList.remove('active');
+            alsoCard.setAttribute('card-state', 'in-active');
+          }
+        });
+      });
+    });
 
   })();
-
-  // const cardsData = () => {
-
-  // }
 });

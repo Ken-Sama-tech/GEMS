@@ -2,7 +2,8 @@
 require_once('../../includes/bcknd-kit/requires.php');
 
 $validate = new Validator();
-// $validate->isTableExist('');
+$validate->isTableExist('violationlogs');
+$validate->isTableExist('sanctions');
 date_default_timezone_set('Asia/Singapore');
 
 class ChartsData extends DatabaseHost
@@ -84,12 +85,11 @@ $chart = new ChartsData();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $trend = $_POST['trend'];
-
     if ($trend == 'daily') {
         $start_time = date('Y-m-d H:i:s', strtotime('today 00:00:00'));
         $end_of_day = date('Y-m-d H:i:s', strtotime('tomorrow 00:00:00') - 1);
 
-        $hour = 1;
+        $hour = 00;
         while ($start_time < $end_of_day) {
             $end_time = date('Y-m-d H:i:s', strtotime($start_time . '+1 hour'));
             $label = (string) $hour . "hour";

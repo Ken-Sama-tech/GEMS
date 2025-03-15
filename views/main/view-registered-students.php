@@ -23,11 +23,14 @@ require_once('../../includes/ui-kit/session.php');
         <div class="container mt-5 overflow-y-scroll h-100">
             <div class="container-fluid p-2 d-flex align-items-center position-sticky top-0 bg-light">
                 <h2 class="">Registered Students</h2>
-                <div class="form-select-wrapper">
+                <div class="form-select-wrapper d-flex gap-2">
                     <select id="reg-sy-range" class="form-select ms-2">
                         <option value="">
-                            schoolYear
+                            school year
                         </option>
+                    </select>
+                    <select name="" id="reg-gl-range" class="form-select">
+                        <option value="">grade level</option>
                     </select>
                 </div>
                 <div class="form-input-wrapper ms-3">

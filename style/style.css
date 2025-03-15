@@ -24,7 +24,7 @@
 }
 
 .custom-bg {
-  background-color:#ff7eb3 !important;
+  background-color: #ff7eb3 !important;
 }
 /* 
 .pending {
@@ -99,7 +99,7 @@ html {
 
 /* -------------------------------- */
 
-/*add new student page styles*/
+/*add new student*/
 .form-control:focus,
 .form-select:focus {
   box-shadow: 0 0 0 0.15rem var(--primary-color);
@@ -116,17 +116,11 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-#submit-new-std-info {
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  text-transform: capitalize;
-}
-
 #submit-new-std-info:hover {
-  background-color: var(--background-color);
+  background-color: #1e7e34;
 }
 
-/* student directory page styles*/
+/* student directory*/
 #std-profile-link {
   overflow: hidden;
   display: block;
@@ -260,9 +254,16 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(0, 0, 0, 0.3);
 }
 
-#cards.active{
-  transform: scale(1.06);
-  transition: all 0.2s ease;
+#cards.active {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9); /* White glow */
+  outline: 3px solid rgba(255, 255, 255, 0.8); /* White outline */
+  transform: scale(1.05);
+  filter: brightness(1.2);
+  transition: all 0.3s ease-in-out;
+}
+
+#cards:not(#cards.active) {
+  opacity: 0.6;
 }
 
 #dashboard-main-section {

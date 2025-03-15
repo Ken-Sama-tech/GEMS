@@ -10,20 +10,23 @@ $validate->isTableExist('studentInfo');
 class EnrolledStudents extends DatabaseHost
 {
     private $sy;
+    private $gL;
 
     public function __construct($post)
     {
         $this->sy = $post['sy'];
+        $this->gL = $post['gLevel'];
     }
 
     public function fetchStudents()
     {
         try {
             $conn = $this->connect();
-            $sql = "SELECT registrations.registrationID, registrations.studentID, studentInfo.learnerReferenceNumber AS lrn, CONCAT(studentInfo.firstName, ' ', studentInfo.middleName, ' ',  studentInfo.lastName, ' ', studentInfo.extensionName) AS studentName, studentInfo.sex,registrations.gradeSectionID, gradeSections.section, gradeSections.gradeLevelID, gradeLevels.gradeLevel FROM registrations LEFT JOIN studentInfo ON registrations.studentID = studentInfo.studentID LEFT JOIN gradeSections ON registrations.gradeSectionID = gradeSections.sectionID LEFT JOIN gradeLevels ON gradeSections.gradeLevelID = gradeLevels.gradeLevelID WHERE registrations.schoolYearID = :sy";
+            $sql = "SELECT registrations.registrationID, registrations.studentID, studentInfo.learnerReferenceNumber AS lrn, CONCAT(studentInfo.firstName, ' ', studentInfo.middleName, ' ',  studentInfo.lastName, ' ', studentInfo.extensionName) AS studentName, studentInfo.sex,registrations.gradeSectionID, gradeSections.section, gradeSections.gradeLevelID, gradeLevels.gradeLevel FROM registrations LEFT JOIN studentInfo ON registrations.studentID = studentInfo.studentID LEFT JOIN gradeSections ON registrations.gradeSectionID = gradeSections.sectionID LEFT JOIN gradeLevels ON gradeSections.gradeLevelID = gradeLevels.gradeLevelID WHERE registrations.schoolYearID = :sy AND gradeSections.gradeLevelID = :gL";
 
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':sy', $this->sy);
+            $stmt->bindParam(':gL', $this->gL);
             $stmt->execute();
 
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

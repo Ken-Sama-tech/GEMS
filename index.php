@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <form method="POST" id="login-form" novalidate>
-            <div class="text-center">GNHS GUIDANCE EFFECTIVE MONITORING SYSTEM</div>
+            <div class="text-center">GNHS <span class="highlighted-char">G</span>UIDANCE <span class="highlighted-char">E</span>FFECTIVE <span class="highlighted-char">M</span>ONITORING <span class="highlighted-char">S</span>YSTEM</div>
             <span id="error"></span>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

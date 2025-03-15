@@ -15,6 +15,12 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.highlighted-char {
+  color: #4caf50;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
 .form-control {
   border-radius: 8px;
 }
